@@ -453,7 +453,7 @@ adjacent longer loops.
 </xsl:template>
 
 <xsl:template match="openDirection">
- It opens to the
+ It opens
  <xsl:value-of select="." />.
 </xsl:template>
 
