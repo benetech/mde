@@ -23,6 +23,9 @@ public class SolvedGraph {
     private final static String[] COMPASS_DIRECTIONS = { 
             "East", "ENE", "NE", "NNE", "North", "NNW", "NW", "WNW", 
             "West", "WSW", "SW", "SSW", "South", "SSE", "SE", "ESE" };
+    
+    private final static String[] GENERAL_DIRECTIONS = { 
+    	"No Direction", "Up", "Down", "Right", "Left" };
 
     private String[] defaultFeatureNames = { "graphName", "graphBoundaries", "equationType",
             "equationPrint", "originalEquationPrint", "graphDescriptionDomain",
@@ -173,9 +176,29 @@ public class SolvedGraph {
         double t = Math.floor(turns);
         double phi = 360.0 * (turns - t);
         int n = (int)Math.floor(phi / 22.5);
+        
+        System.out.println("theta = " + theta);
+        System.out.println("zeta = " + zeta);
+        System.out.println("turns = " + turns);
+        System.out.println("t = " + t);
+        System.out.println("phi = " + phi);
+        System.out.println("n = " + n);
 
         return COMPASS_DIRECTIONS[n];
     } // end getCompassDir
+    
+    /**
+     * Returns the general direction based on the angle.
+     * 
+     * 
+     * 
+     * @param int of value 0-4
+     * @return the direction which is one of GENERAL_DIRECTIONS.
+     */
+    public static String getGeneralDir(int n) {
+        return GENERAL_DIRECTIONS[n];
+    } // end getCompassDir
+    
 
     /**
      * Returns an XML represntation of the solved graph.
