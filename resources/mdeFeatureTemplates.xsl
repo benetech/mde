@@ -60,7 +60,12 @@ adjacent longer loops.
     <xsl:value-of select="."/><xsl:text>.  </xsl:text>
   </xsl:template>
 
+
+<!-- this is stuff for slope -->
   <xsl:template match="slope">
+  	<xsl:if test="decimalValue = 2">
+       It rises steeply from left to right at a rate of 2 rise over 1 run
+    </xsl:if>
     <xsl:if test="decimalValue > 1">
        It rises steeply from left to right
     </xsl:if>

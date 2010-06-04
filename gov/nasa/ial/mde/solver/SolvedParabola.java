@@ -18,6 +18,8 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * @author Dr. Robert Shelton
  * @version 1.0
  * @since 1.0
+ * 
+ * Edits made by Andrew Rosen begining 6/4/10
  */
 public class SolvedParabola extends SolvedConic {
     
