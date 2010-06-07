@@ -28,6 +28,8 @@ import java.util.Arrays;
  */
 public class AnalyzedData implements AnalyzedItem, Cloneable {
     
+	private Boolean isSorted = false;
+	
     // The name associated with the x and y data values.
     private String xName;
 	private String yName;
@@ -97,8 +99,16 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
         this.xData = xData;
         this.yData = yData;
         
-        // TODO: Do we need to check to make sure the x-data is in ascending order?
+        // DONE: Do we need to check to make sure the x-data is in ascending order?
         // It's checked for file input. Why not here?
+        //ANDREW: I'll do it then.  It's an O(n) operation, so why not 
+        //ANDREW: Sorting should be a O(n log_2 n)
+        // we would waste time checking if it's in order and then sorting.
+        // we should just go ahead and sort UNLESS we know in advance 
+        //TODO : Sort x y pairs
+        
+        sort(xData, yData);
+   
         
         // Initialize the X and Y data statistics.
         initStatistics();
@@ -106,8 +116,15 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
         // Set the preferred bounds based on the min and max values of the data.
         preferredBounds.setBounds(xMin,xMax,yMax,yMin);
     }
+
     
-    /**
+
+	private void sort(double[] xData2, double[] yData2) {
+		double[][] arr = {xData2,yData2};
+	}
+	
+
+	/**
      * Initialize the statistics for the X and Y data values.
      */
     private void initStatistics() {
