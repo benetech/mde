@@ -37,6 +37,8 @@ public class CSVTest {
         	System.out.println(times[i] + " " + values[i]);
         }
         
+        
+        
         // Let's take our data columns and headers and create an MDE
         // AnalyzedData object:
         

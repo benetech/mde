@@ -31,8 +31,11 @@ public class Tutorial_DataArrayInput {
 
         for (int i = 0; i < 10; i++) {
             times[i] = i + 1;
-            values[i] = 10 - i;
+            values[i] = i * i;
         }
+        
+        times[0] = 11;
+        values[0] = 3;
 
         // Let's take our data columns and headers and create an MDE
         // AnalyzedData object:

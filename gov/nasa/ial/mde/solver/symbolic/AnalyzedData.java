@@ -18,6 +18,8 @@ import gov.nasa.ial.mde.util.PointsUtil;
 import gov.nasa.ial.mde.util.TrailUtil;
 
 import java.util.Arrays;
+import java.util.TreeMap;
+
 
 /**
  * Analyzes arrays of real number data to extract features associated with it.
@@ -94,10 +96,6 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
         if (xData.length <= 0) {
             throw new IllegalArgumentException("X and Y data arrays must contain data.");
         }
-        this.xName = xName;
-        this.yName = yName;
-        this.xData = xData;
-        this.yData = yData;
         
         // DONE: Do we need to check to make sure the x-data is in ascending order?
         // It's checked for file input. Why not here?
@@ -105,10 +103,16 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
         //ANDREW: Sorting should be a O(n log_2 n)
         // we would waste time checking if it's in order and then sorting.
         // we should just go ahead and sort UNLESS we know in advance 
-        //TODO : Sort x y pairs
+        
+        this.xName = xName;
+        this.yName = yName;
         
         sort(xData, yData);
    
+        
+        //this.xData = xData;
+        //this.yData = yData;
+        
         
         // Initialize the X and Y data statistics.
         initStatistics();
@@ -120,7 +124,28 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
     
 
 	private void sort(double[] xData2, double[] yData2) {
-		double[][] arr = {xData2,yData2};
+		TreeMap<Double, Double> map = new TreeMap<Double, Double>();
+		
+		//TreeMap map = new TreeMap();
+		
+		for(int i = 0; i < xData2.length; i++)
+		{
+			map.put(xData2[i], yData2[i]);
+			System.out.println(xData2[i] + " " + yData2[i]);
+		}
+		
+		System.out.println();
+		System.out.println();
+		int size = map.size();
+		
+		for(int i = 0  ; i < size ; i++)
+		{
+			xData2[i] = map.firstKey();
+			yData2[i] = map.remove(xData2[i]);
+			System.out.println(xData2[i] + " " + yData2[i]);
+		}
+		this.xData = xData2;
+		this.yData = yData2;
 	}
 	
 
