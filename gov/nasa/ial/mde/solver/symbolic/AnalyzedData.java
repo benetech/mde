@@ -30,7 +30,7 @@ import java.util.TreeMap;
  */
 public class AnalyzedData implements AnalyzedItem, Cloneable {
     
-	private Boolean isSorted = false;
+	
 	
     // The name associated with the x and y data values.
     private String xName;
