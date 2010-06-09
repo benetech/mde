@@ -756,7 +756,7 @@ public class MdeSettings extends Settings {
     /**
      * Sets the description mode and saves the settings.
      * 
-     * @param mode the description mode is one of "visual" or "math".
+     * @param mode the description mode is one of "visual" or "math" or "standards".
      */
     public void setDescriptionMode(String mode) {
         this.descriptionMode = mode;

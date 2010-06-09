@@ -83,6 +83,11 @@ public class Describer {
      * math description mode indicator
      */
     public static final String MATH         = "math";
+    
+    /**
+     * educational standards description mode indicator
+     */
+    public static final String STANDARDS         = "standards";
 
     /**
      * MDE <code>Solver</code> object which provides the graph data to be
@@ -156,6 +161,7 @@ public class Describer {
         transformers = new Hashtable();
         addDescriptionMode("visual", "mdeApplyVisual1.xsl");
         addDescriptionMode("math", "mdeApplyMath1.xsl");
+        addDescriptionMode("standards", "mdeApplyStandards1.xsl");
 
         this.currentDescriptionMode = settings.getDescriptionMode();
         this.currentTransformer = (Transformer) transformers.get(currentDescriptionMode);
@@ -323,7 +329,7 @@ public class Describer {
     /**
      * Change the description mode to the specified value.
      * 
-     * @param mode either "visual" or "math".
+     * @param mode either "visual" or "math" or "standards".
      */
     public void setCurrentDescriptionMode(String mode) {
         //TODO: We could handle an invalid mode condition better than we do.

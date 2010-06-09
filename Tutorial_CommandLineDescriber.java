@@ -41,7 +41,7 @@ public class Tutorial_CommandLineDescriber {
                 solver.solve();
 
                 if (solver.anyDescribable()) {
-                    String description = describer.getDescriptions("visual");
+                    String description = describer.getDescriptions("standards");
                     System.out.println("Description: " + description);
                 } else {
                     System.out.println("MDE could not generate a description for "
