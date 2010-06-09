@@ -5,9 +5,9 @@
   copyright is claimed in the United States under Title 17, U.S. Code. All 
   Other Rights Reserved.</xsl:comment>
   
-  <xsl:import href="mdeFeatureTemplates.xsl"/>
+  <xsl:import href="mdeStandardsFeatureTemplates.xsl"/>
 
-  <xsl:template match="GraphDataStandards">
+  <xsl:template match="GraphData">
 	
      <xsl:apply-templates select="equationPrint"/>
 
@@ -101,6 +101,13 @@ This is the graph of a function.
          <xsl:call-template name="twoIntersectingLinesSpecifics"/>
        </xsl:when>
      </xsl:choose>
+	 
+
+	 <xsl:apply-templates select="range"/>
+
+	 
+	 <xsl:apply-templates select="domain"/>
+
 <p></p>
 </xsl:template>
 
