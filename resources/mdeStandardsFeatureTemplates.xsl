@@ -467,6 +467,11 @@ adjacent longer loops.
  <xsl:value-of select="." />.
 </xsl:template>
 
+<xsl:template match="openDirection" mode="parabola">
+ The parabola opens to the
+ <xsl:value-of select="." />.
+</xsl:template>
+
 <xsl:template match="reducedEquation">
  The reduced equation is 
  <xsl:value-of select="." />.
@@ -622,9 +627,9 @@ is
 </xsl:template>
   
 <xsl:template name="parabolaWidthTest">
-   Focal length can be a measure of a parabola's width
+   <!--Focal length can be a measure of a parabola's width-->
    <xsl:if test="focalLength/decimalValue = .250">
-        <xsl:text>.</xsl:text>
+       
         The focal length of this parabola is   
         <xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
           approximately
@@ -634,7 +639,7 @@ is
    </xsl:if>
 
    <xsl:if test="focalLength/decimalValue != .250">
-     and we can compare this parabola to a reference parabola, y=x^2, with focal length 0.25. 
+     and we can compare this parabola to a reference parabola, y=x^2, which has a focal length 0.25. 
 
    <xsl:if test="focalLength/decimalValue > .25">
        At 

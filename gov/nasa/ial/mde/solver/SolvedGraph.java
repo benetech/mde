@@ -25,7 +25,7 @@ public class SolvedGraph {
             "West", "WSW", "SW", "SSW", "South", "SSE", "SE", "ESE" };
     
     private final static String[] GENERAL_DIRECTIONS = { 
-    	"No Direction", "Up", "Down", "Right", "Left" };
+    	"nowhere", "upwards", "downwards", "to the right", "to the left" };
 
     private String[] defaultFeatureNames = { "graphName", "graphBoundaries", "equationType",
             "equationPrint", "originalEquationPrint", "graphDescriptionDomain",

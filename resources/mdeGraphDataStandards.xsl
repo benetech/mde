@@ -127,7 +127,7 @@ This is the graph of a function.
   </xsl:template>
 
   <xsl:template name="parabolaSpecifics">
-     <xsl:apply-templates select="openDirection"/>
+     <xsl:apply-templates select="openDirection" mode="parabola"/>
      <xsl:call-template name="parabolaWidthTest"/> 
   </xsl:template>
 
