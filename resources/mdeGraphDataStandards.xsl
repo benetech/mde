@@ -101,12 +101,19 @@ This is the graph of a function.
          <xsl:call-template name="twoIntersectingLinesSpecifics"/>
        </xsl:when>
      </xsl:choose>
-	 
+     
+     <xsl:apply-templates select="xIntercepts">
+       <xsl:with-param name="axis"><xsl:value-of select="abscissaSymbol"/></xsl:with-param>
+     </xsl:apply-templates> 
+       
+     <xsl:apply-templates select="yIntercepts">
+       <xsl:with-param name="axis"><xsl:value-of select="ordinateSymbol"/></xsl:with-param>
+     </xsl:apply-templates>
 
+	 <!-- Displays the domain and range. -->
+	 <xsl:apply-templates select="domain"/>
 	 <xsl:apply-templates select="range"/>
 
-	 
-	 <xsl:apply-templates select="domain"/>
 
 <p></p>
 </xsl:template>

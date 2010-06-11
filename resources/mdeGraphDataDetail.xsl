@@ -250,7 +250,7 @@ elongated end to the opposite side.  The orientation of this axis of symmetry is
 	</xsl:call-template>.  The elongated end is a distance of 
 	<xsl:call-template name="numberModel">
 		<xsl:with-param name="featureName" select="maxLength"/>
-	</xsl:call-template> from the origin, and the closest poit on the curve is a 
+	</xsl:call-template> from the origin, and the closest point on the curve is a 
 	distance of 
 	<xsl:call-template name="numberModel">
 		<xsl:with-param name="featureName" select="minLength"/>
