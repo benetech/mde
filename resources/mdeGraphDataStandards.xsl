@@ -102,10 +102,12 @@ This is the graph of a function.
        </xsl:when>
      </xsl:choose>
      
+     
+     <!-- Intercepts. -->
      <xsl:apply-templates select="xIntercepts">
        <xsl:with-param name="axis"><xsl:value-of select="abscissaSymbol"/></xsl:with-param>
      </xsl:apply-templates> 
-       
+     
      <xsl:apply-templates select="yIntercepts">
        <xsl:with-param name="axis"><xsl:value-of select="ordinateSymbol"/></xsl:with-param>
      </xsl:apply-templates>
@@ -191,8 +193,7 @@ bottom of the picture.
 		The figure is shown with the "heart" lying on its side.  
 	</xsl:when>
 	<xsl:otherwise>
-		The "heart" is turned at an odd angle; try the "Math Description" in the 
-		Settings menu for further details.
+		The "heart" is turned at an odd angle.
 	</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -200,8 +201,7 @@ bottom of the picture.
 	<xsl:template name="loopWithinALoopSpecifics">
 This figure looks like a large loop with a smaller loop drawn inside it.  	The curve 
 crosses itself at the origin to make the smaller loop.  Both loops are symmetric 
-about a single line through the origin (try the Math Description in the Settings menu 
-for details).  The general equation of this kind of curve is
+about a single line through the origin.  The general equation of this kind of curve is
 r = a*cos(theta) + b*sin(theta) + c.  When c is much less than a or b, you 
 get two loops that are very nearly on top of each other forming a circle that is 
 traced twice.  Going the other way, if you make c larger, the smaller loop 

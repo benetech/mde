@@ -694,8 +694,8 @@ is
      </xsl:choose> 
      compared to the reference parabola.
    </xsl:if>
-   What  happens to the focal length and parabola width when you change the coefficient of x^2? 
-   Enter y=c*x^2, with c=1. Then change c to see what happens to the parabola.
+   <!-- What  happens to the focal length and parabola width when you change the coefficient of x^2? 
+   Enter y=c*x^2, with c=1. Then change c to see what happens to the parabola. -->
    
        
 </xsl:template>
@@ -857,7 +857,7 @@ from <xsl:apply-templates select="left/Type"/> the
 <xsl:template match="AlternateEquation">
 This function very closely matches a portion of the graph of the equation
 <xsl:value-of select="."/>.  
-Try typing in this equation to get a description of its graph.  
+<!--  Try typing in this equation to get a description of its graph. --> 
 </xsl:template>
 
 <xsl:template match="NumSegments">
