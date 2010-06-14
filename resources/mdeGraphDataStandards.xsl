@@ -260,7 +260,7 @@ the case of a polar rose with an odd number of loops.
 		</xsl:if>
 		<xsl:if test="isConvex='false'">
 			The curve is larger at its ends and smaller in the middle forming a 
-			shape which might resemble the silhouette of a dumbell.  
+			shape which might resemble the silhouette of a dumbbell.  
 		</xsl:if>
 	</xsl:when>
 	<xsl:when test="thetaMultiple=3">
