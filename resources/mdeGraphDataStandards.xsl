@@ -122,27 +122,29 @@ This is the graph of a function.
 
 
   <xsl:template name="lineSpecifics">
+     
      <xsl:apply-templates select="slope"/>
      <xsl:apply-templates select="slopeDefined"/>
   </xsl:template>
 
   <xsl:template name="parabolaSpecifics">
      <xsl:apply-templates select="openDirection" mode="parabola"/>
+     <xsl:apply-templates select="vertex" />
+     <xsl:apply-templates select="focus" />
+     <xsl:apply-templates select="focalLength"/>
      <xsl:call-template name="parabolaWidthTest"/> 
   </xsl:template>
 
 
   <xsl:template name="circleSpecifics">
        <xsl:apply-templates select="center" />
-       <xsl:apply-templates select="radius" mode="simple"/>
+       <xsl:apply-templates select="radius"/>
   </xsl:template>
 
   <xsl:template name="ellipseSpecifics">
-     <!--
        <xsl:apply-templates select="center" />
        <xsl:apply-templates select="semiMajorAxis" mode="simple"/>
        <xsl:apply-templates select="semiMinorAxis" mode="simple"/>
-     -->
        <xsl:call-template name="ellipseEccentricityTest"/> 
   </xsl:template>
 
