@@ -35,7 +35,12 @@ adjacent longer loops.
 <xsl:when test=".='lumpyCircle'"/>
 <xsl:when test=".='loopWithinALoop'"/>
 <xsl:when test=".='eccentricCircle'"/>
+
+<xsl:when test=".='parabola'"> This graph is a member of the quadratic family.</xsl:when>
+
+
 <xsl:when test=".='polynomial'"> Blah blah blah</xsl:when>
+
 <xsl:when test=".='RationalFunction'"></xsl:when>
 <xsl:when test=".='FunctionOverInterval'"></xsl:when>
       <xsl:otherwise>
