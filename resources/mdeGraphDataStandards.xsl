@@ -128,7 +128,9 @@ This is the graph of a function.
   </xsl:template>
 
   <xsl:template name="parabolaSpecifics">
+     <!-- Mode parabola uses up and down rather than, say, compass directions -->
      <xsl:apply-templates select="openDirection" mode="parabola"/>
+     
      <xsl:apply-templates select="vertex" />
      <xsl:apply-templates select="focus" />
      <xsl:apply-templates select="focalLength"/>

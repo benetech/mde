@@ -35,7 +35,7 @@ adjacent longer loops.
 <xsl:when test=".='lumpyCircle'"/>
 <xsl:when test=".='loopWithinALoop'"/>
 <xsl:when test=".='eccentricCircle'"/>
-<xsl:when test=".='polynomial'"></xsl:when>
+<xsl:when test=".='polynomial'"> Blah blah blah</xsl:when>
 <xsl:when test=".='RationalFunction'"></xsl:when>
 <xsl:when test=".='FunctionOverInterval'"></xsl:when>
       <xsl:otherwise>
@@ -882,8 +882,8 @@ The portion of the graph in the visible window consists of a single continuous g
   <xsl:template match="degree">
 	       	This is the graph of a
 <xsl:choose>
-	       	<xsl:when test=".=3">
-       	cubic polynomial
+	<xsl:when test=".=3">
+	 cubic polynomial
        	</xsl:when>
        	<xsl:otherwise>
 <xsl:value-of select="."/>th degree polynomial

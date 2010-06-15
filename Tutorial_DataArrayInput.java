@@ -45,7 +45,7 @@ public class Tutorial_DataArrayInput {
 
         // Now we ask for a description and sonification as before
         if (solver.anyDescribable()) {
-            String description = describer.getDescriptions("visual");
+            String description = describer.getDescriptions("standards");
             System.out.println("Description of data: " + description);
         } else {
             System.out.println("MDE could not generate a description for your data.");
