@@ -473,7 +473,7 @@ adjacent longer loops.
 </xsl:template>
 
 <xsl:template match="openDirection" mode="parabola">
- The parabola opens to the
+ The parabola opens
  <xsl:value-of select="." />.
 </xsl:template>
 
@@ -829,6 +829,9 @@ is
   </xsl:template>
   
   <xsl:template match="ComputedFunctionData">
+  
+  <!-- Take note here for input arrays-->
+  <!-- Looks like Alternate Equation as well -->
   	<xsl:apply-templates select="NumSegments"/>
   	<xsl:apply-templates select="FunctionAnalysisData"/>
   	<xsl:apply-templates select="AlternateEquation"/>
@@ -884,7 +887,7 @@ The portion of the graph in the visible window consists of a single continuous g
 	</xsl:choose>
 </xsl:template>
 
-  <xsl:template match="degree">
+<xsl:template match="degree">
 	       	This is the graph of a
 <xsl:choose>
 	<xsl:when test=".=3">

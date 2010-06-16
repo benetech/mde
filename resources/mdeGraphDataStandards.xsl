@@ -30,6 +30,9 @@
          <xsl:call-template name="hyperbolaSpecifics"/>
        </xsl:when>
        
+       <xsl:when test="degree='3'">mwhaahfasdfhkjasf</xsl:when>
+       
+       
        <!-- Function descriptions -->
        <xsl:when test="graphName='polynomial'">
 <xsl:apply-templates select="FunctionAnalysisData"/>
@@ -42,6 +45,8 @@ This is the graph of a function.
 	
 	       <xsl:when test="graphName='FunctionOverInterval'">
 	       	<xsl:apply-templates select="DataID"/>
+	       	
+	       	<!--  Note here for input arrays!-->
 		<xsl:apply-templates select="ComputedFunctionData"/>
 	       </xsl:when>
 
