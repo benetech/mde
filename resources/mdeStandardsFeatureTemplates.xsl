@@ -36,10 +36,10 @@ adjacent longer loops.
 <xsl:when test=".='loopWithinALoop'"/>
 <xsl:when test=".='eccentricCircle'"/>
 
-<xsl:when test=".='parabola'"> This graph is a member of the quadratic family.</xsl:when>
+<xsl:when test=".='parabola'"> This graph is a parabola: a member of the quadratic family.</xsl:when>
 
 
-<xsl:when test=".='polynomial'"> Blah blah blah</xsl:when>
+<xsl:when test=".='polynomial'"></xsl:when>
 
 <xsl:when test=".='RationalFunction'"></xsl:when>
 <xsl:when test=".='FunctionOverInterval'"></xsl:when>
@@ -68,9 +68,6 @@ adjacent longer loops.
 
 <!-- this is stuff for slope -->
   <xsl:template match="slope">
-  	<xsl:if test="decimalValue = 2">
-       It rises steeply from left to right at a rate of 2 rise over 1 run
-    </xsl:if>
     <xsl:if test="decimalValue > 1">
        It rises steeply from left to right
     </xsl:if>
@@ -603,16 +600,11 @@ is
 </xsl:template>
   
 <xsl:template name="simpleHyperbolaDescription">
-      The graph consists of two separate pieces called branches that approach each
-      other as if they would cross, but then bend back away from each other.
-      The points on each piece where the branches are closest together are called
-      vertices.  
-      <xsl:apply-templates select="vertex"/>
-      The midpoint of the line segment between the vertices is called
-      the center of the hyperbola.
+      The graph consists of two separate pieces, or branches, that reflect each other across a diagonal line of symmetry.  
+     <!--  <xsl:apply-templates select="vertex"/>
+      The midpoint of the line segment between the vertices is called the center of the hyperbola.  -->
       <xsl:apply-templates select="center"/>
-      Way out on each branch, a hyperbola is nearly straight and actually approaches
-      a straight line called an asymptote.  
+      <!--  Way out on each branch, a hyperbola is nearly straight and actually approaches a straight line called an asymptote.  -->
       <xsl:apply-templates select="asymptotes"/>
 </xsl:template>
 

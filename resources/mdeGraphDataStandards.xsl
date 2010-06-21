@@ -137,8 +137,8 @@ This is the graph of a function.
      <xsl:apply-templates select="openDirection" mode="parabola"/>
      
      <xsl:apply-templates select="vertex" />
-     <xsl:apply-templates select="focus" />
-     <xsl:apply-templates select="focalLength"/>
+    <!--   <xsl:apply-templates select="focus" />
+     <xsl:apply-templates select="focalLength"/> -->
      <xsl:call-template name="parabolaWidthTest"/> 
   </xsl:template>
 
@@ -157,10 +157,6 @@ This is the graph of a function.
 
   <xsl:template name="hyperbolaSpecifics">
       <xsl:call-template name="simpleHyperbolaDescription"/>
-      <xsl:apply-templates select="eccentricity"/>
-      <xsl:apply-templates select="focalLength"/>
-      <xsl:apply-templates select="center"/>
-      <xsl:apply-templates select="vertex"/>
   </xsl:template>
 
 <!-- Test template for polar rose -->
