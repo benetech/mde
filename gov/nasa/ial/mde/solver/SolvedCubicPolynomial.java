@@ -1,5 +1,5 @@
 package gov.nasa.ial.mde.solver;
 
-public class SolvedCubicPolynomial {
+public class SolvedCubicPolynomial extends SolvedConic {
 
 }

@@ -25,7 +25,7 @@ Reserved.
     <property name="websiteURL" value="http://prime.jsc.nasa.gov/" />
 
     <!-- The version of Java we are targeting when compiling. -->
-    <property name="javaTargetVersion" value="1.4" />
+    <property name="javaTargetVersion" value="1.5" />
 
     <!-- The MDE SDK properties. -->
     <property name="sdkJarName" value="mde-sdk" />
