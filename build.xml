@@ -28,7 +28,7 @@ Reserved.
     <property name="javaTargetVersion" value="1.5" />
 
     <!-- The MDE SDK properties. -->
-    <property name="sdkJarName" value="mde-sdk" />
+    <property name="sdkJarName" value="mde-sdk-${mde.version}" />
     <property name="sdkBaseFilename" value="mde-sdk-${mde.version}" />
     <property name="sdkBaseDirName" value="mde-sdk${mde.version}" />
     <property name="sdkInstallScript" value="mde-sdk.iss" />
