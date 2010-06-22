@@ -29,7 +29,7 @@ import java.util.Properties;
  * autoscaleGraph = true; <br>
  * traceOn = true; <br>
  * </blockquote> Describer properties and initial defaults are:
- * <blockquote>descriptionMode = "visual"; </blockquote> Sounder properties and
+ * <blockquote>descriptionMode = "standards"; </blockquote> Sounder properties and
  * initial defaults are: <blockquote>negativeYValuesIndicator = HISS <br>
  * sonificationWaveform = TRIANGLE <br>
  * traceSweepSpeed = MEDIUM <br>
@@ -471,7 +471,7 @@ public class MdeSettings extends Settings {
      * autoscaleGraph = true; <br>
      * traceOn = true; <br>
      * </blockquote> Describer properties and initial defaults are:
-     * <blockquote>descriptionMode = "visual"; </blockquote> Sounder properties and
+     * <blockquote>descriptionMode = "standards"; </blockquote> Sounder properties and
      * initial defaults are: <blockquote>negativeYValuesIndicator = HISS <br>
      * sonificationWaveform = TRIANGLE <br>
      * traceSweepSpeed = MEDIUM <br>
@@ -492,7 +492,7 @@ public class MdeSettings extends Settings {
         dataPointsShown = true;
         autoscaleGraph = true;
         traceOn = true;
-        descriptionMode = "visual";
+        descriptionMode = "standards";
 
         sonificationWaveform = TRIANGLE;
 
