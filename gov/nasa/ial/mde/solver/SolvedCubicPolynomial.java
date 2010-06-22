@@ -11,11 +11,13 @@ public class SolvedCubicPolynomial extends SolvedConic {
 
 	protected String[] newFeatures = {};
 
+	private IntervalXY D, R;
+
 	public SolvedCubicPolynomial(AnalyzedEquation equation) {
 		super(equation);
 		
 		//??
-		double[] coeffs = QC.getNormalizedCoefficients();
+		//double[] coeffs = QC.getNormalizedCoefficients();
 		
 		IntervalXY D, R; // domain and range
 		//PNom.getPNom(p, v) PNom.getDegree
@@ -29,6 +31,19 @@ public class SolvedCubicPolynomial extends SolvedConic {
         
 	}
 	
+	public IntervalXY getD() {
+		return D;
+	}
+
+	public IntervalXY getR() {
+		return R;
+	}
+	
+	
+	
+	
+	
+	/*
 	public static void main(String[] args){
 		MdeSettings currentSettings = new MdeSettings("myAppsMdeProperties");
         Solver solver = new Solver();
@@ -37,7 +52,36 @@ public class SolvedCubicPolynomial extends SolvedConic {
         
         String inputEquation = "y = x^3 + 2x^2 + x - 2";
      // Give Solver equation and solve
-        solver.add(inputEquation);
+        
+        AnalyzedEquation analyzedEquation = solver.add(inputEquation);
+        SolvedCubicPolynomial solved = new SolvedCubicPolynomial(analyzedEquation);
+        
+        solved.getD();
+        
+        System.out.println(solved.getD().toString());
+        
         solver.solve();
-	}
+     
+        
+        
+     //   
+        
+        if (solver.anyDescribable()) {
+            String description = describer.getDescriptions("standards");
+            System.out.println("Description: " + description);
+        } else {
+            System.out.println("MDE could not generate a description for "
+                            + inputEquation + ".");
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        solver.removeAll();
+        
+	}*/
 }
