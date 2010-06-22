@@ -1,6 +1,8 @@
 import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.SolvedCubicPolynomial;
+import gov.nasa.ial.mde.solver.SolvedGraph;
+import gov.nasa.ial.mde.solver.SolvedParabola;
 import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -19,12 +21,13 @@ public class NewClassTest {
         String inputEquation = "y = x^3 + 2x^2 + x - 2";
      // Give Solver equation and solve
         
-        AnalyzedEquation analyzedEquation = solver.add(inputEquation);
-        SolvedCubicPolynomial solved = new SolvedCubicPolynomial(analyzedEquation);
+        AnalyzedEquation analyzedEquation = solver.add(inputEquation);        
+        SolvedGraph solved = new SolvedParabola(analyzedEquation);
         
-        solved.getD();
+        //SolvedCubicPolynomial solved = new SolvedCubicPolynomial(analyzedEquation);  
+        //solved.getD();
         
-        System.out.println(solved.getD().toString());
+        System.out.println(analyzedEquation);
         
         solver.solve();
      
