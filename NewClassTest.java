@@ -14,26 +14,25 @@ public class NewClassTest {
 	 */
 	public static void main(String[] args){
 		MdeSettings currentSettings = new MdeSettings("myAppsMdeProperties");
-        Solver solver = new Solver();
-        Describer describer = new Describer(solver, currentSettings);
-        describer.setOutputFormat(Describer.TEXT_OUTPUT);
-        
-        String inputEquation = "y = x^3 + 2x^2 + x - 2";
+		Solver solver = new Solver();
+		Describer describer = new Describer(solver, currentSettings);
+		describer.setOutputFormat(Describer.TEXT_OUTPUT);
+		
+        String inputEquation = "y =x^3";
      // Give Solver equation and solve
         
         AnalyzedEquation analyzedEquation = solver.add(inputEquation);        
-        SolvedGraph solved = new SolvedParabola(analyzedEquation);
         
-        //SolvedCubicPolynomial solved = new SolvedCubicPolynomial(analyzedEquation);  
-        //solved.getD();
+        SolvedCubicPolynomial solved = new SolvedCubicPolynomial(analyzedEquation);  
+        solved.getD();
         
         System.out.println(analyzedEquation);
         
         solver.solve();
-     
         
         
-     //   
+        
+     // 
         
         if (solver.anyDescribable()) {
             String description = describer.getDescriptions("standards");

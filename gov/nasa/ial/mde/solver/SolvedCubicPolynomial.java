@@ -6,7 +6,7 @@ import gov.nasa.ial.mde.math.PNom;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
-public class SolvedCubicPolynomial extends SolvedConic {
+public class SolvedCubicPolynomial extends SolvedXYGraph {
 
 
 	protected String[] newFeatures = {};
