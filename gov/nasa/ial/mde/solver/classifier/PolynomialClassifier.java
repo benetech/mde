@@ -7,6 +7,7 @@
 package gov.nasa.ial.mde.solver.classifier;
 
 import gov.nasa.ial.mde.math.MultiPointXY;
+import gov.nasa.ial.mde.solver.SolvedCubicPolynomial;
 import gov.nasa.ial.mde.solver.SolvedEquationData;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedRationalFunction;
@@ -118,19 +119,35 @@ public class PolynomialClassifier extends MDEClassifier {
 
 
     public SolvedGraph getFeatures(AnalyzedEquation analyzedEq) {
-    	System.out.println("hihihi!");
+    	System.out.println("Inside polynomial classifier");
     	
-    	//Todo choose distinction for cubic here.
+    	int degree = analyzedEq.getDegree();
+    	
+    	System.out.println("Degree: " + degree);
+    	
+    	//TODO choose distinction for cubic here
         SolvedGraph features;
 
         if (analyzedEq.isSolvableFunction()) {
-            if (!analyzedEq.isPolynomial())
+            if (!analyzedEq.isPolynomial()){
+            	System.out.println("It's not a polynomial????");
             	features = new SolvedEquationData(analyzedEq);
+            }
+            else if(degree==3){
+            	System.out.println("Cubic Polynomial");
+            	features = new SolvedCubicPolynomial(analyzedEq);
+            }
             else
+            {
+            	System.out.println("It's a rational function.");
                 features = new SolvedRationalFunction(analyzedEq);
+            }
         } // end if
         else
+        {
+        	System.out.println("It's an XYgraph.");
             features = new SolvedXYGraph(analyzedEq);
+        }
 
         // Make sure we add the graphBoundaries feature.
         addGraphBoundariesFeature(analyzedEq, features);

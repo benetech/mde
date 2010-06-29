@@ -60,11 +60,14 @@ public class SolvedEquationData extends SolvedXYGraph {
     private void doInit() {
         segments = analyzedItem.getGraphTrails();
 
+        System.out.println("In SolvedEquationData");
+        
         if ((classifier = analyzedItem.getClassifier()) != null)
             if (classifier instanceof PolynomialClassifier)
                 polyModel = ((PolynomialClassifier)classifier).getBestGuess();
 
         numSegments = segments.length;
+        System.out.println("In SolvedEquationData applying features");
         putNewFeatures(newFeatures);
 
         //TODO: Consider relocating DataID in XML rework.

@@ -88,8 +88,14 @@ public class AnalyzedEquation implements AnalyzedItem {
     private double savedRXLow = 0.0;
     private double savedRXHigh = 0.0;
     private boolean bad = false;
+
+	private int degree;
     
-    private AnalyzedEquation() {
+    public int getDegree() {
+		return degree;
+	}
+
+	private AnalyzedEquation() {
         throw new RuntimeException("Default constructor not allowed.");
     }
 
@@ -119,6 +125,7 @@ public class AnalyzedEquation implements AnalyzedItem {
         if ((equationProperties & MORE_THAN_TWO_VARIABLES) != 0) {
             return;
         }
+        
 
         switch (equationType) {
         case CARTESIAN:
@@ -131,6 +138,8 @@ public class AnalyzedEquation implements AnalyzedItem {
             independentVariable = actualVariables[0];
             dependentVariable = actualVariables[1];
             dvp = theEquation.getOneVariablePolynomial(dependentVariable);
+            
+            degree = lhs.getDegree();
 
             if (checkForSolvable())
                 switch (dvpDegree) {
