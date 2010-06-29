@@ -401,17 +401,24 @@ public class AnalyzedEquation implements AnalyzedItem {
      */
     public MDEClassifier getClassifier() {
         if (isQuadratic()) {
+        	
+        	System.out.println("I got a quadratic formula!");
             return new QuadraticClassifier(lhs);
         }
 
         if (isPolar()) {
-            return new PolarClassifier(solveForPoints(0.0, 2.0 * Math.PI));
+        	
+        	System.out.println("I got a polar formula!");
+        	return new PolarClassifier(solveForPoints(0.0, 2.0 * Math.PI));
+            
         }
 
 
         // If we have a non-null savedR of function points with a good Low and
         // High bounds for X then we will use those bounds.
         PolynomialClassifier pc;
+        System.out.println("I got a polynomial... maybe!");
+        
         if ((savedR != null) && (savedRXLow < savedRXHigh)) {
             pc = new PolynomialClassifier(solveForPoints(savedRXLow, savedRXHigh));
         } else {
@@ -419,20 +426,27 @@ public class AnalyzedEquation implements AnalyzedItem {
             pc = new PolynomialClassifier(solveForPoints(-DEFAULT_BOUND_VALUE, DEFAULT_BOUND_VALUE));
         }
         
+        
         PolynomialModel pm = pc.getBestGuess();
+        System.out.println("Best Guess entered!");
 
+        
         if (pm == null) {
+        	System.out.println("polynmial model is null!");
             return new MDEClassifier();
         }
 
         if (pm instanceof QuadraticModel) {
+        	System.out.println("pm is instanceof of quadratic model!");
             QuadraticModel q = (QuadraticModel)pm;
 
             if (q.getAnalyzedEquation().isFunction()) {
+            	System.out.println("quadractic classifier!");
                 return new QuadraticClassifier(q.getPolynomial());
             }
         } // end if
-
+        
+        System.out.println("I'm a polynomial!");
         return pc;
     } // end getClassifier
 

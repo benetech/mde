@@ -108,7 +108,12 @@ public class SolvedRationalFunction extends SolvedXYGraph {
 
         if (qf[1].isTrivial()) {
             putFeature("graphName", "polynomial");
+            
+            
+            //TODO mess with degree, get it for polynomial
             putNewFeature("FunctionAnalysisData", "degree", "" + qf[0].getDegree(), true);
+        
+        
         } // end if
         else
             putFeature("graphName", "RationalFunction");

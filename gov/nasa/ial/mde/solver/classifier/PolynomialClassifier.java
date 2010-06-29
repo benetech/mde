@@ -7,10 +7,15 @@
 package gov.nasa.ial.mde.solver.classifier;
 
 import gov.nasa.ial.mde.math.MultiPointXY;
+import gov.nasa.ial.mde.solver.SolvedEquationData;
+import gov.nasa.ial.mde.solver.SolvedGraph;
+import gov.nasa.ial.mde.solver.SolvedRationalFunction;
+import gov.nasa.ial.mde.solver.SolvedXYGraph;
 import gov.nasa.ial.mde.solver.numeric.PolynomialModel;
 import gov.nasa.ial.mde.solver.numeric.PolynomialModelBuilder;
 import gov.nasa.ial.mde.solver.numeric.QuadraticModel;
 import gov.nasa.ial.mde.solver.numeric.RationalModel;
+import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,6 +117,27 @@ public class PolynomialClassifier extends MDEClassifier {
     } // end getBestGuess
 
 
+    public SolvedGraph getFeatures(AnalyzedEquation analyzedEq) {
+    	System.out.println("hihihi!");
+    	
+    	//Todo choose distinction for cubic here.
+        SolvedGraph features;
+
+        if (analyzedEq.isSolvableFunction()) {
+            if (!analyzedEq.isPolynomial())
+            	features = new SolvedEquationData(analyzedEq);
+            else
+                features = new SolvedRationalFunction(analyzedEq);
+        } // end if
+        else
+            features = new SolvedXYGraph(analyzedEq);
+
+        // Make sure we add the graphBoundaries feature.
+        addGraphBoundariesFeature(analyzedEq, features);
+
+        return features;
+    } // end getFeatures
+    
 //    // Main routine for testing purposes
 //    // @param args  the input equation as one or more discrete strings
 //    public static void main(String[] args) {
