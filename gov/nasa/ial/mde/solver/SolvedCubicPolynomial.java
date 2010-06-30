@@ -16,11 +16,10 @@ public class SolvedCubicPolynomial extends SolvedRationalFunction {
 	public SolvedCubicPolynomial(AnalyzedEquation equation) {
 		super(equation);
 		
-		//??
 		//double[] coeffs = QC.getNormalizedCoefficients();
 		
 		IntervalXY D, R; // domain and range
-		//PNom.getPNom(p, v) PNom.getDegree
+		//This works to set the domain and range
 		
 		D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         D.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
