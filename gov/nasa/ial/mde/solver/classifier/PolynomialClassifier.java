@@ -125,7 +125,6 @@ public class PolynomialClassifier extends MDEClassifier {
     	
     	System.out.println("Degree: " + degree);
     	
-    	//TODO choose distinction for cubic here
         SolvedGraph features;
 
         if (analyzedEq.isSolvableFunction()) {
