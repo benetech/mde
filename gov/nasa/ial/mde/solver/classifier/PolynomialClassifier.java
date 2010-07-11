@@ -129,8 +129,12 @@ public class PolynomialClassifier extends MDEClassifier {
 
         if (analyzedEq.isSolvableFunction()) {
             if (!analyzedEq.isPolynomial()){
+            	//I can enter the code for checking the absolute value HERE!!
+            	
             	System.out.println("It's not a polynomial????");
             	features = new SolvedEquationData(analyzedEq);
+            	
+            	//E
             }
             else if(degree==3){
             	System.out.println("Cubic Polynomial");

@@ -421,6 +421,8 @@ public class AnalyzedEquation implements AnalyzedItem {
         	return new PolarClassifier(solveForPoints(0.0, 2.0 * Math.PI));
             
         }
+        
+        
 
 
         // If we have a non-null savedR of function points with a good Low and
