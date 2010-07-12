@@ -115,7 +115,11 @@ public class AnalyzedEquation implements AnalyzedItem {
         doInit();
     } // end AnalyzedEquation
 
-    // Do initialization of the class.
+    public Polynomial getLhs() {
+		return lhs;
+	}
+
+	// Do initialization of the class.
     private void doInit() {
         lhs = theEquation.getPolynomial();
 
@@ -411,14 +415,14 @@ public class AnalyzedEquation implements AnalyzedItem {
     public MDEClassifier getClassifier() {
         if (isQuadratic()) {
         	
-        	System.out.println("I got a quadratic formula!");
+        	//System.out.println("I got a quadratic formula!");
             return new QuadraticClassifier(lhs);
         }
         
 
         if (isPolar()) {
         	
-        	System.out.println("I got a polar formula!");
+        	//System.out.println("I got a polar formula!");
         	return new PolarClassifier(solveForPoints(0.0, 2.0 * Math.PI));
             
         }
@@ -429,7 +433,7 @@ public class AnalyzedEquation implements AnalyzedItem {
         // If we have a non-null savedR of function points with a good Low and
         // High bounds for X then we will use those bounds.
         PolynomialClassifier pc;
-        System.out.println("I got a polynomial... maybe!");
+        //System.out.println("I got a polynomial... maybe!");
         
         if ((savedR != null) && (savedRXLow < savedRXHigh)) {
             pc = new PolynomialClassifier(solveForPoints(savedRXLow, savedRXHigh));
@@ -440,16 +444,16 @@ public class AnalyzedEquation implements AnalyzedItem {
         
         
         PolynomialModel pm = pc.getBestGuess();
-        System.out.println("Best Guess entered!");
+        //System.out.println("Best Guess entered!");
 
         
         if (pm == null) {
-        	System.out.println("polynmial model is null!");
+        	//System.out.println("polynmial model is null!");
             return new MDEClassifier();
         }
 
         if (pm instanceof QuadraticModel) {
-        	System.out.println("pm is instanceof of quadratic model!");
+        	//System.out.println("pm is instanceof of quadratic model!");
             QuadraticModel q = (QuadraticModel)pm;
 
             if (q.getAnalyzedEquation().isFunction()) {
@@ -458,7 +462,7 @@ public class AnalyzedEquation implements AnalyzedItem {
             }
         } // end if
         
-        System.out.println("I'm a polynomial!");
+        //System.out.println("I'm a polynomial!");
         return pc;
     } // end getClassifier
 

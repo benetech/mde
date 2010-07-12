@@ -1,35 +1,31 @@
 package gov.nasa.ial.mde.solver;
 
-import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
-import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
-import gov.nasa.ial.mde.solver.symbolic.Equation;
 import gov.nasa.ial.mde.solver.symbolic.Expression;
 import gov.nasa.ial.mde.solver.symbolic.Polynomial;
-import gov.nasa.ial.mde.solver.symbolic.RationalExpression;
 
-public class SolvedAbsoluteValue extends SolvedXYGraph{
-	
+public class SolvedSquareRoot extends SolvedXYGraph {
+
 	protected String[] newFeatures = { 
             "vertex", "slope"
             };
 	
 	protected PolynomialClassifier PC;
 
-	public SolvedAbsoluteValue(AnalyzedEquation ae) {
-		super(ae, "absolute value");
+	public SolvedSquareRoot(AnalyzedEquation ae) {
+		super(ae, "square root");
 		PC = (PolynomialClassifier) ae.getClassifier();
 		
 		
 		
-		Polynomial poly = ae.getLhs();
+		//Polynomial poly = ae.getLhs();
 		
-		Expression[] coeffs =poly.getCoefficientsAsExpressions("x");
+	//	Expression[] coeffs =poly.getCoefficientsAsExpressions("x");
 	
-		System.out.println(coeffs[0]);
+		//System.out.println(coeffs[0]);
 		
-		System.out.println("TEST POINT");
+		//System.out.println("TEST POINT");
 		//initialize();
 		
 		
@@ -44,7 +40,4 @@ public class SolvedAbsoluteValue extends SolvedXYGraph{
 		 //PointXY vertex = new PointXY(QC.UV2XY(vertexUV));
 		 //putFeature("vertex", vertex);
 	}
-	
-	
-
 }

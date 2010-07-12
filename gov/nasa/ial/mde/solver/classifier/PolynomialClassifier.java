@@ -12,6 +12,7 @@ import gov.nasa.ial.mde.solver.SolvedCubicPolynomial;
 import gov.nasa.ial.mde.solver.SolvedEquationData;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedRationalFunction;
+import gov.nasa.ial.mde.solver.SolvedSquareRoot;
 import gov.nasa.ial.mde.solver.SolvedXYGraph;
 import gov.nasa.ial.mde.solver.numeric.PolynomialModel;
 import gov.nasa.ial.mde.solver.numeric.PolynomialModelBuilder;
@@ -120,11 +121,11 @@ public class PolynomialClassifier extends MDEClassifier {
 
 
     public SolvedGraph getFeatures(AnalyzedEquation analyzedEq) {
-    	System.out.println("Inside polynomial classifier");
+    	//System.out.println("Inside polynomial classifier");
     	
     	int degree = analyzedEq.getDegree();
     	
-    	System.out.println("Degree: " + degree);
+    	//System.out.println("Degree: " + degree);
     	
         SolvedGraph features;
 
@@ -132,16 +133,16 @@ public class PolynomialClassifier extends MDEClassifier {
             if (!analyzedEq.isPolynomial()){
             	//I can enter the code for checking the absolute value HERE!!
             	if(hasAbsoluteValue(analyzedEq)){
-            		System.out.println("hihi!");
+            		//System.out.println("hihi!");
             		features = new SolvedAbsoluteValue(analyzedEq);
             	}
             	else if(hasSqrt(analyzedEq))
             	{
-            		System.out.println("veto!");
-            		features = new SolvedEquationData(analyzedEq);
+            		//System.out.println("veto!");
+            		features = new SolvedSquareRoot(analyzedEq);
             	}
             	else{
-                	System.out.println("It's not a polynomial????");
+                	//System.out.println("It's not a polynomial????");
                 	features = new SolvedEquationData(analyzedEq);
             	}
             	
@@ -149,18 +150,18 @@ public class PolynomialClassifier extends MDEClassifier {
             	//E
             }
             else if(degree==3){
-            	System.out.println("Cubic Polynomial");
+            	//System.out.println("Cubic Polynomial");
             	features = new SolvedCubicPolynomial(analyzedEq);
             }
             else
             {
-            	System.out.println("It's a rational function.");
+            	//System.out.println("It's a rational function.");
                 features = new SolvedRationalFunction(analyzedEq);
             }
         } // end if
         else
         {
-        	System.out.println("It's an XYgraph.");
+        	//System.out.println("It's an XYgraph.");
             features = new SolvedXYGraph(analyzedEq);
         }
 
