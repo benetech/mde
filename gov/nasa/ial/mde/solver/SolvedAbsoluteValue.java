@@ -7,17 +7,14 @@ import gov.nasa.ial.mde.solver.symbolic.RationalExpression;
 public class SolvedAbsoluteValue extends SolvedXYGraph{
 
 	public SolvedAbsoluteValue(AnalyzedEquation ae) {
-		super(ae);
+		super(ae, "absolute value");
 		
-		 Expression e = ae.getFunction();
-		 
-		 if (e == null)
-	            throw new IllegalArgumentException("Input equation is not a function.");
-		 
-		 RationalExpression r = new RationalExpression(new Expression(e.toString()));
+		initialize();
 		
-		 System.out.println(r);
-		// TODO Auto-generated constructor stub
+	}
+
+	private void initialize() {
+		
 	}
 	
 	

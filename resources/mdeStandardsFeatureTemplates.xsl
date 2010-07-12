@@ -23,6 +23,9 @@
       <xsl:when test=".='two intersecting lines'">
         The graph of the equation is two intersecting lines.
       </xsl:when>
+      <xsl:when test=".='absolute value'">
+      	The graph is of an absolute value function.
+      </xsl:when>
       <xsl:when test=".='alternatingLoops'">
       	The graph consists of 
       	<xsl:value-of select="../thetaMultiple"/> loops alternating with 
