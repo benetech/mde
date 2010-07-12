@@ -414,6 +414,7 @@ public class AnalyzedEquation implements AnalyzedItem {
         	System.out.println("I got a quadratic formula!");
             return new QuadraticClassifier(lhs);
         }
+        
 
         if (isPolar()) {
         	

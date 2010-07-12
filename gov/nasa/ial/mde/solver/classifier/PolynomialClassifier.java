@@ -7,6 +7,7 @@
 package gov.nasa.ial.mde.solver.classifier;
 
 import gov.nasa.ial.mde.math.MultiPointXY;
+import gov.nasa.ial.mde.solver.SolvedAbsoluteValue;
 import gov.nasa.ial.mde.solver.SolvedCubicPolynomial;
 import gov.nasa.ial.mde.solver.SolvedEquationData;
 import gov.nasa.ial.mde.solver.SolvedGraph;
@@ -130,9 +131,20 @@ public class PolynomialClassifier extends MDEClassifier {
         if (analyzedEq.isSolvableFunction()) {
             if (!analyzedEq.isPolynomial()){
             	//I can enter the code for checking the absolute value HERE!!
+            	if(hasAbsoluteValue(analyzedEq)){
+            		System.out.println("hihi!");
+            		features = new SolvedAbsoluteValue(analyzedEq);
+            	}
+            	else if(hasSqrt(analyzedEq))
+            	{
+            		System.out.println("veto!");
+            		features = new SolvedEquationData(analyzedEq);
+            	}
+            	else{
+                	System.out.println("It's not a polynomial????");
+                	features = new SolvedEquationData(analyzedEq);
+            	}
             	
-            	System.out.println("It's not a polynomial????");
-            	features = new SolvedEquationData(analyzedEq);
             	
             	//E
             }
@@ -157,6 +169,18 @@ public class PolynomialClassifier extends MDEClassifier {
 
         return features;
     } // end getFeatures
+
+	private boolean hasSqrt(AnalyzedEquation analyzedEq) {
+		String eq = analyzedEq.getInputEquation();
+		boolean contains = eq.contains("sqrt(");
+		return contains;
+	}
+
+	private boolean hasAbsoluteValue(AnalyzedEquation analyzedEq) {
+		String eq = analyzedEq.getInputEquation();
+		boolean contains = eq.contains("abs(");
+		return contains;
+	}
     
 //    // Main routine for testing purposes
 //    // @param args  the input equation as one or more discrete strings
