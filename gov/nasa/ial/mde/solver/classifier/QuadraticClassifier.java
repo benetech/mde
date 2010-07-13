@@ -95,7 +95,7 @@ public class QuadraticClassifier extends MDEClassifier {
      */
     public QuadraticClassifier(Polynomial lhs) {
         this.lhs = lhs;
-        System.out.println("In the Qudratic Classifier constructor!");
+        //System.out.println("In the Qudratic Classifier constructor!");
         
         classify();
     } // end QuadraticClassifier
