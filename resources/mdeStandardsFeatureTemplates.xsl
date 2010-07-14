@@ -39,7 +39,7 @@ adjacent longer loops.
 <xsl:when test=".='loopWithinALoop'"/>
 <xsl:when test=".='eccentricCircle'"/>
 
-<xsl:when test=".='parabola'"> This graph is a parabola: a member of the quadratic family.</xsl:when>
+<xsl:when test=".='parabola'"> This graph is a parabola: a member of the quadratic family.  We are in standards. </xsl:when>
 
 
 <xsl:when test=".='polynomial'"></xsl:when>
