@@ -137,9 +137,6 @@ This is the graph of a function.
      <xsl:apply-templates select="openDirection" mode="parabola"/>
      
      <xsl:apply-templates select="vertex" />
-    <!--   <xsl:apply-templates select="focus" />
-     <xsl:apply-templates select="focalLength"/> 
-     <xsl:call-template name="parabolaWidthTest"/> -->
   </xsl:template>
 
 
