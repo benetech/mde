@@ -17,6 +17,7 @@ import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
 import gov.nasa.ial.mde.solver.classifier.PolarClassifier;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.numeric.PolynomialModel;
 import gov.nasa.ial.mde.solver.numeric.QuadraticModel;
 import gov.nasa.ial.mde.util.MathUtil;
@@ -149,6 +150,8 @@ public class AnalyzedEquation implements AnalyzedItem {
             dvp = theEquation.getOneVariablePolynomial(dependentVariable);
             
             degree = lhs.getDegree();
+            
+            System.out.println(degree);
 
             if (checkForSolvable())
                 switch (dvpDegree) {
@@ -436,6 +439,11 @@ public class AnalyzedEquation implements AnalyzedItem {
         //TODO: put trig here
         //isTrig()-->return new TrigClassfier
 
+        System.out.println("DEBUG: LHS IS AT THIS POINT: " +lhs);
+        if((lhs.toString().contains("sin"))||(lhs.toString().contains("tan"))||(lhs.toString().contains("cos"))){
+        	return new TrigClassifier(lhs);
+        }
+        
 
         // If we have a non-null savedR of function points with a good Low and
         // High bounds for X then we will use those bounds.
@@ -972,6 +980,8 @@ public class AnalyzedEquation implements AnalyzedItem {
 
     private void checkForConstant() {
         int i;
+        
+        System.out.println("DEBUG: in check for constant.");
 
         for (i = 0; i <= dvpDegree; i++)
             if (dvpCoefficients[i].varStrings.length != 0)

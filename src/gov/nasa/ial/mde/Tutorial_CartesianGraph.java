@@ -35,7 +35,7 @@ public class Tutorial_CartesianGraph {
         window.toFront();
 
         // Give Solver an equation attempt to solve:
-        String equation = "y= x^2";
+        String equation = "y=sin(x)";
         solver.add(equation);
         solver.solve();
 
