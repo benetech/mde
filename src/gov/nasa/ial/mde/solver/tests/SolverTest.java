@@ -3,6 +3,7 @@ package gov.nasa.ial.mde.solver.tests;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedLine;
 import gov.nasa.ial.mde.solver.SolvedParabola;
+import gov.nasa.ial.mde.solver.SolvedTrigFunction;
 import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -35,6 +36,18 @@ public class SolverTest extends TestCase {
 			{ // bad ones
 				"y=x*0",
 				"y=x*3",
+			}
+	};
+	
+	private String[][] trigonometricFunctions = {
+			{ // good ones
+				"y=sin(x)",
+				"y=tan(x-4)",
+				"y=sin(x)+tan(x)",
+			},
+			{ // bad ones
+				"y=x",
+				"y=x*x+3",
 			}
 	};
 	
@@ -89,6 +102,14 @@ public class SolverTest extends TestCase {
 		String name = SolvedParabola.class.getCanonicalName();
 		this.equationMatches(true, name, goodParabolaFormulas);
 		this.equationMatches(false, name, badParabolaFormulas);		
+	}
+	
+	public void testTrigonometricMatch() {
+		String[] goodTrigFormulas = this.trigonometricFunctions[0];
+		String[] badTrigFormulas = this.trigonometricFunctions[1];
+		String name = SolvedTrigFunction.class.getCanonicalName();
+		this.equationMatches(true, name, goodTrigFormulas);
+		this.equationMatches(false, name, badTrigFormulas);				
 	}
 	
 	private void dump() {
