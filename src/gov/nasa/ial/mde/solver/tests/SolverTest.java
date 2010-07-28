@@ -2,6 +2,7 @@ package gov.nasa.ial.mde.solver.tests;
 
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedLine;
+import gov.nasa.ial.mde.solver.SolvedParabola;
 import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -25,8 +26,21 @@ public class SolverTest extends TestCase {
 	}
 	};
 	
+	private String[][] parabolaFormulas = {
+			{ // good ones
+				"y=x*x",
+				"y=x*x*3",
+				"y=x*x*2.5",
+			},
+			{ // bad ones
+				"y=x*0",
+				"y=x*3",
+			}
+	};
+	
 	private String[][][] formulas = {
 			linearFormulas,
+			parabolaFormulas,
 	};
 	
 	@Before
@@ -52,13 +66,13 @@ public class SolverTest extends TestCase {
 		for(String formula: formulas) {
 			solvedGraph = this.loadSolvedGraph(formula);
 			actualClassName = solvedGraph.getClass().getCanonicalName();
-			this.classMatch(expected, actualClassName, expectedClassName);
+			this.classMatch(expected, actualClassName, expectedClassName, formula);
 		}
 	}
 	
-	private void classMatch(boolean expected, String actualClassName, String expectedClassName) {
+	private void classMatch(boolean expected, String actualClassName, String expectedClassName, String formula) {
 		boolean actual = expectedClassName.equals(actualClassName);
-		assertEquals(expected, actual);
+		assertEquals(expectedClassName+" for "+formula, expected, actual);
 	}
 	
 	public void testLinearMatch() {
@@ -67,6 +81,14 @@ public class SolverTest extends TestCase {
 		String name = SolvedLine.class.getCanonicalName();
 		this.equationMatches(true, name, goodLinearFormulas);
 		this.equationMatches(false, name, badLinearFormulas);
+	}
+	
+	public void testParabolaMatch() {
+		String[] goodParabolaFormulas = this.parabolaFormulas[0];
+		String[] badParabolaFormulas = this.parabolaFormulas[1];
+		String name = SolvedParabola.class.getCanonicalName();
+		this.equationMatches(true, name, goodParabolaFormulas);
+		this.equationMatches(false, name, badParabolaFormulas);		
 	}
 	
 	private void dump() {
