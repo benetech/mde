@@ -131,7 +131,7 @@ public class MdeSettings extends Settings {
                                 (BETA_RELEASE ? " (Beta-"+BETA_VERSION+")" : "");
 
     /** The path to the MDE resources such as images, XSL, and HTML files. */
-    public static final String  RESOURCES_PATH = "/";
+    public static final String  RESOURCES_PATH = "/resources/";
     
     /** Array of parameters and default values represented as strings */
     public static final String[][] PARAMETER_STRINGS = {
