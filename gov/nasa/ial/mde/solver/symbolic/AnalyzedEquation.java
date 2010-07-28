@@ -122,6 +122,11 @@ public class AnalyzedEquation implements AnalyzedItem {
 	// Do initialization of the class.
     private void doInit() {
         lhs = theEquation.getPolynomial();
+        
+        
+        System.out.println("In AnalyzedEquation's doInit function.\n  The lhs has this many varibles: " + lhs.getVariables().length);
+        System.out.println("The lhs's coefficients are" + lhs.getCoefficientsAsExpressions("x")[0]);
+        System.out.println("The lhs is" + lhs);
 
         checkVariables();
 
@@ -428,6 +433,8 @@ public class AnalyzedEquation implements AnalyzedItem {
         }
         
         
+        //TODO: put trig here
+        //isTrig()-->return new TrigClassfier
 
 
         // If we have a non-null savedR of function points with a good Low and
@@ -880,6 +887,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 
         for (i = 0; i < n; i++) {
             String v = allVariables[i].toLowerCase();
+            System.out.println("Variables:" +v);
 
             if ((tempObj = temp.get(v)) != null)
                 parameterHash.put(v, tempObj);
@@ -887,10 +895,16 @@ public class AnalyzedEquation implements AnalyzedItem {
     } // end determineParameters
 
     private void checkVariables() {
-        String[] temp;
+        System.out.println("DEBUG: in checkVaribles.");
+    	
+    	String[] temp;
         ArrayList realVariables = new ArrayList();
 
-        determineParameters(temp = lhs.toExpression().varStrings);
+        temp = lhs.toExpression().varStrings;
+        determineParameters(temp);
+       
+        
+        
         lhs.setParameterHash(parameterHash);
 
         for (int i = 0; i < temp.length; i++)
@@ -898,6 +912,8 @@ public class AnalyzedEquation implements AnalyzedItem {
                 realVariables.add(temp[i]);
 
         temp = (String[])realVariables.toArray(new String[realVariables.size()]);
+        
+        System.out.println("Debug:");;
 
         switch (temp.length) {
         case 0:
