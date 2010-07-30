@@ -95,7 +95,7 @@ public class QuadraticClassifier extends MDEClassifier {
      */
     public QuadraticClassifier(Polynomial lhs) {
         this.lhs = lhs;
-        //System.out.println("In the Qudratic Classifier constructor!");
+        System.out.println("In the Qudratic Classifier constructor!");
         
         classify();
     } // end QuadraticClassifier
@@ -544,6 +544,8 @@ public class QuadraticClassifier extends MDEClassifier {
     } // end normalizeConstant
 
     private void classify() {
+    	
+    	//TODO: check here
         String[] temp = lhs.toExpression().varStrings;
         
         degree = lhs.getDegree();
@@ -557,6 +559,8 @@ public class QuadraticClassifier extends MDEClassifier {
             return;
         } // end if
 
+        
+        System.out.println("In classify");
         if (!lhs.hasConstantCoefficients())
             reason = NON_POLYNOMIAL;
 
