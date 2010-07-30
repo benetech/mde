@@ -44,6 +44,9 @@ adjacent longer loops.
 
 <xsl:when test=".='polynomial'"></xsl:when>
 
+<xsl:when test=".='square root'"> This is a test for square root.</xsl:when>
+
+
 <xsl:when test=".='RationalFunction'"></xsl:when>
 <xsl:when test=".='FunctionOverInterval'"></xsl:when>
       <xsl:otherwise>
