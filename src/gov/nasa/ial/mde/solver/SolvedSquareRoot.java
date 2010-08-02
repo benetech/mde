@@ -48,10 +48,18 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		 * y intercept is  c 
 		 */
 		
+		double yVertice;
 		
-		double yVertice = Double.valueOf(parts[1]);
+		if(parts.length>=2)
+		{
+			
+			yVertice = Double.valueOf(parts[1]);
+		}
+		else
+		{
+			yVertice= 0;
+		}
 		
-		
-				
+		System.out.println(yVertice);
 	}
 }
