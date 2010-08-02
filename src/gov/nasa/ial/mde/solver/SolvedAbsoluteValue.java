@@ -33,6 +33,11 @@ public class SolvedAbsoluteValue extends SolvedXYGraph{
 		//initialize();
 		
 		
+		//TODO: Add a call to use Regex to extract the equation with the abs
+		
+		//TODO: Run the extracted equation thru the MDE recursively, if possible, to extract data
+		
+		
 		
 		
 		
