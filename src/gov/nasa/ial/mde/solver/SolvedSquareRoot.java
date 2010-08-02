@@ -21,12 +21,34 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		
 		
 		
+		//can be solved by making some assumptions
+		
+		
+		
+		
+		
 		
 		PC = (PolynomialClassifier) ae.getClassifier();
 		Polynomial poly = ae.getLhs();
 		
-		String equat= ae.toString();
-		System.out.print(equat);
+		String equat= ae.printOriginalEquation();
+		
+		String[] parts =equat.split("\\)");
+		
+		for(int i = 0; i < parts.length;i++)
+		{
+			System.out.println(parts[i]);
+		}
+		
+		parts[0]= parts[0] +")";
+		
+		//System.out.print("ae.toString Equation: " + equat);
+		
+		
+		//equat
+		
+		
+		
 		
 		/*
 		 * 
@@ -63,7 +85,7 @@ public class SolvedSquareRoot extends SolvedXYGraph {
                 axisInclination = alpha + 180.0;
                 break;
 		 * 
-		 * */
+		 * 
 		
 		
 		
@@ -72,7 +94,7 @@ public class SolvedSquareRoot extends SolvedXYGraph {
         D.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
         putFeature("domain", D);
 		
-		
+		*/
         
         
 	//	Expression[] coeffs =poly.getCoefficientsAsExpressions("x");
