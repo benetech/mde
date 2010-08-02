@@ -224,7 +224,9 @@ public class SolvedGraph {
 
         return b.toString();
     } // end getXMLString
-
+    
+    
+   
 //    private static void doPrint(String[] f) {
 //        int i, n = f.length;
 //

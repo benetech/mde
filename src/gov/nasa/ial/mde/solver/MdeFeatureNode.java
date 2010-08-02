@@ -165,6 +165,8 @@ public class MdeFeatureNode {
     public String getXMLString() {
         return MdeFeatureNode.toXML(this);
     } // end getXMLString
+    
+
 
     /**
      * Converts the specifed MDE feature node into its XML representation.
