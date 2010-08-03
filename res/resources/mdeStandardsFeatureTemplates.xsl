@@ -44,7 +44,7 @@ adjacent longer loops.
 
 <xsl:when test=".='polynomial'"></xsl:when>
 
-<xsl:when test=".='square root'"> This is a test for square root.</xsl:when>
+<xsl:when test=".='square root'"> This a graph that contains a square root function.</xsl:when>
 
 
 <xsl:when test=".='RationalFunction'"></xsl:when>
@@ -151,6 +151,10 @@ adjacent longer loops.
           <xsl:if test="(position()=last())">.  </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template match="orientation">
+  	<xsl:text>The curve of the graph heads this way</xsl:text>
   </xsl:template>
 
   <xsl:template match="coordinateSystem">

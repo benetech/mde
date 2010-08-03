@@ -1,33 +1,13 @@
 package gov.nasa.ial.mde.solver;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import gov.nasa.ial.mde.describer.Describer;
-import gov.nasa.ial.mde.math.IntervalXY;
-import gov.nasa.ial.mde.properties.MdeSettings;
+import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
-import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
-import gov.nasa.ial.mde.solver.symbolic.Expression;
 import gov.nasa.ial.mde.solver.symbolic.Polynomial;
 
 public class SolvedSquareRoot extends SolvedXYGraph {
 
-	protected String[] newFeatures = { 
-            "vertex" };
+	protected String[] newFeatures = {"vertex" , "orientation"};
 	
 	protected PolynomialClassifier PC;
 
@@ -37,7 +17,6 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		
 		//can be solved by making some assumptions	
 		PC = (PolynomialClassifier) ae.getClassifier();
-		Polynomial poly = ae.getLhs();
 		String equat= ae.printOriginalEquation();
 		String[] parts =equat.split("\\)");
 		
@@ -51,75 +30,33 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		//Get the inner part of the SQRT( _______)
 		String insideSQRT = "sqrt\\(([^)\\n]*)\\)";
 		String innerEquat=parts[0].replaceAll(insideSQRT,"$1");
-		
 	
-		
 		//Send that part thru the MDE
 		Solver solver = new Solver();
 		solver.add(innerEquat);
-	    solver.solve();
-	    
-	    
-	    
-	    
+	    solver.solve();   
 	    //TODO: make an isLinear check for a lot of this
 	    Solution solution = solver.get(0);
 	    String xmlString =solution.getFeatures().getXMLString(); 
-	    String[] innerFeatures = xmlString.split("\\*x|x");
+	    
 	    
 	    
 	    System.out.println(xmlString);
-	    /*
-	     * 
-	     * DocumentBuilderFactory factory =
-	                DocumentBuilderFactory.newInstance();
-	           
-	                DocumentBuilder builder =null;
-					try {
-						builder = factory.newDocumentBuilder();
-					} catch (ParserConfigurationException e) {
-						e.printStackTrace();
-					}
-	                try {
-	                	System.out.println("In try");
-						Document document = builder.parse(new InputSource(new StringReader(xmlString)));
-						NodeList list = document.getElementsByTagName("I don't exist");
-						
-						
-						for(int i=0;i<list.getLength();i++)
-						{
-							System.out.println(list.item(i).toString());
-						}
-					} catch (SAXException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-	     * 
-	     * 
-	     * 
-	     * 
-	     * 
-	     * 
-	    */
-					
+		
 		//get Slope and "yIntercept"
-		//double slope= Double.valueOf(innerFeatures.);
-	    
-	   
+		double slope =5;
+	    double intercept=3;
+		double xVertice = -intercept/slope;
 		
 		// get vertex
 		/* assuming the form is sqrt(mx + b) + c, 
 		 * x intercept is the -b/m
 		 * y intercept is  c 
 		 */
-		double slope;
-	    double xVertice;
 		double yVertice;
 		
 		if(parts.length>=2)
 		{
-			
 			yVertice = Double.valueOf(parts[1]);
 		}
 		else
@@ -127,10 +64,12 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 			yVertice= 0;
 		}
 		
-		System.out.println(yVertice);
-	
+		PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
+		System.out.println(vertex.toString());
 		
-		
+		putNewFeatures(newFeatures);
+		putFeature("vertex", vertex);
+		putFeature("orientation", "TEST: the orientation is XXXXX");
 		
 	}
 	
@@ -141,6 +80,10 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		String insideSQRT = "sqrt\\(" +
 		"([^)\\n]*)" +
 		"\\)";
+		
+		
+		//String checkNegative = "-?x[ ]*sqrt";
+		
 		
 		/*
 		Pattern pattern= Pattern.compile(insideSQRT);

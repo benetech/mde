@@ -38,7 +38,6 @@
        </xsl:when>
 
 	       <xsl:when test="graphName='RationalFunction'">
-This is the graph of a function.  
 	<xsl:apply-templates select="FunctionAnalysisData"/>
 	</xsl:when>
 	
@@ -104,6 +103,9 @@ This is the graph of a function.
        <xsl:when test="graphName='two intersecting lines'">
          <xsl:call-template name="twoIntersectingLinesSpecifics"/>
        </xsl:when>
+       <xsl:when test="graphName='square root'">
+       		<xsl:call-template name="squareRootSpecifics"/>
+       </xsl:when>
      </xsl:choose>
      
      
@@ -139,6 +141,11 @@ This is the graph of a function.
      <xsl:apply-templates select="vertex" />
   </xsl:template>
 
+
+  <xsl:template name="squareRootSpecifics">
+	<xsl:apply-templates select="orientation"/>
+    <xsl:apply-templates select="vertex" />   
+  </xsl:template>
 
   <xsl:template name="circleSpecifics">
        <xsl:apply-templates select="center" />
