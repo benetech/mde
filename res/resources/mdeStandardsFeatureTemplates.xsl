@@ -154,7 +154,8 @@ adjacent longer loops.
   </xsl:template>
   
   <xsl:template match="orientation">
-  	<xsl:text>The curve of the graph heads this way</xsl:text>
+  	<xsl:text>The curve of the graph heads to the </xsl:text>
+  	 <xsl:value-of select="."/>. 
   </xsl:template>
 
   <xsl:template match="coordinateSystem">
