@@ -1,9 +1,9 @@
 package gov.nasa.ial.mde.solver.features.individual;
 
-import gov.nasa.ial.mde.solver.features.GraphProperty;
+import gov.nasa.ial.mde.solver.features.GraphFeature;
 
-public interface MinimaGraph extends GraphProperty {
-	public static String PATH = GraphProperty.GRAPH_DATA_PATH;
+public interface MinimaFeature extends GraphFeature {
+	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "Minima";
 	
 	public Double[][] getMinima();

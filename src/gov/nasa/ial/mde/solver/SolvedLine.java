@@ -11,7 +11,7 @@ import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier.QuadraticType;
-import gov.nasa.ial.mde.solver.features.individual.SlopeGraph;
+import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -21,7 +21,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedLine extends SolvedConic implements SlopeGraph {
+public class SolvedLine extends SolvedConic implements SlopeFeature {
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */
     protected String[] newFeatures = { 
@@ -184,7 +184,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
     } // end doLineFeatures
 
 	public double getSlope() {
-		Object value = this.getValue(SlopeGraph.PATH, SlopeGraph.KEY);
+		Object value = this.getValue(SlopeFeature.PATH, SlopeFeature.KEY);
 		String slopeString = (String)value;
 		double slope = new Double(slopeString);
 		return slope;

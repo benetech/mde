@@ -10,13 +10,13 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointRT;
 import gov.nasa.ial.mde.math.PointXY;
-import gov.nasa.ial.mde.solver.features.combinations.DomainAndRangeGraph;
-import gov.nasa.ial.mde.solver.features.combinations.InterceptsGraph;
-import gov.nasa.ial.mde.solver.features.combinations.MinimaAndMaximaGraph;
-import gov.nasa.ial.mde.solver.features.individual.DomainGraph;
-import gov.nasa.ial.mde.solver.features.individual.RangeGraph;
-import gov.nasa.ial.mde.solver.features.individual.XInterceptGraph;
-import gov.nasa.ial.mde.solver.features.individual.YInterceptGraph;
+import gov.nasa.ial.mde.solver.features.combinations.DomainAndRangeFeature;
+import gov.nasa.ial.mde.solver.features.combinations.InterceptsFeature;
+import gov.nasa.ial.mde.solver.features.combinations.MinimaAndMaximaFeature;
+import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
+import gov.nasa.ial.mde.solver.features.individual.RangeFeature;
+import gov.nasa.ial.mde.solver.features.individual.XInterceptFeature;
+import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 
 /**
  * The class represents a solved graph.
@@ -25,7 +25,7 @@ import gov.nasa.ial.mde.solver.features.individual.YInterceptGraph;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedGraph implements DomainAndRangeGraph, InterceptsGraph, MinimaAndMaximaGraph {
+public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, MinimaAndMaximaFeature {
 
 	public static enum GraphFeature {
 		graphName, graphBoundaries, equationType,
