@@ -83,7 +83,6 @@ public class QuadraticClassifier extends MDEClassifier {
      */
     public QuadraticClassifier(Polynomial lhs) {
         this.lhs = lhs;
-        System.out.println("In the Qudratic Classifier constructor!");
         
         classify();
     } // end QuadraticClassifier
@@ -235,24 +234,24 @@ public class QuadraticClassifier extends MDEClassifier {
         //double[] c = getNormalizedCoefficients();
         boolean leading = true;
 
-        if (!isWithinToleranceOfZero(aPrime)) {
+        if (!ToleranceTester.isWithinToleranceOfZero(aPrime)) {
             r.append(makeCoefficient(aPrime, leading)).append("*(").append(transVars[0]).append(makeCoefficient(-u0, false))
                     .append(")^2 ");
             leading = false;
         } // end if
 
-        if (!isWithinToleranceOfZero(bPrime)) {
+        if (!ToleranceTester.isWithinToleranceOfZero(bPrime)) {
             r.append(makeCoefficient(bPrime, leading)).append("*(").append(transVars[1]).append(makeCoefficient(-v0, false))
                     .append(")^2 ");
             leading = false;
         } // end if
 
-        if (!isWithinToleranceOfZero(cPrime)) {
+        if (!ToleranceTester.isWithinToleranceOfZero(cPrime)) {
             r.append(makeCoefficient(cPrime, leading)).append("*").append(transVars[0]).append(" ");
             leading = false;
         } // end if
 
-        if (!isWithinToleranceOfZero(dPrime)) {
+        if (!ToleranceTester.isWithinToleranceOfZero(dPrime)) {
             r.append(makeCoefficient(dPrime, leading)).append("*").append(transVars[1]).append(" ");
             leading = false;
         } // end if
@@ -271,7 +270,7 @@ public class QuadraticClassifier extends MDEClassifier {
      * @return the rotation transform.
      */
     public String getRotationTransform() {
-        if (isWithinToleranceOfZero(alpha)) {
+        if (ToleranceTester.isWithinToleranceOfZero(alpha)) {
             return "There was no rotation, so the transform is the identity.";
         }
 
@@ -336,7 +335,7 @@ public class QuadraticClassifier extends MDEClassifier {
      * @return the equation of a line.
      */
     public static String getEquationOfALine(PointXY p, double inc, String[] vars) {
-        if (isWithinTolerance(Math.abs(inc) - 90.0, 1.0e-8)) {
+        if (ToleranceTester.isWithinTolerance(Math.abs(inc) - 90.0, 1.0e-8)) {
             return getEquationOfALine(p.x, vars);
         }
 
@@ -404,7 +403,7 @@ public class QuadraticClassifier extends MDEClassifier {
     } // end makeCoefficient
 
     private void normalizeRotation() {
-        if (!isWithinToleranceOfZero(B)) { // lhs has a significant xy term
+        if (!ToleranceTester.isWithinToleranceOfZero(B)) { // lhs has a significant xy term
             /*
              * diagonalize the quadratic form Ax^2 + Bxy + Cy^2 by diagonalizing the
              * matrix Q = {{A, B/2},{B/2, C}} lambdas[0] and lambdas[1] are the
@@ -490,13 +489,13 @@ public class QuadraticClassifier extends MDEClassifier {
     } // end normalizeRotation
 
     private void completeSquare() {
-        if (!isWithinToleranceOfZero(aPrime)) {
+        if (!ToleranceTester.isWithinToleranceOfZero(aPrime)) {
             u0 = -0.5 * cPrime / aPrime;
             ePrime -= (0.25 * cPrime * cPrime / aPrime);
             cPrime = 0.0;
         } // end if
 
-        if (!isWithinToleranceOfZero(bPrime)) {
+        if (!ToleranceTester.isWithinToleranceOfZero(bPrime)) {
             v0 = -0.5 * dPrime / bPrime;
             ePrime -= (0.25 * dPrime * dPrime / bPrime);
             dPrime = 0.0;
@@ -504,7 +503,7 @@ public class QuadraticClassifier extends MDEClassifier {
     } // end completeSquare
 
     private void normalizeConstant() {
-        if (isWithinToleranceOfZero(ePrime)) {
+        if (ToleranceTester.isWithinToleranceOfZero(ePrime)) {
             ePrime = 0.0;
             return;
         } // end if
@@ -518,11 +517,11 @@ public class QuadraticClassifier extends MDEClassifier {
         ePrime *= factor;
         norm = Math.sqrt(0.2 * (aPrime * aPrime + bPrime * bPrime + cPrime * cPrime + dPrime * dPrime + ePrime * ePrime));
         
-        if (isWithinToleranceOfZero(aPrime)) aPrime = 0.0;
-        if (isWithinToleranceOfZero(bPrime)) bPrime = 0.0;
-        if (isWithinToleranceOfZero(cPrime)) cPrime = 0.0;
-        if (isWithinToleranceOfZero(dPrime)) dPrime = 0.0;
-        if (isWithinToleranceOfZero(ePrime)) ePrime = 0.0;
+        if (ToleranceTester.isWithinToleranceOfZero(aPrime)) aPrime = 0.0;
+        if (ToleranceTester.isWithinToleranceOfZero(bPrime)) bPrime = 0.0;
+        if (ToleranceTester.isWithinToleranceOfZero(cPrime)) cPrime = 0.0;
+        if (ToleranceTester.isWithinToleranceOfZero(dPrime)) dPrime = 0.0;
+        if (ToleranceTester.isWithinToleranceOfZero(ePrime)) ePrime = 0.0;
     } // end normalizeConstant
 
     private void classify() {
@@ -541,8 +540,6 @@ public class QuadraticClassifier extends MDEClassifier {
             return;
         } // end if
 
-        
-        System.out.println("In classify");
         if (!lhs.hasConstantCoefficients())
             reason = ClassificationFailureReason.NonPolynomial;
 
@@ -605,90 +602,8 @@ public class QuadraticClassifier extends MDEClassifier {
         normalizeRotation();
         completeSquare();
         normalizeConstant();
-        computeIdentity(aPrime, bPrime, cPrime, dPrime, ePrime);
+        this.identity = IdentityComputer.computeIdentity(aPrime, bPrime, cPrime, dPrime, ePrime);
     } // end classify
-
-    private void computeIdentity(double a, double b, double c, double d, double e) {
-    	// TODO: breakt this up into smaller methods.
-    	
-        if (isWithinToleranceOfZero(a) && isWithinToleranceOfZero(b) && isWithinToleranceOfZero(c) && isWithinToleranceOfZero(d)) { // trivial case
-            if (isWithinToleranceOfZero(e))
-                identity = QuadraticType.AllPoints;
-            else
-                identity = QuadraticType.NullSet;
-            return;
-        } // end if
-
-        if (isWithinToleranceOfZero(a) && isWithinToleranceOfZero(b)) { // linear case
-            if (isWithinToleranceOfZero(c)) {
-                identity = QuadraticType.HorizontalLine;
-                return;
-            } // end if
-
-            if (isWithinToleranceOfZero(d)) {
-                identity = QuadraticType.VerticalLine;
-                return;
-            } // end if
-
-            identity = QuadraticType.SlopingLine;
-            return;
-        } // end if
-        /* Now at least one of a or b must be nonzero */
-
-        if (isWithinToleranceOfZero(b) && isWithinToleranceOfZero(d)) {
-            double discriminant = c * c - 4.0 * a * e;
-
-            if (isWithinToleranceOfZero(discriminant)) {
-                identity = QuadraticType.VerticalLine;
-                return;
-            } // end if
-
-            if (discriminant > 0.0) {
-                identity = QuadraticType.TwoVerticalLines;
-                return;
-            } // end if
-
-            identity = QuadraticType.NullSet;
-            return;
-        } // end if
-
-        if (isWithinToleranceOfZero(a) && isWithinToleranceOfZero(c)) {
-            double discriminant = d * d - 4.0 * b * e;
-
-            if (isWithinToleranceOfZero(discriminant)) {
-                identity = QuadraticType.HorizontalLine;
-                return;
-            } // end if
-
-            if (discriminant > 0.0) {
-                identity = QuadraticType.TwoHorizontalLines;
-                return;
-            } // end if
-
-            identity = QuadraticType.NullSet;
-            return;
-        } // end if
-
-        if (isWithinToleranceOfZero(a) || isWithinToleranceOfZero(b)) {
-            identity = QuadraticType.Parabola;
-            return;
-        } // end if
-
-        if (a * b < 0.0) {
-            if (isWithinToleranceOfZero(e))
-                identity = QuadraticType.Cross;
-            else
-                identity = QuadraticType.Hyperbola;
-            return;
-        } // end if
-
-        if (isWithinToleranceOfZero(e))
-            identity = QuadraticType.SinglePoint;
-        else if (a * e > 0.0)
-            identity = QuadraticType.NullSet;
-        else
-            identity = QuadraticType.Ellipse;
-    } // end computeIdentity
 
     private boolean flunksInfinityTest() {
         if (norm != Double.POSITIVE_INFINITY && norm != Double.NaN)
@@ -724,17 +639,17 @@ public class QuadraticClassifier extends MDEClassifier {
         boolean leading = true;
         StringBuffer r = new StringBuffer();
 
-        if (!isWithinTolerance(coeffs[0], t)) {
+        if (!ToleranceTester.isWithinTolerance(coeffs[0], t)) {
             r.append(makeCoefficient(coeffs[0], leading)).append("*").append(vars[0]);
             leading = false;
         } // end if
 
-        if (!isWithinTolerance(coeffs[1], t)) {
+        if (!ToleranceTester.isWithinTolerance(coeffs[1], t)) {
             r.append(makeCoefficient(coeffs[1], leading)).append("*").append(vars[1]);
             leading = false;
         } // end if
 
-        if (!isWithinTolerance(coeffs[2], t)) {
+        if (!ToleranceTester.isWithinTolerance(coeffs[2], t)) {
             r.append(makeCoefficient(coeffs[2], leading));
         }
         r.append(" = 0");
@@ -749,7 +664,7 @@ public class QuadraticClassifier extends MDEClassifier {
      * otherwise.
      */
     public static boolean isNearlyInteger(double x) {
-        return isWithinTolerance(x - Math.rint(x), Math.abs(x));
+        return ToleranceTester.isWithinTolerance(x - Math.rint(x), Math.abs(x));
     } // end isNearlyInteger
 
     /**
@@ -769,7 +684,7 @@ public class QuadraticClassifier extends MDEClassifier {
                 mx = t;
 
         for (l = 0; l < n; l++)
-            if (!isWithinTolerance(x[l], mx + Double.MIN_VALUE))
+            if (!ToleranceTester.isWithinTolerance(x[l], mx + Double.MIN_VALUE))
                 break;
 
         if (l == n)
@@ -801,28 +716,6 @@ public class QuadraticClassifier extends MDEClassifier {
         return r;
     } // end makeInteger
 
-    /**
-     * Check whether a value is within a tolerance range around a value.
-     * This can be used to check whether a computed value is essentially another value.  For example, to fix rounding error.
-     * @param test_value the value to test
-     * @param tolerance the tolerance.  Multiplied by 1.0e-6.
-     * @return whether the test_value is within the tolerance region.
-     * @see #isWithinToleranceOfZero(double)
-     */
-    private static boolean isWithinTolerance(double test_value, double tolerance) {
-        return (Math.abs(test_value) <= 1.0e-6 * tolerance);
-    }
-
-    /**
-     * Check whether a value is within a tolerance of zero.
-     * @param test_value the value to test.  Tolerance is within 1.0e-6 around zero.
-     * @return whether the test_value is within the tolerance region.
-     * @see #isWithinTolerance(double, double)
-     */
-    private boolean isWithinToleranceOfZero(double test_value) {
-        return isWithinTolerance(test_value, norm);
-    }
-
     private void setTransformVariables() {
         String[][] temp = {
                 { "u", "v" },
@@ -841,66 +734,5 @@ public class QuadraticClassifier extends MDEClassifier {
             } // end if
         } // end for i
     } // end setTransformVariables
-
-
-//    // Main routine for testing only
-//    public static void main(String[] a) {
-//        AnalyzedEquation e = new AnalyzedEquation(
-//            gov.nasa.ial.mde.util.StringSplitter.combineArgs(a));
-//
-//        if (e.isQuadratic()) {
-//            System.out.println("Don't know how to describe a Quadratic: " + e);
-//            return;
-//        } // end if
-//
-//        switch (a.length) {
-//        case 1:
-//            try {
-//                double x = new Double(a[0]).doubleValue();
-//                String[] xy = { "x", "y" };
-//
-//                System.out.println(getEquationOfALine(x, xy));
-//            } // end try
-//            catch (NumberFormatException nfe) {
-//                System.err.println(a[0] + " is not a valid number");
-//            } // end catch
-//            break;
-//
-//        case 3:
-//            try {
-//                double x = new Double(a[0]).doubleValue();
-//                double y = new Double(a[1]).doubleValue();
-//                double inc = new Double(a[2]).doubleValue();
-//                String[] xy = { "x", "y" };
-//
-//                System.out.println(getEquationOfALine(new PointXY(x, y), inc, xy));
-//            } // end try
-//            catch (NumberFormatException nfe) {
-//                System.err.println("One of the arguments didn't parse as a double");
-//            } // end catch
-//            break;
-//
-//        case 0:
-//            // test angle normalization
-//            while (true) {
-//                try {
-//                    byte[] b = new byte[80];
-//                    double theta;
-//
-//                    System.in.read(b);
-//                    theta = new Double(new String(b)).doubleValue();
-//                    System.out.println("Normalized value = " + QuadraticClassifier.normalizeAngleInDegrees(theta));
-//                } // end try
-//                catch (NumberFormatException nfe) {
-//                    return;
-//                } // end catch
-//                catch (java.io.IOException ioe) {
-//                    return;
-//                } // end catch
-//            }
-//        default:
-//            System.err.println("Usage: java QuadraticClassifier <X> [<Y> <M>]");
-//        } // end switch
-//    } // end main
 
 } // end class QuadraticClassifier
