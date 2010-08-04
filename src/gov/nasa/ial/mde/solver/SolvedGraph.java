@@ -10,6 +10,10 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointRT;
 import gov.nasa.ial.mde.math.PointXY;
+import gov.nasa.ial.mde.solver.graphinterfaces.DomainGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.RangeGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.XInterceptGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.YInterceptGraph;
 
 /**
  * The class represents a solved graph.
@@ -18,7 +22,7 @@ import gov.nasa.ial.mde.math.PointXY;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedGraph {
+public class SolvedGraph implements DomainGraph, RangeGraph, XInterceptGraph, YInterceptGraph {
 
 	public static enum CompassDirections {
             East, ENE, NE, NNE, North, NNW, NW, WNW, 
