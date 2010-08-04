@@ -2,6 +2,7 @@ package gov.nasa.ial.mde.solver;
 
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
+import gov.nasa.ial.mde.solver.graphinterfaces.SlopeGraph;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.solver.symbolic.Polynomial;
 
@@ -37,32 +38,45 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    solver.solve();   
 	    //TODO: make an isLinear check for a lot of this
 	    Solution solution = solver.get(0);
-	    String xmlString =solution.getFeatures().getXMLString(); 
+	    SolvedGraph features = solution.getFeatures();
+	    
+	    
+	    //String xmlString =solution.getFeatures().getXMLString(); 
 	    
 	    
 	    
-	    System.out.println(xmlString);
+	    //System.out.println(xmlString);
 		
 		//get Slope and "yIntercept"
-		double slope =5;
-	    double intercept=3;
-		double xVertice = -intercept/slope;
+	    double slope =Double.NaN;
+	    double intercept=Double.NaN;
+	    double xVertice = Double.NaN;
+	    double yVertice = Double.NaN;
 		
-		// get vertex
-		/* assuming the form is sqrt(mx + b) + c, 
-		 * x intercept is the -b/m
-		 * y intercept is  c 
-		 */
-		double yVertice;
 		
-		if(parts.length>=2)
-		{
-			yVertice = Double.valueOf(parts[1]);
-		}
-		else
-		{
-			yVertice= 0;
-		}
+	    
+			    
+	    if(features instanceof SlopeGraph){
+	    	slope=((SlopeGraph) features).getSlope();
+	    	
+	    	
+	    	if(parts.length>=2)
+			{
+				yVertice = Double.valueOf(parts[1]);
+			}
+			else
+			{
+				yVertice= 0;
+			}
+	    	
+	    	xVertice = -intercept/slope;
+	    }else
+	    {
+	    	
+	    }
+	    
+	    
+			
 		
 		PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
 		System.out.println(vertex.toString());
