@@ -183,7 +183,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
     } // end doLineFeatures
 
 	public double getSlope() {
-		Object value = this.getValue(SlopeGraph.SLOPE_PATH, SlopeGraph.SLOPE_KEY);
+		Object value = this.getValue(SlopeGraph.PATH, SlopeGraph.KEY);
 		String slopeString = (String)value;
 		double slope = new Double(slopeString);
 		return slope;
