@@ -2,9 +2,8 @@ package gov.nasa.ial.mde.solver;
 
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
-import gov.nasa.ial.mde.solver.graphinterfaces.SlopeGraph;
+import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
-import gov.nasa.ial.mde.solver.symbolic.Polynomial;
 
 public class SolvedSquareRoot extends SolvedXYGraph {
 
