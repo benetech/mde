@@ -6,6 +6,8 @@
  */
 package gov.nasa.ial.mde.solver;
 
+import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.XInterceptGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.YInterceptGraph;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.util.MathUtil;
 
@@ -80,23 +82,23 @@ public class SolvedXYGraph extends SolvedGraph {
         if (xInts != null) {
             for (int i = 0; i < xInts.length; i++) {
                 if (i == 0) {
-                    addToFeature("xIntercept(s)", MathUtil.trimDouble(xInts[i], 6));
+                    addToFeature(XInterceptGraph.KEY, MathUtil.trimDouble(xInts[i], 6));
                     continue;
                 } // end if
                 if (xInts[i] != xInts[i - 1])
-                    addToFeature("xIntercept(s)", MathUtil.trimDouble(xInts[i], 6));
+                    addToFeature(XInterceptGraph.KEY, MathUtil.trimDouble(xInts[i], 6));
             } // end for i
         }
 
         if (yInts != null) {
             for (int i = 0; i < yInts.length; i++) {
                 if (i == 0) {
-                    addToFeature("yIntercept(s)", MathUtil.trimDouble(yInts[i], 6));
+                    addToFeature(YInterceptGraph.KEY, MathUtil.trimDouble(yInts[i], 6));
                     continue;
                 } // end if
 
                 if (yInts[i] != yInts[i - 1])
-                    addToFeature("yIntercept(s)", MathUtil.trimDouble(yInts[i], 6));
+                    addToFeature(YInterceptGraph.KEY, MathUtil.trimDouble(yInts[i], 6));
             }
         }
     } // end SolvedXYGraph

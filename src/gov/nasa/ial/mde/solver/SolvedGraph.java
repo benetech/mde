@@ -27,20 +27,22 @@ import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.YInterceptGraph;
  */
 public class SolvedGraph implements DomainAndRangeGraph, InterceptsGraph, MinimaAndMaximaGraph {
 
-	public static enum CompassDirections {
+	public static enum GraphFeature {
+		graphName, graphBoundaries, equationType,
+        equationPrint, originalEquationPrint, graphDescriptionDomain,
+        graphDescriptionRange, domain, range, abscissaSymbol, ordinateSymbol,
+        abscissaLabel, ordinateLabel, coordinateSystem, graphClosure,
+        xIntercepts, yIntercepts, maxima, minima, ascendingRegions,
+        descendingRegions
+	};
+	
+	public static enum CompassDirection {
             East, ENE, NE, NNE, North, NNW, NW, WNW, 
             West, WSW, SW, SSW, South, SSE, SE, ESE
     };
     
     private final static String[] GENERAL_DIRECTIONS = { 
     	"nowhere", "upwards", "downwards", "to the right", "to the left" };
-
-    private String[] defaultFeatureNames = { "graphName", "graphBoundaries", "equationType",
-            "equationPrint", "originalEquationPrint", "graphDescriptionDomain",
-            "graphDescriptionRange", "domain", "range", "abscissaSymbol", "ordinateSymbol",
-            "abscissaLabel", "ordinateLabel", "coordinateSystem", "graphClosure",
-            "xIntercept(s)", "yIntercept(s)", "maxima", "minima", "ascendingRegions",
-            "descendingRegions" };
 
     private MdeFeatureNodeManager featureTree;
 
@@ -49,16 +51,15 @@ public class SolvedGraph implements DomainAndRangeGraph, InterceptsGraph, Minima
      */
     public SolvedGraph() {
         featureTree = new MdeFeatureNodeManager();
-        featureTree.addNode("", "MDE");
-        featureTree.setCurrent("MDE");
-        featureTree.addNode("", "GraphData");
-        featureTree.setCurrent("GraphData");
-
+        featureTree.addNode(MdeFeatureNodeManager.ROOT_PATH, MdeFeatureNodeManager.MDE_NAME);
+        featureTree.setCurrent(MdeFeatureNodeManager.MDE_NAME);
+        featureTree.addNode(MdeFeatureNodeManager.ROOT_PATH, MdeFeatureNodeManager.GRAPH_DATA_NAME);
+        featureTree.setCurrent(MdeFeatureNodeManager.GRAPH_DATA_NAME);
+        
         // load default features
-        int len = defaultFeatureNames.length;
-
-        for (int i = 0; i < len; i++)
-            featureTree.addKey(defaultFeatureNames[i]);
+        for(GraphFeature feature : GraphFeature.values()) {
+        	this.featureTree.addKey(feature.name());
+        }
     } // end SolvedGraph
 
     /**
@@ -178,7 +179,7 @@ public class SolvedGraph implements DomainAndRangeGraph, InterceptsGraph, Minima
      * @param theta the angle.
      * @return the compase direction which is one of COMPASS_DIRECTIONS.
      */
-    public static CompassDirections getCompassDir(double theta) {
+    public static CompassDirection getCompassDir(double theta) {
         double zeta = theta + 11.25;
         double turns = zeta / 360.0;
         double t = Math.floor(turns);
@@ -192,7 +193,7 @@ public class SolvedGraph implements DomainAndRangeGraph, InterceptsGraph, Minima
         System.out.println("phi = " + phi);
         System.out.println("n = " + n);
         
-        CompassDirections direction = (CompassDirections.values())[n];
+        CompassDirection direction = (CompassDirection.values())[n];
 
         return direction;
     } // end getCompassDir

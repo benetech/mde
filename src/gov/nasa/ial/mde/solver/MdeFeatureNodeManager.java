@@ -17,6 +17,12 @@ import java.util.ArrayList;
  */
 public class MdeFeatureNodeManager {
     
+	public static String ROOT_PATH = "";
+	public static String MDE_NAME = "MDE";
+	public static String MDE_PATH = "/"+MDE_NAME+"/";
+	public static String GRAPH_DATA_NAME = "GraphData";
+	public static String GRAPH_DATA_PATH = MDE_PATH + GRAPH_DATA_NAME + "/";
+	
     private MdeFeatureNode root;
     private MdeFeatureNode current;
     private String[] pathSegments;
