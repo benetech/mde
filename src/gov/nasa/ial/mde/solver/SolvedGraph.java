@@ -10,10 +10,13 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointRT;
 import gov.nasa.ial.mde.math.PointXY;
-import gov.nasa.ial.mde.solver.graphinterfaces.DomainGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.RangeGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.XInterceptGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.YInterceptGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.combinations.DomainAndRangeGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.combinations.InterceptsGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.combinations.MinimaAndMaximaGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.DomainGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.RangeGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.XInterceptGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.YInterceptGraph;
 
 /**
  * The class represents a solved graph.
@@ -22,7 +25,7 @@ import gov.nasa.ial.mde.solver.graphinterfaces.YInterceptGraph;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedGraph implements DomainGraph, RangeGraph, XInterceptGraph, YInterceptGraph {
+public class SolvedGraph implements DomainAndRangeGraph, InterceptsGraph, MinimaAndMaximaGraph {
 
 	public static enum CompassDirections {
             East, ENE, NE, NNE, North, NNW, NW, WNW, 
@@ -249,6 +252,56 @@ public class SolvedGraph implements DomainGraph, RangeGraph, XInterceptGraph, YI
     	}
     	return value;
     }
+
+	public Double[] getYIntercepts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double[] getXIntercepts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getRange() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getDomain() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double[][] getMinima() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean hasMinima() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canCalculateMinima() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Double[][] getMaxima() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean hasMaxima() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canCalculateMaxima() {
+		// TODO Auto-generated method stub
+		return false;
+	}
    
 //    private static void doPrint(String[] f) {
 //        int i, n = f.length;

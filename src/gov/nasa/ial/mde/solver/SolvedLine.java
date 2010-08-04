@@ -10,7 +10,7 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
-import gov.nasa.ial.mde.solver.graphinterfaces.SlopeGraph;
+import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.SlopeGraph;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
