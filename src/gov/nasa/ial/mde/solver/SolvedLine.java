@@ -10,6 +10,7 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.graphinterfaces.SlopeGraph;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -19,7 +20,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedLine extends SolvedConic {
+public class SolvedLine extends SolvedConic implements SlopeGraph {
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */
     protected String[] newFeatures = { 
@@ -180,5 +181,12 @@ public class SolvedLine extends SolvedConic {
                 throw new IllegalArgumentException("Bad identity for a line: ID = " + ID);
         } // end switch
     } // end doLineFeatures
+
+	public double getSlope() {
+		Object value = this.getValue(SlopeGraph.SLOPE_PATH, SlopeGraph.SLOPE_KEY);
+		String slopeString = (String)value;
+		double slope = new Double(slopeString);
+		return slope;
+	}
     
 } // end class SolvedLine

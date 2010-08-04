@@ -225,7 +225,23 @@ public class SolvedGraph {
         return b.toString();
     } // end getXMLString
     
-    
+    public Object getValue(String path, String key) throws NullPointerException {
+    	Object value = null;
+    	System.out.println(this.featureTree.getCurrent());
+    	MdeFeatureNode[] nodes = this.featureTree.getNodes(path);
+    	for(MdeFeatureNode node : nodes) {
+    		try {
+    			value = node.getValue(key);
+    		} catch(NullPointerException e) {
+    			// it's okay if the value is null here.  Just not okay if all the values are null.
+    		}
+    		if(value != null) break;
+    	}
+    	if(value == null) {
+    		throw new NullPointerException();
+    	}
+    	return value;
+    }
    
 //    private static void doPrint(String[] f) {
 //        int i, n = f.length;

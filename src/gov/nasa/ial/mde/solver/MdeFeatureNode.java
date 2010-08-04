@@ -235,6 +235,16 @@ public class MdeFeatureNode {
         return outString;
     } // end massageValueString
 
+    public Object getValue(String key) throws NullPointerException {
+    	Object value = null;
+    	ArrayList valueArray = null;
+    	if(this.values.containsKey(key)) {
+    		valueArray = (ArrayList)this.values.get(key);
+    		value = valueArray.get(0);
+    	}
+    	if(value == null) throw new NullPointerException();
+    	return value;
+    }
 
 //    public static void main(String[] args) {
 //        MdeFeatureNode f = new MdeFeatureNode();
