@@ -6,8 +6,8 @@
  */
 package gov.nasa.ial.mde.solver;
 
-import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.XInterceptGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.YInterceptGraph;
+import gov.nasa.ial.mde.solver.features.individual.XInterceptGraph;
+import gov.nasa.ial.mde.solver.features.individual.YInterceptGraph;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.util.MathUtil;
 

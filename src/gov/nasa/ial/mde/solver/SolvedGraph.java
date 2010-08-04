@@ -10,13 +10,13 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointRT;
 import gov.nasa.ial.mde.math.PointXY;
-import gov.nasa.ial.mde.solver.graphinterfaces.combinations.DomainAndRangeGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.combinations.InterceptsGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.combinations.MinimaAndMaximaGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.DomainGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.RangeGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.XInterceptGraph;
-import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.YInterceptGraph;
+import gov.nasa.ial.mde.solver.features.combinations.DomainAndRangeGraph;
+import gov.nasa.ial.mde.solver.features.combinations.InterceptsGraph;
+import gov.nasa.ial.mde.solver.features.combinations.MinimaAndMaximaGraph;
+import gov.nasa.ial.mde.solver.features.individual.DomainGraph;
+import gov.nasa.ial.mde.solver.features.individual.RangeGraph;
+import gov.nasa.ial.mde.solver.features.individual.XInterceptGraph;
+import gov.nasa.ial.mde.solver.features.individual.YInterceptGraph;
 
 /**
  * The class represents a solved graph.
