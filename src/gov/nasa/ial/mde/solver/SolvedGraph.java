@@ -20,9 +20,10 @@ import gov.nasa.ial.mde.math.PointXY;
  */
 public class SolvedGraph {
 
-    private final static String[] COMPASS_DIRECTIONS = { 
-            "East", "ENE", "NE", "NNE", "North", "NNW", "NW", "WNW", 
-            "West", "WSW", "SW", "SSW", "South", "SSE", "SE", "ESE" };
+	public static enum CompassDirections {
+            East, ENE, NE, NNE, North, NNW, NW, WNW, 
+            West, WSW, SW, SSW, South, SSE, SE, ESE
+    };
     
     private final static String[] GENERAL_DIRECTIONS = { 
     	"nowhere", "upwards", "downwards", "to the right", "to the left" };
@@ -170,7 +171,7 @@ public class SolvedGraph {
      * @param theta the angle.
      * @return the compase direction which is one of COMPASS_DIRECTIONS.
      */
-    public static String getCompassDir(double theta) {
+    public static CompassDirections getCompassDir(double theta) {
         double zeta = theta + 11.25;
         double turns = zeta / 360.0;
         double t = Math.floor(turns);
@@ -183,8 +184,10 @@ public class SolvedGraph {
         System.out.println("t = " + t);
         System.out.println("phi = " + phi);
         System.out.println("n = " + n);
+        
+        CompassDirections direction = (CompassDirections.values())[n];
 
-        return COMPASS_DIRECTIONS[n];
+        return direction;
     } // end getCompassDir
     
     /**
