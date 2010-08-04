@@ -1,6 +1,6 @@
 package gov.nasa.ial.mde.solver.graphinterfaces.eachproperty;
 
-import gov.nasa.ial.mde.solver.graphinterfaces.GraphProperty;
+import gov.nasa.ial.mde.solver.features.GraphProperty;
 
 public interface MinimaGraph extends GraphProperty {
 	public static String PATH = GraphProperty.GRAPH_DATA_PATH;
