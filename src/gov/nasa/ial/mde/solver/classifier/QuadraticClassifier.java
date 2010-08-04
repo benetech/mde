@@ -30,36 +30,24 @@ import java.util.Hashtable;
  */
 public class QuadraticClassifier extends MDEClassifier {
 
-    /** A type of quadratic. */
-    public final static int UNKNOWN = 0,
-                            NULL_SET = 1,
-                            SINGLE_POINT = 2,
-                            TWO_POINTS = 3,
-                            ALL_POINTS = 4,
-                            VERTICAL_LINE = 5,
-                            HORIZONTAL_LINE = 6,
-                            TWO_VERTICAL_LINES = 7,
-                            TWO_HORIZONTAL_LINES = 8,
-                            SLOPING_LINE = 9,
-                            PARABOLA = 10,
-                            CROSS = 11,
-                            HYPERBOLA = 12,
-                            ELLIPSE = 13;
-    
-    private final static int NO_REASON = 0, 
-                             DEGREE_GREATER_2 = 1, 
-                             TOO_MANY_VARIABLES = 2, 
-                             NON_POLYNOMIAL = 3, 
-                             POLAR = 4;
-    
+	public static enum QuadraticType {
+		Unknown, NullSet, SinglePoint, TwoPoints, AllPoints, 
+		VerticalLine, HorizontalLine, TwoVerticalLines, TwoHorizontalLines,
+		SlopingLine, Parabola, Cross, Hyperbola, Ellipse
+	};
+	
+	public static enum ClassificationFailureReason {
+		NoReason, DegreeGreatherThan2, TooManyVariables, NonPolynomial, Polar
+	};
+	
     private final static Hashtable emptyHash = new Hashtable();
 
     /*
      * Used for evaluating constant Expressions -- need another evaluate method in
      * Expression
      */
-    private int identity = UNKNOWN;
-    private int reason = NO_REASON;
+    private QuadraticType identity = QuadraticType.Unknown;
+    private ClassificationFailureReason reason = ClassificationFailureReason.NoReason;
     private Polynomial lhs = null;
     private int degree;
     private double A, B, C, D, E, F; // Ax^2+Bxy+Cy^2+Dx+Ey+F=0
@@ -174,7 +162,7 @@ public class QuadraticClassifier extends MDEClassifier {
      * 
      * @return the identity.
      */
-    public int getIdentity() {
+    public QuadraticType getIdentity() {
         return identity;
     } // end getIdentity
 
@@ -188,40 +176,34 @@ public class QuadraticClassifier extends MDEClassifier {
         SolvedGraph features;
 
         switch (identity) {
-        case QuadraticClassifier.HORIZONTAL_LINE:
-        case QuadraticClassifier.VERTICAL_LINE:
-        case QuadraticClassifier.SLOPING_LINE:
+        case HorizontalLine:
+        case VerticalLine:
+        case SlopingLine:
             features = new SolvedLine(analyzedEquation);
             break;
-
-        case QuadraticClassifier.PARABOLA:
+        case Parabola:
             features = new SolvedParabola(analyzedEquation);
             break;
-
-        case QuadraticClassifier.SINGLE_POINT:
-        case QuadraticClassifier.ELLIPSE:
+        case SinglePoint:
+        case Ellipse:
             features = new SolvedEllipse(analyzedEquation);
             break;
-
-        case QuadraticClassifier.HYPERBOLA:
+        case Hyperbola:
             features = new SolvedHyperbola(analyzedEquation);
             break;
-        case QuadraticClassifier.NULL_SET:
+        case NullSet:
             features = new SolvedXYGraph(analyzedEquation, "null set");
             break;
-        case QuadraticClassifier.ALL_POINTS:
+        case AllPoints:
             features = new SolvedXYGraph(analyzedEquation, "all points");
             break;
-
-        case QuadraticClassifier.TWO_HORIZONTAL_LINES:
-        case QuadraticClassifier.TWO_VERTICAL_LINES:
+        case TwoHorizontalLines:
+        case TwoVerticalLines:
             features = new SolvedTwoLines(analyzedEquation);
             break;
-
-        case QuadraticClassifier.CROSS:
+        case Cross:
             features = new SolvedTwoIntersectingLines(analyzedEquation);
             break;
-
         default:
             // Use the default features.
             features = super.getFeatures(analyzedEquation);
@@ -239,7 +221,7 @@ public class QuadraticClassifier extends MDEClassifier {
      * 
      * @return the reason for the failure to classify.
      */
-    public int getReason() {
+    public ClassificationFailureReason getReason() {
         return reason;
     } // end getReason
 
@@ -550,19 +532,19 @@ public class QuadraticClassifier extends MDEClassifier {
         
         degree = lhs.getDegree();
         if (degree > 2) {
-            reason = DEGREE_GREATER_2;
+            reason = ClassificationFailureReason.DegreeGreatherThan2;
         } // end if
 
         if (temp.length > 2) {
             actualVariables = temp;
-            reason = TOO_MANY_VARIABLES;
+            reason = ClassificationFailureReason.TooManyVariables;
             return;
         } // end if
 
         
         System.out.println("In classify");
         if (!lhs.hasConstantCoefficients())
-            reason = NON_POLYNOMIAL;
+            reason = ClassificationFailureReason.NonPolynomial;
 
         userVariables = lhs.getVariables();
 
@@ -595,9 +577,9 @@ public class QuadraticClassifier extends MDEClassifier {
         } // end switch
 
         if (actualVariables[0].equals("r") && actualVariables[1].equals("theta"))
-            reason = POLAR;
+            reason = ClassificationFailureReason.Polar;
 
-        if (reason != NO_REASON)
+        if (reason != ClassificationFailureReason.NoReason)
             return;
 
         transVars[0] = actualVariables[0];
@@ -627,26 +609,28 @@ public class QuadraticClassifier extends MDEClassifier {
     } // end classify
 
     private void computeIdentity(double a, double b, double c, double d, double e) {
+    	// TODO: breakt this up into smaller methods.
+    	
         if (EZ(a) && EZ(b) && EZ(c) && EZ(d)) { // trivial case
             if (EZ(e))
-                identity = ALL_POINTS;
+                identity = QuadraticType.AllPoints;
             else
-                identity = NULL_SET;
+                identity = QuadraticType.NullSet;
             return;
         } // end if
 
         if (EZ(a) && EZ(b)) { // linear case
             if (EZ(c)) {
-                identity = HORIZONTAL_LINE;
+                identity = QuadraticType.HorizontalLine;
                 return;
             } // end if
 
             if (EZ(d)) {
-                identity = VERTICAL_LINE;
+                identity = QuadraticType.VerticalLine;
                 return;
             } // end if
 
-            identity = SLOPING_LINE;
+            identity = QuadraticType.SlopingLine;
             return;
         } // end if
         /* Now at least one of a or b must be nonzero */
@@ -655,16 +639,16 @@ public class QuadraticClassifier extends MDEClassifier {
             double discriminant = c * c - 4.0 * a * e;
 
             if (EZ(discriminant)) {
-                identity = VERTICAL_LINE;
+                identity = QuadraticType.VerticalLine;
                 return;
             } // end if
 
             if (discriminant > 0.0) {
-                identity = TWO_VERTICAL_LINES;
+                identity = QuadraticType.TwoVerticalLines;
                 return;
             } // end if
 
-            identity = NULL_SET;
+            identity = QuadraticType.NullSet;
             return;
         } // end if
 
@@ -672,38 +656,38 @@ public class QuadraticClassifier extends MDEClassifier {
             double discriminant = d * d - 4.0 * b * e;
 
             if (EZ(discriminant)) {
-                identity = HORIZONTAL_LINE;
+                identity = QuadraticType.HorizontalLine;
                 return;
             } // end if
 
             if (discriminant > 0.0) {
-                identity = TWO_HORIZONTAL_LINES;
+                identity = QuadraticType.TwoHorizontalLines;
                 return;
             } // end if
 
-            identity = NULL_SET;
+            identity = QuadraticType.NullSet;
             return;
         } // end if
 
         if (EZ(a) || EZ(b)) {
-            identity = PARABOLA;
+            identity = QuadraticType.Parabola;
             return;
         } // end if
 
         if (a * b < 0.0) {
             if (EZ(e))
-                identity = CROSS;
+                identity = QuadraticType.Cross;
             else
-                identity = HYPERBOLA;
+                identity = QuadraticType.Hyperbola;
             return;
         } // end if
 
         if (EZ(e))
-            identity = SINGLE_POINT;
+            identity = QuadraticType.SinglePoint;
         else if (a * e > 0.0)
-            identity = NULL_SET;
+            identity = QuadraticType.NullSet;
         else
-            identity = ELLIPSE;
+            identity = QuadraticType.Ellipse;
     } // end computeIdentity
 
     private boolean flunksInfinityTest() {

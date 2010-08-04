@@ -8,6 +8,7 @@ package gov.nasa.ial.mde.solver.numeric;
 
 import gov.nasa.ial.mde.solver.classifier.PolarClassifier;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier.QuadraticType;
 
 /**
  * The polar equation of a conic section is given by 
@@ -29,7 +30,7 @@ public class PolarConicModel extends PolarModel {
     public double E;
 
     /** One of QuadraticClassifier.PARABOLA|ELLIPSE|HYPERBOLA */
-    public int conicIdentity;
+    public QuadraticType conicIdentity;
 
     private int[][] conic = { { 0, 2, 4, 5 }, { 0, 1 } };
 
@@ -52,15 +53,15 @@ public class PolarConicModel extends PolarModel {
             if (Math.abs(E - 1.0) < 1.0e-6) {
                 modelVector[0] /= E;
                 E = 1.0;
-                conicIdentity = QuadraticClassifier.PARABOLA;
+                conicIdentity = QuadraticType.Parabola;
             } // end if
             else if (E < 1.0)
-                conicIdentity = QuadraticClassifier.ELLIPSE;
+                conicIdentity = QuadraticType.Ellipse;
             else
-                conicIdentity = QuadraticClassifier.HYPERBOLA;
+                conicIdentity = QuadraticType.Hyperbola;
         } // end nominal case
         else // circular case
-            conicIdentity = QuadraticClassifier.ELLIPSE;
+            conicIdentity = QuadraticType.Ellipse;
     } // end PolarConicModel
 
     /**

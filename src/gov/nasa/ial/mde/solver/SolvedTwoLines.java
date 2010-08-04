@@ -10,6 +10,7 @@ import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier.QuadraticType;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -24,7 +25,7 @@ public class SolvedTwoLines extends SolvedConic {
     /** Edentify new features so we can access them with */
     protected String[] newFeatures = { "inclination", "separation", "equationStrings" };
     
-    private int ID;
+    private QuadraticType ID;
     private double alpha;
     private double inclination;
     private double separation;
@@ -49,11 +50,11 @@ public class SolvedTwoLines extends SolvedConic {
         putFeature("graphClosure", "false"); // might be hard to determine in general
 
         switch (ID) {
-            case QuadraticClassifier.TWO_HORIZONTAL_LINES :
+            case TwoHorizontalLines :
                 inclination = alpha;
                 break;
 
-            case QuadraticClassifier.TWO_VERTICAL_LINES :
+            case TwoVerticalLines :
                 inclination = alpha + 90.0;
                 break;
 

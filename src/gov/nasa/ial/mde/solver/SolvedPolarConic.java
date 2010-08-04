@@ -8,6 +8,7 @@ package gov.nasa.ial.mde.solver;
 
 import gov.nasa.ial.mde.solver.classifier.PolarClassifier;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier.QuadraticType;
 import gov.nasa.ial.mde.solver.numeric.PolarConicModel;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -33,15 +34,15 @@ public class SolvedPolarConic extends SolvedConic {
         SolvedConic sc;
         
         switch (pcm.conicIdentity) {
-            case QuadraticClassifier.PARABOLA :
+            case Parabola :
                 sc = new SolvedParabola(ce);
                 break;
 
-            case QuadraticClassifier.ELLIPSE :
+            case Ellipse :
                 sc = new SolvedEllipse(ce);
                 break;
 
-            case QuadraticClassifier.HYPERBOLA :
+            case Hyperbola :
                 sc = new SolvedHyperbola(ce);
                 break;
 

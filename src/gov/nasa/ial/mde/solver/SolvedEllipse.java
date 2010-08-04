@@ -10,6 +10,7 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier.QuadraticType;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -66,7 +67,7 @@ public class SolvedEllipse extends SolvedConic {
 
         putNewFeatures(newFeatures); // enable use of new features
 
-        if (QC.getIdentity() == QuadraticClassifier.SINGLE_POINT) {
+        if (QC.getIdentity() == QuadraticType.SinglePoint) {
             putFeature("graphName", "single point"); // self-explanatory
             putFeature("center", center);
             return;

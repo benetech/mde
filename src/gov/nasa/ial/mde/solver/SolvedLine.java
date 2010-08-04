@@ -10,6 +10,7 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier.QuadraticType;
 import gov.nasa.ial.mde.solver.graphinterfaces.eachproperty.SlopeGraph;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -43,7 +44,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
          * QC is the QuadraticClassifier field in SolvedConic ID is one of the values associated
          * with lines e.g. QuadraticClassifier.SLOPING_LINE
          */
-        int ID = QC.getIdentity();
+        QuadraticClassifier.QuadraticType ID = QC.getIdentity();
         double alpha = QC.getRotation(); // rotation angle in degrees
         /*
          * Get the initial polynomial coefficients -- coeffs={a,b,c,d,e,f} where
@@ -65,7 +66,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
             double[] offsets = QC.getTranslation();
             double[][] newAxes = QC.getNewAxes();
             switch (ID) {
-                case QuadraticClassifier.HORIZONTAL_LINE :
+                case HorizontalLine :
                     /*******************************************************************************
                      * i.e bPrime and v = newAxis[1][0*x + newAxis[1][1]*y
                      */
@@ -73,7 +74,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
                     coeffs[4] = newAxes[1][1];
                     coeffs[5] = -offsets[1];
                     break;
-                case QuadraticClassifier.VERTICAL_LINE :
+                case VerticalLine :
                     /*******************************************************************************
                      * i.e. aPrime where u = newAxis[0][0]*x + newAxis[0][1]*y
                      */
@@ -98,7 +99,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
              * to complete the fakery, we need to tell doLineFeatures that it's a sloping line,
              * which it is
              */
-            ID = QuadraticClassifier.SLOPING_LINE;
+            ID = QuadraticType.SlopingLine;
         } // end if
         else if (coeffs[0] != 0.0 || coeffs[2] != 0.0) {
             /*
@@ -109,7 +110,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
              */
             double[] offsets = QC.getTranslation();
             switch (ID) { // we're in an else, so ID hasn't been dittled
-                case QuadraticClassifier.HORIZONTAL_LINE :
+                case HorizontalLine :
                     /* const*(y-offsets[1])^2 = 0 */
                     coeffs[3] = 0.0; // shouldn't need to do this
                     coeffs[4] = 1.0;
@@ -118,7 +119,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
                         "reducedEquation",
                         QuadraticClassifier.getEquationOfALine(new PointXY(0.0, offsets[1]), 0.0, analyzedEq.getActualVariables()));
                     break;
-                case QuadraticClassifier.VERTICAL_LINE :
+                case VerticalLine :
                     /* const*(x-offset[0])^2 = 0 */
                     coeffs[3] = 1.0;
                     coeffs[4] = 0.0; // shouldn't need to do this
@@ -135,7 +136,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
         doLineFeatures(coeffs[3], coeffs[4], coeffs[5], ID);
     } // end SolvedLine
     
-    private void doLineFeatures(double a, double b, double c, int ID) {
+    private void doLineFeatures(double a, double b, double c, QuadraticClassifier.QuadraticType ID) {
         double M = 0.0; // slope
         double z; // atan of slope i.e. incrad
         IntervalXY D; // domain
@@ -144,7 +145,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
         D.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
         R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         R.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
-        if ((ID == QuadraticClassifier.SLOPING_LINE) || (ID == QuadraticClassifier.HORIZONTAL_LINE)) {
+        if ((ID == QuadraticType.SlopingLine) || (ID == QuadraticType.HorizontalLine)) {
             putFeature("slopeDefined", "true");
             putFeature("slope", new NumberModel(M = -a / b));
             putFeature("incrad", new NumberModel(z = Math.atan(M)));
@@ -152,7 +153,7 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
             putFeature("domain", D);
         }
         switch (ID) {
-            case QuadraticClassifier.SLOPING_LINE :
+            case SlopingLine :
                 putFeature("graphName", "line"); // self-explanatory
                 if (M > 0.0)
                     putFeature("ascendingRegions", D);
@@ -160,11 +161,11 @@ public class SolvedLine extends SolvedConic implements SlopeGraph {
                     putFeature("descendingRegions", D);
                 putFeature("range", R);
                 break;
-            case QuadraticClassifier.HORIZONTAL_LINE : // no xIntercept
+            case HorizontalLine : // no xIntercept
                 putFeature("graphName", "horizontal line"); // self-explanatory
                 putFeature("range", new IntervalXY(analyzedEq.getActualVariables()[1], -c / b, -c / b));
                 break;
-            case QuadraticClassifier.VERTICAL_LINE : // handle as a separate case
+            case VerticalLine : // handle as a separate case
                 putFeature("graphName", "vertical line"); // self-explanatory
                 putFeature("slopeDefined", "false");
                 putFeature("inclination", new NumberModel(90.0));
