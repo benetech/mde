@@ -235,6 +235,10 @@ public class MdeFeatureNode {
         return outString;
     } // end massageValueString
 
+    public ArrayList getValues(String key) {
+    	return (ArrayList)this.values.get(key);
+    }
+    
     public Object getValue(String key) throws NullPointerException {
     	Object value = null;
     	ArrayList valueArray = null;
