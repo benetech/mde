@@ -54,7 +54,7 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		
 	    
 		
-	    if(features instanceof SlopeFeature){
+	    if(features instanceof SolvedLine){
 	    	System.out.println("in features instanceof SlopeFeature");
 	    	slope=((SlopeFeature) features).getSlope();
 	    	System.out.println("slope is "+slope);
@@ -68,6 +68,8 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 				yVertice= 0;
 			}
 	    	
+	    	
+	    	intercept =((SolvedLine) features).getYIntercept();
 	    	xVertice = -intercept/slope;
 	    	
 	    	String getCoeff = "(-?\\d*\\.?\\d*)\\*sqrt";
@@ -83,21 +85,25 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    		coeff = Double.valueOf((temp.split("----")[0]));
 	    	}
 	    	
+	    	PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
+			System.out.println(vertex.toString());
+			
+	    	putNewFeatures(newFeatures);
+			putFeature("vertex", vertex);
+			putFeature("orientation", "TEST: the orientation is XXXXX");
+	    	
 	    }else
 	    {
 	    	
+	    	System.out.println("sqrt does not have a linear function inside it");
 	    	//TODO: figure out a way to get a more general description instead.
 	    }
 	    
 	    
 			
 		
-		PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
-		System.out.println(vertex.toString());
+	
 		
-		putNewFeatures(newFeatures);
-		putFeature("vertex", vertex);
-		putFeature("orientation", "TEST: the orientation is XXXXX");
 		
 	}
 	
