@@ -85,12 +85,28 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    		coeff = Double.valueOf((temp.split("----")[0]));
 	    	}
 	    	
+	    	
+	    	String orientation;
+	    	if(coeff>0 && slope>0){
+	    		orientation="quadrant I";
+	    	}else if(coeff>0 && slope<0){
+	    		orientation="quadrant II";
+	    	}else if(coeff<0 && slope>0){
+	    		orientation="quadrant IV";
+	    	}else if(coeff<0 && slope<0){
+	    		orientation="quadrant III";
+	    	}
+	    	else{
+	    		orientation="you should never be here.";
+	    	}
+	    	
+	    	
 	    	PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
 			System.out.println(vertex.toString());
 			
 	    	putNewFeatures(newFeatures);
 			putFeature("vertex", vertex);
-			putFeature("orientation", "TEST: the orientation is XXXXX");
+			putFeature("orientation", orientation);
 	    	
 	    }else
 	    {
