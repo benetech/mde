@@ -52,12 +52,12 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    double xVertice = Double.NaN;
 	    double yVertice = Double.NaN;
 		
-		
 	    
 		
 	    if(features instanceof SlopeFeature){
+	    	System.out.println("in features instanceof SlopeFeature");
 	    	slope=((SlopeFeature) features).getSlope();
-	
+	    	System.out.println("slope is "+slope);
 	    	
 	    	if(parts.length>=2)
 			{
@@ -69,9 +69,24 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 			}
 	    	
 	    	xVertice = -intercept/slope;
+	    	
+	    	String getCoeff = "(-?\\d*\\.?\\d*)\\*sqrt";
+	    	double coeff= 1;
+	    	parts[0]=parts[0].replace("y", "");
+	    	parts[0]=parts[0].replace("=", "");
+	    	parts[0]=parts[0].replace(" ", "");
+	    	
+	    	
+	    	
+	    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
+	    	if(temp.contains("----")){
+	    		coeff = Double.valueOf((temp.split("----")[0]));
+	    	}
+	    	
 	    }else
 	    {
 	    	
+	    	//TODO: figure out a way to get a more general description instead.
 	    }
 	    
 	    
@@ -88,13 +103,15 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	
 	
 	public static void main(String[] args){
-		String test = "sqrt(x+4+3332) +5 ";
+		String test = "-5.2*sqrt(x+4+3332) +5 ";
 		
 		String insideSQRT = "sqrt\\(" +
 		"([^)\\n]*)" +
 		"\\)";
 		
 		
+		
+		String operand = "(-?\\d*\\.?\\d*)\\*?sqrt";
 		//String checkNegative = "-?x[ ]*sqrt";
 		
 		
@@ -104,9 +121,8 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		matcher.find();
 		*/
 		
-		
 		System.out.println(test);
-		test = test.replaceFirst(insideSQRT, "$1");
+		test = test.replaceFirst(operand, "$1----");
 		System.out.println(test);
 		
 		
