@@ -232,6 +232,8 @@ public class SolvedParabola extends SolvedConic {
                     throw new IllegalStateException("Invalid opening direction in SolvedParabola");
             } // end switch
         } // end if
+        
+        //getYIntercepts();
     } // end SolvedParabola
     
 } // end class SolvedParabola

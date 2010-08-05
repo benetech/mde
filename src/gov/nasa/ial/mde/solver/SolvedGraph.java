@@ -6,6 +6,8 @@
  */
 package gov.nasa.ial.mde.solver;
 
+import java.util.ArrayList;
+
 import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointRT;
@@ -15,6 +17,7 @@ import gov.nasa.ial.mde.solver.features.combinations.InterceptsFeature;
 import gov.nasa.ial.mde.solver.features.combinations.MinimaAndMaximaFeature;
 import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
 import gov.nasa.ial.mde.solver.features.individual.RangeFeature;
+import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.features.individual.XInterceptFeature;
 import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 
@@ -253,10 +256,37 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
     	}
     	return value;
     }
+    
+    public Object getValues(String path, String key) throws NullPointerException {
+    	Object value = null;
+    	System.out.println(this.featureTree.getCurrent());
+    	MdeFeatureNode[] nodes = this.featureTree.getNodes(path);
+    	for(MdeFeatureNode node : nodes) {
+    		try {
+    			value = node.getValues(key);
+    		} catch(NullPointerException e) {
+    			// it's okay if the value is null here.  Just not okay if all the values are null.
+    		}
+    		if(value != null) break;
+    	}
+    	if(value == null) {
+    		throw new NullPointerException();
+    	}
+    	return value;
+    }
 
 	public Double[] getYIntercepts() {
-		// TODO Auto-generated method stub
-		return null;
+		Object values = this.getValues(YInterceptFeature.PATH, YInterceptFeature.KEY);
+		ArrayList list = (ArrayList)values;
+		System.out.println("The size of the returned array is"+list.size());
+		Double[] intercepts = new Double[list.size()];
+		for(int i=0;i<list.size();i++)
+		{
+			System.out.println(list.get(i));
+			intercepts[i]=Double.valueOf(((String) list.get(i)));
+		}
+		
+		return intercepts;
 	}
 
 	public Double[] getXIntercepts() {
