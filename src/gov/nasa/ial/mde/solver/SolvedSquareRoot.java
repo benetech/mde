@@ -54,10 +54,10 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		
 		
 	    
-			    
+		
 	    if(features instanceof SlopeFeature){
 	    	slope=((SlopeFeature) features).getSlope();
-	    	
+	
 	    	
 	    	if(parts.length>=2)
 			{
