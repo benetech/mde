@@ -56,9 +56,7 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    
 		
 	    if(features instanceof SolvedLine){
-	    	System.out.println("in features instanceof SlopeFeature");
 	    	slope=((SlopeFeature) features).getSlope();
-	    	System.out.println("slope is "+slope);
 	    	
 	    	if(parts.length>=2)
 			{
