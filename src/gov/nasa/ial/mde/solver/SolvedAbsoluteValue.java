@@ -14,7 +14,7 @@ import gov.nasa.ial.mde.solver.symbolic.RationalExpression;
 public class SolvedAbsoluteValue extends SolvedXYGraph{
 	
 	protected String[] newFeatures = { 
-            "vertex", "direction"};
+            "vertex", "absDirection"};
 	
 	protected PolynomialClassifier PC;
 
@@ -98,7 +98,7 @@ public class SolvedAbsoluteValue extends SolvedXYGraph{
 	    	
 	    	putNewFeatures(newFeatures);
 			putFeature("vertex", vertex);
-			putFeature("direction", direction);
+			putFeature("absDirection", direction);
 			putFeature("domain", D);
 			putFeature("range", R);
 	    	

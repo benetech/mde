@@ -158,6 +158,11 @@ adjacent longer loops.
   	 <xsl:value-of select="."/>. 
   </xsl:template>
 
+  <xsl:template match="absDirection">
+  	<xsl:text>The graph opens </xsl:text>
+  	 <xsl:value-of select="."/>from the vertex. 
+  </xsl:template>
+
   <xsl:template match="coordinateSystem">
     <xsl:text>When graphed with the </xsl:text>
     <xsl:value-of select="."/> coordinate system, 

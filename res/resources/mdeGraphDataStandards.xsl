@@ -106,6 +106,9 @@
        <xsl:when test="graphName='square root'">
        		<xsl:call-template name="squareRootSpecifics"/>
        </xsl:when>
+       <xsl:when test="graphName='absolute value'">
+       		<xsl:call-template name="absoluteValueSpecifics"/>
+       </xsl:when>
      </xsl:choose>
      
      
@@ -144,6 +147,11 @@
 
   <xsl:template name="squareRootSpecifics">
 	<xsl:apply-templates select="orientation"/>
+    <xsl:apply-templates select="vertex" />   
+  </xsl:template>
+
+  <xsl:template name="absoluteValueSpecifics">
+    <xsl:apply-templates select="absDirection" /> 	
     <xsl:apply-templates select="vertex" />   
   </xsl:template>
 
