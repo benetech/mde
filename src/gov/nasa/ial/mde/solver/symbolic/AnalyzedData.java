@@ -131,18 +131,18 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
 		for(int i = 0; i < xData2.length; i++)
 		{
 			map.put(xData2[i], yData2[i]);
-			System.out.println(xData2[i] + " " + yData2[i]);
+			//System.out.println(xData2[i] + " " + yData2[i]);
 		}
 		
-		System.out.println();
-		System.out.println();
+		//System.out.println();
+		//System.out.println();
 		int size = map.size();
 		
 		for(int i = 0  ; i < size ; i++)
 		{
 			xData2[i] = map.firstKey();
 			yData2[i] = map.remove(xData2[i]);
-			System.out.println(xData2[i] + " " + yData2[i]);
+			//System.out.println(xData2[i] + " " + yData2[i]);
 		}
 		this.xData = xData2;
 		this.yData = yData2;
