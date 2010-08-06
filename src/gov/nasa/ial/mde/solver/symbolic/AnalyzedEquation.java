@@ -124,11 +124,6 @@ public class AnalyzedEquation implements AnalyzedItem {
     private void doInit() {
         lhs = theEquation.getPolynomial();
         
-        
-        System.out.println("In AnalyzedEquation's doInit function.\n  The lhs has this many varibles: " + lhs.getVariables().length);
-        System.out.println("The lhs's coefficients are" + lhs.getCoefficientsAsExpressions("x")[0]);
-        System.out.println("The lhs is" + lhs);
-
         checkVariables();
 
         /* If there are more than 2 variables, quit */

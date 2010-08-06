@@ -125,7 +125,6 @@ public class PolynomialClassifier extends MDEClassifier {
     	
     	int degree = analyzedEq.getDegree();
     	
-    	//System.out.println("Degree: " + degree);
     	
         SolvedGraph features;
 
@@ -133,24 +132,18 @@ public class PolynomialClassifier extends MDEClassifier {
             if (!analyzedEq.isPolynomial()){
             	//I can enter the code for checking the absolute value HERE!!
             	if(hasAbsoluteValue(analyzedEq)){
-            		//System.out.println("hihi!");
             		features = new SolvedAbsoluteValue(analyzedEq);
             	}
             	else if(hasSqrt(analyzedEq))
             	{
-            		//System.out.println("veto!");
             		features = new SolvedSquareRoot(analyzedEq);
             	}
             	else{
-                	//System.out.println("It's not a polynomial????");
                 	features = new SolvedEquationData(analyzedEq);
             	}
             	
-            	
-            	//E
             }
             else if(degree==3){
-            	//System.out.println("Cubic Polynomial");
             	features = new SolvedCubicPolynomial(analyzedEq);
             }
             else

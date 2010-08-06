@@ -37,7 +37,8 @@ import javax.xml.transform.stream.StreamSource;
  * <code>Describer</code> supports two default description modes - VISUAL or
  * MATH. The VISUAL mode provides qualitative descriptions without much
  * mathematical jargon. The MATH mode provides a description of the mathematical
- * solution.
+ * solution.  A third has be added, called STANDARD, which incorperates descriptions 
+ * suited for the Georgia Performance Standards.
  * <p>
  * <code>Describer</code> also lets you define new description modes by
  * specifying a new mode name and an XSLT file for transforming the MDE (XML)
