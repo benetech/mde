@@ -1,5 +1,6 @@
 package gov.nasa.ial.mde.solver;
 
+import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
 import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
@@ -35,7 +36,7 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 		Solver solver = new Solver();
 		solver.add(innerEquat);
 	    solver.solve();   
-	    //TODO: make an isLinear check for a lot of this
+	
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 	    
@@ -78,26 +79,41 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    	parts[0]=parts[0].replace("=", "");
 	    	parts[0]=parts[0].replace(" ", "");
 	    	
-	    	
+	   //TODO: Work on array out of bounds error 	
 	    	
 	    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
 	    	if(temp.contains("----")){
 	    		coeff = Double.valueOf((temp.split("----")[0]));
 	    	}
 	    	
+	    	IntervalXY D, R;
+	    	
 	    	
 	    	String orientation;
 	    	if(coeff>0 && slope>0){
 	    		orientation="quadrant I";
+	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], xVertice, Double.POSITIVE_INFINITY);
+	    		//D.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
+                R = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
 	    	}else if(coeff>0 && slope<0){
 	    		orientation="quadrant II";
+	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, xVertice);
+	    		//D.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
+	    		R = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
 	    	}else if(coeff<0 && slope>0){
 	    		orientation="quadrant IV";
+	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], xVertice, Double.POSITIVE_INFINITY);
+	   
+                R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
 	    	}else if(coeff<0 && slope<0){
 	    		orientation="quadrant III";
+	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, xVertice);
+                R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
 	    	}
 	    	else{
 	    		orientation="you should never be here.";
+	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NaN, Double.NaN);
+                R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NaN , Double.NaN);
 	    	}
 	    	
 	    	
@@ -107,7 +123,8 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    	putNewFeatures(newFeatures);
 			putFeature("vertex", vertex);
 			putFeature("orientation", orientation);
-	    	
+			putFeature("domain", D);
+			putFeature("range", R);
 	    }else
 	    {
 	    	
