@@ -10,6 +10,7 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.features.individual.VertexFeatures;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -21,7 +22,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * 
  * Edits made by Andrew Rosen begining 6/4/10
  */
-public class SolvedParabola extends SolvedConic {
+public class SolvedParabola extends SolvedConic implements VertexFeatures{
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */
     protected String[] newFeatures = { 
@@ -235,5 +236,10 @@ public class SolvedParabola extends SolvedConic {
         
         //getYIntercepts();
     } // end SolvedParabola
+
+	
+	public PointXY getVertex() {
+		return null;
+	}
     
 } // end class SolvedParabola
