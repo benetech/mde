@@ -134,6 +134,9 @@ public class SolvedLine extends SolvedConic implements SlopeFeature {
          * Should work with cannonical coeffs or those appropriately modified for special cases
          */
         doLineFeatures(coeffs[3], coeffs[4], coeffs[5], ID);
+        getXIntercepts();
+        getDomain();
+        getRange();
     } // end SolvedLine
     
     private void doLineFeatures(double a, double b, double c, QuadraticClassifier.QuadraticType ID) {

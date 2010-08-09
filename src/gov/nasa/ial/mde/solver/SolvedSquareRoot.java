@@ -128,44 +128,6 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    	
 	    	System.out.println("sqrt does not have a linear function inside it");
 	    	//TODO: figure out a way to get a more general description instead.
-	    }
-	    
-	    
-			
-		
-	
-		
-		
+	    }	
 	}
-	
-	
-	public static void main(String[] args){
-		String test = "-5.2*sqrt(x+4+3332) +5 ";
-		
-		String insideSQRT = "sqrt\\(" +
-		"([^)\\n]*)" +
-		"\\)";
-		
-		
-		
-		String operand = "(-?\\d*\\.?\\d*)\\*?sqrt";
-		//String checkNegative = "-?x[ ]*sqrt";
-		
-		
-		/*
-		Pattern pattern= Pattern.compile(insideSQRT);
-		Matcher matcher = pattern.matcher(test);
-		matcher.find();
-		*/
-		
-		System.out.println(test);
-		test = test.replaceFirst(operand, "$1----");
-		System.out.println(test);
-		
-		
-		
-		
-		
-	}
-	
 }
