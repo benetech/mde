@@ -10,7 +10,8 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
-import gov.nasa.ial.mde.solver.features.individual.VertexFeatures;
+import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
+import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -22,7 +23,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * 
  * Edits made by Andrew Rosen begining 6/4/10
  */
-public class SolvedParabola extends SolvedConic implements VertexFeatures{
+public class SolvedParabola extends SolvedConic implements VertexFeature{
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */
     protected String[] newFeatures = { 
@@ -235,11 +236,21 @@ public class SolvedParabola extends SolvedConic implements VertexFeatures{
         } // end if
         
         //getYIntercepts();
+        //getVertex();
     } // end SolvedParabola
 
 	
 	public PointXY getVertex() {
-		return null;
+		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
+		String vertexString = (String)value;
+		System.out.println("Getting vertex.\nVertex is : " + vertexString);
+		String[] split = vertexString.split(",");
+		split[0] = split[0].replace("(", "");
+		split[1] = split[1].replace(")", "");
+		double xPos = Double.valueOf(split[0]);
+		double yPos = Double.valueOf(split[1]);
+		
+		return (new PointXY(xPos,yPos));
 	}
     
 } // end class SolvedParabola
