@@ -27,13 +27,9 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		}
 		parts[0]= parts[0] +")";
 		
-		//TODO: Add a call to use Regex to extract the equation with the abs
 		String insideABS = "abs\\(([^)\\n]*)\\)";
 		String innerEquat=parts[0].replaceAll(insideABS,"$1");
 		
-		
-		
-		//TODO: Run the extracted equation thru the MDE recursively, if possible, to extract data
 		Solver solver = new Solver();
 		solver.add(innerEquat);
 	    solver.solve();   
