@@ -155,7 +155,7 @@ adjacent longer loops.
   
   <xsl:template match="orientation">
   	<xsl:text>The curve of the graph veers in the direction of </xsl:text>
-  	 <xsl:value-of select="."/>. 
+  	 <xsl:value-of select="."/>.  
   </xsl:template>
 
   <xsl:template match="absDirection">

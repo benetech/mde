@@ -318,7 +318,7 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 		return domainString;
 	}
 
-	public Double[][] getMinima() {
+	public PointXY[] getMinima() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -333,7 +333,7 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 		return false;
 	}
 
-	public Double[][] getMaxima() {
+	public PointXY[] getMaxima() {
 		// TODO Auto-generated method stub
 		return null;
 	}
