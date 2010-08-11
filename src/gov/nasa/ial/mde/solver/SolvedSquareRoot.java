@@ -4,9 +4,10 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
 import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
+import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
-public class SolvedSquareRoot extends SolvedXYGraph {
+public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 
 	protected String[] newFeatures = {"vertex" , "orientation"};
 	
@@ -129,5 +130,18 @@ public class SolvedSquareRoot extends SolvedXYGraph {
 	    	System.out.println("sqrt does not have a linear function inside it");
 	    	//TODO: figure out a way to get a more general description instead.
 	    }	
+	}
+
+	public PointXY getVertex() {
+		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
+		String vertexString = (String)value;
+		System.out.println("Getting vertex.\nVertex is : " + vertexString);
+		String[] split = vertexString.split(",");
+		split[0] = split[0].replace("(", "");
+		split[1] = split[1].replace(")", "");
+		double xPos = Double.valueOf(split[0]);
+		double yPos = Double.valueOf(split[1]);
+		
+		return (new PointXY(xPos,yPos));
 	}
 }
