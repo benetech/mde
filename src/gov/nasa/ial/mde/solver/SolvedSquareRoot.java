@@ -41,12 +41,6 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 	    
-	    
-	    //String xmlString =solution.getFeatures().getXMLString(); 
-	    
-	    
-	    
-	    //System.out.println(xmlString);
 		
 		//get Slope and "yIntercept"
 	    double slope =Double.NaN;
