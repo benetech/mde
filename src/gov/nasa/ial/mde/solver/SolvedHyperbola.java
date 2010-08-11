@@ -9,6 +9,7 @@ package gov.nasa.ial.mde.solver;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -18,7 +19,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedHyperbola extends SolvedConic {
+public class SolvedHyperbola extends SolvedConic implements VertexFeature{
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */
     protected String[] newFeatures = { 
@@ -157,5 +158,18 @@ public class SolvedHyperbola extends SolvedConic {
         putFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha + asymptoteInclination, vars));
         addToFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha - asymptoteInclination, vars));
     } // end SolvedHyperbola
+    
+    public PointXY getVertex() {
+		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
+		String vertexString = (String)value;
+		System.out.println("Getting vertex.\nVertex is : " + vertexString);
+		String[] split = vertexString.split(",");
+		split[0] = split[0].replace("(", "");
+		split[1] = split[1].replace(")", "");
+		double xPos = Double.valueOf(split[0]);
+		double yPos = Double.valueOf(split[1]);
+		
+		return (new PointXY(xPos,yPos));
+	}
     
 } // end class SolvedHyperbola
