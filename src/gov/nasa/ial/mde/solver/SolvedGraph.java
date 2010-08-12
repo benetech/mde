@@ -16,6 +16,7 @@ import gov.nasa.ial.mde.solver.features.combinations.DomainAndRangeFeature;
 import gov.nasa.ial.mde.solver.features.combinations.InterceptsFeature;
 import gov.nasa.ial.mde.solver.features.combinations.MinimaAndMaximaFeature;
 import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
+import gov.nasa.ial.mde.solver.features.individual.MinimaFeature;
 import gov.nasa.ial.mde.solver.features.individual.RangeFeature;
 import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.features.individual.XInterceptFeature;
@@ -319,7 +320,6 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 	}
 
 	public PointXY[] getMinima() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

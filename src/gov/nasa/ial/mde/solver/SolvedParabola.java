@@ -11,6 +11,9 @@ import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
+import gov.nasa.ial.mde.solver.features.individual.FocalLengthFeature;
+import gov.nasa.ial.mde.solver.features.individual.FocusFeature;
+import gov.nasa.ial.mde.solver.features.individual.RangeFeature;
 import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -23,7 +26,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * 
  * Edits made by Andrew Rosen begining 6/4/10
  */
-public class SolvedParabola extends SolvedConic implements VertexFeature{
+public class SolvedParabola extends SolvedConic implements VertexFeature, FocalLengthFeature, FocusFeature{
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */
     protected String[] newFeatures = { 
@@ -237,6 +240,10 @@ public class SolvedParabola extends SolvedConic implements VertexFeature{
         
         //getYIntercepts();
         //getVertex();
+        getFocus();
+        getMinima();
+        //getFocalLength();
+       // System.out.println(getXMLString());
     } // end SolvedParabola
 
 	
@@ -252,5 +259,29 @@ public class SolvedParabola extends SolvedConic implements VertexFeature{
 		
 		return (new PointXY(xPos,yPos));
 	}
+
+
+	public PointXY getFocus() {
+		Object value = this.getValue(FocusFeature.PATH, FocusFeature.KEY);
+		String focusString = (String)value;
+		System.out.println("Getting Focus.\nFocus is : " + focusString);
+		String[] split = focusString.split(",");
+		split[0] = split[0].replace("(", "");
+		split[1] = split[1].replace(")", "");
+		double xPos = Double.valueOf(split[0]);
+		double yPos = Double.valueOf(split[1]);
+		
+		return (new PointXY(xPos,yPos));
+	}
+
+	public Object getFocalLength() {
+		Object value = this.getValue(FocalLengthFeature.PATH, FocalLengthFeature.KEY);
+		//System.out.println("Value: " + value);
+		//NumberModel focalLengthModel = (NumberModel)value;		
+		//System.out.println("Getting Focal Length.\nFocal Length is : " + focalLengthModel);
+		return value;
+	}
+	
+	
     
 } // end class SolvedParabola
