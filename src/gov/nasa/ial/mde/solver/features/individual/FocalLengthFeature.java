@@ -6,5 +6,5 @@ public interface FocalLengthFeature extends GraphFeature{
 	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "focallength";
 	
-	public double getFocusLength();
+	public String getFocusLength();
 }
