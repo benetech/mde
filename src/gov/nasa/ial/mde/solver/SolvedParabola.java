@@ -237,13 +237,13 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
                     throw new IllegalStateException("Invalid opening direction in SolvedParabola");
             } // end switch
         } // end if
-        
+        System.out.println(getXMLString());
         //getYIntercepts();
         //getVertex();
         getFocus();
-        getMinima();
-        //getFocalLength();
-       // System.out.println(getXMLString());
+       // getMinima();
+        getFocalLength();
+       
     } // end SolvedParabola
 
 	
@@ -274,12 +274,14 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
 		return (new PointXY(xPos,yPos));
 	}
 
-	public Object getFocalLength() {
+	public Double getFocalLength() {
 		Object value = this.getValue(FocalLengthFeature.PATH, FocalLengthFeature.KEY);
+		Double doubleValue = new Double((String)value);
+		System.out.println(doubleValue);
 		//System.out.println("Value: " + value);
 		//NumberModel focalLengthModel = (NumberModel)value;		
 		//System.out.println("Getting Focal Length.\nFocal Length is : " + focalLengthModel);
-		return value;
+		return doubleValue;
 	}
 	
 	
