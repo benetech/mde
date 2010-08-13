@@ -24,8 +24,11 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * @version 1.0
  * @since 1.0
  * 
- * Edits made by Andrew Rosen begining 6/4/10
+ * Edits made by Andrew Rosen beginning 6/4/10
  */
+
+
+//TODO: add extrema detection
 public class SolvedParabola extends SolvedConic implements VertexFeature, FocalLengthFeature, FocusFeature{
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */

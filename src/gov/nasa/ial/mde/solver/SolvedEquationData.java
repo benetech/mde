@@ -55,6 +55,7 @@ public class SolvedEquationData extends SolvedXYGraph {
         super(analyzedEquation);
         this.analyzedItem = analyzedEquation;
         doInit();
+        System.out.println(this.getXMLString());
     } // end SolvedEquationData
 
     private void doInit() {
