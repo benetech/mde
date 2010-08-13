@@ -42,13 +42,17 @@ public class MDEClassifier {
         SolvedGraph features;
 
         if (analyzedEq.isSolvableFunction()) {
-            if (!analyzedEq.isPolynomial())
+            if (!analyzedEq.isPolynomial()){
             	features = new SolvedEquationData(analyzedEq);
+            }
             else
+            {
                 features = new SolvedRationalFunction(analyzedEq);
+            }
         } // end if
-        else
+        else{
             features = new SolvedXYGraph(analyzedEq);
+        }
 
         // Make sure we add the graphBoundaries feature.
         addGraphBoundariesFeature(analyzedEq, features);
