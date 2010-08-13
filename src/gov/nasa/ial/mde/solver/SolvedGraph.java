@@ -242,7 +242,7 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
     
     public Object getValue(String path, String key) throws NullPointerException {
     	Object value = null;
-    	System.out.println(this.featureTree.getCurrent());
+    	//System.out.println(this.featureTree.getCurrent());
     	MdeFeatureNode[] nodes = this.featureTree.getNodes(path);
     	for(MdeFeatureNode node : nodes) {
     		try {
@@ -260,7 +260,7 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
     
     public Object getValues(String path, String key) throws NullPointerException {
     	Object value = null;
-    	System.out.println(this.featureTree.getCurrent());
+    //	System.out.println(this.featureTree.getCurrent());
     	MdeFeatureNode[] nodes = this.featureTree.getNodes(path);
     	for(MdeFeatureNode node : nodes) {
     		try {

@@ -247,6 +247,7 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
        // getMinima();
         getFocalLength();
        
+
     } // end SolvedParabola
 
 	
@@ -279,11 +280,8 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
 
 	public Double getFocalLength() {
 		Object value = this.getValue(FocalLengthFeature.PATH, FocalLengthFeature.KEY);
-		Double doubleValue = new Double((String)value);
-		System.out.println(doubleValue);
-		//System.out.println("Value: " + value);
-		//NumberModel focalLengthModel = (NumberModel)value;		
-		//System.out.println("Getting Focal Length.\nFocal Length is : " + focalLengthModel);
+		Double doubleValue = new Double((String)value);	
+		System.out.println("Getting Focal Length.\nFocal Length is : " + doubleValue);
 		return doubleValue;
 	}
 	
