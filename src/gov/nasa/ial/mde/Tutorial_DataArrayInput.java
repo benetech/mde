@@ -54,7 +54,7 @@ public class Tutorial_DataArrayInput {
 
         // Now let's sonify our data
         if (solver.anySonifiable()) {
-            System.out.println("Sonifying your data now: ");
+           System.out.println("Sonifying your data: ");
             sounder.sweep(3.0);
             sounder.close();
         }
