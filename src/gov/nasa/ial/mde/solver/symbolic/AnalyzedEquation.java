@@ -434,8 +434,9 @@ public class AnalyzedEquation implements AnalyzedItem {
         //TODO: put trig here
         //isTrig()-->return new TrigClassfier
 
-        System.out.println("DEBUG: LHS IS AT THIS POINT: " +lhs);
+     
         if((lhs.toString().contains("sin"))||(lhs.toString().contains("tan"))||(lhs.toString().contains("cos"))){
+        	System.out.println("DEBUG FOR TRIGCLASSIFIER: LHS IS AT THIS POINT: " +lhs);
         	return new TrigClassifier(lhs);
         }
         

@@ -3,6 +3,7 @@ package gov.nasa.ial.mde.solver.classifier;
 import java.util.ArrayList;
 
 import gov.nasa.ial.mde.solver.SolvedGraph;
+import gov.nasa.ial.mde.solver.SolvedSineFunction;
 import gov.nasa.ial.mde.solver.SolvedTrigFunction;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.solver.symbolic.Polynomial;
@@ -34,8 +35,25 @@ public class TrigClassifier extends MDEClassifier {
 
 
 	public SolvedGraph getFeatures(AnalyzedEquation analyzedEquation) {
-		SolvedGraph features = new SolvedTrigFunction(analyzedEquation);
+		detectTrig(analyzedEquation);
+		SolvedGraph features;
 		
+		if(hasMultiples)
+		{
+			
+		}else if(hasSin)
+		{
+			features = new SolvedSineFunction(analyzedEquation);
+			return features;
+		}else if(hasCos)
+		{
+			
+		}else if(hasTan)
+		{
+			
+		}
+		
+		features = new SolvedTrigFunction(analyzedEquation);
 		return features;
 	}
 
@@ -47,6 +65,10 @@ public class TrigClassifier extends MDEClassifier {
 		hasSin = equat.contains("sin");
 		hasCos = equat.contains("cos");
 		hasTan = equat.contains("tan");
+		
+		if((hasSin && hasCos)||(hasSin && hasTan)||(hasCos && hasTan)){
+			hasMultiples=true;
+		}
 		
 		
 	}
