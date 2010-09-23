@@ -22,10 +22,10 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 		String equat= ae.printOriginalEquation();
 		String[] parts =equat.split("\\)");
 		
-		for(int i = 0; i < parts.length;i++)
+		/*for(int i = 0; i < parts.length;i++)
 		{
 			System.out.println(parts[i]);
-		}
+		}*/
 		parts[0]= parts[0] +")";
 		
 		
