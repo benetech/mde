@@ -6,5 +6,5 @@ public interface AmplitudeFeaure extends GraphFeature {
 	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "amplitude";
 	
-	public double getAmplitude();
+	public String getAmplitude();
 }

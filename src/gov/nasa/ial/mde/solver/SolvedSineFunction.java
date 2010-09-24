@@ -30,21 +30,31 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		String insideSIN = "sin\\(([^)\\n]*)\\)";
 		String innerEquat=parts[0].replaceAll(insideSIN,"$1");
 		
-		double amplitude= Double.NaN;
-		double frequency= Double.NaN;
+		String amplitude= null;
+		String frequency= null;
 		double phase = Double.NaN;
 		double offset = Double.NaN;
 		
 		
-
+		offset = Double.valueOf(parts[1]);
+		
+		Solver solver = new Solver();
+		solver.add(innerEquat);
+	    solver.solve();   
+	    
+	    Solution solution = solver.get(0);
+	    SolvedGraph features = solution.getFeatures();
+	    
+	    ((SolvedLine) features).getYIntercept();
+		
 	}
 
-	public double getFrequency() {
-		return 0;
+	public String getFrequency() {
+		return null;
 	}
 
-	public double getAmplitude() {
-		return 0;
+	public String getAmplitude() {
+		return null;
 	}
 
 }
