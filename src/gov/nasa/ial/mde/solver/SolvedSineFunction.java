@@ -11,6 +11,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	protected String[] newFeatures = {"frequency" , "amplitude"};
 	
 	protected TrigClassifier TC;
+	private final double PI = 3.142;
 	
 	public SolvedSineFunction(AnalyzedEquation analyzedEquation) {
 		super(analyzedEquation, "Sine Function");
@@ -45,7 +46,9 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 	    
-	    ((SolvedLine) features).getYIntercept();
+	    phase = ((SolvedLine) features).getYIntercept();
+	    
+	   
 		
 	}
 
