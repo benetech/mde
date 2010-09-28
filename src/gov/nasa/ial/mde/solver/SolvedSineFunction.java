@@ -9,7 +9,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature{
 
-	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset"};
+	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift"};
 	
 	protected TrigClassifier TC;
 	private final double PI = 3.142;
@@ -43,8 +43,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 		
-		String amplitude = null;
-		double amplitude_value = Double.NaN;
+		double amplitude = Double.NaN;
 		String frequency = null;
 		double frequency_value = Double.NaN;
 		String phase = null;
@@ -75,7 +74,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     		coeff = Double.valueOf((temp.split("----")[0]));
     	}
     	
-    	amplitude_value = coeff;
+    	amplitude = coeff;
     	frequency_value = ((SolvedLine) features).getSlope();
     	shift_value = phase_value/frequency_value;
     	
@@ -84,13 +83,19 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	phase = ((Math.round((phase_value/PI) *4))/ 4.0) +" pi";
     	
     	
-    	System.out.println("Amplitude: " + amplitude_value);
+    	System.out.println("Amplitude: " + amplitude);
     	System.out.println("Frequency: " + frequency_value);
     	System.out.println("Phase value: " + phase_value);
     	System.out.println("Phase: " + phase);
     	System.out.println("Offset: "+ offset);
     	System.out.println("Shift:" + shift_value);
     	
+    	putNewFeatures(newFeatures);
+    	putFeature("amplitude", amplitude);
+    	putFeature("phase", phase);
+    	putFeature("offset", offset);
+    	putFeature("shift", shift);
+    	putFeature("frequency", frequency);
     	
 	}
 

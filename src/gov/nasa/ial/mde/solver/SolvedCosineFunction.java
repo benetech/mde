@@ -10,10 +10,11 @@ import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 
 public class SolvedCosineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature {
 	
-	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset"};
+	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift"};
 	
 	protected TrigClassifier TC;
 	private final double PI = 3.142;
+	
 	
 	
 	
@@ -45,8 +46,8 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 		
-		String amplitude = null;
-		double amplitude_value = Double.NaN;
+		
+		double amplitude = Double.NaN;
 		String frequency = null;
 		double frequency_value = Double.NaN;
 		String phase = null;
@@ -78,7 +79,7 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
     		coeff = Double.valueOf((temp.split("----")[0]));
     	}
     	
-    	amplitude_value = coeff;
+    	amplitude = coeff;
     	frequency_value = ((SolvedLine) features).getSlope();
     	shift_value = phase_value/frequency_value;
 
@@ -90,7 +91,7 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
     	
 	
     	
-    	System.out.println("Amplitude: " + amplitude_value);
+    	System.out.println("Amplitude: " + amplitude);
     	System.out.println("Frequency: " + frequency_value);
     	System.out.println("Phase value: " + phase_value);
     	System.out.println("Phase: " + phase);
@@ -98,21 +99,25 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
     	System.out.println("Shift:" + shift_value);
     	
     	
-    	
+    	putNewFeatures(newFeatures);
+    	putFeature("amplitude", amplitude);
+    	putFeature("phase", phase);
+    	putFeature("offset", offset);
+    	putFeature("shift", shift);
+    	putFeature("frequency", frequency);
 	}
 
 
 
 	public String getPhase() {
 		// TODO Auto-generated method stub
-		return null;
+		return "oh";
 	}
 
 
 
 	public double getAmplitude() {
-		// TODO Auto-generated method stub
-		return Double.NaN;
+		return 0;
 	}
 
 
