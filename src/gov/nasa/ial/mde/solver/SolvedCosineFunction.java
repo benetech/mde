@@ -2,8 +2,13 @@ package gov.nasa.ial.mde.solver;
 
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
+import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
+import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 
-public class SolvedCosineFunction extends SolvedTrigFunction {
+import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
+
+
+public class SolvedCosineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature {
 	
 	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset"};
 	
@@ -94,6 +99,27 @@ public class SolvedCosineFunction extends SolvedTrigFunction {
     	
     	
     	
+	}
+
+
+
+	public String getPhase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public double getAmplitude() {
+		// TODO Auto-generated method stub
+		return Double.NaN;
+	}
+
+
+
+	public String getFrequency() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -2,12 +2,12 @@ package gov.nasa.ial.mde.solver;
 
 
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
-import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeaure;
+import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
-public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeaure, PhaseFeature{
+public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature{
 
 	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset"};
 	
