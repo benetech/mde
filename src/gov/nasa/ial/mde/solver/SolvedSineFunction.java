@@ -100,16 +100,24 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	}
 
 	public String getFrequency() {
-		return null;
+		Object value = this.getValue(FrequencyFeature.PATH, FrequencyFeature.KEY);
+		String string = (String) value;
+		string= string +" pi.";
+		return string;
 	}
 
 	public double getAmplitude() {
-		return Double.NaN;
+		Object value = this.getValue(AmplitudeFeature.PATH, AmplitudeFeature.KEY);
+		Double doubleValue = new Double((String)value);	
+		System.out.println("Getting Amplitude.\nAmplitude is : " + doubleValue);
+		return doubleValue;
 	}
 
 	public String getPhase() {
-		// TODO Auto-generated method stub
-		return null;
+		Object value = this.getValue(PhaseFeature.PATH, PhaseFeature.KEY);
+		String string = (String) value;
+		string= string +" pi.";
+		return string;
 	}
 
 }
