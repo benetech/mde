@@ -9,7 +9,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeaure, PhaseFeature{
 
-	protected String[] newFeatures = {"frequency" , "amplitude"};
+	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset"};
 	
 	protected TrigClassifier TC;
 	private final double PI = 3.142;
