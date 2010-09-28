@@ -6,6 +6,6 @@ public interface OffsetFeature extends GraphFeature {
 	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "offset";
 	
-	public String getOffset();
+	public double getOffset();
 
 }

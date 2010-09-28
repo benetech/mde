@@ -4,10 +4,12 @@ package gov.nasa.ial.mde.solver;
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
+import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
+import gov.nasa.ial.mde.solver.features.individual.ShiftFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
-public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature{
+public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
 
 	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift"};
 	
@@ -120,4 +122,18 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		return string;
 	}
 
+	public String getShift() {
+		Object value = this.getValue(ShiftFeature.PATH, ShiftFeature.KEY);
+		String string = (String) value;
+		string= string +" pi.";
+		return string;
+	}
+
+	public double getOffset() {
+		Object value = this.getValue(OffsetFeature.PATH, OffsetFeature.KEY);
+		Double doubleValue = new Double((String)value);	
+		System.out.println("Getting Amplitude.\nAmplitude is : " + doubleValue);
+		return doubleValue;
+	}
+	
 }
