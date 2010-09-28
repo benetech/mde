@@ -7,6 +7,7 @@ import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 import gov.nasa.ial.mde.solver.features.individual.ShiftFeature;
+import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
@@ -93,19 +94,30 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	System.out.println("Shift:" + shift_value);
     	
     	putNewFeatures(newFeatures);
+    	System.out.println("adding amplitude");
     	putFeature("amplitude", amplitude);
+    	System.out.println("adding phase");
     	putFeature("phase", phase);
+    	System.out.println("adding offset");	
     	putFeature("offset", offset);
-    	putFeature("shift", shift);
-    	putFeature("frequency", frequency);
+    	System.out.println("adding shift");
+    	putFeature("shift", shift+ "pi");
+    	System.out.println("adding frequency");   	
+    	putFeature("frequency", frequency_value);
     	
+    	
+    	getFrequency();
+    	//getAmplitude();
+    	getPhase();
+    	//getShift();
+    	//getOffset();
 	}
 
-	public String getFrequency() {
+	public Double getFrequency() {
 		Object value = this.getValue(FrequencyFeature.PATH, FrequencyFeature.KEY);
-		String string = (String) value;
-		string= string +" pi.";
-		return string;
+		String slopeString = (String)value;
+		double slope = new Double(slopeString);
+		return slope;
 	}
 
 	public double getAmplitude() {
@@ -118,7 +130,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	public String getPhase() {
 		Object value = this.getValue(PhaseFeature.PATH, PhaseFeature.KEY);
 		String string = (String) value;
-		string= string +" pi.";
+		System.out.println("Getting Phase.\nPhase is : " + string);
 		return string;
 	}
 
@@ -126,13 +138,14 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		Object value = this.getValue(ShiftFeature.PATH, ShiftFeature.KEY);
 		String string = (String) value;
 		string= string +" pi.";
+		System.out.println("Getting Shift.\nShift is : " + string);		
 		return string;
 	}
 
-	public double getOffset() {
+	public Double getOffset() {
 		Object value = this.getValue(OffsetFeature.PATH, OffsetFeature.KEY);
 		Double doubleValue = new Double((String)value);	
-		System.out.println("Getting Amplitude.\nAmplitude is : " + doubleValue);
+		System.out.println("Getting Offset.\nOffset is : " + doubleValue);
 		return doubleValue;
 	}
 	

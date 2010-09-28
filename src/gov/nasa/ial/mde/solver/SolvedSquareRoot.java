@@ -118,6 +118,7 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 			putFeature("orientation", orientation);
 			putFeature("domain", D);
 			putFeature("range", R);
+			System.out.println(getVertex());
 	    }else
 	    {
 	    	
