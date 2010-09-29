@@ -279,7 +279,7 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 	public Double[] getYIntercepts() {
 		Object values = this.getValues(YInterceptFeature.PATH, YInterceptFeature.KEY);
 		ArrayList list = (ArrayList)values;
-		System.out.println("The size of the returned array is"+list.size());
+		//System.out.println("The size of the returned array is"+list.size());
 		Double[] intercepts = new Double[list.size()];
 		for(int i=0;i<list.size();i++)
 		{
