@@ -3,6 +3,7 @@ package gov.nasa.ial.mde.solver;
 
 import java.util.ArrayList;
 
+import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
 import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
@@ -57,6 +58,11 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		double phase_value = Double.NaN;
 		double offset = Double.NaN;
 		double shift = Double.NaN;  //shift is a pi divided by b pi.  If x were time in seconds, then this is how far this appears to be shifted
+		IntervalXY D = null; // domain
+		IntervalXY R = null; // Range
+		
+		
+		
 		
 		if(parts.length>=2)
 		{
@@ -94,17 +100,25 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	System.out.println("Phase: " + phase);
     	System.out.println("Offset: "+ offset);
     	System.out.println("Shift:" + shift);
+
+    	
+ 	    D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+ 	    R = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
     	
     	putNewFeatures(newFeatures);
+    	
+    	
     	
     	//putFeature("amplitude", amplitude);
     	//putFeature("phase", phase);
     	//putFeature("offset", offset);
     	//putFeature("shift", shift+ "pi");
     	//putFeature("frequency", "2.3");
-    	
+    	putFeature("domain", D);
+    	putFeature("range", R);
     
-    	
+    	System.out.println(getDomain());
+    	System.out.println(getRange());
     	
     	
 	}
