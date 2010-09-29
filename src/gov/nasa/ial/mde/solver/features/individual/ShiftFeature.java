@@ -6,6 +6,6 @@ public interface ShiftFeature extends GraphFeature {
 	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "shift";
 	
-	public String getShift();
+	public double getShift();
 
 }
