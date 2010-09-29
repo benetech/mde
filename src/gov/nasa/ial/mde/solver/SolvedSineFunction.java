@@ -109,7 +109,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	
     	
     	
-    	//putFeature("amplitude", amplitude);
+    	putFeature("amplitude", amplitude + "");
     	//putFeature("phase", phase);
     	//putFeature("offset", offset);
     	//putFeature("shift", shift+ "pi");
@@ -119,7 +119,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     
     	System.out.println(getDomain());
     	System.out.println(getRange());
-    	
+    	System.out.println(getAmplitude());
     	
 	}
 
