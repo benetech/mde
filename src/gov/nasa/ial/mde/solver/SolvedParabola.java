@@ -240,12 +240,12 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
                     throw new IllegalStateException("Invalid opening direction in SolvedParabola");
             } // end switch
         } // end if
-        System.out.println(getXMLString());
+        //System.out.println(getXMLString());
         //getYIntercepts();
         //getVertex();
-        getFocus();
+        //getFocus();
        // getMinima();
-        getFocalLength();
+       // getFocalLength();
        
 
     } // end SolvedParabola
@@ -254,7 +254,7 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
 	public PointXY getVertex() {
 		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
 		String vertexString = (String)value;
-		System.out.println("Getting vertex.\nVertex is : " + vertexString);
+		//System.out.println("Getting vertex.\nVertex is : " + vertexString);
 		String[] split = vertexString.split(",");
 		split[0] = split[0].replace("(", "");
 		split[1] = split[1].replace(")", "");
@@ -268,7 +268,7 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
 	public PointXY getFocus() {
 		Object value = this.getValue(FocusFeature.PATH, FocusFeature.KEY);
 		String focusString = (String)value;
-		System.out.println("Getting Focus.\nFocus is : " + focusString);
+		//System.out.println("Getting Focus.\nFocus is : " + focusString);
 		String[] split = focusString.split(",");
 		split[0] = split[0].replace("(", "");
 		split[1] = split[1].replace(")", "");
@@ -281,7 +281,7 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
 	public Double getFocalLength() {
 		Object value = this.getValue(FocalLengthFeature.PATH, FocalLengthFeature.KEY);
 		Double doubleValue = new Double((String)value);	
-		System.out.println("Getting Focal Length.\nFocal Length is : " + doubleValue);
+		//System.out.println("Getting Focal Length.\nFocal Length is : " + doubleValue);
 		return doubleValue;
 	}
 	

@@ -21,10 +21,10 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		String equat= ae.printOriginalEquation();
 		String[] parts =equat.split("\\)");
 		
-		for(int i = 0; i < parts.length;i++)
+		/*for(int i = 0; i < parts.length;i++)
 		{
 			System.out.println(parts[i]);
-		}
+		}*/
 		parts[0]= parts[0] +")";
 		
 		String insideABS = "abs\\(([^)\\n]*)\\)";
@@ -105,7 +105,7 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 	public PointXY getVertex() {
 		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
 		String vertexString = (String)value;
-		System.out.println("Getting vertex.\nVertex is : " + vertexString);
+		//System.out.println("Getting vertex.\nVertex is : " + vertexString);
 		String[] split = vertexString.split(",");
 		split[0] = split[0].replace("(", "");
 		split[1] = split[1].replace(")", "");

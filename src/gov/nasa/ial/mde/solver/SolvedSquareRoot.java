@@ -111,14 +111,14 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 	    	
 	    	
 	    	PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
-			System.out.println(vertex.toString());
+			//System.out.println(vertex.toString());
 			
 	    	putNewFeatures(newFeatures);
 			putFeature("vertex", vertex);
 			putFeature("orientation", orientation);
 			putFeature("domain", D);
 			putFeature("range", R);
-			System.out.println(getVertex());
+			//System.out.println(getVertex());
 	    }else
 	    {
 	    	
@@ -130,7 +130,7 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 	public PointXY getVertex() {
 		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
 		String vertexString = (String)value;
-		System.out.println("Getting vertex.\nVertex is : " + vertexString);
+		//System.out.println("Getting vertex.\nVertex is : " + vertexString);
 		String[] split = vertexString.split(",");
 		split[0] = split[0].replace("(", "");
 		split[1] = split[1].replace(")", "");

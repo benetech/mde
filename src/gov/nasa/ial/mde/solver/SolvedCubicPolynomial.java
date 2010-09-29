@@ -28,8 +28,6 @@ public class SolvedCubicPolynomial extends SolvedRationalFunction {
         putFeature("domain", D);
         putFeature("range", R);
         
-        System.out.println("Cubic Polynomial" + this.getXMLString());
-        getMinima();
 	}
 	
 	public IntervalXY getD() {

@@ -146,7 +146,7 @@ public class AnalyzedEquation implements AnalyzedItem {
             
             degree = lhs.getDegree();
             
-            System.out.println(degree);
+            //System.out.println(degree);
 
             if (checkForSolvable())
                 switch (dvpDegree) {
@@ -436,7 +436,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 
      
         if((lhs.toString().contains("sin"))||(lhs.toString().contains("tan"))||(lhs.toString().contains("cos"))){
-        	System.out.println("DEBUG FOR TRIGCLASSIFIER: LHS IS AT THIS POINT: " +lhs);
+        	//System.out.println("DEBUG FOR TRIGCLASSIFIER: LHS IS AT THIS POINT: " +lhs);
         	return new TrigClassifier(lhs);
         }
         
@@ -468,7 +468,7 @@ public class AnalyzedEquation implements AnalyzedItem {
             QuadraticModel q = (QuadraticModel)pm;
 
             if (q.getAnalyzedEquation().isFunction()) {
-            	System.out.println("quadractic classifier!");
+            	//System.out.println("quadractic classifier!");
                 return new QuadraticClassifier(q.getPolynomial());
             }
         } // end if
@@ -891,7 +891,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 
         for (i = 0; i < n; i++) {
             String v = allVariables[i].toLowerCase();
-            System.out.println("Variables:" +v);
+            //System.out.println("Variables:" +v);
 
             if ((tempObj = temp.get(v)) != null)
                 parameterHash.put(v, tempObj);
@@ -899,7 +899,7 @@ public class AnalyzedEquation implements AnalyzedItem {
     } // end determineParameters
 
     private void checkVariables() {
-        System.out.println("DEBUG: in checkVaribles.");
+       // System.out.println("DEBUG: in checkVaribles.");
     	
     	String[] temp;
         ArrayList realVariables = new ArrayList();
@@ -917,7 +917,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 
         temp = (String[])realVariables.toArray(new String[realVariables.size()]);
         
-        System.out.println("Debug:");;
+       
 
         switch (temp.length) {
         case 0:
@@ -977,7 +977,7 @@ public class AnalyzedEquation implements AnalyzedItem {
     private void checkForConstant() {
         int i;
         
-        System.out.println("DEBUG: in check for constant.");
+       // System.out.println("DEBUG: in check for constant.");
 
         for (i = 0; i <= dvpDegree; i++)
             if (dvpCoefficients[i].varStrings.length != 0)

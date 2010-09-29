@@ -162,7 +162,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature{
     public PointXY getVertex() {
 		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
 		String vertexString = (String)value;
-		System.out.println("Getting vertex.\nVertex is : " + vertexString);
+		//System.out.println("Getting vertex.\nVertex is : " + vertexString);
 		String[] split = vertexString.split(",");
 		split[0] = split[0].replace("(", "");
 		split[1] = split[1].replace(")", "");
