@@ -122,7 +122,7 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 
 
 
-	public Double getFrequency() {
+	public double getFrequency() {
 		// TODO Auto-generated method stub
 		return (double) 0;
 	}

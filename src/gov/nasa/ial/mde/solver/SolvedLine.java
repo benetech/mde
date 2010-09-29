@@ -134,9 +134,10 @@ public class SolvedLine extends SolvedConic implements SlopeFeature {
          * Should work with cannonical coeffs or those appropriately modified for special cases
          */
         doLineFeatures(coeffs[3], coeffs[4], coeffs[5], ID);
-        getXIntercepts();
-        getDomain();
-        getRange();
+       // getXIntercepts();
+       // getDomain();
+       // getRange();
+       // getSlope();
     } // end SolvedLine
     
     private void doLineFeatures(double a, double b, double c, QuadraticClassifier.QuadraticType ID) {
@@ -190,6 +191,7 @@ public class SolvedLine extends SolvedConic implements SlopeFeature {
 		Object value = this.getValue(SlopeFeature.PATH, SlopeFeature.KEY);
 		String slopeString = (String)value;
 		double slope = new Double(slopeString);
+		System.out.println("Slope is: " + slope);
 		return slope;
 	}
 	

@@ -5,9 +5,6 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 public class SolvedTrigFunction extends SolvedXYGraph{
 	
 	
-	public SolvedTrigFunction(){
-		super();
-	}
 	
 	public SolvedTrigFunction(AnalyzedEquation e) {
 		super(e);

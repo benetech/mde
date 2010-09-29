@@ -14,7 +14,7 @@ import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
-public class SolvedSineFunction extends SolvedXYGraph implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
+public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
 
 	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift"};
 	
@@ -51,14 +51,12 @@ public class SolvedSineFunction extends SolvedXYGraph implements FrequencyFeatur
 	    SolvedGraph features = solution.getFeatures();
 		
 		double amplitude = Double.NaN;
-		String frequency = null;
+		String frequency = null;  // angular frequency, measured in radians/second 
 		double frequency_value = Double.NaN;
-		String phase = null;
+		String phase = null;  // another time we need to use pi
 		double phase_value = Double.NaN;
 		double offset = Double.NaN;
-		String shift =null;
-		double shift_value = Double.NaN;
-		
+		double shift = Double.NaN;  //shift is a pi divided by b pi.  If x were time in seconds, then this is how far this appears to be shifted
 		
 		if(parts.length>=2)
 		{
@@ -83,7 +81,7 @@ public class SolvedSineFunction extends SolvedXYGraph implements FrequencyFeatur
     	
     	amplitude = coeff;
     	frequency_value = ((SolvedLine) features).getSlope();
-    	shift_value = phase_value/frequency_value;
+    	shift = phase_value/frequency_value;
     	
     	//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
     	
@@ -95,28 +93,20 @@ public class SolvedSineFunction extends SolvedXYGraph implements FrequencyFeatur
     	System.out.println("Phase value: " + phase_value);
     	System.out.println("Phase: " + phase);
     	System.out.println("Offset: "+ offset);
-    	System.out.println("Shift:" + shift_value);
+    	System.out.println("Shift:" + shift);
     	
     	putNewFeatures(newFeatures);
-    	/*
-    	System.out.println("adding amplitude");
-    	putFeature("amplitude", amplitude);
-    	System.out.println("adding phase");
-    	putFeature("phase", phase);
-    	System.out.println("adding offset");	
-    	putFeature("offset", offset);
-    	System.out.println("adding shift");
-    	putFeature("shift", shift+ "pi");
-    	System.out.println("adding frequency");
-    	*/
-    	putFeature("frequency", "2.3");
+    	
+    	//putFeature("amplitude", amplitude);
+    	//putFeature("phase", phase);
+    	//putFeature("offset", offset);
+    	//putFeature("shift", shift+ "pi");
+    	//putFeature("frequency", "2.3");
+    	
+    
     	
     	
-    	getFrequency();
-    	//getAmplitude();
-    	//getPhase();
-    	//getShift();
-    	//getOffset();
+    	
 	}
 
 	public double getFrequency() {
