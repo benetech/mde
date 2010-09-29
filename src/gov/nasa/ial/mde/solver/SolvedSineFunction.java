@@ -1,16 +1,20 @@
 package gov.nasa.ial.mde.solver;
 
 
+import java.util.ArrayList;
+
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
+import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 import gov.nasa.ial.mde.solver.features.individual.ShiftFeature;
 import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
+import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
-public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
+public class SolvedSineFunction extends SolvedXYGraph implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
 
 	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift"};
 	
@@ -94,6 +98,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	System.out.println("Shift:" + shift_value);
     	
     	putNewFeatures(newFeatures);
+    	/*
     	System.out.println("adding amplitude");
     	putFeature("amplitude", amplitude);
     	System.out.println("adding phase");
@@ -102,23 +107,25 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	putFeature("offset", offset);
     	System.out.println("adding shift");
     	putFeature("shift", shift+ "pi");
-    	System.out.println("adding frequency");   	
-    	putFeature("frequency", frequency_value);
+    	System.out.println("adding frequency");
+    	*/
+    	putFeature("frequency", "2.3");
     	
     	
     	getFrequency();
     	//getAmplitude();
-    	getPhase();
+    	//getPhase();
     	//getShift();
     	//getOffset();
 	}
 
-	public Double getFrequency() {
+	public double getFrequency() {
 		Object value = this.getValue(FrequencyFeature.PATH, FrequencyFeature.KEY);
-		String slopeString = (String)value;
-		double slope = new Double(slopeString);
-		return slope;
+		String frequencyString = (String)value;
+		System.out.println("Getting frequency.\nDomain is : " + frequencyString);
+		return Double.valueOf(frequencyString);
 	}
+	
 
 	public double getAmplitude() {
 		Object value = this.getValue(AmplitudeFeature.PATH, AmplitudeFeature.KEY);
