@@ -44,7 +44,8 @@ adjacent longer loops.
 
 <xsl:when test=".='polynomial'"></xsl:when>
 
-<xsl:when test=".='square root'"> This a graph that contains a square root function.</xsl:when>
+<xsl:when test=".='square root'"> This is a graph that contains a square root function. </xsl:when>
+<xsl:when test=".='sine function'"> This is a graph of a basic sinusoid. </xsl:when>
 
 
 <xsl:when test=".='RationalFunction'"></xsl:when>
@@ -152,6 +153,19 @@ adjacent longer loops.
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+  
+  <xsl:template name="oscillation">
+  	<xsl:text>The entered equation oscillates with an amplitude of </xsl:text>
+  	<xsl:value-of select="./amplitude"/> 
+  	<xsl:text> and a frequency of approximately </xsl:text> 
+  	<xsl:value-of select="./frequency"/>.
+  	<xsl:text> The graph has a phase of approximately </xsl:text> 
+  	<xsl:value-of select="./phase"/>, 
+  	<xsl:text> so, if x represented time, then wave would appear to be </xsl:text> 
+  	<xsl:value-of select="./shift"/> 
+  	<xsl:text> seconds ahead. </xsl:text>
+  </xsl:template>
+  
   
   <xsl:template match="orientation">
   	<xsl:text>The curve of the graph veers in the direction of </xsl:text>

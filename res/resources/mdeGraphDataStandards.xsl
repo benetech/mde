@@ -109,6 +109,9 @@
        <xsl:when test="graphName='absolute value'">
        		<xsl:call-template name="absoluteValueSpecifics"/>
        </xsl:when>
+       <xsl:when test="graphName='sine function'">
+       		<xsl:call-template name="sineSpecifics"/>
+       </xsl:when>
      </xsl:choose>
      
      
@@ -169,6 +172,10 @@
 
   <xsl:template name="hyperbolaSpecifics">
       <xsl:call-template name="simpleHyperbolaDescription"/>
+  </xsl:template>
+
+  <xsl:template name="sineSpecifics">
+    <xsl:call-template name="oscillation"/>   
   </xsl:template>
 
 <!-- Test template for polar rose -->

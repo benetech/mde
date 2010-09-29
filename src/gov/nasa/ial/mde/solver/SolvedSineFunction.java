@@ -25,7 +25,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	
 	
 	public SolvedSineFunction(AnalyzedEquation analyzedEquation) {
-		super(analyzedEquation, "Sine Function");
+		super(analyzedEquation, "sine function");
 		
 		TC  = (TrigClassifier) analyzedEquation.getClassifier();
 		String equat = analyzedEquation.printOriginalEquation();
@@ -35,7 +35,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		
 		for(int i = 0; i < parts.length;i++)
 		{
-			System.out.println(parts[i]);
+			//System.out.println(parts[i]);
 		}
 		
 
@@ -112,11 +112,11 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	putFeature("domain", D);
     	putFeature("range", R);
     
-    	getOffset();
-    	getShift();
-    	getPhase();
-    	getAmplitude();
-    	getFrequency();
+    	//getOffset();
+    	//getShift();
+    	//getPhase();
+    	//getAmplitude();
+    	//getFrequency();
 	}
 
 	public String getFrequency() {
