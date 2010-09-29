@@ -123,11 +123,11 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	
 	}
 
-	public double getFrequency() {
+	public String getFrequency() {
 		Object value = this.getValue(FrequencyFeature.PATH, FrequencyFeature.KEY);
 		String frequencyString = (String)value;
-		System.out.println("Getting frequency.\nDomain is : " + frequencyString);
-		return Double.valueOf(frequencyString);
+		System.out.println("Getting angular frequency.\nDomain is : " + frequencyString);
+		return frequencyString;
 	}
 	
 

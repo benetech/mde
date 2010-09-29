@@ -6,5 +6,5 @@ public interface FrequencyFeature extends GraphFeature {
 	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "frequency";
 	
-	public double getFrequency();
+	public String getFrequency();
 }
