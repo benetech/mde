@@ -13,7 +13,7 @@ import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 
 public class SolvedCosineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature {
 	
-	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift"};
+	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift", "period"};
 	
 	protected TrigClassifier TC;
 	private final double PI = 3.142;
