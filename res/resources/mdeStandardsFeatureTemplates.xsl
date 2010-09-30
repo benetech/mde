@@ -46,6 +46,7 @@ adjacent longer loops.
 
 <xsl:when test=".='square root'"> This is a graph that contains a square root function. </xsl:when>
 <xsl:when test=".='sine function'"> This is a graph of a basic sinusoid. </xsl:when>
+<xsl:when test=".='cosine function'"> This is a graph of a basic sinusoid. </xsl:when>
 
 
 <xsl:when test=".='RationalFunction'"></xsl:when>

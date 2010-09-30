@@ -28,7 +28,7 @@ public abstract class Settings {
 
     private String description;
     
-    private static final boolean LOCAL_DEBUG = true;
+    private static final boolean LOCAL_DEBUG = false;
     
     /**
      * Default constructor not allowed.  Will always throw a RuntimeException.
@@ -122,7 +122,7 @@ public abstract class Settings {
                 System.out.println("Can't read properties file. Using defaults.");
             }
         } catch (Exception e) {
-            //System.out.println("Can't access properties file. " + "Using defaults.");
+            System.out.println("Can't access properties file. " + "Using defaults.");
         } finally {
             if (in != null) {
                 try {

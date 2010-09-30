@@ -2,6 +2,7 @@ package gov.nasa.ial.mde.solver.classifier;
 
 import java.util.ArrayList;
 
+import gov.nasa.ial.mde.solver.SolvedCosineFunction;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedSineFunction;
 import gov.nasa.ial.mde.solver.SolvedTrigFunction;
@@ -47,7 +48,8 @@ public class TrigClassifier extends MDEClassifier {
 			return features;
 		}else if(hasCos)
 		{
-			
+			features = new SolvedCosineFunction(analyzedEquation);
+			return features;
 		}else if(hasTan)
 		{
 			
