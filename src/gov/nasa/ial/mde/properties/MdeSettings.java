@@ -112,13 +112,13 @@ public class MdeSettings extends Settings {
     private int traceSweepSpeed;
     
     /** Turn Debug comments on or off by setting the value to true or false respectively. */
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     
     /** The MDE application version number. */
-    public static final String  VERSION = "2.1.2";
+    public static final String  VERSION = "2.2.0";
     
     /** The build number which is updated by the Ant build script. */
-    public static final String  BUILD_NUMBER = "201007261515";
+    public static final String  BUILD_NUMBER = "201009301104";
     
     /** true if this is a Beta release, false if it is not */
     public static final boolean BETA_RELEASE = false;

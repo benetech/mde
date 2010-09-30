@@ -5,13 +5,13 @@ for the National Aeronautics and Space Administration. No copyright is
 claimed in the United States under Title 17, U.S. Code. All Other Rights
 Reserved. 
 -->
-<project basedir="." default="compileDebug" name="Math Description Engine (MDE)">
+<project basedir="../../" default="compileDebug" name="Math Description Engine (MDE)">
     <!-- Author: Dan Dexter -->
 
     <description>Math Description Engine (MDE) Ant build file.</description>
 
     <!-- Load the build properties as the first thing we do. -->
-    <property file="build.properties" />
+    <property file="dist/ant/build.properties" />
 
     <!-- The Open Source distribution root name. -->
     <property name="openSrcDistName" value="mde-${mde.version}-src" />
@@ -33,8 +33,8 @@ Reserved.
     <property name="sdkBaseDirName" value="mde-sdk${mde.version}" />
     <property name="sdkInstallScript" value="mde-sdk.iss" />
 
-    <property name="sourceDir" value="${basedir}" />
-    <property name="classesDir" value="${basedir}" />
+    <property name="sourceDir" value="src" />
+    <property name="classesDir" value="bin" />
     <property name="sdkDir" value="${basedir}/sdk" />
     <property name="apiSDKDocsDir" value="${sdkDir}/docs/api" />
     <property name="installerDir" value="${sdkDir}/installer" />
@@ -228,7 +228,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
            srcdir="${sourceDir}"
            destdir="${classesDir}"
            includes="**/*.java"
-           excludes="${sdkDir}/examples/**/*.java" />
+           excludes="${sdkDir}/examples/**/*.java,**/test/**,**/tests/**,**/Test/**" />
 </target>
 
 <target name="compileOptimized" description="Compile with optimization enabled and no debug.">
@@ -248,7 +248,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
            srcdir="${sourceDir}"
            destdir="${classesDir}"
            includes="**/*.java"
-           excludes="${sdkDir}/examples/**/*.java" />
+           excludes="${sdkDir}/examples/**/*.java,,**/test/**,**/tests/**,**/Test/**" />
 </target>
 
 <target name="buildDebugJar"
@@ -298,6 +298,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
 <!-- Set the Version and Beta values in the MDE-SDK settings. -->
 <target name="-initSDKVersion"
         depends="-initBuildNumber,-initBetaReleaseFlags,-initSDKVersionName,-initSDKBetaVersionName">
+	
     <replaceregexp file="${mdeSettingsPath}"
                    match="VERSION = (.*)"
                    replace="VERSION = &quot;${mde.version}&quot;;"
@@ -311,6 +312,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
                    replace="BETA_VERSION = &quot;${sdk.beta}&quot;;"
                    byline="true" />
 
+	
     <!-- Update the autorun.inf file for the MDE SDK Windows installer. -->
     <replaceregexp file="${installerDir}/autorun.inf"
                    match="open=(.*)"
@@ -322,7 +324,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
                    byline="true" />
 
     <!-- Update the CHANGES.txt file to use the current version and build number -->
-    <copy overwrite="Yes" file="SDK_CHANGES.txt" tofile="${sdkDir}/docs/CHANGES.txt" />
+    <copy overwrite="Yes" file="doc/SDK_CHANGES.txt" tofile="${sdkDir}/docs/CHANGES.txt" />
     <replaceregexp file="${sdkDir}/docs/CHANGES.txt"
                    match="%SDK_VERSION%"
                    replace="${mde.version}"
