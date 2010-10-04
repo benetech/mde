@@ -9,6 +9,7 @@ package gov.nasa.ial.mde.solver;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
+import gov.nasa.ial.mde.solver.features.individual.AsymptoteFeature;
 import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -19,7 +20,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedHyperbola extends SolvedConic implements VertexFeature{
+public class SolvedHyperbola extends SolvedConic implements VertexFeature, AsymptoteFeature{
     
     /** Identify new features so we can access them with SolvedGraph.putFeature */
     protected String[] newFeatures = { 
@@ -170,6 +171,11 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature{
 		double yPos = Double.valueOf(split[1]);
 		
 		return (new PointXY(xPos,yPos));
+	}
+
+	public String getAsymptotes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
     
 } // end class SolvedHyperbola
