@@ -1,5 +1,7 @@
 package gov.nasa.ial.mde.solver;
 
+import java.util.ArrayList;
+
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AsymptoteFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
@@ -58,9 +60,18 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		return doubleValue;
 	}
 
-	public String getAsymptotes() {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] getAsymptotes() {
+		Object values = this.getValues(AsymptoteFeature.PATH, AsymptoteFeature.KEY);
+		ArrayList list = (ArrayList)values;
+		System.out.println("The size of the returned array is"+list.size());
+		String[] asymptotes = new String[list.size()];
+		for(int i=0;i<list.size();i++)
+		{
+			System.out.println(list.get(i));
+			asymptotes[i]=(String) list.get(i);
+		}
+		
+		return asymptotes;
 	}
 
 }

@@ -6,11 +6,14 @@
  */
 package gov.nasa.ial.mde.solver;
 
+import java.util.ArrayList;
+
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AsymptoteFeature;
 import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
+import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -158,6 +161,8 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         putFeature("conjugateAxis", QuadraticClassifier.getEquationOfALine(center, conjugateAxisInclination, vars));
         putFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha + asymptoteInclination, vars));
         addToFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha - asymptoteInclination, vars));
+        System.out.println(getXMLString());
+        getAsymptotes();
     } // end SolvedHyperbola
     
     public PointXY getVertex() {
@@ -173,9 +178,18 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
 		return (new PointXY(xPos,yPos));
 	}
 
-	public String getAsymptotes() {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] getAsymptotes() {
+		Object values = this.getValues(AsymptoteFeature.PATH, AsymptoteFeature.KEY);
+		ArrayList list = (ArrayList)values;
+		System.out.println("The size of the returned array is"+list.size());
+		String[] asymptotes = new String[list.size()];
+		for(int i=0;i<list.size();i++)
+		{
+			System.out.println(list.get(i));
+			asymptotes[i]=(String) list.get(i);
+		}
+		
+		return asymptotes;
 	}
     
 } // end class SolvedHyperbola

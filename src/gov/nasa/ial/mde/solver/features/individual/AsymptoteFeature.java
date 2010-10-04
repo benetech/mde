@@ -6,6 +6,6 @@ public interface AsymptoteFeature extends GraphFeature{
 	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "asymptotes";
 	
-	public String getAsymptotes();
+	public String[] getAsymptotes();
 
 }
