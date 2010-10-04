@@ -43,6 +43,14 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
+	    
+	    double xOffset = Double.NaN;
+	    double yOffset = Double.NaN;
+	    String baseAsymptote = null;
+	    double period = Double.NaN;
+	    double amplitude = Double.NaN;
+	    
+	    
 		// TODO Auto-generated constructor stub
 	}
 
