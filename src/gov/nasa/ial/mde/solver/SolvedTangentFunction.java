@@ -23,6 +23,15 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		String equat = analyzedEquation.printOriginalEquation();
 		String[] parts = equat.split("\\)");
 		
+		double A,B,C,D;
+		double xOffset = Double.NaN;
+		double yOffset = Double.NaN;
+		String baseAsymptote = null;
+		double period = Double.NaN;
+		double amplitude = Double.NaN;
+		    
+		
+		
 		// TODO improve the spliting 
 		
 		for(int i = 0; i < parts.length;i++)
@@ -44,11 +53,28 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 	    
-	    double xOffset = Double.NaN;
-	    double yOffset = Double.NaN;
-	    String baseAsymptote = null;
-	    double period = Double.NaN;
-	    double amplitude = Double.NaN;
+	    if(parts.length>=2)
+		{
+	    	D = Double.valueOf(parts[1]);
+		}
+		else
+		{
+			D = 0;
+		}
+	    
+	    
+	    String getCoeff = "(-?\\d*\\.?\\d*)\\*tan";
+	    A = 1;
+	    parts[0]=parts[0].replace("y", "");
+    	parts[0]=parts[0].replace("=", "");
+    	parts[0]=parts[0].replace(" ", "");
+    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
+    	if(temp.contains("----")){
+    		A = Double.valueOf((temp.split("----")[0]));
+    	}
+	    
+	    B = ((SolvedLine) features).getSlope();
+	    C = ((SolvedLine) features).getYIntercept();
 	    
 	    
 		// TODO Auto-generated constructor stub
