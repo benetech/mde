@@ -150,7 +150,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         PointXY V1 = center.sum(new PointXY(vertexDisplacement));
         PointXY V2 = center.difference(new PointXY(vertexDisplacement));
         
-        
+        System.out.println("hello");
         
 
         putFeature("focalLength", new NumberModel(C));
