@@ -201,5 +201,10 @@ public class SolvedLine extends SolvedConic implements SlopeFeature {
 		Double[] array = getYIntercepts();
 		return array[0];
 	}
+	public double getXIntercept()
+	{
+		Double[] array = getXIntercepts();
+		return array[0];
+	}
     
 } // end class SolvedLine
