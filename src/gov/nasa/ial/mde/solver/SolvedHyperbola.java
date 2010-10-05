@@ -179,8 +179,35 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
     
     private void addDomainAndRange() {
     	String[] asymptotes  = getAsymptotes();
-    	
+    	String D = getDomain(asymptotes[0]);
+    	String R = getRange(asymptotes[1]);
+    	putFeature("domain", D);
+    	putFeature("range", R);
 	}
+
+
+    private String getDomain(String string) {
+		Solver solver = new Solver();
+		solver.add(string);
+	    solver.solve();   
+	    
+	    Solution solution = solver.get(0);
+	    SolvedGraph features = solution.getFeatures();
+	    return features.getRange();
+	}
+    
+	private String getRange(String string) {
+		Solver solver = new Solver();
+		solver.add(string);
+	    solver.solve();   
+	    
+	    Solution solution = solver.get(0);
+	    SolvedGraph features = solution.getFeatures();
+	    return features.getDomain();
+	}
+
+
+	
 
 
 	private double getSlope(String string)
