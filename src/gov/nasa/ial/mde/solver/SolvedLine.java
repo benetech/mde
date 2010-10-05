@@ -138,6 +138,7 @@ public class SolvedLine extends SolvedConic implements SlopeFeature {
        // getDomain();
        // getRange();
        // getSlope();
+       //System.out.println(getXMLString());
     } // end SolvedLine
     
     private void doLineFeatures(double a, double b, double c, QuadraticClassifier.QuadraticType ID) {

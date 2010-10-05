@@ -149,6 +149,9 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         PointXY F2 = center.difference(new PointXY(focalDisplacement));
         PointXY V1 = center.sum(new PointXY(vertexDisplacement));
         PointXY V2 = center.difference(new PointXY(vertexDisplacement));
+        
+        
+        
 
         putFeature("focalLength", new NumberModel(C));
         putFeature("eccentricity", new NumberModel(E));
@@ -161,9 +164,38 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         putFeature("conjugateAxis", QuadraticClassifier.getEquationOfALine(center, conjugateAxisInclination, vars));
         putFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha + asymptoteInclination, vars));
         addToFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha - asymptoteInclination, vars));
+        
+        addDomainAndRange();
+        
+        
+        
+        
+        
+     
         System.out.println(getXMLString());
-        getAsymptotes();
+        //getAsymptotes();
     } // end SolvedHyperbola
+    
+    
+    private void addDomainAndRange() {
+    	String[] asymptotes  = getAsymptotes();
+    	
+	}
+
+
+	private double getSlope(String string)
+    {
+    	Solver solver = new Solver();
+        solver.add(string);
+    	solver.solve();   
+    	Solution solution = solver.get(0);
+    	SolvedGraph features = solution.getFeatures();
+    	double y= ((SolvedLine)features).getYIntercept();
+    	solver.removeAll();
+    	return y;
+    }
+    
+    
     
     public PointXY getVertex() {
 		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);

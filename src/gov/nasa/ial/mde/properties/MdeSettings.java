@@ -115,10 +115,10 @@ public class MdeSettings extends Settings {
     public static final boolean DEBUG = true;
     
     /** The MDE application version number. */
-    public static final String  VERSION = "2.2.0";
+    public static final String  VERSION = "2.2.1";
     
     /** The build number which is updated by the Ant build script. */
-    public static final String  BUILD_NUMBER = "201009301106";
+    public static final String  BUILD_NUMBER = "201010051509";
     
     /** true if this is a Beta release, false if it is not */
     public static final boolean BETA_RELEASE = false;
