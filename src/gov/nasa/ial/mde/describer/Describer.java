@@ -408,7 +408,11 @@ public class Describer {
             currentTransformer.transform(new StreamSource(new ByteArrayInputStream(xmlData.getBytes())),
                     new StreamResult(result));
             String resultStr = result.toString();
-            //System.out.println("transformed Str = "+resultStr);
+            if(MdeSettings.DEBUG)
+            {
+
+                System.out.println("transformed Str = "+resultStr);
+            }
 
             if (currentOutputFormat.equals(TEXT_OUTPUT)) {
                 finalResult = cleanUpText(resultStr, 40);
