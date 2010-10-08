@@ -384,7 +384,12 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
          compress="yes"
          includes="${jarIncludes}"
          excludes="${jarExcludes},${jarName}.jar,build.xml,build.properties,**/*.java,${tutorialExcludes},${installerExcludes},${sdkExcludes},${commonExcludes}"
-         jarfile="${jarName}.jar" />
+         jarfile="${jarName}.jar" >
+    	 <manifest>
+    	 	<attribute name="Main-Class" value="gov.nasa.ial.mde.ui.DescriberFrame"/>
+    	 </manifest>
+
+	</jar>
 </target>
 
 <!-- Turn Debug comments off. -->
