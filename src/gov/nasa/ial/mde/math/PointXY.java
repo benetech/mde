@@ -32,7 +32,8 @@ public class PointXY {
     private String rightDelim = ")";
 
     /** Default constructor not allowed. */
-    private PointXY() {
+    @SuppressWarnings("unused")
+	private PointXY() {
     	throw new RuntimeException("Default constructor not allowed.");
     }
     

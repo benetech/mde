@@ -30,7 +30,8 @@ public class NumberModel {
     private static final double EPSILON = 1.0e-10;
     private static final int    DEFAULT_FRACTION_DIGITS = 3;  
 
-    private NumberModel() {
+    @SuppressWarnings("unused")
+	private NumberModel() {
         throw new RuntimeException("Default constructor not permitted");
     }
 

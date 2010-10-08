@@ -26,7 +26,8 @@ public class PointRT {
     public double theta;
 
     /** Default constructor not allowed. */
-    private PointRT() {
+    @SuppressWarnings("unused")
+	private PointRT() {
     	throw new RuntimeException("Default constructor not allowed.");
     }
     

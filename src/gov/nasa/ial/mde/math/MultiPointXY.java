@@ -28,7 +28,8 @@ public class MultiPointXY {
     private int numDigits = 3;
 
     /** Default constructor not allowed. */
-    private MultiPointXY() {
+    @SuppressWarnings("unused")
+	private MultiPointXY() {
     	throw new RuntimeException("Default constructor not allowed.");
     }
     

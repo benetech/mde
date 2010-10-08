@@ -28,7 +28,8 @@ public class SymbolicMatrix {
     private int numRows;
     private int numCols;
 
-    private SymbolicMatrix() {
+    @SuppressWarnings("unused")
+	private SymbolicMatrix() {
         throw new RuntimeException("Default constructor not allowed");
     } // end SymbolicMatrix
 
