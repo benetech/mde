@@ -104,7 +104,8 @@ public class Describer {
     /**
      * Table of initialized XSLT transformers. One per description mode.
      */
-    private Hashtable          transformers;
+    
+	private Hashtable<String, Transformer>          transformers;
 
     /**
      * Comment for <code>currentDescriptionMode</code>
@@ -127,7 +128,8 @@ public class Describer {
     private int                wordsPerLine;
 
     // Default constructor not allowed.
-    private Describer() {
+    @SuppressWarnings("unused")
+	private Describer() {
         throw new RuntimeException("Default constructor not allowed.");
     }
 
@@ -159,13 +161,13 @@ public class Describer {
 
         //TODO: The template/mode defaults should probably be set in MdeSettings
 
-        transformers = new Hashtable();
+        transformers = new Hashtable<String, Transformer>();
         addDescriptionMode("visual", "mdeApplyVisual1.xsl");
         addDescriptionMode("math", "mdeApplyMath1.xsl");
         addDescriptionMode("standards", "mdeApplyStandards1.xsl");
 
         this.currentDescriptionMode = settings.getDescriptionMode();
-        this.currentTransformer = (Transformer) transformers.get(currentDescriptionMode);
+        this.currentTransformer = transformers.get(currentDescriptionMode);
     }
 
     /**
@@ -265,9 +267,9 @@ public class Describer {
             System.out.println(getClass().getName() + ".setOutputFormat() " + outputFormat);
         }
         Transformer tf;
-        Enumeration en = transformers.elements();
+        Enumeration<Transformer> en = transformers.elements();
         while (en.hasMoreElements()) {
-            tf = (Transformer) en.nextElement();
+            tf = en.nextElement();
             if (notXML) {
                 omitXMLDeclaration(tf, true);
             } else {
@@ -291,7 +293,8 @@ public class Describer {
         // Get the XML block from the features.
         Solution solution;
         SolvedGraph features;
-        for (Iterator iter = solver.getSolutionIterator(); iter.hasNext();) {
+        for (@SuppressWarnings("rawtypes")
+		Iterator iter = solver.getSolutionIterator(); iter.hasNext();) {
             solution = (Solution) iter.next();
 
             // Only describe the solutions that are graphed.
@@ -334,7 +337,7 @@ public class Describer {
      */
     public void setCurrentDescriptionMode(String mode) {
         //TODO: We could handle an invalid mode condition better than we do.
-        Transformer tf = (Transformer) transformers.get(mode);
+        Transformer tf = transformers.get(mode);
         if (tf == null) {
             if (MdeSettings.DEBUG) {
                 System.out.println("Invalid description mode. Previously set mode will be used.");
