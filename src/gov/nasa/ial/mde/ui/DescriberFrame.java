@@ -13,17 +13,15 @@ public class DescriberFrame {
 	{
 		//1. Create the frame.
 		JFrame frame = new JFrame("MDE Decriber Driver");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//2. Optional: What happens when the frame closes?
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//3. Create components and put them in the frame.
-		//...create emptyLabel...
-        JLabel emptyLabel = new JLabel("");
-        emptyLabel.setPreferredSize(new Dimension(175, 100));
+		DescriberPanel panel = new DescriberPanel();
+        //panel.setPreferredSize(new Dimension(175, 100));
 
-		frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
 
 		//4. Size the frame.
 		frame.pack();
