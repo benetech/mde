@@ -1,18 +1,20 @@
 package gov.nasa.ial.mde.ui;
 
-
 import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+
 
 public class DescriberPanel extends JPanel {
 	/**
@@ -27,8 +29,9 @@ public class DescriberPanel extends JPanel {
 	private Describer describer;
 	
 	public DescriberPanel(){
-		
+		setLayout(new BorderLayout());
 		setupMDE();
+		
 		
 		//Instructions
 		instructions = new JLabel("Enter equation and press enter:");
@@ -48,15 +51,19 @@ public class DescriberPanel extends JPanel {
 		//setup output
 		output = new JTextArea("Your description will appear here.");
 		output.setEditable(false);
-		
+		output.setLineWrap(true);
+		output.setPreferredSize(new Dimension(240, 240));
 		
 		
 		
 		
 		//add components
-		this.add(instructions);
-		this.add(input);
-		this.add(output);
+		JPanel inputPanel = new JPanel();
+		inputPanel.add(instructions);
+		inputPanel.add(input);
+		//inputPanel.setPreferredSize(new Dimension(200,64));
+		this.add(inputPanel, BorderLayout.PAGE_START);
+		this.add(output, BorderLayout.CENTER);
 		
 	}
 	

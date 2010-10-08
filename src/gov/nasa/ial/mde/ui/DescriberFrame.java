@@ -19,9 +19,9 @@ public class DescriberFrame {
 
 		//3. Create components and put them in the frame.
 		DescriberPanel panel = new DescriberPanel();
-        //panel.setPreferredSize(new Dimension(175, 100));
+        //panel.setPreferredSize(new Dimension(360, 240));
 
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frame.getContentPane().add(panel);
 
 		//4. Size the frame.
 		frame.pack();
