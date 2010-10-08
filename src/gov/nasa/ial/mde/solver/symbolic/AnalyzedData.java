@@ -61,7 +61,8 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
     
     private double maxJump = 0.0; // tolerance for breaking a GraphTrail
     
-    private AnalyzedData() {
+    @SuppressWarnings("unused")
+	private AnalyzedData() {
         throw new RuntimeException("Default constructor not allowed.");
     }
     
