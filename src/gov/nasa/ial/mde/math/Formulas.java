@@ -8,6 +8,8 @@
  */
 package gov.nasa.ial.mde.math;
 
+import gov.nasa.ial.mde.math.Roots.RootFactor;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -308,8 +310,8 @@ public class Formulas {
 
     private void collectRoots() {
         int i, n = roots.length;
-        ArrayList realFactors = new ArrayList();
-        ArrayList complexFactors = new ArrayList();
+        ArrayList<RootFactor> realFactors = new ArrayList<RootFactor>();
+        ArrayList<RootFactor> complexFactors = new ArrayList<RootFactor>();
 
         for (i = 0; i < n; i++) {
             Roots.RootFactor[] r = getRealFactors(roots[i]);
@@ -327,7 +329,7 @@ public class Formulas {
         reals = new double[n = realFactors.size()];
 
         for (i = 0; i < n; i++) {
-            reals[i] = ((Roots.RootFactor) realFactors.get(i)).rootValues[0];
+            reals[i] = realFactors.get(i).rootValues[0];
         }
         
         Arrays.sort(reals);
@@ -369,7 +371,7 @@ public class Formulas {
             realFactors.add(newRoot);
         } // end if
 
-        Roots.RootFactor[] cf = (Roots.RootFactor[])complexFactors.toArray(
+        Roots.RootFactor[] cf = complexFactors.toArray(
                                     new Roots.RootFactor[complexFactors.size()]);
 
         if (cf.length == 2) {
@@ -389,10 +391,10 @@ public class Formulas {
         roots = new Roots.RootFactor[n = (i = realFactors.size()) + complexFactors.size()];
 
         for (int j = 0; j < i; j++) {
-            roots[j] = (Roots.RootFactor) realFactors.get(j);
+            roots[j] = realFactors.get(j);
         }
         for (int j = i; j < n; j++) {
-            roots[j] = (Roots.RootFactor) complexFactors.get(j - i);
+            roots[j] = complexFactors.get(j - i);
         }
     } // end collectRoots
 
