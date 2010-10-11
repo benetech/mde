@@ -161,9 +161,10 @@ public class SolvedRationalFunction extends SolvedXYGraph {
         return r;
     } // end getMFN
 
-    private void findPoints() {
+    @SuppressWarnings("unchecked")
+	private void findPoints() {
         boolean addLeft = true, addRight = true;
-        ArrayList points = new ArrayList();
+        ArrayList<IntervalEndpoint> points = new ArrayList<IntervalEndpoint>();
         RealZero[] criticals = dfNumerator.getRealZeros();
         RealZero[] singulars = fDenominator.getRealZeros();
         IntervalEndpoint newPoint = null;
@@ -251,7 +252,7 @@ public class SolvedRationalFunction extends SolvedXYGraph {
             points.add(new IntervalEndpoint(right));
 
         Collections.sort(points);
-        endPoints = (IntervalEndpoint[]) points.toArray(new IntervalEndpoint[0]);
+        endPoints = points.toArray(new IntervalEndpoint[0]);
     } // end findPoints
 
 
