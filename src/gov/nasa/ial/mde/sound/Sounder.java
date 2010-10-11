@@ -81,7 +81,8 @@ public class Sounder extends MultiWavePlayer {
 
     private int dingTime = 150; // milliseconds
 
-    private Sounder() {
+    @SuppressWarnings("unused")
+	private Sounder() {
         throw new RuntimeException("Default constructor not allowed.");
     }
 
