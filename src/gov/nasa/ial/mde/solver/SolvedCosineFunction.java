@@ -51,8 +51,8 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 		
 		
 	    double amplitude = Double.NaN;
-		String period= null;
-		double period_value =Double.NaN;
+		//String period= null;
+		//double period_value =Double.NaN;
 		String frequency = null;  //
 		double frequency_value = Double.NaN; // angular frequency, measured in radians/second 
 		String phase = null;  // another time we need to use pi	

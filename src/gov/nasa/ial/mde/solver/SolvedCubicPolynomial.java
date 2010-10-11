@@ -1,9 +1,6 @@
 package gov.nasa.ial.mde.solver;
 
-import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.math.IntervalXY;
-import gov.nasa.ial.mde.math.PNom;
-import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 public class SolvedCubicPolynomial extends SolvedRationalFunction {
