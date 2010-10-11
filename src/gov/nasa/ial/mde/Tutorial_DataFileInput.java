@@ -36,13 +36,13 @@ public class Tutorial_DataFileInput {
         TextDataFileParser fileParser = new TextDataFileParser(file);
         AnalyzedData data = null;
         
-        try {
-			List list = fileParser.parse();
-			
+   
+		
+		try {
+			List<AnalyzedData> list = fileParser.parse();
 			System.out.println(list.size());
-			
-			data = (AnalyzedData) list.get(0);
-			
+			data = list.get(0);
+			System.out.println(data);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,6 +50,22 @@ public class Tutorial_DataFileInput {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// Now give Solver the AnalyzedData object and ask it to solve
+        solver.add(data);
+        solver.solve();
+
+        // Now we ask for a description and sonification as before
+        if (solver.anyDescribable()) {
+            String description = describer.getDescriptions("standards");
+            System.out.println("Description of data: " + description);
+        } else {
+            System.out.println("MDE could not generate a description for your data.");
+        }
+
+        // Clear Solver so next data set will be processed singly
+        // (we only want one description at a time)
+        solver.removeAll();
     } // end main
 
 } // end class Tutorial_DataFileInput
