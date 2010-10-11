@@ -94,6 +94,7 @@ public class DescriberPanel extends JPanel {
 		}catch (Exception e) 
 		{
 			System.out.println(e);
+			solver.removeAll();
 		}
 		return description;
     }
