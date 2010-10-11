@@ -20,6 +20,7 @@ import gov.nasa.ial.mde.io.TextDataFileParser;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedData;
+import gov.nasa.ial.mde.solver.symbolic.AnalyzedItem;
 
 public class Tutorial_DataFileInput {
 
@@ -33,13 +34,13 @@ public class Tutorial_DataFileInput {
         
         File file = new File("InputText.txt");
                 
-        TextDataFileParser fileParser = new TextDataFileParser(file);
+        TextDataFileParser  fileParser = new TextDataFileParser(file);
         AnalyzedData data = null;
         
    
 		
 		try {
-			List<AnalyzedData> list = fileParser.parse();
+			List<? extends AnalyzedData> list = fileParser.parse();
 			System.out.println(list.size());
 			data = list.get(0);
 			System.out.println(data);
