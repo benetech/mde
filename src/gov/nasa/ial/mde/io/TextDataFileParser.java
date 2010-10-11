@@ -132,7 +132,7 @@ public class TextDataFileParser implements FileParser {
 	 *             is thrown for parse errors
 	 * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedData
 	 */
-	public List parse() throws IOException, ParseException {
+	public List<AnalyzedData> parse() throws IOException, ParseException {
 		analyzeFile();
 
 		if (columnCnt < 2) {
@@ -384,7 +384,7 @@ public class TextDataFileParser implements FileParser {
 		}
 	}
 
-	private List getAnalyzedDataList() {
+	private List<AnalyzedData> getAnalyzedDataList() {
 		if (columnCnt < 2) {
 			throw new IllegalArgumentException("Data file must have at least two columns of data.");
 		}
@@ -393,7 +393,7 @@ public class TextDataFileParser implements FileParser {
 		int[] segmentIndexes = calcSegmentIndexes();
 		int segCount = (segmentIndexes != null) ? segmentIndexes.length : 0;
 		int initialCapacity = Math.max(1, (segCount * (columnCnt - 1)));
-		ArrayList analyzedDataList = new ArrayList(initialCapacity);
+		ArrayList<AnalyzedData> analyzedDataList = new ArrayList<AnalyzedData>(initialCapacity);
 
 		if (segCount <= 1) {
 			// One data segment means that there were no breaks/holes in the
@@ -449,7 +449,7 @@ public class TextDataFileParser implements FileParser {
 			// We declare a segment anytime we have a point that steps more
 			// than two times the average step size away from the previous
 			// point.
-			ArrayList segList = new ArrayList(10);
+			ArrayList<Integer> segList = new ArrayList<Integer>(10);
 			for (int i = 1; i < len; i++) {
 				if (Math.abs(dataArray[i] - dataArray[i - 1]) > doubleAvgStepSize) {
 					segList.add(new Integer(i - 1));
@@ -463,7 +463,7 @@ public class TextDataFileParser implements FileParser {
 			}
 
 			// Make sure we include the index to the last data point.
-			Integer lastSeg = (Integer) segList.get(segList.size() - 1);
+			Integer lastSeg = segList.get(segList.size() - 1);
 			if (lastSeg.intValue() != (len - 1)) {
 				segList.add(new Integer(len - 1));
 			}
@@ -471,7 +471,7 @@ public class TextDataFileParser implements FileParser {
 			// Create the integer array of the segment indexes.
 			segmentIndexes = new int[segList.size()];
 			for (int i = 0; i < segmentIndexes.length; i++) {
-				segmentIndexes[i] = ((Integer) segList.get(i)).intValue();
+				segmentIndexes[i] = segList.get(i).intValue();
 			}
 
 			// Done with the list.
@@ -523,7 +523,7 @@ public class TextDataFileParser implements FileParser {
 		char ch;
 		boolean processingQuotes;
 		StringBuffer strBuff = new StringBuffer(32);
-		ArrayList results = new ArrayList(10);
+		ArrayList<String> results = new ArrayList<String>(10);
 
 		// Handle the special case of a comma delim and the line starting with
 		// an
@@ -607,7 +607,7 @@ public class TextDataFileParser implements FileParser {
 			results.add("");
 		}
 
-		String[] returnVal = (String[]) results.toArray(new String[results.size()]);
+		String[] returnVal = results.toArray(new String[results.size()]);
 		results.clear();
 
 		return returnVal;

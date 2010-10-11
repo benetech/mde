@@ -8,6 +8,8 @@
  */
 package gov.nasa.ial.mde.io;
 
+import gov.nasa.ial.mde.solver.symbolic.AnalyzedItem;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -29,7 +31,7 @@ public interface FileParser {
      * @throws ParseException is thrown for parse errors
      * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem
      */
-    public List parse() throws IOException, ParseException;
+    public List<? extends AnalyzedItem> parse() throws IOException, ParseException;
     
     /**
      * Clear the file parser so that the parse() method can be called again if needed.
