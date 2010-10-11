@@ -96,6 +96,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 		return degree;
 	}
 
+	@SuppressWarnings("unused")
 	private AnalyzedEquation() {
         throw new RuntimeException("Default constructor not allowed.");
     }
