@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
  */
 public class MdeFeatureNode {
     
-    private LinkedHashMap values = new LinkedHashMap();
+    private LinkedHashMap<String, ArrayList<Object>> values = new LinkedHashMap<String, ArrayList<Object>>();
 
     /**
      * Default constructor.
@@ -37,7 +37,7 @@ public class MdeFeatureNode {
      * @param o the object to create a feature node for.
      */
     public MdeFeatureNode(Object o) {
-        Class c = o.getClass();
+        Class<? extends Object> c = o.getClass();
         Field[] f = c.getFields();
         int i, n = f.length;
 
@@ -66,8 +66,8 @@ public class MdeFeatureNode {
      * @param key the key to the values.
      * @return a list of values.
      */
-    public ArrayList getList(String key) {
-        return (ArrayList)values.get(key);
+    public ArrayList<Object> getList(String key) {
+        return values.get(key);
     } // end getList
 
     /**
@@ -77,9 +77,9 @@ public class MdeFeatureNode {
      * @return the child MDE feature nodes.
      */
     public MdeFeatureNode[] getChildNodes(String key) {
-        ArrayList l = getChildList(key, MdeFeatureNode.class);
+        ArrayList<Object> l = getChildList(key, MdeFeatureNode.class);
 
-        return (MdeFeatureNode[])l.toArray(new MdeFeatureNode[l.size()]);
+        return l.toArray(new MdeFeatureNode[l.size()]);
     } // end getChildNodes
 
     /**
@@ -89,9 +89,9 @@ public class MdeFeatureNode {
      * @return the child strings.
      */
     public String[] getChildStrings(String key) {
-        ArrayList l = getChildList(key, String.class);
+        ArrayList<Object> l = getChildList(key, String.class);
 
-        return (String[])l.toArray(new String[l.size()]);
+        return l.toArray(new String[l.size()]);
     } // end getChildStrings
 
     /**
@@ -110,7 +110,7 @@ public class MdeFeatureNode {
      * @param key the key to add.
      */
     public void addKey(String key) {
-        ArrayList l = new ArrayList();
+        ArrayList<Object> l = new ArrayList<Object>();
 
         //l.add (new MdeFeatureNode());
         values.put(key, l);
@@ -123,7 +123,7 @@ public class MdeFeatureNode {
      * @param value the value to add.
      */
     public void addValue(String key, Object value) {
-        ArrayList l = getList(key);
+        ArrayList<Object> l = getList(key);
 
         if (l == null)
             throw new IllegalArgumentException("Key \"" + key + "\" not found.");
@@ -149,10 +149,10 @@ public class MdeFeatureNode {
     public String[] keys() {
         int i = 0, n = values.size();
         String[] r = new String[n];
-        Iterator it = values.keySet().iterator();
+        Iterator<String> it = values.keySet().iterator();
 
         while (it.hasNext())
-            r[i++] = (String)it.next();
+            r[i++] = it.next();
 
         return r;
     } // end keys
@@ -180,9 +180,9 @@ public class MdeFeatureNode {
         StringBuffer b = new StringBuffer();
 
         for (i = 0; i < n; i++) {
-            ArrayList l = (ArrayList)r.values.get(keys[i]);
+            ArrayList<Object> l = r.values.get(keys[i]);
             String k = MdeFeatureNode.massageKeyString(keys[i]);
-            Iterator it = l.iterator();
+            Iterator<Object> it = l.iterator();
 
             while (it.hasNext()) {
                 Object o = it.next();
@@ -197,14 +197,14 @@ public class MdeFeatureNode {
         return b.toString();
     } // end toXML
 
-    private ArrayList getChildList(String key, Class c) {
-        ArrayList l = getList(key);
-        ArrayList n = new ArrayList();
+    private ArrayList<Object> getChildList(String key, Class<?> c) {
+        ArrayList<Object> l = getList(key);
+        ArrayList<Object> n = new ArrayList<Object>();
 
         if (l == null)
             throw new IllegalArgumentException("Key \"" + key + "\" not available");
 
-        Iterator it = l.iterator();
+        Iterator<Object> it = l.iterator();
 
         while (it.hasNext()) {
             Object o = it.next();
@@ -235,15 +235,15 @@ public class MdeFeatureNode {
         return outString;
     } // end massageValueString
 
-    public ArrayList getValues(String key) {
-    	return (ArrayList)this.values.get(key);
+    public ArrayList<Object> getValues(String key) {
+    	return this.values.get(key);
     }
     
     public Object getValue(String key) throws NullPointerException {
     	Object value = null;
-    	ArrayList valueArray = null;
+    	ArrayList<Object> valueArray = null;
     	if(this.values.containsKey(key)) {
-    		valueArray = (ArrayList)this.values.get(key);
+    		valueArray = this.values.get(key);
     		value = valueArray.get(0);
     	}
     	if(value == null) throw new NullPointerException();

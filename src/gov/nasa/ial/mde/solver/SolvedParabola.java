@@ -240,11 +240,11 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
                     throw new IllegalStateException("Invalid opening direction in SolvedParabola");
             } // end switch
         } // end if
-        //System.out.println(getXMLString());
-        //getYIntercepts();
-        //getVertex();
-        //getFocus();
-       // getMinima();
+        System.out.println(getXMLString());
+        getYIntercepts();
+        getVertex();
+        getFocus();
+        //getMinima();
        // getFocalLength();
        
 

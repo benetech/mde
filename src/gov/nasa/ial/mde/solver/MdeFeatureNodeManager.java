@@ -27,7 +27,7 @@ public class MdeFeatureNodeManager {
     private MdeFeatureNode current;
     private String[] pathSegments;
     private int numSegments;
-    private ArrayList nodeList = new ArrayList();
+    private ArrayList<MdeFeatureNode> nodeList = new ArrayList<MdeFeatureNode>();
     
     /** Position to add a node. */
     protected final static int ADD_LAST = -2, ADD_ALL = -1;
@@ -205,7 +205,7 @@ public class MdeFeatureNodeManager {
             collectMFNs(root, 0);
         else
             collectMFNs(current, 0);
-        return (MdeFeatureNode[])nodeList.toArray(new MdeFeatureNode[nodeList.size()]);
+        return nodeList.toArray(new MdeFeatureNode[nodeList.size()]);
     } // end getNodes
 
     /**
@@ -232,7 +232,7 @@ public class MdeFeatureNodeManager {
 
     private void parsePath(String path) {
         String[] p = path.split("/");
-        ArrayList t = new ArrayList();
+        ArrayList<String> t = new ArrayList<String>();
         int i, n = p.length;
 
         for (i = 0; i < n; i++) {
@@ -245,7 +245,7 @@ public class MdeFeatureNodeManager {
         } // end for i
 
         numSegments = t.size();
-        pathSegments = (String[])t.toArray(new String[numSegments]);
+        pathSegments = t.toArray(new String[numSegments]);
     } // end parsePath
 
 } // end class MdeFeatureNodeManager
