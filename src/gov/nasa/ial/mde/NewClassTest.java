@@ -4,8 +4,6 @@ import gov.nasa.ial.mde.describer.Describer;
 
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.SolvedCubicPolynomial;
-import gov.nasa.ial.mde.solver.SolvedGraph;
-import gov.nasa.ial.mde.solver.SolvedParabola;
 import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 

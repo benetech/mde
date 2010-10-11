@@ -84,6 +84,7 @@ public class TextDataFileParser implements FileParser {
 	/**
 	 * Default constructor not allowed.
 	 */
+	@SuppressWarnings("unused")
 	private TextDataFileParser() {
 		throw new RuntimeException("Default constructor not allowed.");
 	}
