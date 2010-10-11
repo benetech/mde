@@ -1,18 +1,13 @@
 package gov.nasa.ial.mde.solver;
 
 
-import java.util.ArrayList;
-
 import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
-import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 import gov.nasa.ial.mde.solver.features.individual.ShiftFeature;
-import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
-import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
@@ -52,8 +47,8 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    SolvedGraph features = solution.getFeatures();
 		
 		double amplitude = Double.NaN;
-		String period= null;
-		double period_value =Double.NaN;
+		//String period= null;
+		//double period_value =Double.NaN;
 		String frequency = null;  //
 		double frequency_value = Double.NaN; // angular frequency, measured in radians/second 
 		String phase = null;  // another time we need to use pi	
