@@ -33,7 +33,23 @@ import java.util.Comparator;
  */
 public class PolynomialClassifier extends MDEClassifier {
     
-    private final static int SIZE = 8;
+    private final class ComparatorImplementation implements Comparator<PolynomialModel> {
+		public int compare(final PolynomialModel o1, final PolynomialModel o2) {
+		    final PolynomialModel p1 = (PolynomialModel)o1, p2 = (PolynomialModel)o2;
+
+		    if (p1.fit > p2.fit) {
+		        return 1;
+		    }
+
+		    if (p1.fit < p2.fit) {
+		        return -1;
+		    }
+
+		    return 0;
+		} // end compare
+	}
+
+	private final static int SIZE = 8;
     private final static int DEGREE = SIZE - 1;
     private PolynomialModelBuilder qBuilder = new PolynomialModelBuilder(2, 2);
     private PolynomialModelBuilder rBuilder = new PolynomialModelBuilder(DEGREE, 1);
@@ -54,29 +70,15 @@ public class PolynomialClassifier extends MDEClassifier {
         } // end for i
 
         PolynomialModel[] rpm = new PolynomialModel[n = 1 + SIZE * SIZE];
-        ArrayList finalists = new ArrayList();
+        ArrayList<PolynomialModel> finalists = new ArrayList<PolynomialModel>();
 
         rpm[0] = new QuadraticModel(qBuilder);
         for (i = 1; i < n; i++) {
             rpm[i] = new RationalModel(rBuilder, (i - 1) / SIZE, (i - 1) % SIZE);
         }
 
-        Arrays.sort(rpm, new Comparator() {
-            public int compare(Object o1, Object o2) {
-                PolynomialModel p1 = (PolynomialModel)o1, p2 = (PolynomialModel)o2;
-
-                if (p1.fit > p2.fit) {
-                    return 1;
-                }
-
-                if (p1.fit < p2.fit) {
-                    return -1;
-                }
-
-                return 0;
-            } // end compare
-        } // end new Comparator
-        ); // end sort
+        Comparator<PolynomialModel> comparator = new ComparatorImplementation();
+		extracted(rpm, comparator); // end sort
 
         for (i = 0; i < n; i++) {
             if (rpm[i].fit > worstFit) {
@@ -90,16 +92,21 @@ public class PolynomialClassifier extends MDEClassifier {
             return;
         }
 
-        bestGuess = (PolynomialModel)finalists.get(0);
+        bestGuess = finalists.get(0);
 
         for (i = 1; i < n; i++) {
-            PolynomialModel t = (PolynomialModel)finalists.get(i);
+            PolynomialModel t = finalists.get(i);
 
             if (t.complexity < bestGuess.complexity) {
                 bestGuess = t;
             }
         } // end for i
     } // end PolynomialClassifier
+
+	private void extracted(PolynomialModel[] rpm, Comparator<PolynomialModel> comparator) {
+		Arrays.sort(rpm, comparator // end new Comparator
+        );
+	}
 
     /**
      * Creates a polynomial classifier for the given points.
