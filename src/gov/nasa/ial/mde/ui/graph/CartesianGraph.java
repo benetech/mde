@@ -48,7 +48,13 @@ import javax.swing.JPanel;
  */
 public class CartesianGraph extends JPanel {
     
-    private Solver solver;
+  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1857799135537915445L;
+
+	private Solver solver;
     
     // To allow for faster rendering of the graph we do our own buffering of the
     // drawn grid and plotted equation.
@@ -99,7 +105,8 @@ public class CartesianGraph extends JPanel {
     
     private static final boolean USE_CACHED_GRAPH_DRAWING = true;
     
-    private CartesianGraph() {
+    @SuppressWarnings("unused")
+	private CartesianGraph() {
         throw new RuntimeException("Default constructor not allowed.");
     }
     
