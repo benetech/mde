@@ -51,7 +51,12 @@ import javax.swing.event.ChangeListener;
  */
 public class SoundControl extends JPanel implements ActionListener {
 
-    /** Reference to the sounder component. */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1617335415419566389L;
+
+	/** Reference to the sounder component. */
     protected Sounder sounder = null;
     
     /** Reference to the solver. */
@@ -354,7 +359,7 @@ public class SoundControl extends JPanel implements ActionListener {
     } // end buttonInit
 
     private void sliderInit() {
-        Hashtable xPositionLabelTable = new Hashtable();
+        Hashtable<Integer, JLabel> xPositionLabelTable = new Hashtable<Integer, JLabel>();
 
         xPosition = new JSlider(JSlider.HORIZONTAL);
         xPosition.setBackground(ColorDefaults.BUTTON_BG_COLOR);

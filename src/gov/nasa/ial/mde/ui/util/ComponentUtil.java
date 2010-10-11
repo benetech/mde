@@ -100,7 +100,7 @@ public class ComponentUtil {
      * all the JCheckBox, JComboBox, JButton, and JRadioButton components that 
      * it contains to the same color.
      * 
-     * @param buttons the button group to set the backgroun for.
+     * @param buttons the button group to set the background for.
      * @param bg the background color.
      */
     public static void setBackground(ButtonGroup buttons, Color bg) {

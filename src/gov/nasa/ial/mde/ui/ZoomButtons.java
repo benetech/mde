@@ -77,7 +77,12 @@ import javax.swing.border.TitledBorder;
  */
 public class ZoomButtons extends JPanel implements ActionListener {
 
-    private JButton zoomOutBtn;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1094388747710888202L;
+
+	private JButton zoomOutBtn;
 
     private JButton zoomInBtn;
 
@@ -109,7 +114,8 @@ public class ZoomButtons extends JPanel implements ActionListener {
      */
     public static final boolean ZOOM_OUT = false;
 
-    private ZoomButtons() {
+    @SuppressWarnings("unused")
+	private ZoomButtons() {
         throw new RuntimeException("Default constructor not allowed.");
     }
 

@@ -69,6 +69,7 @@ public class SoundSettingsDialog {
 	private JButton defaultsBtn;
 	private JButton cancelBtn;
 	
+	@SuppressWarnings("unused")
 	private SoundSettingsDialog() {
 		throw new RuntimeException("Default constructor not allowed.");
 	}

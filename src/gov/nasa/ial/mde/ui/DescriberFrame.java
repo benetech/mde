@@ -1,11 +1,6 @@
 package gov.nasa.ial.mde.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 
 public class DescriberFrame {
 	
