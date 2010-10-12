@@ -27,7 +27,8 @@ public class GraphTrail {
     protected PointXY[] points;
 
     /** Default constructor not allowed. */
-    private GraphTrail() {
+    @SuppressWarnings("unused")
+	private GraphTrail() {
         throw new RuntimeException("Default constructor not allowed.");
     } // end GraphTrail
     
