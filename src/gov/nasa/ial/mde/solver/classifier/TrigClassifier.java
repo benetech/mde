@@ -1,37 +1,36 @@
 package gov.nasa.ial.mde.solver.classifier;
 
-import java.util.ArrayList;
-
 import gov.nasa.ial.mde.solver.SolvedCosineFunction;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedSineFunction;
 import gov.nasa.ial.mde.solver.SolvedTrigFunction;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
-import gov.nasa.ial.mde.solver.symbolic.Polynomial;
+
+import java.util.ArrayList;
 
 public class TrigClassifier extends MDEClassifier {
 	
 	private boolean hasSin = false,  
 					hasCos = false, 
 					hasTan = false,
-					hasMultiples =false,
-					hasX = false;
+					hasMultiples =false;
+					//hasX = false;
 	
 	public ArrayList<String> arr;
-	private Polynomial lhs;
+	//private Polynomial lhs =null;
 	
 	
-	public TrigClassifier() {
+	/*public TrigClassifier() {
 		super();
 		
 		
-	}
+	}*/
 	
 	
 	
-	public TrigClassifier(Polynomial lhs) {
+	/*public TrigClassifier(Polynomial lhs) {
 		this.lhs=lhs;
-	}
+	}*/
 
 
 
