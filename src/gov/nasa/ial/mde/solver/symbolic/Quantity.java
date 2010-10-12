@@ -29,7 +29,7 @@ public class Quantity {
     public Quantity(String s) {
         int c = 0, i, n = s.length();
         byte[] byteArray = s.getBytes();
-        Vector subStarts = new Vector(), subEnds = new Vector();
+        Vector<Integer> subStarts = new Vector<Integer>(), subEnds = new Vector<Integer>();
 
         subStarts.addElement(new Integer(0));
 
@@ -73,20 +73,20 @@ public class Quantity {
             return;
         } // end if
 
-        Enumeration se = subStarts.elements();
-        Enumeration ee = subEnds.elements();
+        Enumeration<Integer> se = subStarts.elements();
+        Enumeration<Integer> ee = subEnds.elements();
         children = new Object[n];
 
         for (i = 0;;) {
-            int st = ((Integer)se.nextElement()).intValue();
-            int e = ((Integer)ee.nextElement()).intValue();
+            int st = se.nextElement().intValue();
+            int e = ee.nextElement().intValue();
 
             children[i++] = new String(byteArray, st, e - st);
             if (i >= n)
                 break;
 
-            st = ((Integer)se.nextElement()).intValue();
-            e = ((Integer)ee.nextElement()).intValue();
+            st = se.nextElement().intValue();
+            e = ee.nextElement().intValue();
             children[i] = new Quantity(new String(byteArray, st, e - st));
             if (((Quantity)children[i++]).children == null) {
                 children = null;
