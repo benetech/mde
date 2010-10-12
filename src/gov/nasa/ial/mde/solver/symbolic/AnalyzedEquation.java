@@ -438,7 +438,7 @@ public class AnalyzedEquation implements AnalyzedItem {
      
         if((lhs.toString().contains("sin"))||(lhs.toString().contains("tan"))||(lhs.toString().contains("cos"))){
         	//System.out.println("DEBUG FOR TRIGCLASSIFIER: LHS IS AT THIS POINT: " +lhs);
-        	return new TrigClassifier(lhs);
+        	return new TrigClassifier();
         }
         
 
