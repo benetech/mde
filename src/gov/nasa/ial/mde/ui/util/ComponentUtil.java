@@ -104,7 +104,7 @@ public class ComponentUtil {
      * @param bg the background color.
      */
     public static void setBackground(ButtonGroup buttons, Color bg) {
-        Enumeration children = buttons.getElements();
+        Enumeration<?> children = buttons.getElements();
         if (children == null) {
             return;
         }
