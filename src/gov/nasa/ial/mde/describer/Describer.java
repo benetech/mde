@@ -456,15 +456,15 @@ public class Describer {
         StringBuffer result3 = new StringBuffer(result2.length());
 
         //So let's kludge it:
-        int wordCount = 0;
+        //int wordCount = 0;
         int start = lines.first();
         for (int end = lines.next(); end != BreakIterator.DONE; start = end, end = lines.next()) {
-            wordCount++;
+            //wordCount++;
             result3.append(result2.substring(start, end));
-            if (wordCount == wordsPerLine) {
+           /* if (wordCount == wordsPerLine) {
                 result3.append("\n");
                 wordCount = 0;
-            }
+            }*/
         }
 
         return result3.toString();
@@ -478,7 +478,7 @@ public class Describer {
      */
     public int getWordsPerLine() {
         return wordsPerLine;
-    }
+   }
 
     /**
      * Set the number of words per line for TEXT descriptions. The default value
