@@ -51,6 +51,7 @@ public class DescriberPanel extends JPanel {
 		//setup output
 		output = new JTextArea("Your description will appear here.");
 		output.setEditable(false);
+		output.setWrapStyleWord(true);
 		output.setLineWrap(true);
 		output.setPreferredSize(new Dimension(240, 240));
 		
