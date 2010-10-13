@@ -22,7 +22,7 @@ import java.util.TreeSet;
 public class PointsSummary {
 
     private double x;
-    private TreeSet y = new TreeSet();
+    private TreeSet<Double> y = new TreeSet<Double>();
 
     private MdeNumberFormat mdeNumberFormat = MdeNumberFormat.getInstance();
 
@@ -98,7 +98,7 @@ public class PointsSummary {
      * @return the first y coordinate value.
      */
     public double getFirstY() {
-        Double d = (Double) y.first();
+        Double d = y.first();
         return d.doubleValue();
     }
 
@@ -154,8 +154,8 @@ public class PointsSummary {
             Double value;
             boolean firstValue = true;
 
-            for (Iterator iter = y.iterator(); iter.hasNext();) {
-                value = (Double) iter.next();
+            for (Iterator<Double> iter = y.iterator(); iter.hasNext();) {
+                value = iter.next();
                 if (firstValue) {
                     firstValue = false;
                 } else {
