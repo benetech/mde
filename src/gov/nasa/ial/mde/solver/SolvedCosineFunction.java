@@ -6,14 +6,14 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
-import gov.nasa.ial.mde.solver.features.individual.ShiftFeature;
+
 
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 
 
-public class SolvedCosineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature {
+public class SolvedCosineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature{
 	
-	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift", "period"};
+	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "period"};
 	
 	protected TrigClassifier TC;
 	private final double PI = 3.142;
@@ -135,25 +135,22 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 		return doubleValue;
 	}
 
-	public String getPhase() {
-		Object value = this.getValue(PhaseFeature.PATH, PhaseFeature.KEY);
-		String string = (String) value;
-		System.out.println("Getting Phase.\nPhase is : " + string);
-		return string;
-	}
 
-	public double getShift() {
-		Object value = this.getValue(ShiftFeature.PATH, ShiftFeature.KEY);
-		Double doubleValue = new Double((String)value);	
-		System.out.println("Getting Shift.\nShift is : " + doubleValue);		
-		return doubleValue;
-	}
+
 
 	public double getOffset() {
 		Object value = this.getValue(OffsetFeature.PATH, OffsetFeature.KEY);
 		Double doubleValue = new Double((String)value);	
 		System.out.println("Getting Offset.\nOffset is : " + doubleValue);
 		return doubleValue;
+	}
+
+
+
+	@Override
+	public double getPhase() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

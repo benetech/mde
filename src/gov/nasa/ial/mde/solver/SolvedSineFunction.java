@@ -6,19 +6,17 @@ import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AmplitudeFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
+import gov.nasa.ial.mde.solver.features.individual.PeriodFeature;
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
-import gov.nasa.ial.mde.solver.features.individual.ShiftFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
-public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, ShiftFeature{
+public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, PeriodFeature{
 
-	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "shift", "period"};
+	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "period"};
 	
 	protected TrigClassifier TC;
 	private final double PI = 3.142;
-
-	
-	
+		
 	public SolvedSineFunction(AnalyzedEquation analyzedEquation) {
 		super(analyzedEquation, "sine function");
 		
@@ -46,72 +44,76 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 		
-		double amplitude = Double.NaN;
-		//String period= null;
-		//double period_value =Double.NaN;
-		String frequency = null;  //
-		double frequency_value = Double.NaN; // angular frequency, measured in radians/second 
-		String phase = null;  // another time we need to use pi	
-		double phase_value = Double.NaN;
+	    // for a basic sinusoid y=A*sin(Bx+C)+D
+	    // amplitude = A
+	    // period = 2*pi / |B|
+	    // frequency = |B| / 2*pi
+	    // phase shift = C/B ???
+	    // offset = D
+	    
+	    
+	    double A = 1;
+	    double B = Double.NaN;
+	    double C = Double.NaN;
+	    double D = Double.NaN;
+	    
+	    double amplitude = Double.NaN;
+		String period= null;
+		String frequency = null;
+		double phase = Double.NaN;
 		double offset = Double.NaN;
-		double shift = Double.NaN;  //shift is a pi divided by b pi.  If x were time in seconds, then this is how far this appears to be shifted
-		double shift_value= Double.NaN;
-		IntervalXY D = null; // domain
-		IntervalXY R = null; // Range
-		
-		
+		IntervalXY domain = null; // domain
+		IntervalXY range = null; // Range
 		
 		
 		if(parts.length>=2)
 		{
-			offset = Double.valueOf(parts[1]);
+			D = Double.valueOf(parts[1]);
 		}
 		else
 		{
-			offset = 0;
+			D = 0;
 		}
 
-	    phase_value = ((SolvedLine) features).getYIntercept();
+	    C = ((SolvedLine) features).getYIntercept();
 	    
-    	String getCoeff = "(-?\\d*\\.?\\d*)\\*sin";
-    	double coeff= 1;
+	    String getCoeff = "(-?\\d*\\.?\\d*)\\*sin";
     	parts[0]=parts[0].replace("y", "");
     	parts[0]=parts[0].replace("=", "");
     	parts[0]=parts[0].replace(" ", "");
     	String temp= parts[0].replaceFirst(getCoeff, "$1----");
     	if(temp.contains("----")){
-    		coeff = Double.valueOf((temp.split("----")[0]));
+    		A = Double.valueOf((temp.split("----")[0]));
     	}
     	
-    	frequency_value = ((SolvedLine) features).getSlope();
-    	shift_value = phase_value/frequency_value;
+    	B = ((SolvedLine) features).getSlope();
     	
-    	
-    	
+    	phase = -C/B;
+    	    	
     	//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
-    	amplitude = coeff;
-    	phase = ((Math.round((phase_value/PI) *4))/ 4.0) +" pi";
-    	shift = ((Math.round((shift_value/PI) *4))/ 4.0);
-    	frequency =(((Math.round((frequency_value/PI) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
+    	amplitude = A;
     	
-    	
- 	    D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
- 	    R = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
+    	period = 2.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi"; //2*pi/b
+    	frequency =(((Math.round((Math.abs(B)) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
+    	offset = D;
+    	    	
+ 	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+ 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
     	
     	putNewFeatures(newFeatures);    	
     	putFeature("amplitude", amplitude + "");
-    	putFeature("phase", phase);
+    	putFeature("phase", phase + "");
     	putFeature("offset", offset + "");
-    	putFeature("shift", shift+ "");
     	putFeature("frequency", frequency);
-    	putFeature("domain", D);
-    	putFeature("range", R);
+    	putFeature("period", period);
+    	putFeature("domain", domain);
+    	putFeature("range", range);
     
-    	//getOffset();
-    	//getShift();
-    	//getPhase();
-    	//getAmplitude();
-    	//getFrequency();
+    	getOffset();
+    	getPhase();
+    	getAmplitude();
+    	getFrequency();
+    	getPeriod();
 	}
 
 	public String getFrequency() {
@@ -121,6 +123,12 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		return frequencyString;
 	}
 	
+	public String getPeriod() {
+		Object value = this.getValue(PeriodFeature.PATH, PeriodFeature.KEY);
+		String periodString = (String)value;
+		System.out.println("Getting period.\nPeriod is : " + periodString);
+		return periodString;
+	}
 
 	public double getAmplitude() {
 		Object value = this.getValue(AmplitudeFeature.PATH, AmplitudeFeature.KEY);
@@ -129,17 +137,10 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		return doubleValue;
 	}
 
-	public String getPhase() {
+	public double getPhase() {
 		Object value = this.getValue(PhaseFeature.PATH, PhaseFeature.KEY);
-		String string = (String) value;
-		System.out.println("Getting Phase.\nPhase is : " + string);
-		return string;
-	}
-
-	public double getShift() {
-		Object value = this.getValue(ShiftFeature.PATH, ShiftFeature.KEY);
-		Double doubleValue = new Double((String)value);	
-		System.out.println("Getting Shift.\nShift is : " + doubleValue);		
+		Double doubleValue = new Double((String)value);
+		System.out.println("Getting Phase.\nPhase is : " + doubleValue);
 		return doubleValue;
 	}
 
@@ -149,5 +150,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		System.out.println("Getting Offset.\nOffset is : " + doubleValue);
 		return doubleValue;
 	}
+
+	
 	
 }

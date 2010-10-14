@@ -160,11 +160,15 @@ adjacent longer loops.
   	<xsl:value-of select="./amplitude"/> 
   	<xsl:text> and a frequency of approximately </xsl:text> 
   	<xsl:value-of select="./frequency"/>.
-  	<xsl:text> The graph has a phase of approximately </xsl:text> 
-  	<xsl:value-of select="./phase"/>, 
-  	<xsl:text> so, if x represented time, then wave would appear to be </xsl:text> 
-  	<xsl:value-of select="./shift"/> 
-  	<xsl:text> seconds ahead. </xsl:text>
+  	<xsl:text> The wave also has a period of approximately </xsl:text> 
+  	<xsl:value-of select="./period"/>. 
+  	
+  	
+  	<xsl:if test="not(./phase =0)">
+  		<xsl:text> This wave has a phase of </xsl:text>
+  		<xsl:value-of select="./phase"/>. 
+    </xsl:if>
+  	
   </xsl:template>
   
   
