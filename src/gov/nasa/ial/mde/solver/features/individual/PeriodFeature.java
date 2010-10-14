@@ -6,5 +6,5 @@ public interface PeriodFeature extends GraphFeature {
 	public static String PATH = GraphFeature.GRAPH_DATA_PATH;
 	public static String KEY = "period";
 	
-	public String getFeature();
+	public String getPeriod();
 }
