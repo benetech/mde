@@ -15,7 +15,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "period"};
 	
 	protected TrigClassifier TC;
-	private final double PI = 3.142;
+	
 		
 	public SolvedSineFunction(AnalyzedEquation analyzedEquation) {
 		super(analyzedEquation, "sine function");
@@ -108,12 +108,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
     	putFeature("period", period);
     	putFeature("domain", domain);
     	putFeature("range", range);
-    
-    	getOffset();
-    	getPhase();
-    	getAmplitude();
-    	getFrequency();
-    	getPeriod();
+        
 	}
 
 	public String getFrequency() {

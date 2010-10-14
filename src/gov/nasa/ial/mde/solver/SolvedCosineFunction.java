@@ -16,8 +16,6 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 	protected String[] newFeatures = {"frequency" , "amplitude", "phase", "offset", "period"};
 	
 	protected TrigClassifier TC;
-	private final double PI = 3.142;
-	
 	
 	
 	
@@ -50,73 +48,72 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 	    SolvedGraph features = solution.getFeatures();
 		
 		
+	 // for a basic sinusoid y=A*cos(Bx+C)+D
+	    // amplitude = A
+	    // period = 2*pi / |B|
+	    // frequency = |B| / 2*pi
+	    // phase shift = C/B ???
+	    // offset = D
+	    
+	    
+	    double A = 1;
+	    double B = Double.NaN;
+	    double C = Double.NaN;
+	    double D = Double.NaN;
+	    
 	    double amplitude = Double.NaN;
-		//String period= null;
-		//double period_value =Double.NaN;
-		String frequency = null;  //
-		double frequency_value = Double.NaN; // angular frequency, measured in radians/second 
-		String phase = null;  // another time we need to use pi	
-		double phase_value = Double.NaN;
+		String period= null;
+		String frequency = null;
+		double phase = Double.NaN;
 		double offset = Double.NaN;
-		double shift = Double.NaN;  //shift is a pi divided by b pi.  If x were time in seconds, then this is how far this appears to be shifted
-		double shift_value= Double.NaN;
-		IntervalXY D = null; // domain
-		IntervalXY R = null; // Range
-		
+		IntervalXY domain = null; // domain
+		IntervalXY range = null; // Range
 		
 		
 		if(parts.length>=2)
 		{
-			offset = Double.valueOf(parts[1]);
+			D = Double.valueOf(parts[1]);
 		}
 		else
 		{
-			offset = 0;
+			D = 0;
 		}
 
-	    phase_value = ((SolvedLine) features).getYIntercept();
+	    C = ((SolvedLine) features).getYIntercept();
 	    
-	    
-	    
-    	String getCoeff = "(-?\\d*\\.?\\d*)\\*cos";
-    	double coeff= 1;
+	    String getCoeff = "(-?\\d*\\.?\\d*)\\*cos";
     	parts[0]=parts[0].replace("y", "");
     	parts[0]=parts[0].replace("=", "");
     	parts[0]=parts[0].replace(" ", "");
     	String temp= parts[0].replaceFirst(getCoeff, "$1----");
     	if(temp.contains("----")){
-    		coeff = Double.valueOf((temp.split("----")[0]));
+    		A = Double.valueOf((temp.split("----")[0]));
     	}
     	
-    	frequency_value = ((SolvedLine) features).getSlope();
-    	shift_value = phase_value/frequency_value;
-
-
+    	B = ((SolvedLine) features).getSlope();
+    	
+    	phase = -C/B;
+    	    	
     	//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
-    	amplitude = coeff;
-    	phase = ((Math.round((phase_value/PI) *4))/ 4.0) +" pi";
-    	shift = ((Math.round((shift_value/PI) *4))/ 4.0);
-    	frequency =(((Math.round((frequency_value/PI) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
+    	amplitude = A;
     	
-    	D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-  	    R = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
-	
+    	period = 2.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi"; //2*pi/b
+    	frequency =(((Math.round((Math.abs(B)) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
+    	offset = D;
+    	    	
+ 	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+ 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
     	
-  	   putNewFeatures(newFeatures);    	
-  	   putFeature("amplitude", amplitude + "");
-  	   putFeature("phase", phase);
-  	   putFeature("offset", offset + "");
-  	   putFeature("shift", shift+ "");
-  	   putFeature("frequency", frequency);
-  	   putFeature("domain", D);
-  	   putFeature("range", R);
-  
-  	//getOffset();
-  	//getShift();
-  	//getPhase();
-  	//getAmplitude();
-  	//getFrequency();
-	}
+    	putNewFeatures(newFeatures);    	
+    	putFeature("amplitude", amplitude + "");
+    	putFeature("phase", phase + "");
+    	putFeature("offset", offset + "");
+    	putFeature("frequency", frequency);
+    	putFeature("period", period);
+    	putFeature("domain", domain);
+    	putFeature("range", range);
+    
+    }
 
 
 
@@ -136,8 +133,6 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 	}
 
 
-
-
 	public double getOffset() {
 		Object value = this.getValue(OffsetFeature.PATH, OffsetFeature.KEY);
 		Double doubleValue = new Double((String)value);	
@@ -146,11 +141,10 @@ public class SolvedCosineFunction extends SolvedTrigFunction implements Frequenc
 	}
 
 
-
-	@Override
 	public double getPhase() {
-		// TODO Auto-generated method stub
-		return 0;
+		Object value = this.getValue(PhaseFeature.PATH, PhaseFeature.KEY);
+		Double doubleValue = new Double((String)value);
+		System.out.println("Getting Phase.\nPhase is : " + doubleValue);
+		return doubleValue;
 	}
-	
 }
