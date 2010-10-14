@@ -42,7 +42,7 @@ public class DataModelBuilder {
     public void buildModel(int[] indices) {
         int i, n = data.size();
         degree = indices.length;
-        ArrayList temp = new ArrayList();
+        ArrayList<double[]> temp = new ArrayList<double[]>();
 
         for (i = 0; i < n; i++) {
             double[] td = new double[degree];
@@ -59,7 +59,7 @@ public class DataModelBuilder {
             return;
         } // end if
 
-        Matrix a = new Matrix((double[][])temp.toArray(new double[0][0]));
+        Matrix a = new Matrix(temp.toArray(new double[0][0]));
 
         double[] s = a.getSingularValues();
         double f = s[degree - 1] / s[0];
