@@ -13,7 +13,6 @@ import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AsymptoteFeature;
 import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
-import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
 /**
@@ -210,6 +209,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
 	
 
 
+	@SuppressWarnings("unused")
 	private double getSlope(String string)
     {
     	Solver solver = new Solver();
@@ -239,7 +239,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
 
 	public String[] getAsymptotes() {
 		Object values = this.getValues(AsymptoteFeature.PATH, AsymptoteFeature.KEY);
-		ArrayList list = (ArrayList)values;
+		ArrayList<?> list = (ArrayList<?>)values;
 		System.out.println("The size of the returned array is"+list.size());
 		String[] asymptotes = new String[list.size()];
 		for(int i=0;i<list.size();i++)

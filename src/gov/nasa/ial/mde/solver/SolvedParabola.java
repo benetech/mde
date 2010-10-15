@@ -10,10 +10,8 @@ import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
-import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
 import gov.nasa.ial.mde.solver.features.individual.FocalLengthFeature;
 import gov.nasa.ial.mde.solver.features.individual.FocusFeature;
-import gov.nasa.ial.mde.solver.features.individual.RangeFeature;
 import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
