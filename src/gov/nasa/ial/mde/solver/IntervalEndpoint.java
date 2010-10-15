@@ -19,7 +19,7 @@ import gov.nasa.ial.mde.util.MathUtil;
  * @version 1.0
  * @since 1.0
  */
-public class IntervalEndpoint implements Comparable {
+public class IntervalEndpoint implements Comparable<Object> {
     
     /** The state of the interval endpoint. */
     protected final static int UNDEFINED = -1, 
