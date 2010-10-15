@@ -9,6 +9,7 @@ package gov.nasa.ial.mde.solver;
 import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointXY;
+import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.features.individual.FocalLengthFeature;
 import gov.nasa.ial.mde.solver.features.individual.FocusFeature;
@@ -238,10 +239,13 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
                     throw new IllegalStateException("Invalid opening direction in SolvedParabola");
             } // end switch
         } // end if
-        System.out.println(getXMLString());
-        getYIntercepts();
-        getVertex();
-        getFocus();
+        
+        if(MdeSettings.DEBUG){
+        	System.out.println(getXMLString());
+            getYIntercepts();
+            getVertex();
+            getFocus();
+        }
         //getMinima();
        // getFocalLength();
        

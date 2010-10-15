@@ -269,7 +269,7 @@ public class Roots {
         double tmp;
         int[] iter = { 0 };
         int i, j, m;
-        ArrayList rootList = new ArrayList();
+        ArrayList<RootFactor> rootList = new ArrayList<RootFactor>();
 
         if ((tmp = a[0]) != 1.0) {
             a[0] = 1.0;
@@ -353,10 +353,10 @@ public class Roots {
             }
         } while (m > 0);
 
-        return (RootFactor[]) rootList.toArray(new RootFactor[rootList.size()]);
+        return rootList.toArray(new RootFactor[rootList.size()]);
     }
 
-    private static RootFactor[] getRealRootFactors(RootFactor[] rf, ArrayList rl) {
+    private static RootFactor[] getRealRootFactors(RootFactor[] rf, ArrayList<RootFactor> rl) {
         int n, numFactors = rf.length;
 
         for (n = 0; n < numFactors; n++) {
@@ -384,7 +384,7 @@ public class Roots {
             } // end if
         } // end for n
 
-        Collections.sort(rl, new Comparator() {
+        Collections.sort(rl, new Comparator<Object>() {
             public int compare(Object o1, Object o2) {
                 RootFactor r1 = (RootFactor) o1, r2 = (RootFactor) o2;
 
@@ -401,7 +401,7 @@ public class Roots {
         } // end Comparator
         ); // end sort
 
-        return (RootFactor[]) rl.toArray(new RootFactor[rl.size()]);
+        return rl.toArray(new RootFactor[rl.size()]);
     } // end getRealRootFactors
 
     /**
@@ -458,7 +458,7 @@ public class Roots {
      */
     public static RootFactor[] getRealRootsWithMultiplicities(double[] a, int deg) {
         int i, n = deg;
-        ArrayList rl = new ArrayList();
+        ArrayList<RootFactor> rl = new ArrayList<RootFactor>();
 
         for (i = n; i >= 0; i--) {
             if (a[i] != 0.0) {
