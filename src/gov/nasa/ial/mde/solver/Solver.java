@@ -99,7 +99,7 @@ public class Solver {
      * is currently managing. Any solution updates requested through other
      * Solver methods will be applied to the items in this list.
      */
-    protected ArrayList solutionList = new ArrayList(5);
+    protected ArrayList<Solution> solutionList = new ArrayList<Solution>(5);
 
     /**
      * number of polar <code>Solution</code> objects in the
@@ -253,7 +253,7 @@ public class Solver {
      * 
      * @return a Solution list Iterator.
      */
-    public Iterator getSolutionIterator() {
+    public Iterator<Solution> getSolutionIterator() {
         return solutionList.iterator();
     }
 
@@ -305,7 +305,7 @@ public class Solver {
         if ((name == null) || solutionList.isEmpty()) {
             return null;
         }
-        ArrayList list = new ArrayList(solutionList.size());
+        ArrayList<Solution> list = new ArrayList<Solution>(solutionList.size());
         Solution solution;
         int len = solutionList.size();
         for (int i = 0; i < len; i++) {
