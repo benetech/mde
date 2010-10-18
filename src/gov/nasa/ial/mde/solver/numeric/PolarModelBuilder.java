@@ -7,7 +7,6 @@
 package gov.nasa.ial.mde.solver.numeric;
 
 import gov.nasa.ial.mde.math.MultiPointXY;
-
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -81,8 +80,8 @@ public class PolarModelBuilder extends DataModelBuilder {
                 new PolarLineModel(this),
                 new PolarLemniscateModel(this) };
 
-        Arrays.sort(rpm, new Comparator() {
-            public int compare(Object o1, Object o2) {
+        Arrays.sort(rpm, new Comparator<PolarModel>() {
+            public int compare(PolarModel o1, PolarModel o2) {
                 PolarModel p1 = (PolarModel)o1, p2 = (PolarModel)o2;
 
                 if (p1.fit > p2.fit) {

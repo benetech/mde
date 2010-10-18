@@ -85,7 +85,7 @@ public class TrailUtil {
     public static GraphTrail[] getGraphTrailsFrom(MultiPointXY[] p, double maxJump) {
         double[][][] f = getBranchesFrom(p, maxJump);
         int n = f.length;
-        ArrayList gt = new ArrayList();
+        ArrayList<GraphTrail> gt = new ArrayList<GraphTrail>();
 
         for (int i = 0; i < n; i++) {
             GraphTrail g = new GraphTrail(f[i]);
@@ -95,7 +95,7 @@ public class TrailUtil {
             }
         } // end for i
 
-        return (GraphTrail[])gt.toArray(new GraphTrail[gt.size()]);
+        return gt.toArray(new GraphTrail[gt.size()]);
     } // end getGraphTrailsFrom
 
     /**
@@ -108,7 +108,7 @@ public class TrailUtil {
      */
     public static int[] getSegmentBoundariesFrom(MultiPointXY[] data, double maxJump) {
         int i, n = data.length;
-        ArrayList segmentBoundaries = new ArrayList(data.length);
+        ArrayList<Integer> segmentBoundaries = new ArrayList<Integer>(data.length);
 
         segmentBoundaries.add(new Integer(0));
         for (i = 1; i < n; i++) {
@@ -137,7 +137,7 @@ public class TrailUtil {
         int[] r = new int[n = segmentBoundaries.size()];
 
         for (i = 0; i < n; i++) {
-            r[i] = ((Integer)segmentBoundaries.get(i)).intValue();
+            r[i] = segmentBoundaries.get(i).intValue();
         }
 
         return r;

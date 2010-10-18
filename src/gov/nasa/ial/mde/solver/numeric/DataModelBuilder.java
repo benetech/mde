@@ -27,7 +27,7 @@ public class DataModelBuilder {
     protected double    fit;
     
     /** The model data. */
-    protected ArrayList data = new ArrayList();
+    protected ArrayList<double[]> data = new ArrayList<double[]>();
     
     /** The model values as a vector. */
     private double[]    modelVector = new double[0];

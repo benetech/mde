@@ -20,7 +20,8 @@ public class PolynomialModelBuilder extends DataModelBuilder {
     private int xDegree, yDegree;
     private int numGenerators;
 
-    private PolynomialModelBuilder() {
+    @SuppressWarnings("unused")
+	private PolynomialModelBuilder() {
         throw new IllegalArgumentException("Default constructor not allowed.");
     } // end PolynomialModelBuilder
 
