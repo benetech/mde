@@ -161,8 +161,7 @@ public class SolvedRationalFunction extends SolvedXYGraph {
         return r;
     } // end getMFN
 
-    @SuppressWarnings("unchecked")
-	private void findPoints() {
+    private void findPoints() {
         boolean addLeft = true, addRight = true;
         ArrayList<IntervalEndpoint> points = new ArrayList<IntervalEndpoint>();
         RealZero[] criticals = dfNumerator.getRealZeros();
