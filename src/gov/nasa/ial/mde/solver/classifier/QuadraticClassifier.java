@@ -40,7 +40,8 @@ public class QuadraticClassifier extends MDEClassifier {
 		NoReason, DegreeGreatherThan2, TooManyVariables, NonPolynomial, Polar
 	};
 	
-    private final static Hashtable emptyHash = new Hashtable();
+	//This probably shouble be kept generic for now, since it gets passed to anothedr class
+    private final static Hashtable<?, ?> emptyHash = new Hashtable<Object, Object>();
 
     /*
      * Used for evaluating constant Expressions -- need another evaluate method in
