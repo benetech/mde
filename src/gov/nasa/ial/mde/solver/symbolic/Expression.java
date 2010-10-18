@@ -75,7 +75,7 @@ public class Expression extends ProtoExpression implements Comparison {
         knowns.put("pi", new Double(Math.PI));
         knowns.put("Pi", new Double(Math.PI));
         knowns.put("PI", new Double(Math.PI));
-        parameters = new Hashtable();
+        parameters = new Hashtable<String, Double>();
         make_legalVariables();
         fixImpliedMultiplication(root);
         if (find_variables(root) == null) {

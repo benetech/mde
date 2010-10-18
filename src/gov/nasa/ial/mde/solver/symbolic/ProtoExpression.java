@@ -30,7 +30,7 @@ public class ProtoExpression {
     public Hashtable<String, Double> knowns = null;
     
     /** The parameters. */
-    public Hashtable parameters = null;
+    public Hashtable<String, Double> parameters = null;
     
     /** The variables. */
     public Hashtable<Object, Hashtable> variables = null;
