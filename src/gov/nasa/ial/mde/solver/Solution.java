@@ -46,7 +46,8 @@ public class Solution {
     /** Components registered to listen for showGraph or sonifyGraph change events. */
     protected EventListenerList listenerList = new EventListenerList();
 
-    private Solution() {
+    @SuppressWarnings("unused")
+	private Solution() {
         throw new RuntimeException("Default constructor not allowed.");
     }
     
