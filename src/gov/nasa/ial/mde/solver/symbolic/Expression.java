@@ -255,7 +255,6 @@ public class Expression extends ProtoExpression implements Comparison {
             v.addElement(vars[i]);
         } // end for i
         
-        System.out.println("in im");
 
         return v;
     } // end splitIM

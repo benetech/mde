@@ -57,7 +57,7 @@ public class AnalyzedEquation implements AnalyzedItem {
     public static final int GENERIC = 0, CONSTANT = 1, FUNCTION = 2, POLYNOMIAL = 4,
             QUADRATIC = 8, MORE_THAN_TWO_VARIABLES = 16, UNDEFINED = 32, NO_SOLUTION = 64;
 
-    private Hashtable parameterHash = new Hashtable();
+    private Hashtable<String, Object> parameterHash = new Hashtable<String, Object>();
     private int equationType = UNKNOWN;
     private int equationProperties = GENERIC;
     private Equation theEquation;
@@ -214,9 +214,9 @@ public class AnalyzedEquation implements AnalyzedItem {
      * @see #getParameters()
      * @see #getParameterValue(String)
      */
-    public Hashtable getParameterHash() {
-        Hashtable r = new Hashtable();
-        Enumeration k = parameterHash.keys();
+    public Hashtable<Object, Object> getParameterHash() {
+        Hashtable<Object, Object> r = new Hashtable<Object, Object>();
+        Enumeration<String> k = parameterHash.keys();
         Object key, value;
 
         while (k.hasMoreElements()) {
@@ -235,14 +235,14 @@ public class AnalyzedEquation implements AnalyzedItem {
      * @see #getAllPossibleParameters()
      */
     public String[] getParameters() {
-        ArrayList pList = new ArrayList();
-        Enumeration k = parameterHash.keys();
+        ArrayList<String> pList = new ArrayList<String>();
+        Enumeration<String> k = parameterHash.keys();
 
         while (k.hasMoreElements()) {
             pList.add(k.nextElement());
         }
 
-        String[] r = (String[])pList.toArray(new String[pList.size()]);
+        String[] r = pList.toArray(new String[pList.size()]);
         Arrays.sort(r);
         return r;
     } // end getParameters
@@ -882,7 +882,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 
     private void determineParameters(String[] allVariables) {
         Object tempObj;
-        Hashtable temp = new Hashtable();
+        Hashtable<String, Double> temp = new Hashtable<String, Double>();
         int i, n = MdeSettings.PARAMETER_STRINGS.length;
 
         for (i = 0; i < n; i++)
@@ -903,7 +903,7 @@ public class AnalyzedEquation implements AnalyzedItem {
        // System.out.println("DEBUG: in checkVaribles.");
     	
     	String[] temp;
-        ArrayList realVariables = new ArrayList();
+        ArrayList<String> realVariables = new ArrayList<String>();
 
         temp = lhs.toExpression().varStrings;
         determineParameters(temp);
@@ -916,7 +916,7 @@ public class AnalyzedEquation implements AnalyzedItem {
             if (parameterHash.get(temp[i].toLowerCase()) == null)
                 realVariables.add(temp[i]);
 
-        temp = (String[])realVariables.toArray(new String[realVariables.size()]);
+        temp = realVariables.toArray(new String[realVariables.size()]);
         
        
 
@@ -1279,7 +1279,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 
             int i, j, n = graphTrails.length;
             PointXY[][] p = new PointXY[n][0];
-            ArrayList newPoints = new ArrayList();
+            ArrayList<MultiPointXY> newPoints = new ArrayList<MultiPointXY>();
 
             left = Double.POSITIVE_INFINITY;
             right = Double.NEGATIVE_INFINITY;
@@ -1306,7 +1306,7 @@ public class AnalyzedEquation implements AnalyzedItem {
             bottom = -top;
             
             // Create the new points
-            points = (MultiPointXY[])newPoints.toArray(new MultiPointXY[newPoints.size()]);
+            points = newPoints.toArray(new MultiPointXY[newPoints.size()]);
             
             graphTrails = new GraphTrail[n];
             for (i = 0; i < n; i++) {

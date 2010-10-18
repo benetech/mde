@@ -6,8 +6,6 @@
  */
 package gov.nasa.ial.mde.solver;
 
-import java.util.ArrayList;
-
 import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointRT;
@@ -16,11 +14,11 @@ import gov.nasa.ial.mde.solver.features.combinations.DomainAndRangeFeature;
 import gov.nasa.ial.mde.solver.features.combinations.InterceptsFeature;
 import gov.nasa.ial.mde.solver.features.combinations.MinimaAndMaximaFeature;
 import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
-import gov.nasa.ial.mde.solver.features.individual.MinimaFeature;
 import gov.nasa.ial.mde.solver.features.individual.RangeFeature;
-import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.features.individual.XInterceptFeature;
 import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
+
+import java.util.ArrayList;
 
 /**
  * The class represents a solved graph.
@@ -319,34 +317,43 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 		return domainString;
 	}
 
+	@Override
 	public PointXY[] getMinima() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public boolean hasMinima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
 	public boolean canCalculateMinima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
 	public PointXY[] getMaxima() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public boolean hasMaxima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
 	public boolean canCalculateMaxima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
    
 //    private static void doPrint(String[] f) {
 //        int i, n = f.length;

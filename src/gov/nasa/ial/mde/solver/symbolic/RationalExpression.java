@@ -329,7 +329,7 @@ public class RationalExpression extends ProtoExpression {
         private int first = -1, size;
         private int[] a;
         private double[] theta;
-        private ArrayList residuals = new ArrayList();
+        private ArrayList<Residual> residuals = new ArrayList<Residual>();
         private double errorProbability;
         private final static double MAX_ERROR_PROBABILITY = 0.5;
         private static double tolerance;
@@ -343,7 +343,7 @@ public class RationalExpression extends ProtoExpression {
          * @param maxSize the maximum size.
          */
         public ContinuedFraction(double x, int maxSize) {
-            ArrayList remainders = new ArrayList();
+            ArrayList<Remainder> remainders = new ArrayList<Remainder>();
             int n;
             Remainder r = new Remainder(x);
 
@@ -615,12 +615,12 @@ public class RationalExpression extends ProtoExpression {
                 tolerance *= 2.1;
         } // end adjustTolerance
 
-        private int fcm(ArrayList l, Remainder r) {
+        private int fcm(ArrayList<Remainder> l, Remainder r) {
             int i, iMin = -1, n = l.size();
             double m = Double.POSITIVE_INFINITY, temp;
 
             for (i = 0; i < n; i++) {
-                Remainder t = (Remainder)l.get(i);
+                Remainder t = l.get(i);
 
                 if ((temp = Math.abs(r.theta - t.theta)) < m) {
                     m = temp;

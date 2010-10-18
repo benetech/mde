@@ -152,7 +152,7 @@ public class ParseNode implements Comparison {
             return doSum((String)q.children[0]);
 
         String s = "", t;
-        Hashtable ht = new Hashtable();
+        Hashtable<String, Object> ht = new Hashtable<String, Object>();
 
         for (i = 0; i < n; i++) {
             if (q.children[i] == null)
@@ -178,7 +178,7 @@ public class ParseNode implements Comparison {
      * @param p the parse node.
      * @return the root node with the sub-expression replaced.
      */
-    public ParseNode replaceSubExpressions(Hashtable h, ParseNode p) {
+    public ParseNode replaceSubExpressions(Hashtable<String, Object> h, ParseNode p) {
         if (p.children == null) {
             if (h.isEmpty())
                 return p;
@@ -192,7 +192,7 @@ public class ParseNode implements Comparison {
             if (r.length == 1)
                 return p;
 
-            Vector v = new Vector();
+            Vector<String> v = new Vector<String>();
             for (int i = 0; i < r.length; i++) {
                 String s = r[i].trim();
 
@@ -203,10 +203,10 @@ public class ParseNode implements Comparison {
             } // end for i
 
             ParseNode prod = new ParseNode(v.size(), Action.PRODUCT);
-            Enumeration e = v.elements();
+            Enumeration<String> e = v.elements();
 
             for (int i = 0; e.hasMoreElements(); i++) {
-                String s = (String)e.nextElement();
+                String s = e.nextElement();
 
                 if ((q = (Quantity)h.get(s)) == null)
                     prod.children[i] = leaf(s);

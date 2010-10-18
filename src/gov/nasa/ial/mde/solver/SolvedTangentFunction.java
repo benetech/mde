@@ -8,12 +8,14 @@ import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
+@SuppressWarnings("all")
 public class SolvedTangentFunction extends SolvedTrigFunction implements FrequencyFeature, OffsetFeature, AsymptoteFeature{
 
 	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period"};
 
 	
 	protected TrigClassifier TC;
+	@SuppressWarnings("unused")
 	private final double PI = 3.142;
 	
 	public SolvedTangentFunction(AnalyzedEquation analyzedEquation) {
