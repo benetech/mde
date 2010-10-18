@@ -69,9 +69,9 @@ public class StringSplitter {
      * @param stringToSplit the strin to split.
      * @return the array of split strings.
      */
-    public String[] multiSplit(Enumeration stringList, String stringToSplit) {
+    public String[] multiSplit(Enumeration<String> stringList, String stringToSplit) {
         int i, j, k, l;
-        Vector vSplits = new Vector();
+        Vector<StringSplitter> vSplits = new Vector<StringSplitter>();
 
         while (stringList.hasMoreElements()) {
             String s = (String) stringList.nextElement();
@@ -91,7 +91,7 @@ public class StringSplitter {
         } // end while
 
         StringSplitter[] splits = new StringSplitter[vSplits.size()];
-        Enumeration e = vSplits.elements();
+        Enumeration<StringSplitter> e = vSplits.elements();
         for (i = 0; e.hasMoreElements();) {
             splits[i++] = (StringSplitter) e.nextElement();
         }
