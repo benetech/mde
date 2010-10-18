@@ -58,14 +58,14 @@ public class ProtoExpression {
      */
     public void setParameterHash(Hashtable h) {
         int n = varStrings.length;
-        ArrayList t = new ArrayList();
+        ArrayList<String> t = new ArrayList<String>();
 
         parameters = h;
         for (int i = 0; i < n; i++)
             if (parameters.get(varStrings[i].toLowerCase()) == null)
                 t.add(varStrings[i]);
 
-        varStrings = (String[])t.toArray(new String[t.size()]);
+        varStrings = t.toArray(new String[t.size()]);
     } // end setParameterHash
 
     /**

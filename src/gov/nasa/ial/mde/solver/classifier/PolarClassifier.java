@@ -53,7 +53,7 @@ public class PolarClassifier extends MDEClassifier {
             pmb.addNewPoint(polarPoints[i]);
 
         PolarModel[] rpm = pmb.getRankedModels();
-        ArrayList finalists = new ArrayList();
+        ArrayList<PolarModel> finalists = new ArrayList<PolarModel>();
 
         n = rpm.length;
         for (i = 0; i < n; i++) {
@@ -66,10 +66,10 @@ public class PolarClassifier extends MDEClassifier {
         if ((n = finalists.size()) == 0)
             return;
 
-        bestGuess = (PolarModel)finalists.get(0);
+        bestGuess = finalists.get(0);
 
         for (i = 1; i < n; i++) {
-            PolarModel t = (PolarModel)finalists.get(i);
+            PolarModel t = finalists.get(i);
 
             if (t.complexity < bestGuess.complexity)
                 bestGuess = t;
