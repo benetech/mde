@@ -33,5 +33,7 @@ to determine the new SolvedGraph that I wanted to send it to.  Then I filled Sol
 When I had to create support for more robust descriptions of trigonomic functions, I created a new classifier and then a new type of SolvedGraph to go along with it, but I also had to detect "sin," "cos," and "tan" from within AnalyzedEquation so we could tell the graph contains trig components in it.  
 
 Hopefully this document will be able to help you get started on modifying the MDE.  
+If it can't email me. 
 
 --Andrew Rosen
+Retsej@gatech.edu

@@ -69,9 +69,9 @@ public class Expression extends ProtoExpression implements Comparison {
         if (root.badFlag)
             return;
 
-        variables = new Hashtable();
-        legalVariables = new Hashtable();
-        knowns = new Hashtable();
+        variables = new Hashtable<Object, Hashtable>();
+        legalVariables = new Hashtable<String, Integer>();
+        knowns = new Hashtable<String, Double>();
         knowns.put("pi", new Double(Math.PI));
         knowns.put("Pi", new Double(Math.PI));
         knowns.put("PI", new Double(Math.PI));
@@ -88,12 +88,14 @@ public class Expression extends ProtoExpression implements Comparison {
             return;
         } // end if
 
-        Hashtable h = (Hashtable) (variables.get(root));
+        Hashtable h = (Hashtable) (variables.get((ParseNode)root));
         Enumeration k = h.keys();
         while (k.hasMoreElements()) {
             String var = (String)k.nextElement();
+            System.out.println(var);
             Double t = (Double)knowns.get(var);
-
+            System.out.println(t);
+            
             if (t == null)
                 continue;
 
@@ -127,11 +129,12 @@ public class Expression extends ProtoExpression implements Comparison {
     } // end elaborate
 
     private void make_legalVariables() {
-        int i = 0;
-        Enumeration k = knowns.keys();
+    	int i = 0;
+        Enumeration<String> k = knowns.keys();
 
-        while (k.hasMoreElements())
+        while (k.hasMoreElements()){
             legalVariables.put(k.nextElement(), new Integer(i++));
+        }
 
         legalVariables.put("alpha", new Integer(i++));
         legalVariables.put("beta", new Integer(i++));
@@ -140,6 +143,7 @@ public class Expression extends ProtoExpression implements Comparison {
         legalVariables.put("phi", new Integer(i++));
         legalVariables.put("lambda", new Integer(i++));
         legalVariables.put("theta", new Integer(i++));
+        
 
         char[] varString = new char[1];
         int c;
@@ -161,14 +165,14 @@ public class Expression extends ProtoExpression implements Comparison {
             if (legalVariables.get(r.theString) != null)
                 return;
 
-            Vector v = splitIM(r.theString);
+            Vector<String> v = splitIM(r.theString);
 
             if (v.size() == 1)
                 return;
 
             r.operator = Action.PRODUCT;
             r.children = new ParseNode[v.size()];
-            Enumeration e = v.elements();
+            Enumeration<String> e = v.elements();
             for (i = 0; e.hasMoreElements(); i++)
                 r.children[i] = new ParseNode((String)e.nextElement());
         } // end if
@@ -178,7 +182,7 @@ public class Expression extends ProtoExpression implements Comparison {
             StringBuffer b0 = new StringBuffer(), b1 = new StringBuffer();
 
             if (r0.operator == Action.NO_OP) {
-                Vector v = splitIM(r0.theString);
+                Vector<String> v = splitIM(r0.theString);
 
                 if ((n0 = v.size() - 1) < 0) {
                     root.badFlag = true;
@@ -196,7 +200,7 @@ public class Expression extends ProtoExpression implements Comparison {
             switch (r1.operator) {
                 case Action.NO_OP :
                     {
-                        Vector v = splitIM(r1.theString);
+                        Vector<String> v = splitIM(r1.theString);
 
                         if ((n1 = v.size()) < 1) {
                             root.badFlag = true;
@@ -240,16 +244,18 @@ public class Expression extends ProtoExpression implements Comparison {
                 fixImpliedMultiplication(r.children[i]);
     } // end fixImpliedMultiplication
 
-    private Vector splitIM(String u) {
-        Enumeration k = legalVariables.keys();
+    private Vector<String> splitIM(String u) {
+        Enumeration<String> k = legalVariables.keys();
         String[] vars = new StringSplitter(this).multiSplit(k, u);
-        Vector v = new Vector();
+        Vector<String> v = new Vector<String>();
 
         for (int i = 0; i < vars.length; i++) {
             if (vars[i].trim().length() == 0)
                 continue;
             v.addElement(vars[i]);
         } // end for i
+        
+        System.out.println("in im");
 
         return v;
     } // end splitIM
@@ -275,12 +281,13 @@ public class Expression extends ProtoExpression implements Comparison {
         } // end while
     } // end combine
 
-    private Hashtable find_variables(ParseNode r) {
-        Hashtable leavesOfR = new Hashtable();
+    private Hashtable<String,Vector> find_variables(ParseNode r) {
+        Hashtable<String, Vector> leavesOfR = new Hashtable<String, Vector>();
+        //System.out.println("in find_varibles");
 
         if (r.operator == Action.NO_OP) { // no children
             if (legalVariables.get(r.theString) != null) {
-                Vector v = new Vector();
+                Vector<ParseNode> v = new Vector<ParseNode>();
                 v.addElement(r);
                 leavesOfR.put(r.theString, v);
             } // end if

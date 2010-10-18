@@ -27,16 +27,18 @@ public class ProtoExpression {
     public ParseNode root = null;
     
     /** The known values. */
-    public Hashtable knowns = null;
+    public Hashtable<String, Double> knowns = null;
     
     /** The parameters. */
     public Hashtable parameters = null;
     
     /** The variables. */
-    public Hashtable variables = null;
+    public Hashtable<Object, Hashtable> variables = null;
     
-    /** The legal variables. */
-    public Hashtable legalVariables = null;
+    /** The legal variables. 
+     * <String?, Integer?>
+     * */
+    public Hashtable<String, Integer> legalVariables = null;
     
     /** The value. */
     public Double theValue = null;
