@@ -7,7 +7,6 @@
 package gov.nasa.ial.mde.solver.numeric;
 
 import gov.nasa.ial.mde.solver.classifier.PolarClassifier;
-import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier;
 import gov.nasa.ial.mde.solver.classifier.QuadraticClassifier.QuadraticType;
 
 /**
