@@ -88,7 +88,7 @@ public class Expression extends ProtoExpression implements Comparison {
             return;
         } // end if
 
-        Hashtable h = (Hashtable) (variables.get((ParseNode)root));
+        Hashtable h = (Hashtable) (variables.get(root));
         Enumeration k = h.keys();
         while (k.hasMoreElements()) {
             String var = (String)k.nextElement();

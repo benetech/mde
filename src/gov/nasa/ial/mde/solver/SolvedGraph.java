@@ -291,12 +291,9 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 	public Double[] getXIntercepts() {
 		Object values = this.getValues(XInterceptFeature.PATH, XInterceptFeature.KEY);
 		ArrayList list = (ArrayList)values;
-		//System.out.println("The size of the returned array is"+list.size());
 		Double[] intercepts = new Double[list.size()];
-		//System.out.println("GET XINTERCEPT.");
 		for(int i=0;i<list.size();i++)
 		{
-			//System.out.println(list.get(i));
 			intercepts[i]=Double.valueOf(((String) list.get(i)));
 		}
 		
