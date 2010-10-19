@@ -514,7 +514,7 @@ public class Polynomial {
      * @return true if the polynomial has constant coefficients.
      */
     public boolean hasConstantCoefficients() {
-        Enumeration k = termHash.keys();
+        Enumeration<PolyTerm> k = termHash.keys();
 
         while (k.hasMoreElements()) {
             Expression e = ((PolyTerm)termHash.get(k.nextElement())).getCoefficient();

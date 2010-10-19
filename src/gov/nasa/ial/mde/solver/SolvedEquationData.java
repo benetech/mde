@@ -97,7 +97,7 @@ public class SolvedEquationData extends SolvedXYGraph {
     } // end doInit
 
     private IntervalEndpoint[] findEndpoints(int which) {
-        ArrayList e = new ArrayList();
+        ArrayList<IntervalEndpoint> e = new ArrayList<IntervalEndpoint>();
         PointXY[] p = segments[which].getPoints();
         int lastP = p.length - 1;
 

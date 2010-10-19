@@ -23,7 +23,7 @@ public class PolyTerm {
     // see description of `termHash' in Polynomial.java
     private String signature = Polynomial.CONSTANT;
     
-    private Hashtable exponents; // keys are variables, values are exponents
+    private Hashtable<String, Integer> exponents; // keys are variables, values are exponents
     private Expression coefficient;
     private String[] variables = new String[0];
     private int degree;
@@ -32,7 +32,7 @@ public class PolyTerm {
      * Default constructor.
      */
     public PolyTerm() {
-        exponents = new Hashtable();
+        exponents = new Hashtable<String,Integer>();
         degree = -1; // flag value that triggers first-time computation of the degree
     } // end PolyTerm
 
@@ -170,7 +170,7 @@ public class PolyTerm {
      */
     public PolyTerm product(PolyTerm other) {
         PolyTerm r = new PolyTerm();
-        Enumeration k = exponents.keys();
+        Enumeration<String> k = exponents.keys();
 
         r.coefficient = coefficient.product(other.coefficient);
 
@@ -250,8 +250,8 @@ public class PolyTerm {
         if (p.coefficient.valueString != null)
             p.coefficient = new Expression(p.coefficient.valueString);
 
-        for (Enumeration k = exponents.keys(); k.hasMoreElements();) {
-            String v = (String)k.nextElement();
+        for (Enumeration<String> k = exponents.keys(); k.hasMoreElements();) {
+            String v = k.nextElement();
 
             if (v.equals(variable)) {
                 if ((n = N.intValue()) > 1)
