@@ -92,9 +92,9 @@ public class Expression extends ProtoExpression implements Comparison {
         Enumeration k = h.keys();
         while (k.hasMoreElements()) {
             String var = (String)k.nextElement();
-            System.out.println(var);
+            //System.out.println(var);
             Double t = (Double)knowns.get(var);
-            System.out.println(t);
+            //System.out.println(t);
             
             if (t == null)
                 continue;

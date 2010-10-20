@@ -35,7 +35,7 @@ public class Tutorial_CartesianGraph {
         window.toFront();
 
         // Give Solver an equation attempt to solve:
-        String equation = "y=x^2-4x";
+        String equation = "y=10*sin(0.01*x)";
         solver.add(equation);
         solver.solve();
 

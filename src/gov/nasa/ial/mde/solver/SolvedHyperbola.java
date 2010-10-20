@@ -149,7 +149,6 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         PointXY V1 = center.sum(new PointXY(vertexDisplacement));
         PointXY V2 = center.difference(new PointXY(vertexDisplacement));
         
-        System.out.println("hello");
         
 
         putFeature("focalLength", new NumberModel(C));
@@ -171,7 +170,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         
         
      
-        System.out.println(getXMLString());
+        //System.out.println(getXMLString());
         //getAsymptotes();
     } // end SolvedHyperbola
     
@@ -240,11 +239,11 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
 	public String[] getAsymptotes() {
 		Object values = this.getValues(AsymptoteFeature.PATH, AsymptoteFeature.KEY);
 		ArrayList<?> list = (ArrayList<?>)values;
-		System.out.println("The size of the returned array is"+list.size());
+		//System.out.println("The size of the returned array is"+list.size());
 		String[] asymptotes = new String[list.size()];
 		for(int i=0;i<list.size();i++)
 		{
-			System.out.println(list.get(i));
+			//System.out.println(list.get(i));
 			asymptotes[i]=(String) list.get(i);
 		}
 		

@@ -129,6 +129,11 @@
 			<xsl:when test="graphName='cosine function'">
 				<xsl:call-template name="cosineSpecifics" />
 			</xsl:when>
+			
+			<xsl:when test="graphName='tangent function'">
+				<xsl:call-template name="tangentSpecifics" />
+			</xsl:when>
+			
 
 		</xsl:choose>
 
@@ -202,6 +207,10 @@
 
 	<xsl:template name="cosineSpecifics">
 		<xsl:call-template name="oscillation" />
+	</xsl:template>
+	
+	<xsl:template name="tangentSpecifics">
+		<xsl:text>test</xsl:text>
 	</xsl:template>
 
 	<!-- Test template for polar rose -->
