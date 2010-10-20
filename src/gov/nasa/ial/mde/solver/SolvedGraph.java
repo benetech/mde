@@ -277,7 +277,6 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 	public Double[] getYIntercepts() {
 		Object values = this.getValues(YInterceptFeature.PATH, YInterceptFeature.KEY);
 		ArrayList list = (ArrayList)values;
-		//System.out.println("The size of the returned array is"+list.size());
 		Double[] intercepts = new Double[list.size()];
 		for(int i=0;i<list.size();i++)
 		{
@@ -303,14 +302,12 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 	public String getRange() {
 		Object value = this.getValue(RangeFeature.PATH, RangeFeature.KEY);
 		String rangeString = (String)value;
-		//System.out.println("Getting range.\nRange is : " + rangeString);
 		return rangeString;
 	}
 
 	public String getDomain() {
 		Object value = this.getValue(DomainFeature.PATH, DomainFeature.KEY);
 		String domainString = (String)value;
-		//System.out.println("Getting domain.\nDomain is : " + domainString);
 		return domainString;
 	}
 
