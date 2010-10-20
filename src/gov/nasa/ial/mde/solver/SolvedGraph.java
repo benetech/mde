@@ -314,41 +314,37 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 		return domainString;
 	}
 
-	@Override
 	public PointXY[] getMinima() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public boolean hasMinima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean canCalculateMinima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public PointXY[] getMaxima() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public boolean hasMaxima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean canCalculateMaxima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
 
 
    
