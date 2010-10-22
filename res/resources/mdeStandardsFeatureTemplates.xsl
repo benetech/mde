@@ -11,8 +11,7 @@
 
 	<xsl:template match="equationPrint">
 		<xsl:text>Your input equation is </xsl:text>
-		<xsl:value-of select="." />
-		.
+		<xsl:value-of select="." />.
 	</xsl:template>
 
 	<xsl:template match="graphName">
@@ -70,8 +69,7 @@
 			<xsl:otherwise>
 				The graph of the equation is
 				<xsl:call-template name="aOrAn" />
-				<xsl:value-of select="." />
-				.
+				<xsl:value-of select="." />.
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
