@@ -57,7 +57,7 @@ public class AnalyzedEquation implements AnalyzedItem {
     public static final int GENERIC = 0, CONSTANT = 1, FUNCTION = 2, POLYNOMIAL = 4,
             QUADRATIC = 8, MORE_THAN_TWO_VARIABLES = 16, UNDEFINED = 32, NO_SOLUTION = 64;
 
-    private Hashtable<String, Object> parameterHash = new Hashtable<String, Object>();
+    private Hashtable<String, Double> parameterHash = new Hashtable<String, Double>();
     private int equationType = UNKNOWN;
     private int equationProperties = GENERIC;
     private Equation theEquation;
@@ -881,7 +881,7 @@ public class AnalyzedEquation implements AnalyzedItem {
     } // end actuallySolve
 
     private void determineParameters(String[] allVariables) {
-        Object tempObj;
+        Double tempObj;
         Hashtable<String, Double> temp = new Hashtable<String, Double>();
         int i, n = MdeSettings.PARAMETER_STRINGS.length;
 

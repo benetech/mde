@@ -58,7 +58,7 @@ public class ProtoExpression {
      * 
      * @param h the parameter hashtable.
      */
-    public void setParameterHash(Hashtable h) {
+    public void setParameterHash(Hashtable<String, Double> h) {
         int n = varStrings.length;
         ArrayList<String> t = new ArrayList<String>();
 
@@ -77,12 +77,12 @@ public class ProtoExpression {
      * @return the value of the expression.
      */
     public double evaluate(Hashtable inputs) {
-        Hashtable nodeList = (Hashtable) (variables.get(root));
+        Hashtable nodeList = (variables.get(root));
         Enumeration k = nodeList.keys();
 
         while (k.hasMoreElements()) {
             Object key;
-            Double v = (Double)parameters.get(((String) (key = k.nextElement())).toLowerCase());
+            Double v = parameters.get(((String) (key = k.nextElement())).toLowerCase());
             if (v == null)
                 v = (Double)inputs.get(key);
 

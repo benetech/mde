@@ -48,12 +48,12 @@ public class Polynomial {
 
     // Keys are string representations of variables the corresponding value is an
     // Integer Object representing the highest degree of the variable over all terms
-    private Hashtable degree;
+    private Hashtable<String, Integer> degree;
     
     // Keys are String representation of variables; the corresponding value is an
     // Expression array containing the coefficients of this Polynomial considered as
     // a polynomial in the single key variable
-    private Hashtable coefficientHash;
+    private Hashtable<String, Expression[]> coefficientHash;
     
     // Table of variables to consider as parameters and their corresponding values
     private Hashtable parameterHash = new Hashtable();
@@ -98,8 +98,8 @@ public class Polynomial {
 
     private Polynomial() {
         termHash = new Hashtable();
-        degree = new Hashtable();
-        coefficientHash = new Hashtable();
+        degree = new Hashtable<String, Integer>();
+        coefficientHash = new Hashtable<String, Expression[]>();
     } // end Polynomial
 
     /**
@@ -514,7 +514,7 @@ public class Polynomial {
      * @return true if the polynomial has constant coefficients.
      */
     public boolean hasConstantCoefficients() {
-        Enumeration<PolyTerm> k = termHash.keys();
+        Enumeration<PolyTerm> k = (Enumeration<PolyTerm>) termHash.keys();
 
         while (k.hasMoreElements()) {
             Expression e = ((PolyTerm)termHash.get(k.nextElement())).getCoefficient();
