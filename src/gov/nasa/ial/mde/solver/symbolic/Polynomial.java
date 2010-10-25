@@ -746,7 +746,7 @@ public class Polynomial {
         parameterHash = ph;
 
         int i, n = variables.length;
-        ArrayList v = new ArrayList();
+        ArrayList<String> v = new ArrayList<String>();
 
         for (i = 0; i < n; i++) {
             if (ph.get(variables[i]) != null)

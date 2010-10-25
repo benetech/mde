@@ -272,7 +272,7 @@ public class PolyTerm {
      * @param e the exponents.
      * @return the signature.
      */
-    public static String[] makeSignature(Hashtable e) {
+    public static String[] makeSignature(Hashtable<String, Integer> e) {
         if (e.isEmpty())
             return new String[0];
 
