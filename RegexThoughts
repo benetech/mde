@@ -1,0 +1,14 @@
+Equations to be Identified
+
+y=...
+
+A*sin(x...) + D
+
+sin(x...)/A + D
+
+(1/A)
+
+
+Solve the problem by adding a check between the ampersands for a A` so we can look for
+
+(A/78787)*sin(B*C)&/d& + D
