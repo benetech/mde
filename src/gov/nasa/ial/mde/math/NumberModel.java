@@ -6,6 +6,7 @@
  */
 package gov.nasa.ial.mde.math;
 
+import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.MdeFeatureNode;
 import gov.nasa.ial.mde.util.MathUtil;
 
@@ -53,6 +54,9 @@ public class NumberModel {
      */
     public NumberModel(double decimal, int searchLimit) {
         decimalValue = decimal;
+        if(MdeSettings.DEBUG){
+        	System.out.println(decimalValue);
+        }
         if (Double.isInfinite(decimal))
             return;
 
@@ -63,12 +67,20 @@ public class NumberModel {
 
     private void constructApproximateDecimal() {
         NumberFormat n = NumberFormat.getInstance();
+        
 
         n.setMinimumFractionDigits(0);
         n.setMaximumFractionDigits((fractionDigits > 0) ? fractionDigits : DEFAULT_FRACTION_DIGITS);
         approximateDecimalValue = n.format(decimalValue);
+        
+        if(MdeSettings.DEBUG){
+        	System.out.println(approximateDecimalValue);
+        }
+        
+        
 
         try {
+        	approximateDecimalValue = approximateDecimalValue.replace(",","");
             double d = new Double(approximateDecimalValue).doubleValue();
             isAnApproximation = (Math.abs(d - decimalValue) > EPSILON
                     * (1.0 + Math.abs(d) + Math.abs(decimalValue)));

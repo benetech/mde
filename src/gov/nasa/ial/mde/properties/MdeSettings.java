@@ -112,7 +112,7 @@ public class MdeSettings extends Settings {
     private int traceSweepSpeed;
     
     /** Turn Debug comments on or off by setting the value to true or false respectively. */
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     
     /** The MDE application version number. */
     public static final String  VERSION = "2.3.3";
