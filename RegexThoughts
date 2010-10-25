@@ -12,3 +12,10 @@ sin(x...)/A + D
 Solve the problem by adding a check between the ampersands for a A` so we can look for
 
 (A/78787)*sin(B*C)&/d& + D
+
+
+
+\(?\d\*\d\)? Coefficient part one
+\*  connects the coefficient 
+sin\(([^)\n]*)\) --sin and the middle gets us B and C
+--second part after sin

@@ -37,3 +37,9 @@ If it can't email me.
 
 --Andrew Rosen
 Retsej@gatech.edu
+
+PS 
+
+Need to work on improving regexes.
+
+Also make the domain and range more accessable for TTS engines.

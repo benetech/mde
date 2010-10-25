@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 public class RegexTest {
 
-	private static final String REGEX = "sin\\(([^)\\n]*)\\)";
+	private static final String REGEX = "(-?\\d*\\.?\\d*)";
 	
 	public static void main(String[] args){
 		
