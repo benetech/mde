@@ -6,6 +6,7 @@
  */
 package gov.nasa.ial.mde.math;
 
+import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.util.MathUtil;
 
 /**
@@ -203,7 +204,24 @@ public class IntervalXY {
                     GS(1, 0) + varY + GS(1, 1) + strHighY() + "}");
         } // end if
 
-        return r.toString();
+        if(MdeSettings.ACCESSIBLE_TTS){
+        	String fixed = r.toString();
+        	fixed = fixed.replaceAll("<=", "less than or equal to");
+        	fixed = fixed.replaceAll(">=", "greater than or equal to");
+        	fixed = fixed.replaceAll("<", "less than");
+        	fixed = fixed.replaceAll(">", "greater than");
+        	fixed = fixed.replaceAll("=", "equals");
+        	fixed = fixed.replaceAll("-", "negative ");
+        	if(MdeSettings.DEBUG){
+        		System.out.println("Checking the debug of acessable TTS: "  + fixed);
+        	}
+        	
+        	return fixed;
+        }else{
+        	return r.toString();
+        }
+        
+        
     } // end toString
 
     private String GS(int whichVar, int whichPoint) {
@@ -234,24 +252,24 @@ public class IntervalXY {
         used = (X | Y);
     } // end setBothEndPoints
 
-//    // Main routine for test purposes
-//    public static void main(String[] args) {
-//        IntervalXY i1 = new IntervalXY(new PointXY(-1, -2), new PointXY(3, 4));
-//        IntervalXY i2 = new IntervalXY("x", -2, Double.POSITIVE_INFINITY);
-//        IntervalXY i3 = new IntervalXY("u", Double.NEGATIVE_INFINITY, -2);
-//        String[] rt = { "r", "theta" };
-//
-//        System.out.println(i1);
-//        i1.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_LOW_Y);
-//        System.out.println(i1);
-//
-//        System.out.println(i2);
-//        System.out.println(i3);
-//
-//        i1 = new IntervalXY(rt, new PointXY(0.0, 0.0), new PointXY(1.0, 2.0 * Math.PI));
-//        System.out.println(i1);
-//        i2 = new IntervalXY("t", 1, -2);
-//        System.out.println(i2);
-//    } // end main
+    // Main routine for test purposes
+    public static void main(String[] args) {
+        IntervalXY i1 = new IntervalXY(new PointXY(-1, -2), new PointXY(3, 4));
+        IntervalXY i2 = new IntervalXY("x", -2, Double.POSITIVE_INFINITY);
+        IntervalXY i3 = new IntervalXY("u", Double.NEGATIVE_INFINITY, -2);
+        String[] rt = { "r", "theta" };
+
+        System.out.println(i1);
+        i1.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_LOW_Y);
+        System.out.println(i1);
+
+        System.out.println(i2);
+        System.out.println(i3);
+
+        i1 = new IntervalXY(rt, new PointXY(0.0, 0.0), new PointXY(1.0, 2.0 * Math.PI));
+        System.out.println(i1);
+        i2 = new IntervalXY("t", 1, -2);
+        System.out.println(i2);
+   } // end main
 
 } // end class IntervalXY
