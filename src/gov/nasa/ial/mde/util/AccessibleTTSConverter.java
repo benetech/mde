@@ -18,43 +18,55 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replacePlus(String string){
-		return null;
+		string = string.replaceAll("+", " plus ");
+		return string;
 	}
 	
 	public static String replacePlusWithPositive(String string){
-		return null;
-	}
-	
-	public static String replaceMinusWithNegative(String string){
-		return null;
+		string = string.replaceAll("+", " positive ");
+		return string;
 	}
 	
 	public static String replaceMinus(String string){
-		return null;
+		string = string.replaceAll("-", " minus ");
+		return string;
+	}
+	
+	public static String replaceMinusWithNegative(String string){
+		string = string.replaceAll("-", " negative ");
+		return string;
 	}
 	
 	public static String replaceMultiply(String string){
-		return null;
+		string = string.replaceAll("*", " times ");
+		return string;
 	}
 	
 	public static String replaceDivided(String string){
-		return null;
+		string = string.replaceAll("/", " divided by ");
+		return string;
 	}
 	
 	public static String replaceDividedWithOver(String string){
-		return null;
+		string = string.replaceAll("/", " over ");
+		return string;
 	}
 	
 	public static String replaceGreater(String string){
-		return null;	
+		string = string.replaceAll(">=", "greater than or equal to");
+		string = string.replaceAll(">", "greater than");
+		return string;	
 	}
 	
 	public static String replaceLesser(String string){
-		return null;	
+		string = string.replaceAll("<=", "less than or equal to");
+		string = string.replaceAll("<", "less than");
+		return string;	
 	}
 	
 	public static String replaceEquals(String string){
-		return null;	
+		string.replaceAll("=", " equals ");
+		return string;	
 	}
 	
 	
