@@ -121,7 +121,7 @@ public class MdeSettings extends Settings {
     public static final String  VERSION = "2.3.3";
     
     /** The build number which is updated by the Ant build script. */
-    public static final String  BUILD_NUMBER = "201010201603";
+    public static final String  BUILD_NUMBER = "201010261556";
     
     /** true if this is a Beta release, false if it is not */
     public static final boolean BETA_RELEASE = false;

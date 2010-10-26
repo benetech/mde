@@ -7,6 +7,7 @@
 package gov.nasa.ial.mde.math;
 
 import gov.nasa.ial.mde.properties.MdeSettings;
+import gov.nasa.ial.mde.util.AccessibleTTSConverter;
 import gov.nasa.ial.mde.util.MathUtil;
 
 /**
@@ -204,24 +205,16 @@ public class IntervalXY {
                     GS(1, 0) + varY + GS(1, 1) + strHighY() + "}");
         } // end if
 
+        String string = r.toString();
+        
         if(MdeSettings.ACCESSIBLE_TTS){
-        	String fixed = r.toString();
-        	fixed = fixed.replaceAll("<=", "less than or equal to");
-        	fixed = fixed.replaceAll(">=", "greater than or equal to");
-        	fixed = fixed.replaceAll("<", "less than");
-        	fixed = fixed.replaceAll(">", "greater than");
-        	fixed = fixed.replaceAll("=", "equals");
-        	fixed = fixed.replaceAll("-", "negative ");
+        	string = AccessibleTTSConverter.convertDomainAndRange(string);
         	if(MdeSettings.DEBUG){
-        		System.out.println("Checking the debug of acessable TTS: "  + fixed);
+        		System.out.println("Checking the debug of acessable TTS: "  + string);
         	}
-        	
-        	return fixed;
-        }else{
-        	return r.toString();
         }
         
-        
+        return string;
     } // end toString
 
     private String GS(int whichVar, int whichPoint) {

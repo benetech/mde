@@ -7,13 +7,32 @@ public class AccessibleTTSConverter {
 	 */
 	
 	
-	public static String handleCoefficients(String string){
+	public static String convertCoefficients(String string){
 		return string;
 	}
 	
-	public static String removeBrackets(String string){
-		string = string.replaceAll("{", "\n");
-		string = string.replaceAll("}", "\n");
+	public static String convertDomainAndRange(String string){
+		string = replaceBrackets(string);
+		string = replaceLesser(string);
+		string = replaceGreater(string);
+		string = replaceEquals(string);
+		string = replaceMinusWithNegative(string);
+		return string;
+	}
+	
+	public static String getSets(String string){
+		
+		
+		
+		
+		string = string.replaceAll("(\\{[^\\}\n]*\\})", "blash");
+		
+		
+		return string;
+	}
+	
+	public static String replaceBrackets(String string){
+		string = string.replaceAll("[{}]", "\n");
 		return string;
 	}
 	
@@ -33,7 +52,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replaceMinusWithNegative(String string){
-		string = string.replaceAll("-", " negative ");
+		string = string.replaceAll("-", "negative ");
 		return string;
 	}
 	
@@ -53,26 +72,26 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replaceGreater(String string){
-		string = string.replaceAll(">=", "greater than or equal to");
-		string = string.replaceAll(">", "greater than");
+		string = string.replaceAll(">=", "is greater than or equal to");
+		string = string.replaceAll(">", "is greater than");
 		return string;	
 	}
 	
 	public static String replaceLesser(String string){
-		string = string.replaceAll("<=", "less than or equal to");
-		string = string.replaceAll("<", "less than");
+		string = string.replaceAll("<=", "is less than or equal to");
+		string = string.replaceAll("<", "is less than");
 		return string;	
 	}
 	
 	public static String replaceEquals(String string){
-		string.replaceAll("=", " equals ");
+		string = string.replaceAll("=", "equals");
 		return string;	
 	}
 	
 	
 	public static void main(String[] args) {
-		String test = "{x such that -infinity < x < infinity}";
-		test = removeBrackets(test);
+		String test = "adfadfa {x such that -infinity < x < infinity} {x such that -infinity <= x >= infinity} {x such that -infinity = x < infinity}";
+		test = getSets(test);
 		
 		System.out.println(test);
 		
