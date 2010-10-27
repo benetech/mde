@@ -21,12 +21,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String getSets(String string){
-		
-		
-		
-		
 		string = string.replaceAll("(\\{[^\\}\n]*\\})", "blash");
-		
 		
 		return string;
 	}
@@ -72,14 +67,14 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replaceGreater(String string){
-		string = string.replaceAll(">=", "is greater than or equal to");
-		string = string.replaceAll(">", "is greater than");
+		string = string.replaceAll(">=", "greater than or equal to");
+		string = string.replaceAll(">", "greater than");
 		return string;	
 	}
 	
 	public static String replaceLesser(String string){
-		string = string.replaceAll("<=", "is less than or equal to");
-		string = string.replaceAll("<", "is less than");
+		string = string.replaceAll("<=", "less than or equal to");
+		string = string.replaceAll("<", "less than");
 		return string;	
 	}
 	
