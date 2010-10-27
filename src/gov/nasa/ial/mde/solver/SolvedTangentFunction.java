@@ -15,8 +15,6 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 
 	
 	protected TrigClassifier TC;
-	@SuppressWarnings("unused")
-	private final double PI = 3.142;
 	
 	public SolvedTangentFunction(AnalyzedEquation analyzedEquation) {
 		super(analyzedEquation, "tangent function");
