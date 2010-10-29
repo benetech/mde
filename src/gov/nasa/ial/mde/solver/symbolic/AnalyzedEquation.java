@@ -214,10 +214,11 @@ public class AnalyzedEquation implements AnalyzedItem {
      * @see #getParameters()
      * @see #getParameterValue(String)
      */
-    public Hashtable<Object, Object> getParameterHash() {
-        Hashtable<Object, Object> r = new Hashtable<Object, Object>();
+    public Hashtable<String, Object> getParameterHash() {
+        Hashtable<String, Object> r = new Hashtable<String, Object>();
         Enumeration<String> k = parameterHash.keys();
-        Object key, value;
+        String key;
+        Object value;
 
         while (k.hasMoreElements()) {
             value = parameterHash.get(key = k.nextElement());

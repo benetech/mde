@@ -15,7 +15,9 @@ Solve the problem by adding a check between the ampersands for a A` so we can lo
 
 
 
-\(?\d\*\d\)? Coefficient part one
+.
+
+ Coefficient part one
 \*  connects the coefficient 
 sin\(([^)\n]*)\) --sin and the middle gets us B and C
 --second part after sin
