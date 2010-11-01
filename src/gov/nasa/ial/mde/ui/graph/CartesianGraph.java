@@ -143,7 +143,11 @@ public class CartesianGraph extends JPanel {
         addMouseListener(gnk);
     } // end CartesianGraph
     
-    /**
+    public Solver getSolver() {
+		return solver;
+	}
+
+	/**
      * Create a duplicate of this <code>CartesianGraph</code> instance.
      *
      * @return a duplicate of the <code>CartesianGraph</code> instance

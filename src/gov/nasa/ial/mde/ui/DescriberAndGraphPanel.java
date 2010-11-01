@@ -1,5 +1,6 @@
 package gov.nasa.ial.mde.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -7,7 +8,9 @@ import java.awt.event.KeyEvent;
 import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
+import gov.nasa.ial.mde.ui.graph.CartesianGraph;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -16,22 +19,39 @@ import javax.swing.JTextField;
 public class DescriberAndGraphPanel extends JPanel {
 
 	
-	private Solver solver;
+	private  Solver solver;
 	private Describer describer;
 	private JLabel instructions;
 	private JTextField input;
 	private JTextArea output;
 	private MdeSettings currentSettings;
+	private JPanel describerPanel;
+	private CartesianGraph graphPanel;
+	
 	
 	public DescriberAndGraphPanel() {
+		setupMDE();
 		
-
-		JPanel describerPanel = new JPanel();
-		JPanel graphPanel = new JPanel();
-		
+		this.describerPanel = new JPanel();
+		this.graphPanel = new CartesianGraph(solver, currentSettings);
 		
 		setupDescriberPanel();
 		setupGraphPanel();
+		
+		this.add(graphPanel);
+		this.add(describerPanel);
+		
+	}
+
+	
+	
+	private void setupMDE() {
+		this.currentSettings = new MdeSettings("myAppsMdeProperties");
+		solver = new Solver();
+		this.describer = new Describer(solver, currentSettings);
+		
+		//we can change this if we wanted to change what
+		this.describer.setOutputFormat(Describer.TEXT_OUTPUT);  
 	}
 
 	private void setupDescriberPanel() {
@@ -54,19 +74,68 @@ public class DescriberAndGraphPanel extends JPanel {
 					input.setText("");
 				}
 			}
-		});		
+		});	
+		
+		JPanel inputPanel = new JPanel();
+		inputPanel.add(instructions);
+		inputPanel.add(input);
+		
+		describerPanel.add(inputPanel, BorderLayout.PAGE_START);
+		describerPanel.add(output, BorderLayout.CENTER);
 	}
 	
 	private void setupGraphPanel() {
-		// TODO Auto-generated method stub
 		
 	}
 
-	private String processEquation(String text) {
-		// TODO Auto-generated method stub
-		return null;
+	private String processEquation(String equation) {
+		String description ="OH DEAR GOD\n FULL TILT\nPLEASE RESTART\n";
+		try{
+			
+			
+			solver.add(equation);
+			solver.solve();
+			System.out.println(solver.size());
+			System.out.println(graphPanel.getSolver().size());
+			
+			
+			
+			if (solver.anyDescribable()) {
+				description = describer.getDescriptions("standards");
+				if(solver.anyGraphable())
+				{
+					graphPanel.drawGraph();
+					System.out.println("I should have drawn something");
+				}
+				
+			} else {
+				description="MDE could not generate a description for " + equation + ".";
+			}
+			
+			solver.removeAll();
+			
+		}catch (Exception e) 
+		{
+			System.out.println(e);
+			solver.removeAll();
+		}
+		return description;
 	}
 	
+	
+	public static void main(String[] args){
+		
+		JFrame frame = new JFrame("Math Description Engine");
+		DescriberAndGraphPanel panel = new DescriberAndGraphPanel();
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setVisible(true);
+        //frame.toFront();
+	}
 	
 
 }
