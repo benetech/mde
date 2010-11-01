@@ -99,4 +99,13 @@ public class DescriberPanel extends JPanel {
 		}
 		return description;
     }
+
+
+	public Solver getSolver() {
+		return solver;
+	}
+	
+	public MdeSettings getCurrentSettings() {
+		return currentSettings;
+	}
 }
