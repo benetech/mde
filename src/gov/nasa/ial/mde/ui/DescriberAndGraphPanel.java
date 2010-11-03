@@ -42,9 +42,8 @@ public class DescriberAndGraphPanel extends JPanel {
 		setupDescriberPanel();
 		setupGraphPanel();
 		
-		this.add(graphPanel);
 		this.add(describerPanel);
-		
+		this.add(graphPanel);
 	}
 
 	
