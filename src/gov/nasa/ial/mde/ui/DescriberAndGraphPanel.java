@@ -100,7 +100,6 @@ public class DescriberAndGraphPanel extends JPanel {
 			if(solver.anyGraphable())
 			{
 				graphPanel.drawGraph();
-				System.out.println("I should have drawn something");
 			}
 			
 			if (solver.anyDescribable()) {
