@@ -19,6 +19,10 @@ import javax.swing.JTextField;
 public class DescriberAndGraphPanel extends JPanel {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6145441370339707300L;
 	private  Solver solver;
 	private Describer describer;
 	private JLabel instructions;
@@ -85,34 +89,29 @@ public class DescriberAndGraphPanel extends JPanel {
 	}
 	
 	private void setupGraphPanel() {
-		
 	}
 
 	private String processEquation(String equation) {
 		String description ="OH DEAR GOD\n FULL TILT\nPLEASE RESTART\n";
 		try{
-			
-			
+			solver.removeAll();
 			solver.add(equation);
 			solver.solve();
-			System.out.println(solver.size());
-			System.out.println(graphPanel.getSolver().size());
 			
-			
+			if(solver.anyGraphable())
+			{
+				graphPanel.drawGraph();
+				System.out.println("I should have drawn something");
+			}
 			
 			if (solver.anyDescribable()) {
 				description = describer.getDescriptions("standards");
-				if(solver.anyGraphable())
-				{
-					graphPanel.drawGraph();
-					System.out.println("I should have drawn something");
-				}
-				
+					
 			} else {
 				description="MDE could not generate a description for " + equation + ".";
 			}
 			
-			solver.removeAll();
+			//
 			
 		}catch (Exception e) 
 		{
