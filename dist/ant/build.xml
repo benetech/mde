@@ -386,7 +386,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
          excludes="${jarExcludes},${jarName}.jar,build.xml,build.properties,**/*.java,${tutorialExcludes},${installerExcludes},${sdkExcludes},${commonExcludes}"
          jarfile="${jarName}.jar" >
     	 <manifest>
-    	 	<attribute name="Main-Class" value="gov.nasa.ial.mde.ui.DescriberFrame"/>
+    	 	<attribute name="Main-Class" value="gov.nasa.ial.mde.ui.DescriberAndGraphPanel"/>
     	 </manifest>
 
 	</jar>
