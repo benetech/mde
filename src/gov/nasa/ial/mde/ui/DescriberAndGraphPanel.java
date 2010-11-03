@@ -42,6 +42,10 @@ public class DescriberAndGraphPanel extends JPanel {
 		setupDescriberPanel();
 		setupGraphPanel();
 		
+		
+		
+		describerPanel.setPreferredSize(new Dimension(480,480));
+		graphPanel.setPreferredSize(new Dimension(480,480));
 		this.add(describerPanel);
 		this.add(graphPanel);
 	}
@@ -65,7 +69,7 @@ public class DescriberAndGraphPanel extends JPanel {
 		output.setEditable(false);
 		output.setWrapStyleWord(true);
 		output.setLineWrap(true);
-		output.setPreferredSize(new Dimension(240, 240));
+		output.setPreferredSize(new Dimension (420, 360));
 		
 		//input
 		input = new JTextField(20);
