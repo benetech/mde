@@ -35,7 +35,7 @@ public class DescriberAndGraphPanel extends JPanel {
 	
 	public DescriberAndGraphPanel() {
 		setupMDE();
-		
+		this.setLayout(new BorderLayout());
 		this.describerPanel = new JPanel();
 		this.graphPanel = new CartesianGraph(solver, currentSettings);
 		
@@ -46,8 +46,8 @@ public class DescriberAndGraphPanel extends JPanel {
 		
 		describerPanel.setPreferredSize(new Dimension(480,480));
 		graphPanel.setPreferredSize(new Dimension(480,480));
-		this.add(describerPanel);
-		this.add(graphPanel);
+		this.add(describerPanel, BorderLayout.WEST);
+		this.add(graphPanel, BorderLayout.EAST);
 	}
 
 	
@@ -69,7 +69,7 @@ public class DescriberAndGraphPanel extends JPanel {
 		output.setEditable(false);
 		output.setWrapStyleWord(true);
 		output.setLineWrap(true);
-		output.setPreferredSize(new Dimension (420, 360));
+		output.setPreferredSize(new Dimension (480, 360));
 		
 		//input
 		input = new JTextField(20);
