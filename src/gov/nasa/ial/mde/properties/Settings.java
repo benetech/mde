@@ -28,7 +28,7 @@ public abstract class Settings {
 
     private String description;
     
-    private static final boolean LOCAL_DEBUG = false;
+    private static final boolean LOCAL_DEBUG = true;
     
     /**
      * Default constructor not allowed.  Will always throw a RuntimeException.
