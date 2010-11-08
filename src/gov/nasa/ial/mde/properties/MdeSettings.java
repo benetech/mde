@@ -117,6 +117,9 @@ public class MdeSettings extends Settings {
     /** Turns <= and the like into their verbal equivalents */
     public static boolean ACCESSIBLE_TTS = false;
     
+    /** Default setting for ACCESSIBLE_TTS*/
+    public static final boolean ACCESSIBLE_TTS_DEFAULT = false;
+    
     /** The MDE application version number. */
     public static final String  VERSION = "2.3.4";
     

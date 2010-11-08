@@ -2,14 +2,20 @@ package gov.nasa.ial.mde.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 
 import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.ui.graph.CartesianGraph;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +36,8 @@ public class DescriberAndGraphPanel extends JPanel {
 	private JTextArea output;
 	private MdeSettings currentSettings;
 	private JPanel describerPanel;
+	private JButton submitButton;
+	private JCheckBox accessableBox;
 	private CartesianGraph graphPanel;
 	
 	
@@ -83,11 +91,38 @@ public class DescriberAndGraphPanel extends JPanel {
 			}
 		});	
 		
+		
+		//submit
+		submitButton = new JButton("Submit");
+		submitButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				output.setText(processEquation(input.getText()));
+				input.setText("");
+			}
+		});
+		
+		
+		//checkbox
+		accessableBox = new JCheckBox("Accessable TTS", MdeSettings.ACCESSIBLE_TTS_DEFAULT);
+		accessableBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if (accessableBox.isSelected()){
+					MdeSettings.ACCESSIBLE_TTS = true;
+				}
+				else if(!accessableBox.isSelected()){
+					MdeSettings.ACCESSIBLE_TTS = false;
+				}
+			}		
+		});
+		
+		//put it all together
 		JPanel inputPanel = new JPanel();
 		inputPanel.add(instructions);
 		inputPanel.add(input);
 		
-		describerPanel.add(inputPanel, BorderLayout.PAGE_START);
+		describerPanel.add(inputPanel, BorderLayout.NORTH);
+		describerPanel.add(accessableBox, BorderLayout.NORTH);
+		describerPanel.add(submitButton, BorderLayout.NORTH);
 		describerPanel.add(output, BorderLayout.CENTER);
 	}
 	
@@ -123,6 +158,8 @@ public class DescriberAndGraphPanel extends JPanel {
 		return description;
 	}
 	
+	private void toggleAccessable(){
+	}
 	
 	public static void main(String[] args){
 		
