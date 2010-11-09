@@ -101,7 +101,7 @@ public class DescriberAndGraphPanel extends JPanel {
 		
 		
 		//check box
-		accessableBox = new JCheckBox("Accessable TTS", MdeSettings.ACCESSIBLE_TTS_DEFAULT);
+		accessableBox = new JCheckBox("Accessible TTS", MdeSettings.ACCESSIBLE_TTS_DEFAULT);
 		accessableBox.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if (accessableBox.isSelected()){
