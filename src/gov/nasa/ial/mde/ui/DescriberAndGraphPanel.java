@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
-
 import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
@@ -102,7 +99,7 @@ public class DescriberAndGraphPanel extends JPanel {
 		});
 		
 		
-		//checkbox
+		//check box
 		accessableBox = new JCheckBox("Accessable TTS", MdeSettings.ACCESSIBLE_TTS_DEFAULT);
 		accessableBox.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -158,8 +155,6 @@ public class DescriberAndGraphPanel extends JPanel {
 		return description;
 	}
 	
-	private void toggleAccessable(){
-	}
 	
 	public static void main(String[] args){
 		
