@@ -1,5 +1,7 @@
 package gov.nasa.ial.mde.util;
 
+import java.util.regex.Pattern;
+
 public class AccessibleTTSConverter {
 
 	/**
@@ -12,6 +14,8 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String convertDomainAndRange(String string){
+		//TODO: get domain and range to the format "the domain|range is x|y between blank and blanky
+		
 		string = replaceBrackets(string);
 		string = replaceLesser(string);
 		string = replaceGreater(string);
@@ -66,6 +70,11 @@ public class AccessibleTTSConverter {
 		return string;
 	}
 	
+	public static String replaceExponent(String string){
+		string = string.replaceAll("\\^", "");
+		return string;
+	}
+	
 	public static String replaceGreater(String string){
 		string = string.replaceAll(">=", "greater than or equal to");
 		string = string.replaceAll(">", "greater than");
@@ -85,9 +94,7 @@ public class AccessibleTTSConverter {
 	
 	
 	public static void main(String[] args) {
-		String test = "x -  - / / / / * * *-\\-y = 0";
-		System.out.println(replaceDivided(test));
-
+		//Pattern p = new Pattern();
 	}
 
 }
