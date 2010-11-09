@@ -1,5 +1,6 @@
 package gov.nasa.ial.mde.util;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AccessibleTTSConverter {
@@ -71,6 +72,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replaceExponent(String string){
+		//http://www.programmersheaven.com/2/RegexJAVA
 		string = string.replaceAll("\\^", "");
 		return string;
 	}
@@ -93,8 +95,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	
-	public static void main(String[] args) {
-		//Pattern p = new Pattern();
+	public static void main(String[] args) {		
 	}
 
 }
