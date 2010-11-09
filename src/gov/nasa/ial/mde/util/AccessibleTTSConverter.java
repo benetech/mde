@@ -32,12 +32,12 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replacePlus(String string){
-		string = string.replaceAll("+", " plus ");
+		string = string.replaceAll("\\+", " plus ");
 		return string;
 	}
 	
 	public static String replacePlusWithPositive(String string){
-		string = string.replaceAll("+", " positive ");
+		string = string.replaceAll("\\+", " positive ");
 		return string;
 	}
 	
@@ -52,7 +52,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replaceMultiply(String string){
-		string = string.replaceAll("*", " times ");
+		string = string.replaceAll("\\*", " times ");
 		return string;
 	}
 	
@@ -85,11 +85,8 @@ public class AccessibleTTSConverter {
 	
 	
 	public static void main(String[] args) {
-		String test = "adfadfa {x such that -infinity < x < infinity} {x such that -infinity <= x >= infinity} {x such that -infinity = x < infinity}";
-		test = getSets(test);
-		
-		System.out.println(test);
-		
+		String test = "x -  - / / / / * * *-\\-y = 0";
+		System.out.println(replaceDivided(test));
 
 	}
 

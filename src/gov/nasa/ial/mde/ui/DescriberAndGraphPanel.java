@@ -10,6 +10,7 @@ import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.ui.graph.CartesianGraph;
+import gov.nasa.ial.mde.util.AccessibleTTSConverter;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -140,7 +141,13 @@ public class DescriberAndGraphPanel extends JPanel {
 			
 			if (solver.anyDescribable()) {
 				description = describer.getDescriptions("standards");
-					
+				if(MdeSettings.ACCESSIBLE_TTS){
+					description = AccessibleTTSConverter.replacePlus(description);
+					description = AccessibleTTSConverter.replaceMinus(description);
+					description = AccessibleTTSConverter.replaceMultiply(description);
+					description = AccessibleTTSConverter.replaceDivided(description);
+					description = AccessibleTTSConverter.replaceEquals(description);
+				}
 			} else {
 				description="MDE could not generate a description for " + equation + ".";
 			}
