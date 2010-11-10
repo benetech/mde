@@ -73,8 +73,36 @@ public class AccessibleTTSConverter {
 	
 	public static String replaceExponent(String string){
 		//http://www.programmersheaven.com/2/RegexJAVA
-		string = string.replaceAll("\\^", "");
-		return string;
+		String caretReplacement = "";
+		String numberReplacement = "";
+		
+		Pattern pattern = Pattern.compile("(\\^)(\\d+)");
+		Matcher matcher = pattern.matcher(string);
+		
+		while(matcher.find()){
+			if(1 == Double.valueOf(matcher.group(2))){
+				caretReplacement = " to the ";
+				numberReplacement = "first power ";
+			}else if(2 == Double.valueOf(matcher.group(2))){
+				caretReplacement = "";
+				numberReplacement = " squared ";
+			}else if (3 == Double.valueOf(matcher.group(2))){
+				caretReplacement = "";
+				numberReplacement = " cubed ";
+			}else{
+				caretReplacement = " to the ";
+				numberReplacement = matcher.group(2)+ "th power";
+			}
+			
+			
+			System.out.println("The whole: " + matcher.group() + 
+					"\nThe exponent: " + matcher.group(2));
+			System.out.println("Matcher beginning: " + matcher.start()
+					+ "\n Matcher ending: " + matcher.end());
+			System.out.println(string.substring(matcher.start(1), matcher.end(1)));
+		}
+		
+		return "DONE";
 	}
 	
 	public static String replaceGreater(String string){
@@ -95,7 +123,9 @@ public class AccessibleTTSConverter {
 	}
 	
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		System.out.println(replaceExponent("x^2 = y^4"));
+		
 	}
 
 }
