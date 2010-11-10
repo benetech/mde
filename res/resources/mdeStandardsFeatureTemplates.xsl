@@ -244,13 +244,13 @@
 	<xsl:template match="domain">
 		The domain of the equation is
 		<xsl:value-of select="." />
-		<xsl:text>.  </xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="range">
 		The range of the equation is
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="xIntercepts">

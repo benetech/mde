@@ -15,7 +15,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String convertDomainAndRange(String string){
-		//TODO: get domain and range to the format "the domain|range is x|y between blank and blanky
+		//TODO: get domain and range to the format "the domain|range is x|y from blank and to blanky
 		
 		string = replaceBrackets(string);
 		string = replaceLesser(string);

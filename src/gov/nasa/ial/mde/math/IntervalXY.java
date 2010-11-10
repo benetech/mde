@@ -191,28 +191,47 @@ public class IntervalXY {
      */
     public String toString() {
         StringBuffer r = new StringBuffer();
-
-        if ((used & X) != 0) {
-            r.append("{" + varX + " such that " + strLowX() + 
-                    GS(0, 0) + varX + GS(0, 1) + strHighX() + "}");
+        String string;
+        
+        
+        
+        if(!MdeSettings.ACCESSIBLE_TTS){
+        	if ((used & X) != 0) {
+                r.append("{" + varX + " such that " + strLowX() + 
+                        GS(0, 0) + varX + GS(0, 1) + strHighX() + "}");
+            }
+            if ((used & Y) != 0) {
+                if (r.length() > 0) {
+                    r.append(" and\n");
+                }
+                r.append("{" + varY + " such that " + strLowY() + 
+                        GS(1, 0) + varY + GS(1, 1) + strHighY() + "}");
+            } // end if
+          
+        }else{
+        	if ((used & X) != 0) {
+        		r.append(varX+ " from " + strLowX() + " to " + strHighX() + "");
+            }
+            if ((used & Y) != 0) {
+                if (r.length() > 0) {
+                    r.append(" and\n");
+                }
+                r.append(varY+ " from " + strLowY() + " to " + strHighY() + "");
+            } // end if
+        	
         }
 
-        if ((used & Y) != 0) {
-            if (r.length() > 0) {
-                r.append(" and\n");
-            }
-            r.append("{" + varY + " such that " + strLowY() + 
-                    GS(1, 0) + varY + GS(1, 1) + strHighY() + "}");
-        } // end if
-
-        String string = r.toString();
         
-        if(MdeSettings.ACCESSIBLE_TTS){
+
+        string = r.toString();
+        
+        
+        /*if(MdeSettings.ACCESSIBLE_TTS){
         	string = AccessibleTTSConverter.convertDomainAndRange(string);
         	if(MdeSettings.DEBUG){
-        		System.out.println("Checking the debug of acessable TTS: "  + string);
+        		System.out.println("Checking the debug of accessable TTS: "  + string);
         	}
-        }
+        }*/
         
         return string;
     } // end toString
