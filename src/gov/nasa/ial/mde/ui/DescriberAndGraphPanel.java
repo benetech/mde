@@ -46,7 +46,6 @@ public class DescriberAndGraphPanel extends JPanel {
 		this.graphPanel = new CartesianGraph(solver, currentSettings);
 		
 		setupDescriberPanel();
-		setupGraphPanel();
 		
 		
 		
@@ -122,9 +121,6 @@ public class DescriberAndGraphPanel extends JPanel {
 		describerPanel.add(accessableBox, BorderLayout.NORTH);
 		describerPanel.add(submitButton, BorderLayout.NORTH);
 		describerPanel.add(output, BorderLayout.CENTER);
-	}
-	
-	private void setupGraphPanel() {
 	}
 
 	private String processEquation(String equation) {

@@ -91,18 +91,20 @@ public class AccessibleTTSConverter {
 				numberReplacement = " cubed ";
 			}else{
 				caretReplacement = " to the ";
-				numberReplacement = matcher.group(2)+ "th power";
+				numberReplacement = matcher.group(2)+ "th power ";
 			}
 			
+			string =  string.replaceFirst("(\\^)(\\d+)", caretReplacement+ numberReplacement);
 			
+			/*
 			System.out.println("The whole: " + matcher.group() + 
 					"\nThe exponent: " + matcher.group(2));
 			System.out.println("Matcher beginning: " + matcher.start()
 					+ "\n Matcher ending: " + matcher.end());
-			System.out.println(string.substring(matcher.start(1), matcher.end(1)));
+			System.out.println(string.substring(matcher.start(1), matcher.end(1)));*/
 		}
 		
-		return "DONE";
+		return string;
 	}
 	
 	public static String replaceGreater(String string){
