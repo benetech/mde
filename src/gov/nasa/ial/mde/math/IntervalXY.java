@@ -7,6 +7,7 @@
 package gov.nasa.ial.mde.math;
 
 import gov.nasa.ial.mde.properties.MdeSettings;
+import gov.nasa.ial.mde.util.AccessibleTTSConverter;
 import gov.nasa.ial.mde.util.MathUtil;
 
 /**
@@ -223,7 +224,9 @@ public class IntervalXY {
         
 
         string = r.toString();
-        
+        if (MdeSettings.ACCESSIBLE_TTS){
+        	string = AccessibleTTSConverter.replaceMinusWithNegative(string);
+        }
         
         /*if(MdeSettings.ACCESSIBLE_TTS){
         	string = AccessibleTTSConverter.convertDomainAndRange(string);
