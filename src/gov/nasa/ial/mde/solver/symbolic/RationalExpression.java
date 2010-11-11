@@ -368,7 +368,7 @@ public class RationalExpression extends ProtoExpression {
             theta = new double[n];
 
             for (int i = 1; i <= n; i++) {
-                r = (Remainder)remainders.get(i);
+                r = remainders.get(i);
                 a[i - 1] = (int)r.a;
                 theta[i - 1] = r.theta;
             } // end for i
