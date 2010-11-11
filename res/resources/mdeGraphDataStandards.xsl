@@ -241,18 +241,15 @@
 
 	<xsl:template name="cardioidSpecifics">
 		Curves of this type have a characteristic heart shape with the "cleft"
-		located at the
-		origin.
+		located at the origin.
 		<xsl:choose>
 			<xsl:when test="axisInclination/degreeValue=-90">
 				The curve is oriented so that the "heart" appears right-side-up on
-				your
-				screen with its "cleft" at the top.
+				your screen with its "cleft" at the top.
 			</xsl:when>
 			<xsl:when test="axisInclination/degreeValue=90">
 				The "heart" is shown in an upside down orientation with its "cleft"
-				at the
-				bottom of the picture.
+				at the bottom of the picture.
 			</xsl:when>
 			<xsl:when
 				test="axisInclination/degreeValue=0 or axisInclination/degreeValue=180">
@@ -266,19 +263,14 @@
 
 	<xsl:template name="loopWithinALoopSpecifics">
 		This figure looks like a large loop with a smaller loop drawn inside
-		it. The curve
-		crosses itself at the origin to make the smaller loop. Both loops are
-		symmetric
-		about a single line through the origin. The general equation of this kind
+		it. The curve crosses itself at the origin to make the smaller loop. Both loops are
+		symmetric about a single line through the origin. The general equation of this kind
 		of curve is
 		r = a*cos(theta) + b*sin(theta) + c. When c is much less than a or b,
-		you
-		get two loops that are very nearly on top of each other forming a circle
-		that is
-		traced twice. Going the other way, if you make c larger, the smaller loop
+		you get two loops that are very nearly on top of each other forming a circle
+		that is traced twice. Going the other way, if you make c larger, the smaller loop
 		pinches down until it disappears by popping out to make a simple
-		closed curve
-		around the origin.
+		closed curve around the origin.
 	</xsl:template>
 
 	<xsl:template name="eccentricCircleSpecifics">
