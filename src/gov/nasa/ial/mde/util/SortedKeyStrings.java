@@ -53,7 +53,7 @@ public class SortedKeyStrings {
 
     private void finish(Hashtable ht, Comparison c) {
         int i, n;
-        Vector v = new Vector();
+        Vector<Object> v = new Vector<Object>();
         Enumeration k = ht.keys();
 
         while (k.hasMoreElements()) {
