@@ -47,7 +47,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String replaceMinus(String string){
-		string = string.replaceAll("-", " minus ");
+		string = string.replaceAll("-(?!\\w\\w+)", " minus ");
 		return string;
 	}
 	
