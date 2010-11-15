@@ -7,7 +7,6 @@
 package gov.nasa.ial.mde.math;
 
 import gov.nasa.ial.mde.properties.MdeSettings;
-import gov.nasa.ial.mde.util.AccessibleTTSConverter;
 import gov.nasa.ial.mde.util.MathUtil;
 
 /**
@@ -193,8 +192,6 @@ public class IntervalXY {
         StringBuffer r = new StringBuffer();
         String string;
         
-        
-        
         if(!MdeSettings.ACCESSIBLE_TTS){
         	if ((used & X) != 0) {
                 r.append("{" + varX + " such that " + strLowX() + 
@@ -221,20 +218,7 @@ public class IntervalXY {
         	
         }
 
-        
-
         string = r.toString();
-        if (MdeSettings.ACCESSIBLE_TTS){
-        	string = AccessibleTTSConverter.replaceMinusWithNegative(string);
-        }
-        
-        /*if(MdeSettings.ACCESSIBLE_TTS){
-        	string = AccessibleTTSConverter.convertDomainAndRange(string);
-        	if(MdeSettings.DEBUG){
-        		System.out.println("Checking the debug of accessable TTS: "  + string);
-        	}
-        }*/
-        
         return string;
     } // end toString
 
