@@ -35,8 +35,6 @@
 				<xsl:call-template name="hyperbolaSpecifics" />
 			</xsl:when>
 
-
-
 			<!-- Function descriptions -->
 			<xsl:when test="graphName='polynomial'">
 				<xsl:apply-templates select="FunctionAnalysisData" />
@@ -167,6 +165,8 @@
 	</xsl:template>
 
 	<xsl:template name="parabolaSpecifics">
+	
+	
 
 		<!-- Mode parabola uses up and down rather than, say, compass directions -->
 		<xsl:apply-templates select="openDirection" mode="parabola" />
@@ -262,21 +262,18 @@
 	</xsl:template>
 
 	<xsl:template name="loopWithinALoopSpecifics">
-		This figure looks like a large loop with a smaller loop drawn inside
-		it. The curve crosses itself at the origin to make the smaller loop. Both loops are
-		symmetric about a single line through the origin. The general equation of this kind
-		of curve is
+		This figure looks like a large loop with a smaller loop drawn inside it. The curve
+		crosses itself at the origin to make the smaller loop. Both loops are symmetric
+		about a single line through the origin. The general equation of this kind of curve is
 		r = a*cos(theta) + b*sin(theta) + c. When c is much less than a or b,
-		you get two loops that are very nearly on top of each other forming a circle
-		that is traced twice. Going the other way, if you make c larger, the smaller loop
-		pinches down until it disappears by popping out to make a simple
-		closed curve around the origin.
+		you get two loops that are very nearly on top of each other forming a circle that is
+		traced twice. Going the other way, if you make c larger, the smaller loop
+		pinches down until it disappears by popping out to make a simple closed curve around the origin.
 	</xsl:template>
 
 	<xsl:template name="eccentricCircleSpecifics">
 		This is a smooth, simple close curve that surrounds the origin. It
-		resembles a
-		circle that has been elongated on one side and
+		resembles a circle that has been elongated on one side and
 		<xsl:choose>
 			<xsl:when test="isConvex='true'">
 				flattened
@@ -286,10 +283,9 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		on the opposite side. The general equation for this kind of curve is
-		r = a*cos(theta) + b*sin(theta) + c, where c is large compared to a or
-		b.
-		If c is just somewhat larger than a and b, then the foreshortened side
-		of the curve
+		r = a*cos(theta) + b*sin(theta) + c, where c is large compared to a or b.
+		If c is just somewhat larger than a and b, 
+		then the foreshortened side of the curve
 		will have a "dent" and thus the curve will not be convex. Making c larger
 		flattens out the dent so that the resulting
 		curve is convex. Experiment with r = c + cos(theta) to see how big you
@@ -298,19 +294,17 @@
 
 	<xsl:template name="alternatingLoopSpecifics">
 		The general equation of this curve is
-		r = a*cos(2*n*theta) + b*sin(2*n*theta) + c where c is small compared
-		to a and b.
+		r = a*cos(2*n*theta) + b*sin(2*n*theta) + c
+		where c is small compared to a and b.
 		When you make c very small, the shorter loops are nearly the same length
-		as the larger ones, and you
-		approach the case of a polar rose.
+		as the larger ones, and you approach the case of a polar rose.
 	</xsl:template>
 
 	<xsl:template name="nestedLoopsSpecifics">
 		The curve consists of
 		<xsl:value-of select="thetaMultiple" />
 		larger loops arranged in a symmetric
-		pattern about the origin. Inside each of these loops, there is a smaller
-		loop.
+		pattern about the origin. Inside each of these loops, there is a smaller loop.
 		The general equation of this kind of curve is
 		r = a*cos((2*n+1)*theta) + b*sin((2*n+1)*theta) + c.
 		In this case, because the coefficient of theta is an odd number, the
@@ -347,8 +341,7 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
-				The graph is a simple closed curve like a circle except that there
-				is
+				The graph is a simple closed curve like a circle except that there is
 				<xsl:if test="isConvex='false'">
 					an alternating pattern of dents interspersed with
 				</xsl:if>
@@ -391,7 +384,4 @@
 	<xsl:template name="twoIntersectingLinesSpecifics">
 		<xsl:call-template name="twoIntersectingLinesTemp" />
 	</xsl:template>
-
 </xsl:stylesheet>
-
-
