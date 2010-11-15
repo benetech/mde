@@ -63,13 +63,13 @@
 				This is a graph of a basic sinusoid.
 			</xsl:when>
 
-
 			<xsl:when test=".='RationalFunction'"></xsl:when>
 			<xsl:when test=".='FunctionOverInterval'"></xsl:when>
 			<xsl:otherwise>
 				The graph of the equation is
 				<xsl:call-template name="aOrAn" />
-				<xsl:value-of select="." />.
+				<xsl:value-of select="." />
+				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -83,14 +83,14 @@
 	<xsl:template match="graphBoundaries">
 		The equation is graphed from
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="equationType">
 		The equation is
 		<xsl:call-template name="aOrAn" />
 		<xsl:value-of select="." />
-		<xsl:text>.  </xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 
@@ -120,15 +120,14 @@
 		with a slope of
 		<xsl:choose>
 			<xsl:when test="count(rationalValue)=1">
-				<xsl:value-of select="rationalValue" />
-				.
+				<xsl:value-of select="rationalValue" />.
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
 					approximately
 				</xsl:if>
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -156,10 +155,10 @@
 				</xsl:if>
 				<xsl:value-of select="current()" />
 				<xsl:if test="not(position()=last())">
-					,
+					<xsl:text>, </xsl:text>
 				</xsl:if>
 				<xsl:if test="(position()=last())">
-					.
+					<xsl:text>. </xsl:text>
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -196,10 +195,10 @@
 		<xsl:value-of select="./amplitude" />
 		<xsl:text> and a frequency of approximately </xsl:text>
 		<xsl:value-of select="./frequency" />
-		.
+		<xsl:text>. </xsl:text>
 		<xsl:text> The wave also has a period of approximately </xsl:text>
 		<xsl:value-of select="./period" />
-		.
+		<xsl:text>. </xsl:text>
 
 
 		<xsl:if test="not(./phase =0)">
@@ -214,7 +213,7 @@
 	<xsl:template match="orientation">
 		<xsl:text>The curve of the graph veers in the direction of </xsl:text>
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="absDirection">
@@ -238,7 +237,7 @@
 	<xsl:template match="ordinateSymbol">
 		<xsl:text>The vertical axis name (ordinate Symbol) is </xsl:text>
 		<xsl:value-of select="." />
-		<xsl:text>.  </xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="domain">
@@ -282,7 +281,7 @@
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:text>.  </xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="radius" mode="simple">
@@ -291,13 +290,13 @@
 			approximately
 		</xsl:if>
 		<xsl:value-of select="format-number(2*decimalValue,'#.###')" />
-		<xsl:text>.  </xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="center">
 		The center is at
 		<xsl:value-of select="." />
-		<xsl:text>.  </xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template name="centerNamedTemplateTest">
@@ -312,7 +311,7 @@
 			<xsl:otherwise>
 				The center is at
 				<xsl:value-of select="center" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -332,7 +331,7 @@
 			<xsl:when test="last() = 1">
 				<xsl:text>The descending region is </xsl:text>
 				<xsl:value-of select="." />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="position() = 1">
@@ -340,10 +339,10 @@
 				</xsl:if>
 				<xsl:value-of select="current()" />
 				<xsl:if test="not(position()=last())">
-					,
+					<xsl:text>, </xsl:text>
 				</xsl:if>
 				<xsl:if test="(position()=last())">
-					.
+					<xsl:text>. </xsl:text>
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -362,10 +361,10 @@
 				</xsl:if>
 				<xsl:value-of select="current()" />
 				<xsl:if test="not(position()=last())">
-					,
+					<xsl:text>, </xsl:text>
 				</xsl:if>
 				<xsl:if test="(position()=last())">
-					.
+					<xsl:text>. </xsl:text>
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -380,8 +379,7 @@
 				<xsl:value-of select="$axis" />
 				<xsl:text>-intercept is </xsl:text>
 				<xsl:value-of select="format-number(current(),'#.###')" />
-				<xsl:text>.
-        </xsl:text>
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="position() = 1">
@@ -391,10 +389,10 @@
 				</xsl:if>
 				<xsl:value-of select="format-number(current(),'#.###')" />
 				<xsl:if test="not(position()=last())">
-					,
+					<xsl:text>, </xsl:text>
 				</xsl:if>
 				<xsl:if test="(position()=last())">
-					.
+					<xsl:text>. </xsl:text>
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -433,10 +431,9 @@
 
 	<!-- axis of symmetry - currently defined for parabola -->
 	<xsl:template match="axis">
-		The curve has an axis of symmetry
-		which is the
+		The curve has an axis of symmetry which is the
 		<xsl:value-of select="." />
-		<xsl:text>.</xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<!-- inclination of axis of symmetry - currently defined for parabola -->
@@ -473,7 +470,7 @@
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:text>.</xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<!-- length of the semiConjugateAxis- currently defined for hyperbola -->
@@ -490,19 +487,19 @@
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:text>.</xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="transverseAxis">
 		The equation of the transverse axis is
 		<xsl:value-of select="." />
-		<xsl:text>.</xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="conjugateAxis">
 		The equation of the conjugate axis is
 		<xsl:value-of select="." />
-		<xsl:text>.</xsl:text>
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="asymptotes">
@@ -514,7 +511,7 @@
 			and
 		</xsl:if>
 		<xsl:if test="(position()=last())">
-			.
+			<xsl:text>. </xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -545,7 +542,7 @@
 		</xsl:if>
 		<xsl:value-of select="format-number(decimalValue,'#.###')" />
 		<!-- </xsl:otherwise> </xsl:choose> -->
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="focalLength">
@@ -555,14 +552,14 @@
 		<xsl:choose>
 			<xsl:when test="count(rationalValue)=1">
 				<xsl:value-of select="rationalValue" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
 					approximately
 				</xsl:if>
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -570,25 +567,25 @@
 	<xsl:template match="openDirection">
 		It opens
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="openDirection" mode="qualifying">
 		In other words, the curve opens to the
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="openDirection" mode="parabola">
 		The parabola opens
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="reducedEquation">
 		The reduced equation is
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 
@@ -601,14 +598,14 @@
 		<xsl:choose>
 			<xsl:when test="count(rationalValue)=1">
 				<xsl:value-of select="rationalValue" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
 					approximately
 				</xsl:if>
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -649,7 +646,7 @@
 			approximately
 		</xsl:if>
 		<xsl:value-of select="format-number(2*decimalValue,'#.###')" />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="majorAxis">
@@ -657,7 +654,7 @@
 		<a href="glossary.html#majorAxis">major axis</a>
 		is given by the line
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="minorAxis">
@@ -880,8 +877,7 @@
 					select="format-number(semiMajorAxis/decimalValue div semiMinorAxis/decimalValue,'#.##')" />
 				times as long as the minor axis with length
 				<xsl:value-of select="format-number(2*semiMinorAxis/decimalValue,'#.###')" />
-				.
-				This ellipse is not very flat. It is nearly circular.
+				<xsl:text>. This ellipse is not very flat. It is nearly circular.</xsl:text>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -979,7 +975,7 @@
 				and
 			</xsl:when>
 			<xsl:otherwise>
-				,
+				<xsl:text>, </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:apply-templates select="direction" />
@@ -1033,11 +1029,11 @@
 		This is the graph of a
 		<xsl:choose>
 			<xsl:when test=".=3">
-				cubic polynomial
+				<xsl:text>cubic polynomial</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="." />
-				th degree polynomial
+				<xsl:text>th degree polynomial</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
