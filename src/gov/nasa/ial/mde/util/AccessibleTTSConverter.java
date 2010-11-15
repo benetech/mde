@@ -9,7 +9,6 @@ public class AccessibleTTSConverter {
 	 * @param args
 	 */
 	
-	
 	public static String convertCoefficients(String string){
 		return string;
 	}
@@ -123,8 +122,7 @@ public class AccessibleTTSConverter {
 		string = string.replaceAll("=", "equals");
 		return string;	
 	}
-	
-	
+		
 	public static void main(String[] args) {
 		System.out.println(replaceExponent("x^2 = y^4"));
 		
