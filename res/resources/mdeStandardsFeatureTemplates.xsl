@@ -145,7 +145,7 @@
 				<a href="glossary.html#foci">focus</a>
 				<xsl:text> is located at the point </xsl:text>
 				<xsl:value-of select="current()" />
-				<xsl:text>.  </xsl:text>
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="position() = 1">
@@ -181,10 +181,10 @@
 				</xsl:if>
 				<xsl:value-of select="current()" />
 				<xsl:if test="not(position()=last())">
-					,
+					<xsl:text>, </xsl:text>
 				</xsl:if>
 				<xsl:if test="(position()=last())">
-					.
+					<xsl:text>. </xsl:text>
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -353,7 +353,7 @@
 			<xsl:when test="last() = 1">
 				<xsl:text>The ascending region is </xsl:text>
 				<xsl:value-of select="." />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="position() = 1">
@@ -616,7 +616,7 @@
 			approximately
 		</xsl:if>
 		<xsl:value-of select="format-number(2*decimalValue,'#.###')" />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="semiMinorAxis">
@@ -628,14 +628,14 @@
 		<xsl:choose>
 			<xsl:when test="count(rationalValue)=1">
 				<xsl:value-of select="rationalValue" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
 					approximately
 				</xsl:if>
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -662,7 +662,7 @@
 		<a href="glossary.html#minorAxis">minor axis</a>
 		is given by the line
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="majorAxisInclination">
@@ -743,7 +743,7 @@
 				true
 			</xsl:with-param>
 		</xsl:call-template>
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template name="parabolaWidthTest">
@@ -755,7 +755,7 @@
 				approximately
 			</xsl:if>
 			<xsl:value-of select="format-number(focalLength/decimalValue,'#.###')" />
-			.
+			<xsl:text>. </xsl:text>
 			This is a good 'reference parabola' to compare other parabolas to.
 		</xsl:if>
 
@@ -823,12 +823,12 @@
 		<a href="glossary.html#majorAxis">major axis</a>
 		compared to the length of the
 		<a href="glossary.html#minorAxis">minor axis</a>
-		.
+		<xsl:text>. </xsl:text>
 		The longer the major axis compared to the minor axis, the 'flatter' the
 		ellipse.
 		Another term for flatness is
 		<a href="glossary.html#eccentricity">eccentricity</a>
-		.
+		<xsl:text>. </xsl:text>
 		The major axis of this ellipse with length
 		<xsl:value-of select="format-number(2*semiMajorAxis/decimalValue,'#.###')" />
 		<xsl:choose>
@@ -838,7 +838,7 @@
 					select="format-number(semiMajorAxis/decimalValue div semiMinorAxis/decimalValue,'#.##')" />
 				times the length of the minor axis with length
 				<xsl:value-of select="format-number(2*semiMinorAxis/decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 				This ellipse is very 'flat'.
 			</xsl:when>
 			<xsl:when
@@ -848,7 +848,7 @@
 					select="format-number(semiMajorAxis/decimalValue div semiMinorAxis/decimalValue,'#.##')" />
 				times the length of the minor axis with length
 				<xsl:value-of select="format-number(2*semiMinorAxis/decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 				This ellipse is pretty 'flat'. It's a nice long oval.
 			</xsl:when>
 			<xsl:when
@@ -858,7 +858,7 @@
 					select="format-number(semiMajorAxis/decimalValue div semiMinorAxis/decimalValue,'#.##')" />
 				times the length of the minor axis with length
 				<xsl:value-of select="format-number(2*semiMinorAxis/decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 				This ellipse could be called moderately 'flat'.
 			</xsl:when>
 			<xsl:when
@@ -868,7 +868,7 @@
 					select="format-number(semiMajorAxis/decimalValue div semiMinorAxis/decimalValue,'#.##')" />
 				times as long as the minor axis with length
 				<xsl:value-of select="format-number(2*semiMinorAxis/decimalValue,'#.###')" />
-				.
+				<xsl:text>. </xsl:text>
 				This ellipse is a nice round oval shape.
 			</xsl:when>
 			<xsl:when test="eccentricity/decimalValue &lt;= .603">
@@ -1004,7 +1004,7 @@
 		This function very closely matches a portion of the graph of the
 		equation
 		<xsl:value-of select="." />
-		.
+		<xsl:text>. </xsl:text>
 		<!-- Try typing in this equation to get a description of its graph. -->
 	</xsl:template>
 
@@ -1064,7 +1064,7 @@
 		<xsl:call-template name="numberModel">
 			<xsl:with-param name="featureName" select="." />
 		</xsl:call-template>
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="petalInclinations">
@@ -1092,7 +1092,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:apply-templates select="pointInfo" />
-		.
+		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="loopAngles">
@@ -1109,7 +1109,7 @@
 				and
 			</xsl:when>
 			<xsl:otherwise>
-				,
+				<xsl:text>, </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:value-of select="degreeValue" />
@@ -1126,7 +1126,7 @@
 				and
 			</xsl:when>
 			<xsl:otherwise>
-				,
+				<xsl:text>, </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:value-of select="current()" />
@@ -1215,45 +1215,40 @@
 		<xsl:param name="point" />
 		<xsl:choose>
 			<xsl:when test="$point/X='-infinity' and $point/Y='-infinity'">
-				far lower left
+				<xsl:text>far lower left</xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/X='-infinity' and $point/Y='infinity'">
-				far upper left
+				<xsl:text>far upper left</xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/X='infinity' and $point/Y='-infinity'">
-				far lower right
+				<xsl:text>far lower right</xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/X='infinity' and $point/Y='infinity'">
-				far upper right
+				<xsl:text>far upper right</xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/X='-infinity'">
-				line y =
+				<xsl:text>line y =</xsl:text>
 				<xsl:value-of select="$point/Y" />
-				at the far left
+				<xsl:text>at the far left</xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/X='infinity'">
-				line y =
+				<xsl:text>line y =</xsl:text>
 				<xsl:value-of select="$point/Y" />
-				at the far right
+				<xsl:text>at the far right</xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/Y='-infinity'">
-				bottom
+				<xsl:text>bottom</xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/Y='infinity'">
-				top
+				<xsl:text>top</xsl:text>
 			</xsl:when>
 			<xsl:when
 				test="$point/leftY='infinity' or $point/rightY='infinity' or leftY='-infinity' or rightY='-infinity'">
-				line x =
+				<xsl:text>line x =</xsl:text>
 				<xsl:value-of select="$point/X" />
 			</xsl:when>
 			<xsl:otherwise>
-				point (
-				<xsl:value-of select="$point/X" />
-				,
-				<xsl:value-of select="$point/Y" />
-				)
-			</xsl:otherwise>
+				point (<xsl:value-of select="$point/X" /><xsl:text>, </xsl:text><xsl:value-of select="$point/Y" />)</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 
