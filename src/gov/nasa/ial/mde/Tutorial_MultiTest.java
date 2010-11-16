@@ -6,7 +6,7 @@ import gov.nasa.ial.mde.solver.Solver;
 
 public class Tutorial_MultiTest {
 	
-	private static String[] tests = {"x=y", "y=x^2+x", "y=sin(x)", "x^4-5=y","y=1/x"};
+	private static String[] tests = {"x=y", "y=x^2+x", "y+x^2-4x-4=0",  "y=4*x^3 - 3*x^2", "y=-2x^3+x^2-x+1" , "x^4-5=y", "y=sin(x)","y=1/x", "r=sin(theta)" , "r=sin(theta)+cos(theta)", "r=sin(theta)^2+cos(theta)^2"};
 	
 	
 	public static void main(String[] args) {
@@ -27,7 +27,4 @@ public class Tutorial_MultiTest {
             System.out.println("Description: " + description);
         }
 	}
-
-	
-	
 }
