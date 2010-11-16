@@ -97,34 +97,34 @@
 	<!-- this is stuff for slope -->
 	<xsl:template match="slope">
 		<xsl:if test="decimalValue > 1">
-			It rises steeply from left to right
+			<xsl:text>It rises steeply from left to right</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = 1">
-			It rises at a 45 degree angle from left to right
+			<xsl:text>It rises at a 45 degree angle from left to right</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue > 0 and decimalValue &lt; 1">
-			It rises gradually from left to right
+			<xsl:text>It rises gradually from left to right</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = -1">
-			It falls at a 45 degree angle from left to right
+			<xsl:text>It falls at a 45 degree angle from left to right</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue > -1 and decimalValue &lt; 0">
-			It falls gradually from left to right
+			<xsl:text>It falls gradually from left to right</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue &lt; -1">
-			It falls steeply from left to right
+			<xsl:text>It falls steeply from left to right</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = 0">
-			It is flat
+			<xsl:text>It is flat</xsl:text>
 		</xsl:if>
-		with a slope of
+		<xsl:text>with a slope of</xsl:text>
 		<xsl:choose>
 			<xsl:when test="count(rationalValue)=1">
 				<xsl:value-of select="rationalValue" />.
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
-					approximately
+					<xsl:text>approximately</xsl:text>
 				</xsl:if>
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
 				<xsl:text>. </xsl:text>
@@ -134,7 +134,7 @@
 
 	<xsl:template match="slopeDefined">
 		<xsl:if test=". = 'false'">
-			The slope is undefined.
+			<xsl:text>The slope is undefined.</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -1254,25 +1254,25 @@
 
 	<xsl:template match="direction">
 		<xsl:if test=".='increases'">
-			rises
+			<xsl:text>rises</xsl:text>
 		</xsl:if>
 		<xsl:if test=".='decreases'">
-			falls
+			<xsl:text>falls</xsl:text>
 		</xsl:if>
 		<xsl:if test=".='remains constant'">
-			is nearly flat
+			<xsl:text>is nearly flat</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="Type">
 		<xsl:call-template name="aOrAn" />
 		<xsl:value-of select="." />
-		at
+		<xsl:text>at</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="leftY">
 		<xsl:value-of select="." />
-		at
+		<xsl:text>at</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="rightY">
