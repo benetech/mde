@@ -217,13 +217,12 @@
 	<xsl:template name="polarRoseSpecifics">
 		<xsl:choose>
 			<xsl:when test="numPetals=1">
-				The graph consists of a simple circle that passes through the
-				origin. The
-				length of its diameter is
+				<xsl:text>The graph consists of a simple circle that passes through the
+				origin. The length of its diameter is </xsl:text>
 				<xsl:call-template name="numberModel">
 					<xsl:with-param name="featureName" select="petalLength" />
 				</xsl:call-template>
-				.
+				<xsl:text>. </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				The graph looks like a

@@ -1106,16 +1106,16 @@
 		<xsl:choose>
 			<xsl:when test="position()=1"></xsl:when>
 			<xsl:when test="position()=last()">
-				and
+				<xsl:text>and</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>, </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:value-of select="degreeValue" />
-		degrees
+		<xsl:text>degrees</xsl:text>
 		<xsl:if test="(position()=last())">
-			from the positive X-axis.
+			<xsl:text>from the positive X-axis.</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -1123,7 +1123,7 @@
 		<xsl:choose>
 			<xsl:when test="position()=1"></xsl:when>
 			<xsl:when test="position()=last()">
-				and
+				<xsl:text>and</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>, </xsl:text>
@@ -1135,7 +1135,7 @@
 	<xsl:template name="numberModel">
 		<xsl:param name="featureName" />
 		<xsl:param name="level">
-			3
+			<xsl:text>3</xsl:text>
 		</xsl:param>
 		<xsl:choose>
 			<xsl:when test="$level=3">
@@ -1143,19 +1143,19 @@
 					<xsl:when
 						test="count($featureName/quadraticValue)=1 and count($featureName/rationalValue)=0">
 						<xsl:value-of select="$featureName/quadraticValue" />
-						or approximately
+						<xsl:text> or approximately </xsl:text>
 						<xsl:value-of select="$featureName/approximateDecimalValue" />
 					</xsl:when>
 					<xsl:when test="count($featureName/rationalValue)=1">
 						<xsl:value-of select="$featureName/rationalValue" />
 						<xsl:if test="$featureName/isApproximation='true'">
-							or approximately
+							<xsl:text> or approximately </xsl:text>
 							<xsl:value-of select="$featureName/approximateDecimalValue" />
 						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:if test="$featureName/isApproximation='true'">
-							approximately
+							<xsl:text>approximately</xsl:text>
 						</xsl:if>
 						<xsl:value-of select="$featureName/approximateDecimalValue" />
 					</xsl:otherwise>
@@ -1168,7 +1168,7 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:if test="$featureName/isApproximation='true'">
-							approximately
+							<xsl:text>approximately</xsl:text>
 						</xsl:if>
 						<xsl:value-of select="$featureName/approximateDecimalValue" />
 					</xsl:otherwise>
@@ -1181,7 +1181,7 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:if test="$featureName/isApproximation='true'">
-							approximately
+							<xsl:text>approximately</xsl:text>
 						</xsl:if>
 						<xsl:value-of select="$featureName/approximateDecimalValue" />
 					</xsl:otherwise>
@@ -1189,7 +1189,7 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="isApproximation='true'">
-					approximately
+					<xsl:text>approximately</xsl:text>
 				</xsl:if>
 				<xsl:value-of select="featureName/approximateDecimalValue" />
 			</xsl:otherwise>
@@ -1200,14 +1200,14 @@
 		<xsl:param name="featureName"></xsl:param>
 		<xsl:if
 			test="string-length(substring-after($featureName/degreeValue,'.'))  > 3">
-			approximately
+			<xsl:text>approximately</xsl:text>
 		</xsl:if>
 		<xsl:value-of select="format-number($featureName/degreeValue,'#.###')" />
-		degrees
+		<xsl:text>degrees</xsl:text>
 		<xsl:if test="count($featureName/fractionalRadians)=1">
-			or
+			<xsl:text>or</xsl:text>
 			<xsl:value-of select="$featureName/fractionalRadians" />
-			radians
+			<xsl:text>radians</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
