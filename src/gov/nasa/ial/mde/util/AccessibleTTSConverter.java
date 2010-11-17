@@ -90,7 +90,7 @@ public class AccessibleTTSConverter {
 				numberReplacement = " cubed ";
 			}else{
 				caretReplacement = " to the ";
-				numberReplacement = matcher.group(2)+ "th power ";
+				numberReplacement = "power of " + matcher.group(2);
 			}
 			
 			string =  string.replaceFirst("(\\^)(\\d+)", caretReplacement+ numberReplacement);
