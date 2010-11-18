@@ -47,6 +47,7 @@ public class AccessibleTTSConverter {
 	
 	public static String replaceMinus(String string){
 		string = string.replaceAll("-(?!\\w\\w+)", " minus ");
+		string = string.replaceAll("-infinity" , "negative infinity ");
 		return string;
 	}
 	
@@ -103,6 +104,11 @@ public class AccessibleTTSConverter {
 			System.out.println(string.substring(matcher.start(1), matcher.end(1)));*/
 		}
 		
+		return string;
+	}
+	
+	public static String replaceSqrt(String string){
+		string = string.replaceAll("sqrt", " the square root of ");
 		return string;
 	}
 	
