@@ -112,6 +112,11 @@ public class AccessibleTTSConverter {
 		return string;
 	}
 	
+	public static String replaceAbs(String string){
+		string = string.replaceAll("abs(?\\()", "the absolute value of ");
+		return string;	
+	}
+	
 	public static String replaceGreater(String string){
 		string = string.replaceAll(">=", "greater than or equal to");
 		string = string.replaceAll(">", "greater than");

@@ -97,34 +97,34 @@
 	<!-- this is stuff for slope -->
 	<xsl:template match="slope">
 		<xsl:if test="decimalValue > 1">
-			<xsl:text>It rises steeply from left to right</xsl:text>
+			<xsl:text>It rises steeply from left to right </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = 1">
-			<xsl:text>It rises at a 45 degree angle from left to right</xsl:text>
+			<xsl:text>It rises at a 45 degree angle from left to right </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue > 0 and decimalValue &lt; 1">
-			<xsl:text>It rises gradually from left to right</xsl:text>
+			<xsl:text>It rises gradually from left to right </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = -1">
-			<xsl:text>It falls at a 45 degree angle from left to right</xsl:text>
+			<xsl:text>It falls at a 45 degree angle from left to right </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue > -1 and decimalValue &lt; 0">
-			<xsl:text>It falls gradually from left to right</xsl:text>
+			<xsl:text>It falls gradually from left to right </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue &lt; -1">
-			<xsl:text>It falls steeply from left to right</xsl:text>
+			<xsl:text>It falls steeply from left to right </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = 0">
-			<xsl:text>It is flat</xsl:text>
+			<xsl:text>It is flat </xsl:text>
 		</xsl:if>
-		<xsl:text>with a slope of</xsl:text>
+		<xsl:text>with a slope of </xsl:text>
 		<xsl:choose>
 			<xsl:when test="count(rationalValue)=1">
 				<xsl:value-of select="rationalValue" />.
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
-					<xsl:text>approximately</xsl:text>
+					<xsl:text>approximately </xsl:text>
 				</xsl:if>
 				<xsl:value-of select="format-number(decimalValue,'#.###')" />
 				<xsl:text>. </xsl:text>
@@ -134,7 +134,7 @@
 
 	<xsl:template match="slopeDefined">
 		<xsl:if test=". = 'false'">
-			<xsl:text>The slope is undefined.</xsl:text>
+			<xsl:text>The slope is undefined. </xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -1229,7 +1229,7 @@
 			<xsl:when test="$point/X='-infinity'">
 				<xsl:text>line y =</xsl:text>
 				<xsl:value-of select="$point/Y" />
-				<xsl:text>at the far left</xsl:text>
+				<xsl:text>at the far left </xsl:text>
 			</xsl:when>
 			<xsl:when test="$point/X='infinity'">
 				<xsl:text>line y =</xsl:text>
@@ -1254,29 +1254,30 @@
 
 	<xsl:template match="direction">
 		<xsl:if test=".='increases'">
-			<xsl:text>rises</xsl:text>
+			<xsl:text>rises </xsl:text>
 		</xsl:if>
 		<xsl:if test=".='decreases'">
-			<xsl:text>falls</xsl:text>
+			<xsl:text>falls </xsl:text>
 		</xsl:if>
 		<xsl:if test=".='remains constant'">
-			<xsl:text>is nearly flat</xsl:text>
+			<xsl:text>is nearly flat </xsl:text>
 		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="Type">
 		<xsl:call-template name="aOrAn" />
 		<xsl:value-of select="." />
-		<xsl:text>at</xsl:text>
+		<xsl:text> at</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="leftY">
 		<xsl:value-of select="." />
-		<xsl:text>at</xsl:text>
+		<xsl:text> at</xsl:text>
 	</xsl:template>
 
 	<xsl:template match="rightY">
 		<xsl:value-of select="." />
+		<xsl:text> </xsl:text>
 	</xsl:template>
 </xsl:stylesheet>
 

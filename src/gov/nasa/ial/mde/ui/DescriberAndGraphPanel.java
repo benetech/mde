@@ -141,8 +141,10 @@ public class DescriberAndGraphPanel extends JPanel {
 					description = AccessibleTTSConverter.replacePlus(description);
 					description = AccessibleTTSConverter.replaceMinus(description);
 					description = AccessibleTTSConverter.replaceMultiply(description);
-					description = AccessibleTTSConverter.replaceDivided(description);
+					description = AccessibleTTSConverter.replaceDividedWithOver(description);
 					description = AccessibleTTSConverter.replaceEquals(description);
+					description = AccessibleTTSConverter.replaceSqrt(description);
+					description = AccessibleTTSConverter.replaceAbs(description);
 				}
 			} else {
 				description="MDE could not generate a description for " + equation + ".";
