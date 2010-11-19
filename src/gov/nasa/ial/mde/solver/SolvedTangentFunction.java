@@ -85,6 +85,11 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    //B = pi creates asymptotes at -.5 and .5
 	    
 	    
+	    if(Math.signum(A*B)==1){
+	    	orientation = "";
+	    }
+	    
+	    
 	    phase = -C/B;
 	    offset = D;
 	    
@@ -94,6 +99,8 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    putFeature("phase", phase + "");
     	putFeature("offset", offset + "");
 	    
+    	
+    	
     	putFeature("domain", domain);
 	    
 		// TODO Auto-generated constructor stub
