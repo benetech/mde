@@ -2,6 +2,7 @@ package gov.nasa.ial.mde.solver;
 
 import java.util.ArrayList;
 
+import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AsymptoteFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
@@ -24,13 +25,15 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		String[] parts = equat.split("\\)");
 		
 		double A,B,C,D;
-		double xOffset = Double.NaN;
-		double yOffset = Double.NaN;
+		double phase = Double.NaN;
+		double offset = Double.NaN;
 		String baseAsymptote = null;
 		double period = Double.NaN;
 		double amplitude = Double.NaN;
+		String orientation = "WARRRGL!";
 		    
-		
+		IntervalXY domain = null; // domain
+		IntervalXY range = null; // Range
 		
 		// TODO improve the spliting 
 		
@@ -82,7 +85,16 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    //B = pi creates asymptotes at -.5 and .5
 	    
 	    
+	    phase = -C/B;
+	    offset = D;
 	    
+	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+ 	    
+	    putNewFeatures(newFeatures);
+	    putFeature("phase", phase + "");
+    	putFeature("offset", offset + "");
+	    
+    	putFeature("domain", domain);
 	    
 		// TODO Auto-generated constructor stub
 	}
