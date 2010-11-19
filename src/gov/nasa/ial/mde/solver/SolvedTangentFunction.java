@@ -77,6 +77,13 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    C = ((SolvedLine) features).getYIntercept();
 	    
 	    
+	    //B affects the period
+	    //B= 1 creates asymptotes at -pi/2 and pi/2 
+	    //B = pi creates asymptotes at -.5 and .5
+	    
+	    
+	    
+	    
 		// TODO Auto-generated constructor stub
 	}
 

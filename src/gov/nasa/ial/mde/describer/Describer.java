@@ -138,7 +138,7 @@ public class Describer {
      * An instance of MdeSettings will be created internally. Use default XSLT
      * template files.
      * 
-     * @param solver the solver to use with this desriber.
+     * @param solver the solver to use with this describer.
      */
     public Describer(Solver solver) {
         this(solver, new MdeSettings());
