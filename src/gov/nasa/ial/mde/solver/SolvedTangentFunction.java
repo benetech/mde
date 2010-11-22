@@ -101,8 +101,9 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    //domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
  	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 	    
-	    //check this
-	    //period = pi/B
+ 	    //pi/B
+ 	    //need some dectection for PI in B
+	    period = (Math.round((Math.abs((Math.PI/B)*4)))/4.0) + "pi";
 	    
 	    
 	    //baseAsymptote = (pi/B)-C need to mess with rounding here
