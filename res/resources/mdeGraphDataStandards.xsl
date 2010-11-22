@@ -212,12 +212,14 @@
 	<xsl:template name="tangentSpecifics">
 	
 		<xsl:if test="not(./orientation =0)">
-			<xsl:text> wooooo </xsl:text>
+			<xsl:text>The graph consists of multiple </xsl:text>
+			<xsl:value-of select="./orientation" />
+			<xsl:text> regions, seperated by asymptotes at intervals of every </xsl:text>
+			<xsl:text>.  </xsl:text>		
+		
 		</xsl:if>
 		
-		<xsl:text>The graph consists of multiple </xsl:text>
-			<xsl:value-of select="./orientation" />
-		<xsl:text> regions </xsl:text>
+		
 		
 	</xsl:template>
 
