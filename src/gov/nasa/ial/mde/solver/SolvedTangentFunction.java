@@ -27,10 +27,11 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		double A,B,C,D;
 		double phase = Double.NaN;
 		double offset = Double.NaN;
-		String baseAsymptote = null;
+		String baseAsymptote = "";
 		String period = "";
 		double amplitude = Double.NaN;
 		String orientation = "WARRRGL!";
+		String interval= "";
 		    
 		IntervalXY domain = null; // domain
 		IntervalXY range = null; // Range
@@ -95,20 +96,24 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    	orientation = "0";
 	    }
 	    
-	    phase = -C/B;
 	    offset = D;
 	    
-	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
- 	    
-	    period = 1.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi";
+	    //domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+ 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+	    
+	    //check this
+	    //period = pi/B
+	    
+	    
+	    //baseAsymptote = (pi/B)-C need to mess with rounding here
+	    
+		    
 	    System.out.println(period);
 	    
 	    putNewFeatures(newFeatures);
-	    putFeature("phase", phase + "");
     	putFeature("offset", offset + "");
     	putFeature("domain", domain);
     	putFeature("orientation", orientation);
-	    
 		// TODO Auto-generated constructor stub
 	}
 
