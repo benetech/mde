@@ -3,6 +3,7 @@ package gov.nasa.ial.mde.solver.classifier;
 import gov.nasa.ial.mde.solver.SolvedCosineFunction;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedSineFunction;
+import gov.nasa.ial.mde.solver.SolvedTangentFunction;
 import gov.nasa.ial.mde.solver.SolvedTrigFunction;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -51,7 +52,8 @@ public class TrigClassifier extends MDEClassifier {
 			return features;
 		}else if(hasTan)
 		{
-			
+			features = new SolvedTangentFunction(analyzedEquation);
+			return features;
 		}
 		
 		features = new SolvedTrigFunction(analyzedEquation);

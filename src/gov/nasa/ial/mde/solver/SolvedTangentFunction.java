@@ -28,7 +28,7 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		double phase = Double.NaN;
 		double offset = Double.NaN;
 		String baseAsymptote = null;
-		double period = Double.NaN;
+		String period = "";
 		double amplitude = Double.NaN;
 		String orientation = "WARRRGL!";
 		    
@@ -81,25 +81,31 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    
 	    
 	    //B affects the period
-	    //B= 1 creates asymptotes at -pi/2 and pi/2 
+	    //B = 1 creates asymptotes at -pi/2 and pi/2 
 	    //B = pi creates asymptotes at -.5 and .5
 	    
 	    
 	    if(Math.signum(A*B)==1){
-	    	orientation = "";
+	    	orientation = "ascending";
 	    }
-	    
+	    else if(Math.signum(A*B)==-1){
+	    	orientation = "decending";
+	    }
+	    else{
+	    	orientation = "0";
+	    }
 	    
 	    phase = -C/B;
 	    offset = D;
 	    
 	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
  	    
+	    period = 1.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi";
+	    System.out.println(period);
+	    
 	    putNewFeatures(newFeatures);
 	    putFeature("phase", phase + "");
     	putFeature("offset", offset + "");
-	    
-    	
     	
     	putFeature("domain", domain);
 	    
