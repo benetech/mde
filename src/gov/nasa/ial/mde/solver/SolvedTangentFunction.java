@@ -12,7 +12,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 @SuppressWarnings("all")
 public class SolvedTangentFunction extends SolvedTrigFunction implements FrequencyFeature, OffsetFeature, AsymptoteFeature{
 
-	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period"};
+	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period", "orientation"};
 
 	
 	protected TrigClassifier TC;
@@ -106,8 +106,8 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    putNewFeatures(newFeatures);
 	    putFeature("phase", phase + "");
     	putFeature("offset", offset + "");
-    	
     	putFeature("domain", domain);
+    	putFeature("orientation", orientation);
 	    
 		// TODO Auto-generated constructor stub
 	}

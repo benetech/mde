@@ -210,7 +210,15 @@
 	</xsl:template>
 	
 	<xsl:template name="tangentSpecifics">
-		<xsl:text>test</xsl:text>
+	
+		<xsl:if test="not(./orientation =0)">
+			<xsl:text> wooooo </xsl:text>
+		</xsl:if>
+		
+		<xsl:text>The graph consists of multiple </xsl:text>
+			<xsl:value-of select="./orientation" />
+		<xsl:text> regions </xsl:text>
+		
 	</xsl:template>
 
 	<!-- Test template for polar rose -->

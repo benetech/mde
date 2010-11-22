@@ -62,6 +62,9 @@
 			<xsl:when test=".='cosine function'">
 				This is a graph of a basic sinusoid.
 			</xsl:when>
+			<xsl:when test=".='tangent function'">
+				This is a graph of a tangent function, which is a periodic function. 
+			</xsl:when>
 
 			<xsl:when test=".='RationalFunction'"></xsl:when>
 			<xsl:when test=".='FunctionOverInterval'"></xsl:when>
