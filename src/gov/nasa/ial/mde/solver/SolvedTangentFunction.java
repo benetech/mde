@@ -23,6 +23,7 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		
 		TC  = (TrigClassifier) analyzedEquation.getClassifier();
 		String equat = analyzedEquation.printOriginalEquation();
+		System.out.println(equat);
 		String[] parts = equat.split("\\)");
 		
 		double A,B,C,D;
@@ -82,6 +83,7 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
     	}
 	    
 	    B = ((SolvedLine) features).getSlope();
+	    System.out.println(B);
 	    C = ((SolvedLine) features).getYIntercept();
 	    
 	    
@@ -108,10 +110,13 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
  	    //pi/B
  	    //need some dectection for PI in B
  	    
-	    period = (Math.round((Math.abs(1.0/B)*4))/4.0) + "pi";
-	    frequency = (Math.round((Math.abs((B)*4)))/4.0) +"/pi";
+ 	    //period = calculatePeriod(B);
+ 	    
+	    period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
 	    
-	    baseAsymptote = (Math.round((Math.abs((1.0/B)*4)))/4.0) - C +"pi";
+	    frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
+	    
+	    baseAsymptote = (Math.round((Math.abs((Math.PI/B)*100)))/100.0) - C+"";
 	    
 		    
 	    System.out.println(period);
@@ -125,7 +130,12 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getFrequency() {
+	private String calculatePeriod(double coeff) {
+		if(coeff%3.142==0){}
+		return "0";	
+	}
+
+	public String getFrequency(){
 		Object value = this.getValue(FrequencyFeature.PATH, FrequencyFeature.KEY);
 		String frequencyString = (String)value;
 		System.out.println("Getting frequency.\nFrequency is : " + frequencyString);
