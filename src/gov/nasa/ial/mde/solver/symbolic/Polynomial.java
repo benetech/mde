@@ -415,7 +415,7 @@ public class Polynomial {
      */
     public static void evaluateCoefficients(Expression[] ce, String var, double value, double[] cd) {
         int i, n = ce.length;
-        Hashtable h = new Hashtable();
+        Hashtable<String, Double> h = new Hashtable<String, Double>();
 
         h.put(var, new Double(value));
 
