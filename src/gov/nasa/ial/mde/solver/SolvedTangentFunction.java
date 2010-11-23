@@ -110,17 +110,13 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
  	    //pi/B
  	    //need some dectection for PI in B
  	    
- 	    //period = calculatePeriod(B);
+ 	    period = calculatePeriod(B);
  	    
-	    period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
+	   //period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
 	    
 	    frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
 	    
 	    baseAsymptote = (Math.round((Math.abs((Math.PI/B)*100)))/100.0) - C+"";
-	    
-		    
-	    System.out.println(period);
-	    System.out.println(baseAsymptote);
 	    
 	    putNewFeatures(newFeatures);
     	putFeature("offset", offset + "");
@@ -131,7 +127,10 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	}
 
 	private String calculatePeriod(double coeff) {
-		if(coeff%3.142==0){}
+		if(this.isMultipleOfPi(coeff)){
+			double ret = coeff/3.142;
+			return "1/"+ret;
+		}
 		return "0";	
 	}
 
