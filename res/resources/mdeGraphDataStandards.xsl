@@ -215,6 +215,7 @@
 			<xsl:text>The graph consists of multiple </xsl:text>
 			<xsl:value-of select="./orientation" />
 			<xsl:text> regions, seperated by asymptotes at intervals of every </xsl:text>
+			
 			<xsl:text>.  </xsl:text>		
 		
 		</xsl:if>

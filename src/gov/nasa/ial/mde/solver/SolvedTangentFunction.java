@@ -12,7 +12,8 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 @SuppressWarnings("all")
 public class SolvedTangentFunction extends SolvedTrigFunction implements FrequencyFeature, OffsetFeature, AsymptoteFeature{
 
-	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period", "orientation"};
+	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period", 
+			"orientation", "asymptotes"};
 
 	
 	protected TrigClassifier TC;
@@ -29,9 +30,12 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		double offset = Double.NaN;
 		String baseAsymptote = "";
 		String period = "";
+		String frequency = "";
 		double amplitude = Double.NaN;
 		String orientation = "WARRRGL!";
 		String interval= "";
+		
+		
 		    
 		IntervalXY domain = null; // domain
 		IntervalXY range = null; // Range
@@ -103,17 +107,20 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    
  	    //pi/B
  	    //need some dectection for PI in B
-	    period = (Math.round((Math.abs((Math.PI/B)*4)))/4.0) + "pi";
+ 	    
+	    period = (Math.round((Math.abs(1.0/B)*4))/4.0) + "pi";
+	    frequency = (Math.round((Math.abs((B)*4)))/4.0) +"/pi";
 	    
-	    
-	    //baseAsymptote = (pi/B)-C need to mess with rounding here
+	    baseAsymptote = (Math.round((Math.abs((1.0/B)*4)))/4.0) - C +"pi";
 	    
 		    
 	    System.out.println(period);
+	    System.out.println(baseAsymptote);
 	    
 	    putNewFeatures(newFeatures);
     	putFeature("offset", offset + "");
-    	putFeature("domain", domain);
+    	putFeature("domain", "something with a lot of funky asymptotes");
+    	putFeature("range", range);
     	putFeature("orientation", orientation);
 		// TODO Auto-generated constructor stub
 	}
