@@ -210,15 +210,18 @@
 	</xsl:template>
 	
 	<xsl:template name="tangentSpecifics">
-	
 		<xsl:if test="not(./orientation =0)">
 			<xsl:text>The graph consists of multiple </xsl:text>
 			<xsl:if test="./rate>=3.0">
 				<xsl:text>sharply </xsl:text>				
 			</xsl:if>
-			<xsl:value-of select="./orientation" />
+				<xsl:value-of select="./orientation" />
 			<xsl:text> curves, seperated by asymptotes at intervals of every </xsl:text>
-			<xsl:text>.  </xsl:text>		
+				<xsl:value-of select="./period" />
+			<xsl:text>, starting at  </xsl:text>
+				<xsl:value-of select="./asymptotes" />
+			<xsl:text>. </xsl:text>
+			
 		</xsl:if>
 	</xsl:template>
 

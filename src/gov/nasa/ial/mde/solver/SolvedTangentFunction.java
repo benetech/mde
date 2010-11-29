@@ -8,6 +8,7 @@ import gov.nasa.ial.mde.solver.features.individual.AsymptoteFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
+import gov.nasa.ial.mde.util.MathUtil;
 
 @SuppressWarnings("all")
 public class SolvedTangentFunction extends SolvedTrigFunction implements FrequencyFeature, OffsetFeature, AsymptoteFeature{
@@ -35,10 +36,8 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		double amplitude = Double.NaN;
 		String orientation = "WARRRGL!";
 		String interval= "";
-		
-		
 		    
-		IntervalXY domain = null; // domain
+		String domain = ""; // domain
 		IntervalXY range = null; // Range
 		
 		// TODO improve the spliting 
@@ -61,6 +60,7 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
+	    
 	    
 	    if(parts.length>=2)
 		{
@@ -106,35 +106,41 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    
 	    
  	    //pi/B
- 	    //need some dectection for PI in B
+ 	    //need some detection for PI in B
  	    
  	    period = calculatePeriod(B);
  	    
-	   //period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
+	    //period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
+	    //frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
+	    baseAsymptote = -(Math.round((Math.abs((Math.PI/(B*2))*100)))/100.0) - C+"";
 	    
-	    frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
-	    
-	    baseAsymptote = (Math.round((Math.abs((Math.PI/B)*100)))/100.0) - C+"";
-	    
-	    
-	  //domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+	    domain = "The domain of x is all real numbers except for where we encounter vertical asymptotes";
  	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-	    
 	    
 	    putNewFeatures(newFeatures);
     	putFeature("offset", offset + "");
-    	putFeature("domain", "something with a lot of funky asymptotes");
-    	putFeature("range", range);
     	putFeature("orientation", orientation);
+    	putFeature("period", period);
+    	putFeature("asymptotes", baseAsymptote);
     	putFeature("rate",A+"");
-		// TODO Auto-generated constructor stub
+    	putFeature("domain", domain);
+    	putFeature("range", range);
 	}
 
 	private String calculatePeriod(double coeff) {
 		if(this.isMultipleOfPi(coeff)){
 			double ret = coeff/3.142;
+			//TODO formating
+			if(ret==1.0){
+				return "1";
+			}
+			MathUtil.trimDouble(ret, -1);
 			return "1/"+ret;
+			
 		}else{
+			if(coeff==1.0){
+				return "pi";
+			}
 			return "pi/"+ coeff;
 		}
 	}
