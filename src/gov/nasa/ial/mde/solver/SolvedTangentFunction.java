@@ -7,11 +7,12 @@ import gov.nasa.ial.mde.solver.classifier.TrigClassifier;
 import gov.nasa.ial.mde.solver.features.individual.AsymptoteFeature;
 import gov.nasa.ial.mde.solver.features.individual.FrequencyFeature;
 import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
+import gov.nasa.ial.mde.solver.features.individual.PeriodFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.util.MathUtil;
 
 @SuppressWarnings("all")
-public class SolvedTangentFunction extends SolvedTrigFunction implements FrequencyFeature, OffsetFeature, AsymptoteFeature{
+public class SolvedTangentFunction extends SolvedTrigFunction implements PeriodFeature, OffsetFeature, AsymptoteFeature{
 
 	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period", 
 			"orientation", "asymptotes", "rate"};
@@ -145,13 +146,13 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		}
 	}
 
-	public String getFrequency(){
-		Object value = this.getValue(FrequencyFeature.PATH, FrequencyFeature.KEY);
-		String frequencyString = (String)value;
-		System.out.println("Getting frequency.\nFrequency is : " + frequencyString);
-		return frequencyString;
+	public String getPeriod() {
+		Object value = this.getValue(PeriodFeature.PATH, PeriodFeature.KEY);
+		String periodString = (String)value;
+		System.out.println("Getting period.\nPeriod is : " + periodString);
+		return periodString;
 	}
-
+	
 	public double getOffset() {
 		Object value = this.getValue(OffsetFeature.PATH, OffsetFeature.KEY);
 		Double doubleValue = new Double((String)value);	
@@ -172,5 +173,7 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		
 		return asymptotes;
 	}
+
+	
 
 }
