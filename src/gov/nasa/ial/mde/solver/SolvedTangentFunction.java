@@ -13,7 +13,7 @@ import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 public class SolvedTangentFunction extends SolvedTrigFunction implements FrequencyFeature, OffsetFeature, AsymptoteFeature{
 
 	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period", 
-			"orientation", "asymptotes"};
+			"orientation", "asymptotes", "rate"};
 
 	
 	protected TrigClassifier TC;
@@ -104,8 +104,6 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    
 	    offset = D;
 	    
-	    //domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
- 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 	    
  	    //pi/B
  	    //need some dectection for PI in B
@@ -118,11 +116,17 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 	    
 	    baseAsymptote = (Math.round((Math.abs((Math.PI/B)*100)))/100.0) - C+"";
 	    
+	    
+	  //domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+ 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+	    
+	    
 	    putNewFeatures(newFeatures);
     	putFeature("offset", offset + "");
     	putFeature("domain", "something with a lot of funky asymptotes");
     	putFeature("range", range);
     	putFeature("orientation", orientation);
+    	putFeature("rate",A+"");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -130,8 +134,9 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements Frequen
 		if(this.isMultipleOfPi(coeff)){
 			double ret = coeff/3.142;
 			return "1/"+ret;
+		}else{
+			return "pi/"+ coeff;
 		}
-		return "0";	
 	}
 
 	public String getFrequency(){
