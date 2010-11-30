@@ -35,10 +35,11 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 			System.out.println(parts[i]);	
 		}*/
 		
+		System.out.println(parts.length);
 		
-		for(int i = 0; i < (parts.length-1);i++)
+		for(int i = 0; i < (parts.length);i++)
 		{
-			//System.out.println(parts[i]);
+			System.out.println(parts[i]);
 			parts[i]= parts[i] +")";
 		}
 
@@ -88,7 +89,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 
 	    C = ((SolvedLine) features).getYIntercept();
 	    
-	    String getCoeff = "(-?\\d*\\.?\\d*)\\*sin";
+	    String getCoeff = "(-?\\d*[\\./]?\\d*)\\*sin";
     	parts[0]=parts[0].replace("y", "");
     	parts[0]=parts[0].replace("=", "");
     	parts[0]=parts[0].replace(" ", "");
@@ -157,6 +158,17 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		return doubleValue;
 	}
 
+	public static void main(String[] args){
+		String getCoeff = "(-?\\d*[\\./]?\\d*)\\*sin";
+		String insideSIN = "sin\\(([^)\\n]*)\\)";
+		String[] test = {"y=sin(x)","y=sin(4*x)", "y=3*sin(4*x+20)", "y=4.3*sin(4*x+432)+9","y=5/3*sin(x/3)+4"};
+		
+		for(int i= 0; i<test.length; i++){
+			System.out.println("Test case "+i);
+			System.out.println("   Coeff: " + test[i].replaceAll(getCoeff, "---- $1 ----"));
+			System.out.println("   Sine: " + test[i].replaceAll(insideSIN, "---- $1 ----"));
+		}
+	}
 	
 	
 }
