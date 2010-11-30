@@ -161,12 +161,18 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	public static void main(String[] args){
 		String getCoeff = "(-?\\d*[\\./]?\\d*)\\*sin";
 		String insideSIN = "sin\\(([^)\\n]*)\\)";
-		String[] test = {"y=sin(x)","y=sin(4*x)", "y=3*sin(4*x+20)", "y=4.3*sin(4*x+432)+9","y=5/3*sin(x/3)+4"};
+		String getOffset = "sin\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
+		String all = "(-?\\d*[\\./]?\\d*)\\*sin\\(([^)\\n]*)\\)";
+		String[] test = {"y= sin( x)","y=sin(4 * x)", "y=3 * sin(4*x+20)", "y=4.3*sin(4*x+432)+9"," y=5 /3 * sin( x/3)-4"};
 		
 		for(int i= 0; i<test.length; i++){
-			System.out.println("Test case "+i);
-			System.out.println("   Coeff: " + test[i].replaceAll(getCoeff, "---- $1 ----"));
-			System.out.println("   Sine: " + test[i].replaceAll(insideSIN, "---- $1 ----"));
+			test[i] = test[i].replaceAll(" ", "");
+			System.out.println("\nTest case "+i);
+			System.out.println("Equation: " + test[i]);
+			System.out.println("   Coeff: " + test[i].replaceAll(getCoeff, "____ $1 ____"));
+			System.out.println("    Sine: " + test[i].replaceAll(insideSIN, "____ $1 ____"));
+			System.out.println("  Offset: " + test[i].replaceAll(getOffset, "____ $1 ____"));
+			System.out.println("     All: " + test[i].replaceAll(all, "____ $1 ____ $2 ____"));
 		}
 	}
 	

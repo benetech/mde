@@ -614,20 +614,21 @@ public class Expression extends ProtoExpression implements Comparison {
     } // end toString
 
 
-//    public static void main(String[] args) {
-//        Expression e = new Expression(StringSplitter.combineArgs(args));
-//
-//        if (e.isValid()) {
-//            Hashtable h = new Hashtable();
-//
-//            h.put("x", new Double(7.0));
-//            e.parameters.put("a", new Double(2.0));
-//            e.parameters.put("m", new Double(-3.0));
-//            System.out.println("E = " + e.toString());
-//            System.out.println("Value = " + e.evaluate(h));
-//        } // end if
-//        else
-//            System.out.println("No dice");
-//    } // end main
+    public static void main(String[] args) {
+        //Expression e = new Expression(StringSplitter.combineArgs(args));
+    	Expression e= new Expression("sin(x)+2");
+
+        if (e.isValid()) {
+            Hashtable h = new Hashtable();
+
+            h.put("x", new Double(7.0));
+            e.parameters.put("a", new Double(2.0));
+            e.parameters.put("m", new Double(-3.0));
+            System.out.println("E = " + e.toString());
+            System.out.println("Value = " + e.evaluate(h));
+        } // end if
+        else
+            System.out.println("No dice");
+    } // end main
 
 } // end class Expression
