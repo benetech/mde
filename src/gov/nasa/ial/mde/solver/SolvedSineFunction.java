@@ -22,17 +22,27 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		
 		TC  = (TrigClassifier) analyzedEquation.getClassifier();
 		String equat = analyzedEquation.printOriginalEquation();
+		
+		//System.out.println(equat);
+		
 		String[] parts = equat.split("\\)");
 		
 		// TODO improve the spliting 
 		
-		for(int i = 0; i < parts.length;i++)
+		/*for(int i = 0; i <= parts.length;i++)
+		{
+			System.out.println(i);
+			System.out.println(parts[i]);	
+		}*/
+		
+		
+		for(int i = 0; i < (parts.length-1);i++)
 		{
 			//System.out.println(parts[i]);
+			parts[i]= parts[i] +")";
 		}
-		
 
-		parts[0]= parts[0] +")";
+		//parts[0]= parts[0] +")";
 		
 		String insideSIN = "sin\\(([^)\\n]*)\\)";
 		String innerEquat=parts[0].replaceAll(insideSIN,"$1");
@@ -68,7 +78,8 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		
 		if(parts.length>=2)
 		{
-			D = Double.valueOf(parts[1]);
+			//D = Double.valueOf(parts[1]);
+			D = Double.valueOf(parts[parts.length-1]);
 		}
 		else
 		{
