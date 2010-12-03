@@ -19,51 +19,15 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		
 	public SolvedSineFunction(AnalyzedEquation analyzedEquation) {
 		super(analyzedEquation, "sine function");
-		
-		TC  = (TrigClassifier) analyzedEquation.getClassifier();
-		String equat = analyzedEquation.printOriginalEquation();
-		
-		//System.out.println(equat);
-		
-		String[] parts = equat.split("\\)");
-		
-		// TODO improve the spliting 
-		
-		/*for(int i = 0; i <= parts.length;i++)
-		{
-			System.out.println(i);
-			System.out.println(parts[i]);	
-		}*/
-		
-		System.out.println(parts.length);
-		
-		for(int i = 0; i < (parts.length);i++)
-		{
-			System.out.println(parts[i]);
-			parts[i]= parts[i] +")";
-		}
-
-		//parts[0]= parts[0] +")";
-		
-		String insideSIN = "sin\\(([^)\\n]*)\\)";
-		String innerEquat=parts[0].replaceAll(insideSIN,"$1");
-		
-		Solver solver = new Solver();
-		solver.add(innerEquat);
-	    solver.solve();   
-	    
-	    Solution solution = solver.get(0);
-	    SolvedGraph features = solution.getFeatures();
-		
-	    // for a basic sinusoid y=A*sin(Bx+C)+D
+		// for a basic sinusoid y=A*sin(Bx+C)+D
 	    // amplitude = A
 	    // period = 2*pi / |B|
 	    // frequency = |B| / 2*pi
 	    // phase shift = C/B ???
 	    // offset = D
-	    
-	    
-	    double A = 1;
+		
+		
+		double A = 1;
 	    double B = Double.NaN;
 	    double C = Double.NaN;
 	    double D = Double.NaN;
@@ -77,33 +41,60 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		IntervalXY range = null; // Range
 		
 		
-		if(parts.length>=2)
-		{
-			//D = Double.valueOf(parts[1]);
-			D = Double.valueOf(parts[parts.length-1]);
-		}
-		else
-		{
-			D = 0;
-		}
-
-	    C = ((SolvedLine) features).getYIntercept();
-	    
-	    String getCoeff = "(-?\\d*[\\./]?\\d*)\\*sin";
-    	parts[0]=parts[0].replace("y", "");
-    	parts[0]=parts[0].replace("=", "");
-    	parts[0]=parts[0].replace(" ", "");
-    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
-    	if(temp.contains("----")){
-    		A = Double.valueOf((temp.split("----")[0]));
+		String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*sin\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
+		String insideSIN = "sin\\(([^)\\n]*)\\)";
+		String getOffset = "sin\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
+		
+		TC  = (TrigClassifier) analyzedEquation.getClassifier();
+		
+		String equat = analyzedEquation.getInputEquation();
+		System.out.println(equat);
+		equat = equat.replaceAll(" ", "");
+		equat = equat.replaceAll("-sin", "-1*sin");
+		System.out.println(equat);
+		
+		
+		String coeff = equat.replaceAll(getCoeff, "____$1____");
+		System.out.println("   Coeff: " + coeff);
+		if(coeff.contains("____")){
+			System.out.println(coeff.split("____")[1]);
+			System.out.println(Double.valueOf((coeff.split("____")[1])));
+			A = Double.valueOf((coeff.split("____")[1]));
     	}
+		
+		String innerEquat = equat.replaceAll(insideSIN, "____$1____");
+		System.out.println("    Sine: " + innerEquat);
+		innerEquat = "y= " + innerEquat.split("____")[1];
+		System.out.println("    Sine: " + innerEquat);
+		
+		Solver solver = new Solver();
+		solver.add(innerEquat);
+	    solver.solve();   
+	    Solution solution = solver.get(0);
+	    SolvedGraph features = solution.getFeatures();
+		
+		B = ((SolvedLine) features).getSlope();	
+	    C = ((SolvedLine) features).getYIntercept();
+	  
+	    
+		String offsetString = equat.replaceAll(getOffset, "____$1____");
+		System.out.println("  Offset: " + offsetString);
+		if(offsetString.contains("____")){
+			offsetString = offsetString.split("____")[1];
+    	}
+		System.out.println("  Offset: " + offsetString);
+		
+		D=0;
+		
+		System.out.println("       A: " + A);
+		System.out.println("       B: " + B);
+		System.out.println("       C: " + C);
+		System.out.println("       D: " + D);
+		
+		//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
+		phase = -C/B;  	    	
     	
-    	B = ((SolvedLine) features).getSlope();
-    	
-    	phase = -C/B;
-    	    	
-    	//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
-    	amplitude = A;
+		amplitude = A;
     	
     	period = 2.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi"; //2*pi/b
     	frequency =(((Math.round((Math.abs(B)) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
@@ -161,11 +152,11 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	public static void main(String[] args){
 		//TODO USE EXPRESSION THE EVALUATE A AND D
 		
-		String getCoeff = "(-?\\d*[\\./]?\\d*)\\*sin\\([^)\\n]*\\)";
+		String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*sin\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
 		//String insideSIN = "sin\\(([^)\\n]*)\\)";
 		//String getOffset = "sin\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
 		//String all = "(-?\\d*[\\./]?\\d*)\\*sin\\(([^)\\n]*)\\)";
-		String[] test = {"y= sin( x)","y=-sin(4 * x)", "y=-3 * sin(4*x+20)", "y=-4.3*sin(4*x+432)+9"," y=5 /3 * sin( x/3)-4"};
+		String[] test = {"y= sin( x)","y=-sin(4 * x)", "y= sin (x)", "y=-3 * sin(4*x+20)", "y=-4.3*sin(4*x+432)+9"," y=5 /3 * sin( x/3)-4"};
 		
 		for(int i= 0; i<test.length; i++){
 			test[i] = test[i].replaceAll(" ", "");
