@@ -9,6 +9,7 @@ import gov.nasa.ial.mde.solver.features.individual.OffsetFeature;
 import gov.nasa.ial.mde.solver.features.individual.PeriodFeature;
 import gov.nasa.ial.mde.solver.features.individual.PhaseFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
+import gov.nasa.ial.mde.util.MathUtil;
 
 public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyFeature, AmplitudeFeature, PhaseFeature, OffsetFeature, PeriodFeature{
 
@@ -49,7 +50,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		
 		String equat = analyzedEquation.getInputEquation();
 		System.out.println(equat);
-		equat = equat.replaceAll(" ", "");
+		equat = equat.trim();
 		equat = equat.replaceAll("-sin", "-1*sin");
 		System.out.println(equat);
 		
@@ -57,9 +58,14 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		String coeff = equat.replaceAll(getCoeff, "____$1____");
 		System.out.println("   Coeff: " + coeff);
 		if(coeff.contains("____")){
-			System.out.println(coeff.split("____")[1]);
-			System.out.println(Double.valueOf((coeff.split("____")[1])));
-			A = Double.valueOf((coeff.split("____")[1]));
+			coeff= coeff.split("____")[1];
+			if(coeff.contains("/")){
+				String[] fraction= coeff.split("/");
+				A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+			}else{
+				A = Double.valueOf(coeff);
+			}
+			
     	}
 		
 		String innerEquat = equat.replaceAll(insideSIN, "____$1____");
@@ -83,7 +89,6 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 			offsetString = offsetString.split("____")[1];
     	}
 		System.out.println("  Offset: " + offsetString);
-		
 		D=0;
 		
 		System.out.println("       A: " + A);
@@ -91,22 +96,27 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		System.out.println("       C: " + C);
 		System.out.println("       D: " + D);
 		
+		
+		
 		//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
 		phase = -C/B;  	    	
-    	
 		amplitude = A;
-    	
+		
+		
+		//TODO: Formatting
     	period = 2.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi"; //2*pi/b
     	frequency =(((Math.round((Math.abs(B)) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
     	offset = D;
-    	    	
+    	
+		
+    	
  	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
  	    range = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
     	
     	putNewFeatures(newFeatures);    	
-    	putFeature("amplitude", amplitude + "");
-    	putFeature("phase", phase + "");
-    	putFeature("offset", offset + "");
+    	putFeature("amplitude", MathUtil.trimDouble(amplitude, -1));
+    	putFeature("phase", MathUtil.trimDouble(phase, -1));
+    	putFeature("offset", MathUtil.trimDouble(offset, -1));
     	putFeature("frequency", frequency);
     	putFeature("period", period);
     	putFeature("domain", domain);
