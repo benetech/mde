@@ -31,7 +31,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		double A = 1;
 	    double B = Double.NaN;
 	    double C = Double.NaN;
-	    double D = Double.NaN;
+	    double D = 0;
 	    
 	    double amplitude = Double.NaN;
 		String period= null;
@@ -87,9 +87,15 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		System.out.println("  Offset: " + offsetString);
 		if(offsetString.contains("____")){
 			offsetString = offsetString.split("____")[1];
+			if(offsetString.contains("/")){
+				String[] fraction= offsetString.split("/");
+				D = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+			}else{
+				D = Double.valueOf(offsetString);
+			}
     	}
 		System.out.println("  Offset: " + offsetString);
-		D=0;
+		
 		
 		System.out.println("       A: " + A);
 		System.out.println("       B: " + B);
