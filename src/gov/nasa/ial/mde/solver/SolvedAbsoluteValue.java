@@ -22,7 +22,7 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		double A = 1;
 	    double B = Double.NaN;
 	    double C = Double.NaN;
-	    double D = Double.NaN;
+	    double D = 0;
 	    
 	    String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*abs\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
 		String insideABS = "abs\\(([^)\\n]*)\\)";
@@ -33,19 +33,6 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		equat = equat.trim();
 		equat = equat.replaceAll("-abs", "-1*abs");
 		System.out.println(equat);
-		
-		String coeff = equat.replaceAll(getCoeff, "____$1____");
-		System.out.println("   Coeff: " + coeff);
-		if(coeff.contains("____")){
-			coeff= coeff.split("____")[1];
-			if(coeff.contains("/")){
-				String[] fraction= coeff.split("/");
-				A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
-			}else{
-				A = Double.valueOf(coeff);
-			}
-			
-    	}
 		
 		
 		String innerEquat = equat.replaceAll(insideABS, "____$1____");
@@ -65,35 +52,41 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		    // vertex is ( -ab/m, c)
 		    // slope of am
 	    	
+	    	String coeff = equat.replaceAll(getCoeff, "____$1____");
+			System.out.println("   Coeff: " + coeff);
+			if(coeff.contains("____")){
+				coeff= coeff.split("____")[1];
+				if(coeff.contains("/")){
+					String[] fraction= coeff.split("/");
+					A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					A = Double.valueOf(coeff);
+				}
+				
+	    	}
 
 			B = ((SolvedLine) features).getSlope();	
 		    C = ((SolvedLine) features).getYIntercept();
-	    	
-	    	
-	    	double slope =Double.NaN;
+		    
+		    
+		    String offsetString = equat.replaceAll(getOffset, "____$1____");
+			System.out.println("  Offset: " + offsetString);
+			if(offsetString.contains("____")){
+				offsetString = offsetString.split("____")[1];
+				if(offsetString.contains("/")){
+					String[] fraction= offsetString.split("/");
+					D = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					D = Double.valueOf(offsetString);
+				}
+	    	}
+		    
+		    
+	    	double slope =B;
 		    double intercept=Double.NaN;
 		    double xVertice = Double.NaN;
 		    double yVertice = Double.NaN;
 		    
-		    slope=((SlopeFeature) features).getSlope();
-		    
-		    if(parts.length>=2)
-			{
-				yVertice = Double.valueOf(parts[1]);
-			}
-			else
-			{
-				yVertice= 0;
-			}
-		    
-		    intercept =((SolvedLine) features).getYIntercept();
-	    	
-	    	String getCoeff = "(-?\\d*\\.?\\d*)\\*abs";
-	    	double coeff= 1;
-	    	parts[0]=parts[0].replace("y", "");
-	    	parts[0]=parts[0].replace("=", "");
-	    	parts[0]=parts[0].replace(" ", "");
-	    	
 
 	    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
 	    	if(temp.contains("----")){
@@ -101,16 +94,16 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 	    	}
 	    	xVertice = -(intercept*coeff)/slope;
 	    	
-	    	IntervalXY D, R;
+	    	IntervalXY domain, range;
 	    	PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
-	    	D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+	    	domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 	    	
 	    	String direction;
 	    	if(coeff>0){
-                R = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
+                range = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
                 direction="up";
 	    	}else{
-	    		R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
+	    		range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
                 direction="down";
 	    	}
 	    	

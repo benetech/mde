@@ -70,71 +70,74 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    SolvedGraph features = solution.getFeatures();
 		
 		
-		
-		String coeff = equat.replaceAll(getCoeff, "____$1____");
-		System.out.println("   Coeff: " + coeff);
-		if(coeff.contains("____")){
-			coeff= coeff.split("____")[1];
-			if(coeff.contains("/")){
-				String[] fraction= coeff.split("/");
-				A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
-			}else{
-				A = Double.valueOf(coeff);
-			}	
-    	}
-		
-		B = ((SolvedLine) features).getSlope();	
-	    C = ((SolvedLine) features).getYIntercept();
-	  
 	    
-		String offsetString = equat.replaceAll(getOffset, "____$1____");
-		System.out.println("  Offset: " + offsetString);
-		if(offsetString.contains("____")){
-			offsetString = offsetString.split("____")[1];
-			if(offsetString.contains("/")){
-				String[] fraction= offsetString.split("/");
-				D = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
-			}else{
-				D = Double.valueOf(offsetString);
-			}
-    	}
-		System.out.println("  Offset: " + offsetString);
+	    if(features instanceof SolvedLine){
+	    	String coeff = equat.replaceAll(getCoeff, "____$1____");
+			System.out.println("   Coeff: " + coeff);
+			if(coeff.contains("____")){
+				coeff= coeff.split("____")[1];
+				if(coeff.contains("/")){
+					String[] fraction= coeff.split("/");
+					A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					A = Double.valueOf(coeff);
+				}	
+	    	}
+			
+			B = ((SolvedLine) features).getSlope();	
+		    C = ((SolvedLine) features).getYIntercept();
+		  
+		    
+			String offsetString = equat.replaceAll(getOffset, "____$1____");
+			System.out.println("  Offset: " + offsetString);
+			if(offsetString.contains("____")){
+				offsetString = offsetString.split("____")[1];
+				if(offsetString.contains("/")){
+					String[] fraction= offsetString.split("/");
+					D = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					D = Double.valueOf(offsetString);
+				}
+	    	}
+			System.out.println("  Offset: " + offsetString);
+			
+			
+			System.out.println("       A: " + A);
+			System.out.println("       B: " + B);
+			System.out.println("       C: " + C);
+			System.out.println("       D: " + D);
+			
+			
+			
+			//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
+			phase = -C/B;  	    	
+			amplitude = A;
+			
+			
+			//TODO: Formatting
+	    	//period = 2.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi"; //2*pi/b
+	    	//frequency =(((Math.round((Math.abs(B)) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
+	    	
+			period = MathUtil.trimDouble(2/B, 3)+"pi";
+			frequency = MathUtil.trimDouble(B*2, 3) + "/pi";
+	    	
+			offset = D;
+	    	
+			
+	    	
+	 	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+	 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
+	    	
+	    	putNewFeatures(newFeatures);    	
+	    	putFeature("amplitude", MathUtil.trimDouble(amplitude, -1));
+	    	putFeature("phase", MathUtil.trimDouble(phase, -1));
+	    	putFeature("offset", MathUtil.trimDouble(offset, -1));
+	    	putFeature("frequency", frequency);
+	    	putFeature("period", period);
+	    	putFeature("domain", domain);
+	    	putFeature("range", range);
+	    }
 		
-		
-		System.out.println("       A: " + A);
-		System.out.println("       B: " + B);
-		System.out.println("       C: " + C);
-		System.out.println("       D: " + D);
-		
-		
-		
-		//TODO:  Create a method to give a more well define value, such as 2/3 pi or 5/6 pi or 1/4
-		phase = -C/B;  	    	
-		amplitude = A;
-		
-		
-		//TODO: Formatting
-    	//period = 2.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi"; //2*pi/b
-    	//frequency =(((Math.round((Math.abs(B)) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
-    	
-		period = MathUtil.trimDouble(2/B, 3)+"pi";
-		frequency = MathUtil.trimDouble(B*2, 3) + "/pi";
-    	
-		offset = D;
-    	
-		
-    	
- 	    domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
- 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], - Math.abs(amplitude) + offset, Math.abs(amplitude)+offset);
-    	
-    	putNewFeatures(newFeatures);    	
-    	putFeature("amplitude", MathUtil.trimDouble(amplitude, -1));
-    	putFeature("phase", MathUtil.trimDouble(phase, -1));
-    	putFeature("offset", MathUtil.trimDouble(offset, -1));
-    	putFeature("frequency", frequency);
-    	putFeature("period", period);
-    	putFeature("domain", domain);
-    	putFeature("range", range);
         
 	}
 
