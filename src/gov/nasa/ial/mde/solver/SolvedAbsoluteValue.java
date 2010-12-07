@@ -48,9 +48,9 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 	    
 	    if(features instanceof SolvedLine){		    
 		    //for a linear equation 
-		    //form of a*|mx+b| + c
-		    // vertex is ( -ab/m, c)
-		    // slope of am
+		    //form of a*|bx+c| + d
+		    // vertex is ( -ac/b, d)
+		    // slope of ab
 	    	
 	    	String coeff = equat.replaceAll(getCoeff, "____$1____");
 			System.out.println("   Coeff: " + coeff);
@@ -82,24 +82,17 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 	    	}
 		    
 		    
-	    	double slope =B;
-		    double intercept=Double.NaN;
-		    double xVertice = Double.NaN;
-		    double yVertice = Double.NaN;
+	    	double slope =A*B;
+		    double intercept= D;
+		    double xVertice = -A*C/B;
+		    double yVertice = D;
 		    
-
-	    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
-	    	if(temp.contains("----")){
-	    		coeff = Double.valueOf((temp.split("----")[0]));
-	    	}
-	    	xVertice = -(intercept*coeff)/slope;
-	    	
 	    	IntervalXY domain, range;
 	    	PointXY vertex = new PointXY( new double[]{xVertice,yVertice});
 	    	domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 	    	
 	    	String direction;
-	    	if(coeff>0){
+	    	if(A>0){
                 range = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
                 direction="up";
 	    	}else{
@@ -111,8 +104,8 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 	    	putNewFeatures(newFeatures);
 			putFeature("vertex", vertex);
 			putFeature("absDirection", direction);
-			putFeature("domain", D);
-			putFeature("range", R);
+			putFeature("domain", domain);
+			putFeature("range", range);
 	    	
 	    }
 	    
