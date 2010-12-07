@@ -18,30 +18,57 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		super(ae, "absolute value");
 		PC = (PolynomialClassifier) ae.getClassifier();
 		
-		String equat= ae.printOriginalEquation();
-		String[] parts =equat.split("\\)");
 		
-		/*for(int i = 0; i < parts.length;i++)
-		{
-			System.out.println(parts[i]);
-		}*/
-		parts[0]= parts[0] +")";
-		
+		double A = 1;
+	    double B = Double.NaN;
+	    double C = Double.NaN;
+	    double D = Double.NaN;
+	    
+	    String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*abs\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
 		String insideABS = "abs\\(([^)\\n]*)\\)";
-		String innerEquat=parts[0].replaceAll(insideABS,"$1");
+		String getOffset = "abs\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
+		
+		String equat = ae.getInputEquation();
+		System.out.println(equat);
+		equat = equat.trim();
+		equat = equat.replaceAll("-abs", "-1*abs");
+		System.out.println(equat);
+		
+		String coeff = equat.replaceAll(getCoeff, "____$1____");
+		System.out.println("   Coeff: " + coeff);
+		if(coeff.contains("____")){
+			coeff= coeff.split("____")[1];
+			if(coeff.contains("/")){
+				String[] fraction= coeff.split("/");
+				A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+			}else{
+				A = Double.valueOf(coeff);
+			}
+			
+    	}
+		
+		
+		String innerEquat = equat.replaceAll(insideABS, "____$1____");
+		System.out.println("     Abs: " + innerEquat);
+		innerEquat = "y= " + innerEquat.split("____")[1];
+		System.out.println("     Abs: " + innerEquat);
 		
 		Solver solver = new Solver();
 		solver.add(innerEquat);
 	    solver.solve();   
-	    
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
-	
+	    
 	    if(features instanceof SolvedLine){		    
 		    //for a linear equation 
 		    //form of a*|mx+b| + c
 		    // vertex is ( -ab/m, c)
 		    // slope of am
+	    	
+
+			B = ((SolvedLine) features).getSlope();	
+		    C = ((SolvedLine) features).getYIntercept();
+	    	
 	    	
 	    	double slope =Double.NaN;
 		    double intercept=Double.NaN;
