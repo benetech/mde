@@ -3,7 +3,6 @@ package gov.nasa.ial.mde.solver;
 import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
-import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -19,94 +18,108 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 		
 		//can be solved by making some assumptions	
 		PC = (PolynomialClassifier) ae.getClassifier();
-		String equat= ae.printOriginalEquation();
-		String[] parts =equat.split("\\)");
+		double A = 1;
+	    double B = Double.NaN;
+	    double C = Double.NaN;
+	    double D = 0;
 		
-		/*for(int i = 0; i < parts.length;i++)
-		{
-			System.out.println(parts[i]);
-		}*/
-		parts[0]= parts[0] +")";
+	    
+	    
+	    String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*sqrt\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
+		String insideSQRT = "sqrt\\(([^)\\n]*)\\)";
+		String getOffset = "sqrt\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
+	    
+		String equat = ae.getInputEquation();
+		System.out.println(equat);
+		equat = equat.trim();
+		equat = equat.replaceAll("-sqrt", "-1*sqrt");
+		System.out.println(equat);
+		
+		
 		
 		
 		//Get the inner part of the SQRT( _______)
-		String insideSQRT = "sqrt\\(([^)\\n]*)\\)";
-		String innerEquat=parts[0].replaceAll(insideSQRT,"$1");
-	
+		String innerEquat = equat.replaceAll(insideSQRT, "____$1____");
+		System.out.println("    SQRT: " + innerEquat);
+		innerEquat = "y= " + innerEquat.split("____")[1];
+		System.out.println("    SQRT: " + innerEquat);
+		
+		
 		//Send that part thru the MDE
 		Solver solver = new Solver();
 		solver.add(innerEquat);
 	    solver.solve();   
-	
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 	    
 		
-		//get Slope and "yIntercept"
-	    double slope =Double.NaN;
-	    double intercept=Double.NaN;
-	    double xVertice = Double.NaN;
-	    double yVertice = Double.NaN;
+		
 		
 	    
 		
 	    if(features instanceof SolvedLine){
-	    	slope=((SlopeFeature) features).getSlope();
-	    	
-	    	if(parts.length>=2)
-			{
-				yVertice = Double.valueOf(parts[1]);
-			}
-			else
-			{
-				yVertice= 0;
-			}
-	    	
-	    	
-	    	intercept =((SolvedLine) features).getYIntercept();
-	    	xVertice = -intercept/slope;
-	    	
-	    	String getCoeff = "(-?\\d*\\.?\\d*)\\*sqrt";
-	    	double coeff= 1;
-	    	parts[0]=parts[0].replace("y", "");
-	    	parts[0]=parts[0].replace("=", "");
-	    	parts[0]=parts[0].replace(" ", "");
-	    	
-	   //TODO: Work on array out of bounds error 	
-	    	
-	    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
-	    	if(temp.contains("----")){
-	    		coeff = Double.valueOf((temp.split("----")[0]));
+	    	//get Slope and "yIntercept"
+		    
+		    String coeff = equat.replaceAll(getCoeff, "____$1____");
+			System.out.println("   Coeff: " + coeff);
+			if(coeff.contains("____")){
+				coeff= coeff.split("____")[1];
+				if(coeff.contains("/")){
+					String[] fraction= coeff.split("/");
+					A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					A = Double.valueOf(coeff);
+				}
+				
 	    	}
-	    	
-	    	IntervalXY D, R;
-	    	
+			
+			B = ((SolvedLine) features).getSlope();	
+		    C = ((SolvedLine) features).getYIntercept();
+			
+		    String offsetString = equat.replaceAll(getOffset, "____$1____");
+			System.out.println("  Offset: " + offsetString);
+			if(offsetString.contains("____")){
+				offsetString = offsetString.split("____")[1];
+				if(offsetString.contains("/")){
+					String[] fraction= offsetString.split("/");
+					D = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					D = Double.valueOf(offsetString);
+				}
+	    	}
+		    
+			double slope=B;
+		   // double intercept =C;
+		    double xVertice = -C/A;
+		    double yVertice = D;
+	    		    	
+	    	IntervalXY domain, range;
 	    	
 	    	String orientation;
-	    	if(coeff>0 && slope>0){
+	    	if(A>0 && slope>0){
 	    		orientation="quadrant I";
-	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], xVertice, Double.POSITIVE_INFINITY);
+	    		domain = new IntervalXY(analyzedEq.getActualVariables()[0], xVertice, Double.POSITIVE_INFINITY);
 	    		//D.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
-                R = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
-	    	}else if(coeff>0 && slope<0){
+                range = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
+	    	}else if(A>0 && slope<0){
 	    		orientation="quadrant II";
-	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, xVertice);
+	    		domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, xVertice);
 	    		//D.setEndPointExclusions(IntervalXY.EXCLUDE_LOW_X | IntervalXY.EXCLUDE_HIGH_X);
-	    		R = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
-	    	}else if(coeff<0 && slope>0){
+	    		range = new IntervalXY(analyzedEq.getActualVariables()[1], yVertice, Double.POSITIVE_INFINITY);
+	    	}else if(A<0 && slope>0){
 	    		orientation="quadrant IV";
-	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], xVertice, Double.POSITIVE_INFINITY);
+	    		domain = new IntervalXY(analyzedEq.getActualVariables()[0], xVertice, Double.POSITIVE_INFINITY);
 	   
-                R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
-	    	}else if(coeff<0 && slope<0){
+                range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
+	    	}else if(A<0 && slope<0){
 	    		orientation="quadrant III";
-	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, xVertice);
-                R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
+	    		domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NEGATIVE_INFINITY, xVertice);
+                range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, yVertice);
 	    	}
 	    	else{
 	    		orientation="you should never be here.";
-	    		D = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NaN, Double.NaN);
-                R = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NaN , Double.NaN);
+	    		domain = new IntervalXY(analyzedEq.getActualVariables()[0], Double.NaN, Double.NaN);
+                range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NaN , Double.NaN);
 	    	}
 	    	
 	    	
@@ -116,8 +129,8 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 	    	putNewFeatures(newFeatures);
 			putFeature("vertex", vertex);
 			putFeature("orientation", orientation);
-			putFeature("domain", D);
-			putFeature("range", R);
+			putFeature("domain", domain);
+			putFeature("range", range);
 			//System.out.println(getVertex());
 	    }else
 	    {
