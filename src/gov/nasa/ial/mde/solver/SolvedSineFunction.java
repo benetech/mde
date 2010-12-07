@@ -42,6 +42,10 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		IntervalXY range = null; // Range
 		
 		
+		
+		
+		
+		
 		String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*sin\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
 		String insideSIN = "sin\\(([^)\\n]*)\\)";
 		String getOffset = "sin\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
@@ -54,20 +58,6 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		equat = equat.replaceAll("-sin", "-1*sin");
 		System.out.println(equat);
 		
-		
-		String coeff = equat.replaceAll(getCoeff, "____$1____");
-		System.out.println("   Coeff: " + coeff);
-		if(coeff.contains("____")){
-			coeff= coeff.split("____")[1];
-			if(coeff.contains("/")){
-				String[] fraction= coeff.split("/");
-				A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
-			}else{
-				A = Double.valueOf(coeff);
-			}
-			
-    	}
-		
 		String innerEquat = equat.replaceAll(insideSIN, "____$1____");
 		System.out.println("    Sine: " + innerEquat);
 		innerEquat = "y= " + innerEquat.split("____")[1];
@@ -78,6 +68,20 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    solver.solve();   
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
+		
+		
+		
+		String coeff = equat.replaceAll(getCoeff, "____$1____");
+		System.out.println("   Coeff: " + coeff);
+		if(coeff.contains("____")){
+			coeff= coeff.split("____")[1];
+			if(coeff.contains("/")){
+				String[] fraction= coeff.split("/");
+				A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+			}else{
+				A = Double.valueOf(coeff);
+			}	
+    	}
 		
 		B = ((SolvedLine) features).getSlope();	
 	    C = ((SolvedLine) features).getYIntercept();
