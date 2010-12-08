@@ -118,8 +118,8 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    	//period = 2.0 /(Math.round((Math.abs(B*4)))/4.0) +"pi"; //2*pi/b
 	    	//frequency =(((Math.round((Math.abs(B)) *4))/ 4.0))/2.0 + "/pi"; //b/2pi
 	    	
-			period = MathUtil.trimDouble(2/B, 3)+"pi";
-			frequency = MathUtil.trimDouble(B*2, 3) + "/pi";
+			period = MathUtil.trimDouble(2/Math.abs(B), 3)+"pi";
+			frequency = MathUtil.trimDouble(Math.abs(B)/2, 3) + "/pi";
 	    	
 			offset = D;
 	    	
