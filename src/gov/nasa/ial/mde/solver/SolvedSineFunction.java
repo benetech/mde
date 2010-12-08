@@ -41,10 +41,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		IntervalXY domain = null; // domain
 		IntervalXY range = null; // Range
 		
-		
-		
-		
-		
+	
 		
 		String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*sin\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
 		String insideSIN = "sin\\(([^)\\n]*)\\)";

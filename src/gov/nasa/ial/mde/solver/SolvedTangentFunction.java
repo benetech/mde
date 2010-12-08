@@ -17,18 +17,16 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements PeriodF
 	protected String[] newFeatures = {"frequency", "phase", "offset", "shift", "period", 
 			"orientation", "asymptotes", "rate"};
 
-	
 	protected TrigClassifier TC;
 	
 	public SolvedTangentFunction(AnalyzedEquation analyzedEquation) {
 		super(analyzedEquation, "tangent function");
 		
-		TC  = (TrigClassifier) analyzedEquation.getClassifier();
-		String equat = analyzedEquation.printOriginalEquation();
-		System.out.println(equat);
-		String[] parts = equat.split("\\)");
-		
-		double A,B,C,D;
+
+		double A = 1;
+	    double B = Double.NaN;
+	    double C = Double.NaN;
+	    double D = 0;
 		double phase = Double.NaN;
 		double offset = Double.NaN;
 		String baseAsymptote = "";
@@ -43,89 +41,104 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements PeriodF
 		
 		// TODO improve the spliting 
 		
-		for(int i = 0; i < parts.length;i++)
-		{
-			//System.out.println(parts[i]);
-		}
-		
-
-		parts[0]= parts[0] +")";
-		
+		String getCoeff = "y=(-?\\d*[\\./]?\\d*)\\*tan\\([^)\\n]*\\)([\\+-]\\d*[\\./]?\\d*)?";
 		String insideTAN = "tan\\(([^)\\n]*)\\)";
-		String innerEquat=parts[0].replaceAll(insideTAN,"$1");
+		String getOffset = "tan\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
 		
+		TC  = (TrigClassifier) analyzedEquation.getClassifier();
+		
+		String equat = analyzedEquation.getInputEquation();
+		System.out.println(equat);
+		equat = equat.trim();
+		equat = equat.replaceAll("-tan", "-1*tan");
+		System.out.println(equat);
+		
+		String innerEquat = equat.replaceAll(insideTAN, "____$1____");
+		System.out.println("     Tan: " + innerEquat);
+		innerEquat = "y= " + innerEquat.split("____")[1];
+		System.out.println("     Tan: " + innerEquat);
 		
 		Solver solver = new Solver();
 		solver.add(innerEquat);
 	    solver.solve();   
-	    
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 	    
-	    
-	    if(parts.length>=2)
+	    if(features instanceof SolvedLine)
 		{
-	    	D = Double.valueOf(parts[1]);
-		}
-		else
-		{
-			D = 0;
-		}
+	    	String coeff = equat.replaceAll(getCoeff, "____$1____");
+			System.out.println("   Coeff: " + coeff);
+			if(coeff.contains("____")){
+				coeff= coeff.split("____")[1];
+				if(coeff.contains("/")){
+					String[] fraction= coeff.split("/");
+					A = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					A = Double.valueOf(coeff);
+				}	
+	    	}
+			
+			
+			//B affects the period
+		    //B = 1 creates asymptotes at -pi/2 and pi/2 
+		    //B = pi creates asymptotes at -.5 and .5
+			
+			B = ((SolvedLine) features).getSlope();	
+		    C = ((SolvedLine) features).getYIntercept();
+		    
+		    String offsetString = equat.replaceAll(getOffset, "____$1____");
+			System.out.println("  Offset: " + offsetString);
+			if(offsetString.contains("____")){
+				offsetString = offsetString.split("____")[1];
+				if(offsetString.contains("/")){
+					String[] fraction= offsetString.split("/");
+					D = Double.valueOf(fraction[0])/Double.valueOf(fraction[1]);
+				}else{
+					D = Double.valueOf(offsetString);
+				}
+	    	}
+			
+			System.out.println("       A: " + A);
+			System.out.println("       B: " + B);
+			System.out.println("       C: " + C);
+			System.out.println("       D: " + D);
+			
+			System.out.println("  Offset: " + offsetString);
+			
+			
+			if(Math.signum(A*B)==1){
+		    	orientation = "ascending";
+		    }
+		    else if(Math.signum(A*B)==-1){
+		    	orientation = "decending";
+		    }
+		    else{
+		    	orientation = "0";
+		    }
+			offset = D;
+			
+			 //pi/B
+	 	    //need some detection for PI in B
+	 	    
+	 	    period = calculatePeriod(B);
+	 	    
+		    //period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
+		    //frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
+		    baseAsymptote = -(Math.round((Math.abs((Math.PI/(B*2))*100)))/100.0) - C+"";
+		    
+		    domain = "The domain of x is all real numbers except for where we encounter vertical asymptotes";
+	 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+		    
+		    putNewFeatures(newFeatures);
+	    	putFeature("offset", offset + "");
+	    	putFeature("orientation", orientation);
+	    	putFeature("period", period);
+	    	putFeature("asymptotes", baseAsymptote);
+	    	putFeature("rate",A+"");
+	    	putFeature("domain", domain);
+	    	putFeature("range", range);
+		}  
 	    
-	    
-	    String getCoeff = "(-?\\d*\\.?\\d*)\\*tan";
-	    A = 1;
-	    parts[0]=parts[0].replace("y", "");
-    	parts[0]=parts[0].replace("=", "");
-    	parts[0]=parts[0].replace(" ", "");
-    	String temp= parts[0].replaceFirst(getCoeff, "$1----");
-    	if(temp.contains("----")){
-    		A = Double.valueOf((temp.split("----")[0]));
-    	}
-	    
-	    B = ((SolvedLine) features).getSlope();
-	    System.out.println(B);
-	    C = ((SolvedLine) features).getYIntercept();
-	    
-	    
-	    //B affects the period
-	    //B = 1 creates asymptotes at -pi/2 and pi/2 
-	    //B = pi creates asymptotes at -.5 and .5
-	    
-	    
-	    if(Math.signum(A*B)==1){
-	    	orientation = "ascending";
-	    }
-	    else if(Math.signum(A*B)==-1){
-	    	orientation = "decending";
-	    }
-	    else{
-	    	orientation = "0";
-	    }
-	    
-	    offset = D;
-	    
-	    
- 	    //pi/B
- 	    //need some detection for PI in B
- 	    
- 	    period = calculatePeriod(B);
- 	    
-	    //period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
-	    //frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
-	    baseAsymptote = -(Math.round((Math.abs((Math.PI/(B*2))*100)))/100.0) - C+"";
-	    
-	    domain = "The domain of x is all real numbers except for where we encounter vertical asymptotes";
- 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-	    
-	    putNewFeatures(newFeatures);
-    	putFeature("offset", offset + "");
-    	putFeature("orientation", orientation);
-    	putFeature("period", period);
-    	putFeature("asymptotes", baseAsymptote);
-    	putFeature("rate",A+"");
-    	putFeature("domain", domain);
-    	putFeature("range", range);
 	}
 
 	private String calculatePeriod(double coeff) {
