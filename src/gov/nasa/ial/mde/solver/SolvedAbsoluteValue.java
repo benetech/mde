@@ -29,16 +29,16 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		String getOffset = "abs\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
 		
 		String equat = ae.getInputEquation();
-		System.out.println(equat);
+		//System.out.println(equat);
 		equat = equat.trim();
 		equat = equat.replaceAll("-abs", "-1*abs");
-		System.out.println(equat);
+		//System.out.println(equat);
 		
 		
 		String innerEquat = equat.replaceAll(insideABS, "____$1____");
-		System.out.println("     Abs: " + innerEquat);
+		//System.out.println("     Abs: " + innerEquat);
 		innerEquat = "y= " + innerEquat.split("____")[1];
-		System.out.println("     Abs: " + innerEquat);
+		//System.out.println("     Abs: " + innerEquat);
 		
 		Solver solver = new Solver();
 		solver.add(innerEquat);
@@ -53,7 +53,7 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		    // slope of ab
 	    	
 	    	String coeff = equat.replaceAll(getCoeff, "____$1____");
-			System.out.println("   Coeff: " + coeff);
+			//System.out.println("   Coeff: " + coeff);
 			if(coeff.contains("____")){
 				coeff= coeff.split("____")[1];
 				if(coeff.contains("/")){
@@ -70,7 +70,7 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 		    
 		    
 		    String offsetString = equat.replaceAll(getOffset, "____$1____");
-			System.out.println("  Offset: " + offsetString);
+		//	System.out.println("  Offset: " + offsetString);
 			if(offsetString.contains("____")){
 				offsetString = offsetString.split("____")[1];
 				if(offsetString.contains("/")){

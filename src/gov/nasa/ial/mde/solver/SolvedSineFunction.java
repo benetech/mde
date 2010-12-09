@@ -50,15 +50,15 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		TC  = (TrigClassifier) analyzedEquation.getClassifier();
 		
 		String equat = analyzedEquation.getInputEquation();
-		System.out.println(equat);
+		//System.out.println(equat);
 		equat = equat.trim();
 		equat = equat.replaceAll("-sin", "-1*sin");
-		System.out.println(equat);
+		//System.out.println(equat);
 		
 		String innerEquat = equat.replaceAll(insideSIN, "____$1____");
-		System.out.println("    Sine: " + innerEquat);
+		//System.out.println("    Sine: " + innerEquat);
 		innerEquat = "y= " + innerEquat.split("____")[1];
-		System.out.println("    Sine: " + innerEquat);
+		//System.out.println("    Sine: " + innerEquat);
 		
 		Solver solver = new Solver();
 		solver.add(innerEquat);
@@ -70,7 +70,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 	    
 	    if(features instanceof SolvedLine){
 	    	String coeff = equat.replaceAll(getCoeff, "____$1____");
-			System.out.println("   Coeff: " + coeff);
+	//		System.out.println("   Coeff: " + coeff);
 			if(coeff.contains("____")){
 				coeff= coeff.split("____")[1];
 				if(coeff.contains("/")){
@@ -86,7 +86,7 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		  
 		    
 			String offsetString = equat.replaceAll(getOffset, "____$1____");
-			System.out.println("  Offset: " + offsetString);
+//			System.out.println("  Offset: " + offsetString);
 			if(offsetString.contains("____")){
 				offsetString = offsetString.split("____")[1];
 				if(offsetString.contains("/")){
@@ -96,13 +96,13 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 					D = Double.valueOf(offsetString);
 				}
 	    	}
-			System.out.println("  Offset: " + offsetString);
+//			System.out.println("  Offset: " + offsetString);
 			
 			
-			System.out.println("       A: " + A);
-			System.out.println("       B: " + B);
-			System.out.println("       C: " + C);
-			System.out.println("       D: " + D);
+//			System.out.println("       A: " + A);
+//			System.out.println("       B: " + B);
+	//		System.out.println("       C: " + C);
+	//		System.out.println("       D: " + D);
 			
 			
 			

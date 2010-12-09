@@ -112,7 +112,7 @@ public class MdeSettings extends Settings {
     private int traceSweepSpeed;
     
     /** Turn Debug comments on or off by setting the value to true or false respectively. */
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     
     /** Turns <= and the like into their verbal equivalents */
     public static boolean ACCESSIBLE_TTS = false;

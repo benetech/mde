@@ -30,19 +30,19 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 		String getOffset = "sqrt\\([^)\\n]*\\)([\\+\\-]\\d*[\\./]?\\d*)";
 	    
 		String equat = ae.getInputEquation();
-		System.out.println(equat);
+		//System.out.println(equat);
 		equat = equat.trim();
 		equat = equat.replaceAll("-sqrt", "-1*sqrt");
-		System.out.println(equat);
+		//System.out.println(equat);
 		
 		
 		
 		
 		//Get the inner part of the SQRT( _______)
 		String innerEquat = equat.replaceAll(insideSQRT, "____$1____");
-		System.out.println("    SQRT: " + innerEquat);
+		//System.out.println("    SQRT: " + innerEquat);
 		innerEquat = "y= " + innerEquat.split("____")[1];
-		System.out.println("    SQRT: " + innerEquat);
+		//System.out.println("    SQRT: " + innerEquat);
 		
 		
 		//Send that part thru the MDE
@@ -61,7 +61,7 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 	    	//get Slope and "yIntercept"
 		    
 		    String coeff = equat.replaceAll(getCoeff, "____$1____");
-			System.out.println("   Coeff: " + coeff);
+			//System.out.println("   Coeff: " + coeff);
 			if(coeff.contains("____")){
 				coeff= coeff.split("____")[1];
 				if(coeff.contains("/")){
@@ -77,7 +77,7 @@ public class SolvedSquareRoot extends SolvedXYGraph implements VertexFeature {
 		    C = ((SolvedLine) features).getYIntercept();
 			
 		    String offsetString = equat.replaceAll(getOffset, "____$1____");
-			System.out.println("  Offset: " + offsetString);
+			//System.out.println("  Offset: " + offsetString);
 			if(offsetString.contains("____")){
 				offsetString = offsetString.split("____")[1];
 				if(offsetString.contains("/")){
