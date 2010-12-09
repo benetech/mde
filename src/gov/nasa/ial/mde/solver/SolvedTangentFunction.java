@@ -98,10 +98,10 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements PeriodF
 				}
 	    	}
 			
-			//System.out.println("       A: " + A);
-			//System.out.println("       B: " + B);
-			//System.out.println("       C: " + C);
-			//System.out.println("       D: " + D);
+			System.out.println("       A: " + A);
+			System.out.println("       B: " + B);
+			System.out.println("       C: " + C);
+			System.out.println("       D: " + D);
 			
 			//System.out.println("  Offset: " + offsetString);
 			
@@ -118,14 +118,16 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements PeriodF
 			offset = D;
 			
 			 //pi/B
-	 	    //need some detection for PI in B
+	 	    //TODO: need some better formatting for PI in B
 	 	    
 	 	    period = calculatePeriod(B);
-	 	    
-		    //period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
+	 	    //period = (Math.round((Math.abs(1.0/B)*100))/100.0) + "pi";
 		    //frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
-		    baseAsymptote = -(Math.round((Math.abs((Math.PI/(B*2))*100)))/100.0) - C+"";
 		    
+			//String asmptoteEquation= Math.PI*B;
+			baseAsymptote = MathUtil.trimDouble(((2*B) - C/B), -1) +"";
+		    
+			
 		    domain = "x for all real numbers except for where we encounter vertical asymptotes";
 	 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		    
