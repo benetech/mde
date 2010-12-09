@@ -126,7 +126,7 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements PeriodF
 		    //frequency = (Math.round((Math.abs((B)*100)))/100.0) +"/pi";
 		    baseAsymptote = -(Math.round((Math.abs((Math.PI/(B*2))*100)))/100.0) - C+"";
 		    
-		    domain = "The domain of x is all real numbers except for where we encounter vertical asymptotes";
+		    domain = "x for all real numbers except for where we encounter vertical asymptotes";
 	 	    range = new IntervalXY(analyzedEq.getActualVariables()[1], Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		    
 		    putNewFeatures(newFeatures);
