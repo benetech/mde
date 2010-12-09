@@ -165,10 +165,6 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         
         addDomainAndRange();
         
-        
-        
-        
-        
      
         //System.out.println(getXMLString());
         //getAsymptotes();
