@@ -107,6 +107,38 @@ public class AccessibleTTSConverter {
 		return string;
 	}
 	
+	public static String tokenizePlus(String string){
+		string = string.replaceAll("\\+", " {plus} ");
+		return string;
+	}
+
+	public static String tokenizeMinus(String string){
+		string = string.replaceAll("-", " {minus} ");
+		return string;
+	}
+	
+	public static String tokenizeMultiply(String string){
+		string = string.replaceAll("\\*", " {star} ");
+		return string;
+	}
+	
+	public static String tokenizeDivided(String string){
+		string = string.replaceAll("/", " {slash} ");
+		return string;
+	}
+	
+	public static String tokenizeExponent(String string){
+		string = string.replaceAll("\\^", " {carat} ");
+		return string;
+	}
+	
+	public static String tokenizeParentheses(String string){
+		string = string.replaceAll("\\(", " {open parentheses} ");
+		string = string.replaceAll("\\)", " {close parentheses} ");
+		return string;
+	}
+	
+	
 	public static String replaceSqrt(String string){
 		string = string.replaceAll("sqrt", " the square root of ");
 		return string;
