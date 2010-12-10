@@ -25,7 +25,7 @@ public class AccessibleTTSConverter {
 	}
 	
 	public static String getSets(String string){
-		string = string.replaceAll("(\\{[^\\}\n]*\\})", "blash");
+		string = string.replaceAll("(\\{[^\\}\n]*\\})", "the set of $1 ");
 		
 		return string;
 	}
