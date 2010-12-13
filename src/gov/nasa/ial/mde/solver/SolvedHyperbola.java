@@ -81,7 +81,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         /* normalize so that coeffs[4] = -1 in order to solve for A and B */
         for (int i = 0; i < 5; i++)
             coeffs[i] /= (-coeffs[4]);
-
+        
         /* Satisfy the java compiler's obsessive need for initializations */
         A = B = -1.0;
 
@@ -105,10 +105,13 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
             A = 1.0 / Math.sqrt(coeffs[1]);
             B = 1.0 / Math.sqrt(-coeffs[0]);
         } // end if
+        
+        
 
         /* might as well take care of the obvious */
         putFeature("semiTransverseAxis", new NumberModel(A));
         putFeature("semiConjugateAxis", new NumberModel(B));
+        
 
         /*
 		 * Determine axis inclinations which depend on horizontal/vertical
@@ -138,6 +141,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         putFeature("transverseAxisInclination", new NumberModel(transverseAxisInclination));
         putFeature("conjugateAxisInclination", new NumberModel(conjugateAxisInclination));
 
+
         /* on with the rest of the calculations -- focalLength and vertices */
         C = Math.sqrt(A * A + B * B);
         E = C / A;
@@ -147,9 +151,7 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         PointXY F1 = center.sum(new PointXY(focalDisplacement));
         PointXY F2 = center.difference(new PointXY(focalDisplacement));
         PointXY V1 = center.sum(new PointXY(vertexDisplacement));
-        PointXY V2 = center.difference(new PointXY(vertexDisplacement));
-        
-        
+        PointXY V2 = center.difference(new PointXY(vertexDisplacement));        
 
         putFeature("focalLength", new NumberModel(C));
         putFeature("eccentricity", new NumberModel(E));
@@ -157,12 +159,11 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
         addToFeature("focus", F2);
         putFeature("vertex", V1);
         addToFeature("vertex", V2);
-
+        
         putFeature("transverseAxis", QuadraticClassifier.getEquationOfALine(center, transverseAxisInclination, vars));
         putFeature("conjugateAxis", QuadraticClassifier.getEquationOfALine(center, conjugateAxisInclination, vars));
         putFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha + asymptoteInclination, vars));
         addToFeature("asymptotes", QuadraticClassifier.getEquationOfALine(center, alpha - asymptoteInclination, vars));
-        
         addDomainAndRange();
         
      
@@ -173,10 +174,20 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
     
     private void addDomainAndRange() {
     	String[] asymptotes  = getAsymptotes();
-    	String D = getDomain(asymptotes[1]);
-    	String R = getRange(asymptotes[0]);
-    	putFeature("domain", D);
-    	putFeature("range", R);
+    	if(asymptotes[0].contains("y")){
+    		String D = getDomain(asymptotes[1]);
+        	String R = getRange(asymptotes[0]);
+        	putFeature("domain", D);
+        	putFeature("range", R);
+    	}else{
+    		String D = getDomain(asymptotes[0]);
+        	String R = getRange(asymptotes[1]);
+        	putFeature("domain", D);
+        	putFeature("range", R);
+    	}
+    	
+    	
+    	
 	}
 
 
@@ -194,15 +205,11 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
 		Solver solver = new Solver();
 		solver.add(string);
 	    solver.solve();   
-	    
+	    	    
 	    Solution solution = solver.get(0);
 	    SolvedGraph features = solution.getFeatures();
 	    return ("{y such that y is all real numbers except where y = "+ ((SolvedLine) features).getYIntercept() + "}");
 	}
-
-
-	
-
 
 	@SuppressWarnings("unused")
 	private double getSlope(String string)
@@ -216,8 +223,6 @@ public class SolvedHyperbola extends SolvedConic implements VertexFeature, Asymp
     	solver.removeAll();
     	return y;
     }
-    
-    
     
     public PointXY getVertex() {
 		Object value = this.getValue(VertexFeature.PATH, VertexFeature.KEY);
