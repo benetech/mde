@@ -12,7 +12,6 @@ public class SolvedCubicPolynomial extends SolvedRationalFunction {
 
 	public SolvedCubicPolynomial(AnalyzedEquation equation) {
 		super(equation);
-		
 		//double[] coeffs = QC.getNormalizedCoefficients();
 		
 		IntervalXY D, R; // domain and range

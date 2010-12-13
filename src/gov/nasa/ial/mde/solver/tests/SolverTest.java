@@ -1,9 +1,12 @@
 package gov.nasa.ial.mde.solver.tests;
 
+import gov.nasa.ial.mde.solver.SolvedCubicPolynomial;
 import gov.nasa.ial.mde.solver.SolvedGraph;
+import gov.nasa.ial.mde.solver.SolvedHyperbola;
 import gov.nasa.ial.mde.solver.SolvedLine;
 import gov.nasa.ial.mde.solver.SolvedParabola;
-import gov.nasa.ial.mde.solver.SolvedTrigFunction;
+import gov.nasa.ial.mde.solver.SolvedSineFunction;
+import gov.nasa.ial.mde.solver.SolvedSquareRoot;
 import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -19,6 +22,8 @@ public class SolverTest extends TestCase {
 		"y=x",
 		"y=x+3",
 		"y=x+5",
+		"y-x=0",
+		"y/5-3x=0",
 	}, 
 	{ // bad ones
 		"y=x*x",
@@ -39,15 +44,69 @@ public class SolverTest extends TestCase {
 			}
 	};
 	
-	private String[][] trigonometricFunctions = {
+	private String[][] sineFunctions = {
 			{ // good ones
-				"y=sin(x)",
-				"y=tan(x-4)",
-				"y=sin(x)+tan(x)",
+				"y=4/3*sin(x)",
+				"y=sin(x-4)",
+				"y=sin(pi*x-4)+3/5",
 			},
 			{ // bad ones
 				"y=x",
 				"y=x*x+3",
+				"y=cos(x)"
+			}
+	};
+	
+	
+	
+	
+	private String[][] hyperbolaFunctions = {
+			{ // good ones
+				"y=1/(-3x+2) + 5",
+				"y-1/x=0",
+				"1/y+x=0",
+			},
+			{ // bad ones
+				"y=0",
+				"y=x*x+3",
+				"y=cos(x)",
+			}
+	};
+	
+	private String[][] sqrtFunctions= {
+			{//good
+				"y=sqrt(x)",
+				"y=4*sqrt(x)",
+				"y=4/3*sqrt(x)",
+				//"3y=x^3-4x^2-3x",
+				//"5y-x^3+3x=0",
+				//"y/3-(x^3)/5=7",
+				//"y=x^4/x"
+			},
+			{//bad
+				//"y=x^3/x",
+				"y=x^5",
+				"y=0",
+				//"y=4-x",
+			}
+	};
+	
+	
+	private String[][] cubicFunctions = {
+			{//good
+				"y=x^3",
+				"y=x^3+4",
+				"y=x^3+x^2"
+				//"3y=x^3-4x^2-3x",
+				//"5y-x^3+3x=0",
+				//"y/3-(x^3)/5=7",
+				//"y=x^4/x"
+			},
+			{//bad
+				//"y=x^3/x",
+				"y=x^5",
+				"y=0",
+				//"y=4-x",
 			}
 	};
 	
@@ -55,6 +114,7 @@ public class SolverTest extends TestCase {
 			linearFormulas,
 			parabolaFormulas,
 	};
+
 	
 	@Before
 	public void setup() {
@@ -70,6 +130,8 @@ public class SolverTest extends TestCase {
 		AnalyzedEquation analyzedEquation = new AnalyzedEquation(equation);
 		MDEClassifier classifier = analyzedEquation.getClassifier();
 		SolvedGraph solvedGraph = classifier.getFeatures(analyzedEquation);
+		System.out.println("MARK: " +  classifier.getClass().getCanonicalName());
+		System.out.println("MARK: " +  solvedGraph.getClass().getCanonicalName());
 		return solvedGraph;
 	}
 	
@@ -84,6 +146,7 @@ public class SolverTest extends TestCase {
 	}
 	
 	private void classMatch(boolean expected, String actualClassName, String expectedClassName, String formula) {
+		System.out.println( expectedClassName  + " || " + actualClassName);
 		boolean actual = expectedClassName.equals(actualClassName);
 		assertEquals(expectedClassName+" for "+formula, expected, actual);
 	}
@@ -104,13 +167,42 @@ public class SolverTest extends TestCase {
 		this.equationMatches(false, name, badParabolaFormulas);		
 	}
 	
-	public void testTrigonometricMatch() {
-		String[] goodTrigFormulas = this.trigonometricFunctions[0];
-		String[] badTrigFormulas = this.trigonometricFunctions[1];
-		String name = SolvedTrigFunction.class.getCanonicalName();
-		this.equationMatches(true, name, goodTrigFormulas);
-		this.equationMatches(false, name, badTrigFormulas);				
+	public void testSineMatch() {
+		String[] goodSineFormulas = this.sineFunctions[0];
+		String[] badSineFormulas = this.sineFunctions[1];
+		String name = SolvedSineFunction.class.getCanonicalName();
+		this.equationMatches(true, name, goodSineFormulas);
+		this.equationMatches(false, name, badSineFormulas);				
 	}
+	
+	public void testHyperbolaMatch() {
+		String[] goodHyperbolaFormulas = this.hyperbolaFunctions[0];
+		String[] badHyperbolaFormulas = this.hyperbolaFunctions[1];
+		String name = SolvedHyperbola.class.getCanonicalName();
+		this.equationMatches(true, name, goodHyperbolaFormulas);
+		this.equationMatches(false, name, badHyperbolaFormulas);				
+	}
+
+	
+	public void testSqrtMatch() {
+		String[] goodSqrtFormulas = this.sqrtFunctions[0];
+		String[] badSqrtFormulas = this.sqrtFunctions[1];
+		String name = SolvedSquareRoot.class.getCanonicalName();
+		System.out.println("--------" + name);
+		this.equationMatches(true, name, goodSqrtFormulas);
+		this.equationMatches(false, name, badSqrtFormulas);				
+	}
+	
+	
+	public void testCubicMatch() {
+		String[] goodCubicFormulas = this.cubicFunctions[0];
+		String[] badCubicFormulas = this.cubicFunctions[1];
+		String name = SolvedCubicPolynomial.class.getCanonicalName();
+		System.out.println("--------" + name);
+		this.equationMatches(true, name, goodCubicFormulas);
+		this.equationMatches(false, name, badCubicFormulas);				
+	}
+	
 	
 	private void dump() {
 		for(String[][] saa : this.formulas) {
