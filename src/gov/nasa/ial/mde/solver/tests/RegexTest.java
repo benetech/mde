@@ -8,7 +8,7 @@ public class RegexTest {
 	private static final String REGEX = "(-?\\d*\\.?\\d*)";
 	
 	public static void main(String[] args){
-		
+
 		try {
 			
 			InputStreamReader isr = new InputStreamReader(System.in);
