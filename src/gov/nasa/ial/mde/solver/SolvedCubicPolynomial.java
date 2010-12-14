@@ -34,7 +34,9 @@ public class SolvedCubicPolynomial extends SolvedRationalFunction {
 		return R;
 	}
 	
-	
+	public String getClassName(){
+		return this.getClassName();
+	}
 	
 	
 	

@@ -128,7 +128,7 @@ public class PolynomialClassifier extends MDEClassifier {
 
 
     public SolvedGraph getFeatures(AnalyzedEquation analyzedEq) {
-    	System.out.println("MARK Inside polynomial classifier");
+    	//System.out.println("MARK Inside polynomial classifier");
     	
     	int degree = analyzedEq.getDegree();
     	
@@ -151,7 +151,7 @@ public class PolynomialClassifier extends MDEClassifier {
             	
             }
             else if(degree==3){
-            	System.out.println("MARK yay");
+            	//System.out.println("MARK yay");
             	features = new SolvedCubicPolynomial(analyzedEq);
             }
             else

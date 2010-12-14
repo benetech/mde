@@ -41,6 +41,8 @@ public class MDEClassifier {
     public SolvedGraph getFeatures(AnalyzedEquation analyzedEq) {
         SolvedGraph features;
 
+    	System.out.println("MARK: "+ analyzedEq.getInputEquation());
+        
         if (analyzedEq.isSolvableFunction()) {
             if (!analyzedEq.isPolynomial()){
             	features = new SolvedEquationData(analyzedEq);

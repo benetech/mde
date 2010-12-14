@@ -1,5 +1,6 @@
 package gov.nasa.ial.mde.solver.tests;
 
+import gov.nasa.ial.mde.solver.SolvedAbsoluteValue;
 import gov.nasa.ial.mde.solver.SolvedCubicPolynomial;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedHyperbola;
@@ -7,6 +8,7 @@ import gov.nasa.ial.mde.solver.SolvedLine;
 import gov.nasa.ial.mde.solver.SolvedParabola;
 import gov.nasa.ial.mde.solver.SolvedSineFunction;
 import gov.nasa.ial.mde.solver.SolvedSquareRoot;
+import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -110,6 +112,19 @@ public class SolverTest extends TestCase {
 			}
 	};
 	
+	private String[][] absoluteValueFunctions = {
+			{//good
+				"y=abs(x)+4",
+				"y=4/3*abs(x/3+3)+7"
+			},
+			{//bad
+				"y=34x",
+				"y=x",
+				"y+3=x"
+			}
+	};
+	
+		
 	private String[][][] formulas = {
 			linearFormulas,
 			parabolaFormulas,
@@ -127,13 +142,21 @@ public class SolverTest extends TestCase {
 	}
 	
 	private SolvedGraph loadSolvedGraph(String equation) {
-		AnalyzedEquation analyzedEquation = new AnalyzedEquation(equation);
+		//System.out.println(equation);
+		Solver solver = new Solver();
+		
+		AnalyzedEquation analyzedEquation = solver.add(equation);
+		//AnalyzedEquation analyzedEquation = new AnalyzedEquation(equation);
+		
+		//adding solve apparently changes everything
+		solver.solve();
+		
+		
 		MDEClassifier classifier = analyzedEquation.getClassifier();
 		SolvedGraph solvedGraph = classifier.getFeatures(analyzedEquation);
-		System.out.println("MARK: " +  classifier.getClass().getCanonicalName());
-		System.out.println("MARK: " +  solvedGraph.getClass().getCanonicalName());
 		return solvedGraph;
 	}
+	
 	
 	private void equationMatches(boolean expected, String expectedClassName, String[] formulas) {
 		String actualClassName;
@@ -146,7 +169,7 @@ public class SolverTest extends TestCase {
 	}
 	
 	private void classMatch(boolean expected, String actualClassName, String expectedClassName, String formula) {
-		System.out.println( expectedClassName  + " || " + actualClassName);
+		//System.out.println( expectedClassName  + " || " + actualClassName);
 		boolean actual = expectedClassName.equals(actualClassName);
 		assertEquals(expectedClassName+" for "+formula, expected, actual);
 	}
@@ -188,7 +211,6 @@ public class SolverTest extends TestCase {
 		String[] goodSqrtFormulas = this.sqrtFunctions[0];
 		String[] badSqrtFormulas = this.sqrtFunctions[1];
 		String name = SolvedSquareRoot.class.getCanonicalName();
-		System.out.println("--------" + name);
 		this.equationMatches(true, name, goodSqrtFormulas);
 		this.equationMatches(false, name, badSqrtFormulas);				
 	}
@@ -198,9 +220,17 @@ public class SolverTest extends TestCase {
 		String[] goodCubicFormulas = this.cubicFunctions[0];
 		String[] badCubicFormulas = this.cubicFunctions[1];
 		String name = SolvedCubicPolynomial.class.getCanonicalName();
-		System.out.println("--------" + name);
+		//System.out.println("--------" + name);
 		this.equationMatches(true, name, goodCubicFormulas);
 		this.equationMatches(false, name, badCubicFormulas);				
+	}
+	
+	public void testAbsMatch(){
+		String[] goodAbsFormulas = this.absoluteValueFunctions[0];
+		String[]  badAbsFormulas = this.absoluteValueFunctions[1];
+		String name  = SolvedAbsoluteValue.class.getCanonicalName();
+		this.equationMatches(true, name, goodAbsFormulas);
+		this.equationMatches(false, name, badAbsFormulas);
 	}
 	
 	
