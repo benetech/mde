@@ -7,7 +7,7 @@ info@prime.jsc.nasa.gov
 Changes to the Math Description Engine (MDE) Software Development Kit
 
 -------------------------------------------------------------------------------
-v2.3.5 Build-201012131228 - December 13, 2010
+v2.3.6 Build-201012161122 - December 16, 2010
 Changes since v1.0.1 Build-200609261530
 -------------------------------------------------------------------------------
 
