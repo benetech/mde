@@ -275,7 +275,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
         <param name="jarIncludes" value="**/*.class,resources/**" />
         <param name="jarExcludes" value="${rootPackagePath}/**/*.html" />
     </antcall>
-    <antcall target="-turnDebugCommentsOn" />
+    <!-- <antcall target="-turnDebugCommentsOn" /> -->
 </target>
 
 
