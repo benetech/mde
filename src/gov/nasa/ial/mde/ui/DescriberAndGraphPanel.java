@@ -138,8 +138,8 @@ public class DescriberAndGraphPanel extends JPanel {
 			
 			if (solver.anyDescribable()) {
 				description = describer.getDescriptions("standards");
-				System.out.println(solver.get(0).getAnalyzedItem().getClassifier().getClass().getCanonicalName());
-				System.out.println(a.getClassifier().getClass().getCanonicalName());	
+			//	System.out.println(solver.get(0).getAnalyzedItem().getClassifier().getClass().getCanonicalName());
+				//System.out.println(a.getClassifier().getClass().getCanonicalName());	
 				//System.out.println(solver.get(0).getFeatures().getClass().getCanonicalName());
 				//System.out.println(a.getClassifier().getFeatures(a).getClass().getCanonicalName());
 				if(MdeSettings.ACCESSIBLE_TTS){
