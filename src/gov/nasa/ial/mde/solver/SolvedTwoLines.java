@@ -37,12 +37,15 @@ public class SolvedTwoLines extends SolvedConic {
      * @param equation the analyzed equation.
      */
     public SolvedTwoLines(AnalyzedEquation equation) {
-        super(equation);
+    	super(equation);
 
+    	
         /* QC is the QuadraticClassifier field in SolvedConic */
         ID = QC.getIdentity();
-        alpha = QC.getRotation(); // rotation angle in degrees
+        alpha = QC.getRotation(); // rotation angle in degrees     
         vars = equation.getActualVariables();
+    
+        
 
         putNewFeatures(newFeatures); // enable use of new features
         putFeature("graphName", "two lines"); // self-explanatory
@@ -61,6 +64,7 @@ public class SolvedTwoLines extends SolvedConic {
             default :
                 throw new IllegalArgumentException("Invalid ID for SolvedTwoLines");
         } // end switch
+        
         putFeature("inclination", new NumberModel(inclination));
 
         if (Math.abs(inclination) <= 45.0) {
