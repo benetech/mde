@@ -3,7 +3,6 @@ package gov.nasa.ial.mde.solver;
 import gov.nasa.ial.mde.math.IntervalXY;
 import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
-import gov.nasa.ial.mde.solver.features.individual.SlopeFeature;
 import gov.nasa.ial.mde.solver.features.individual.VertexFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 
@@ -82,8 +81,8 @@ public class SolvedAbsoluteValue extends SolvedXYGraph implements VertexFeature{
 	    	}
 		    
 		    
-	    	double slope =A*B;
-		    double intercept= D;
+	    	//double slope =A*B;
+		    //double intercept= D;
 		    double xVertice = -A*C/B;
 		    double yVertice = D;
 		    
