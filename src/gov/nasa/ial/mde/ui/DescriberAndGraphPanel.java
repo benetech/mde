@@ -127,7 +127,7 @@ public class DescriberAndGraphPanel extends JPanel {
 		String description ="OH DEAR GOD\n FULL TILT\nPLEASE RESTART\n";
 		try{
 			solver.removeAll();
-		//	AnalyzedEquation a= solver.add(equation);  //MARK
+			solver.add(equation);  //MARK
 			solver.solve();
 			
 			if(solver.anyGraphable())
