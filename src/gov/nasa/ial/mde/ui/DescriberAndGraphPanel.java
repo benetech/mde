@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
-import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.ui.graph.CartesianGraph;
 import gov.nasa.ial.mde.util.AccessibleTTSConverter;
 
