@@ -98,10 +98,12 @@ public class SolvedTangentFunction extends SolvedTrigFunction implements PeriodF
 				}
 	    	}
 			
+			/*
 			System.out.println("       A: " + A);
 			System.out.println("       B: " + B);
 			System.out.println("       C: " + C);
 			System.out.println("       D: " + D);
+			*/
 			
 			//System.out.println("  Offset: " + offsetString);
 			
