@@ -124,7 +124,7 @@ public class DescriberAndGraphPanel extends JPanel {
 	}
 
 	private String processEquation(String equation) {
-		String description ="OH DEAR GOD\n FULL TILT\nPLEASE RESTART\n";
+		String description ="Equation not recognized or incorrectly formatted.\nPlease reenter.";
 		try{
 			solver.removeAll();
 			solver.add(equation);  //MARK
