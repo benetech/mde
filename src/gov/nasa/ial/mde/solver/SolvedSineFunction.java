@@ -111,9 +111,17 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 			amplitude = A;
 			
 	
-			period = MathUtil.trimDouble(2/Math.abs(B), 3)+"pi";
-			frequency = MathUtil.trimDouble(Math.abs(B)/2, 3) + "/pi";
-	    	
+			
+			
+			if(isMultipleOfPi(B)){
+				period = MathUtil.trimDouble((2*3.142)/Math.abs(B), 3)+"";
+				frequency = MathUtil.trimDouble(Math.abs(B)/(2*3.142) ,3)+"";
+			}
+			else{
+				period = MathUtil.trimDouble(2/Math.abs(B), 3)+"pi";
+				frequency = MathUtil.trimDouble(Math.abs(B)/2, 3) + "/pi";
+			}
+			
 			offset = D;
 	    	
 			
@@ -133,7 +141,9 @@ public class SolvedSineFunction extends SolvedTrigFunction implements FrequencyF
 		
         
 	}
-
+	
+	
+	
 	public String getFrequency() {
 		Object value = this.getValue(FrequencyFeature.PATH, FrequencyFeature.KEY);
 		String frequencyString = (String)value;
