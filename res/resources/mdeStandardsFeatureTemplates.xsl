@@ -57,13 +57,13 @@
 				This is a graph that contains a square root function.
 			</xsl:when>
 			<xsl:when test=".='sine function'">
-				This is a graph of a basic sinusoid.
+				This is a trigonometric sine function.
 			</xsl:when>
 			<xsl:when test=".='cosine function'">
-				This is a graph of a basic sinusoid.
+				This is a trigonometric cosine function.
 			</xsl:when>
 			<xsl:when test=".='tangent function'">
-				This is a graph of a tangent function, which is a periodic function. 
+				This is a trigonometric tangent function.
 			</xsl:when>
 
 			<xsl:when test=".='RationalFunction'"></xsl:when>
@@ -196,10 +196,10 @@
 	<xsl:template name="oscillation">
 		<xsl:text>The entered equation oscillates with an amplitude of </xsl:text>
 		<xsl:value-of select="./amplitude" />
-		<xsl:text> and a frequency of approximately </xsl:text>
+		<xsl:text> and a frequency of </xsl:text>
 		<xsl:value-of select="./frequency" />
 		<xsl:text>. </xsl:text>
-		<xsl:text> The wave also has a period of approximately </xsl:text>
+		<xsl:text> The wave also has a period of </xsl:text>
 		<xsl:value-of select="./period" />
 		<xsl:text>. </xsl:text>
 

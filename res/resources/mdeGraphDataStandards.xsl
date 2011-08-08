@@ -216,7 +216,7 @@
 				<xsl:text>sharply </xsl:text>				
 			</xsl:if>
 				<xsl:value-of select="./orientation" />
-			<xsl:text> curves, seperated by asymptotes at intervals of every </xsl:text>
+			<xsl:text> curves, separated by asymptotes at intervals of every </xsl:text>
 				<xsl:value-of select="./period" />
 			<xsl:text>, starting at  </xsl:text>
 				<xsl:value-of select="./asymptotes" />

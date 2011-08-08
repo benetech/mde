@@ -124,7 +124,7 @@ public class DescriberAndGraphPanel extends JPanel {
 	}
 
 	private String processEquation(String equation) {
-		String description ="Equation not recognized or incorrectly formatted.\nPlease reenter.";
+		String description ="The Math Description Engine was unable to read your equation. Please check for errors in the equation, for example incorrect placement of parentheses, and try again.";
 		try{
 			solver.removeAll();
 			solver.add(equation);  //MARK
