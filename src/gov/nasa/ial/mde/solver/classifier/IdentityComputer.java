@@ -11,7 +11,7 @@ public class IdentityComputer {
     	boolean has_b_coefficient = !ToleranceTester.isWithinToleranceOfZero(b);
     	boolean has_c_coefficient = !ToleranceTester.isWithinToleranceOfZero(c);
     	boolean has_d_coefficient = !ToleranceTester.isWithinToleranceOfZero(d);
-    	boolean has_e_coefficient = !ToleranceTester.isWithinToleranceOfZero(e);
+    	boolean has_e_coefficient = ToleranceTester.isWithinToleranceOfZero(e);
     	
     	// Note! Order matters in this large conditional.
     	if(BooleanTester.areAllFalse(has_a_coefficient, has_b_coefficient, has_c_coefficient, has_d_coefficient)) {

@@ -742,9 +742,7 @@
 	<xsl:template name="singlePointAlt">
 		The single point solution is
 		<xsl:call-template name="centerNamedTemplateTest">
-			<xsl:with-param name="valueOnly">
-				true
-			</xsl:with-param>
+			<xsl:with-param name="valueOnly">true</xsl:with-param>
 		</xsl:call-template>
 		<xsl:text>. </xsl:text>
 	</xsl:template>
