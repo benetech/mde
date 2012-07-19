@@ -148,7 +148,7 @@ public class Describer {
      * Construct a Describer object with the given <code>Solver</code> object
      * and <code>MdeSettings</code> object. Use default XSLT template files.
      * 
-     * @param solver the solver to use with this desriber.
+     * @param solver the solver to use with this describer.
      * @param settings the MDE settings.
      */
     public Describer(Solver solver, MdeSettings settings) {
@@ -166,8 +166,26 @@ public class Describer {
         addDescriptionMode("math", "mdeApplyMath1.xsl");
         addDescriptionMode("standards", "mdeApplyStandards1.xsl");
 
+        // Set initial description mode to the settings default
         this.currentDescriptionMode = settings.getDescriptionMode();
         this.currentTransformer = transformers.get(currentDescriptionMode);
+    }
+    
+    /**
+     * Construct a Describer object with the given <code>Solver</code> object
+     * and specified template mode and template file. Use my mode and template instead of 
+     * default.
+     * 
+     * @param solver the solver to use with this describer.
+     * @param settings the MDE settings.
+     */
+    public Describer(Solver solver, String myDescriptionMode, String myDescriptionTemplate){
+    	this(solver);
+  
+    	addDescriptionMode(myDescriptionMode,myDescriptionTemplate);
+    	this.currentDescriptionMode = myDescriptionMode;
+    	this.currentTransformer = transformers.get(currentDescriptionMode);
+ 
     }
 
     /**
