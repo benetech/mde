@@ -82,7 +82,12 @@ Reserved.
             <doctitle><![CDATA[<h1>${projectName}</h1>]]></doctitle>
             <bottom><![CDATA[
 <font size="-1"><a href="${websiteURL}" target="_top">NASA Johnson Space Center Learning Technologies Project</a>
+<p>MDE SDK Open Source Project.  Contribute at: https://github.com/benetech/mde.git
+<p>Other contributors:
+<br>Georgia Tech Sonification Lab, http://sonify.psych.gatech.edu/
+<br>Beneficent Technologies aka Benetech, http://www.benetech.org/
 <p>
+<br> Originally Developed by NASA Learning Technologies at Johnson Space Center
 Copyright 2006, United States Government as represented by the Administrator
 for the National Aeronautics and Space Administration. No copyright is claimed
 in the United States under Title 17, U.S. Code. All Other Rights Reserved.

@@ -99,7 +99,7 @@ public class Solver {
      * is currently managing. Any solution updates requested through other
      * Solver methods will be applied to the items in this list.
      */
-    protected ArrayList<Solution> solutionList = new ArrayList<Solution>(5);
+    protected ArrayList solutionList = new ArrayList(5);
 
     /**
      * number of polar <code>Solution</code> objects in the
@@ -253,7 +253,7 @@ public class Solver {
      * 
      * @return a Solution list Iterator.
      */
-    public Iterator<Solution> getSolutionIterator() {
+    public Iterator getSolutionIterator() {
         return solutionList.iterator();
     }
 
@@ -305,7 +305,7 @@ public class Solver {
         if ((name == null) || solutionList.isEmpty()) {
             return null;
         }
-        ArrayList<Solution> list = new ArrayList<Solution>(solutionList.size());
+        ArrayList list = new ArrayList(solutionList.size());
         Solution solution;
         int len = solutionList.size();
         for (int i = 0; i < len; i++) {
@@ -748,8 +748,28 @@ public class Solver {
             double bottom) {
         preferredBounds.setBounds(left, right, top, bottom);
     } // end setPreferredBounds
+    
+    public void setScaleGraphTrailsToFitBounds(boolean scaleGraphTrailsToFitBounds) {
+    	for (int i = 0; i < solutionList.size(); i++) {
+    		Solution s=(Solution)solutionList.get(i);
+    		AnalyzedItem ai=s.getAnalyzedItem();
+    		
+    		if(ai instanceof AnalyzedData)
+    			((AnalyzedData)ai).setScaledGraphTrailsToFitBounds(scaleGraphTrailsToFitBounds);
+    	} // end for i
+    } // end setScaleGraphTrailsToFitBounds
 
-    /**
+    public void setScaledForSonification(boolean scaledForSonification) {
+    	for (int i = 0; i < solutionList.size(); i++) {
+    		Solution s=(Solution)solutionList.get(i);
+    		AnalyzedItem ai=s.getAnalyzedItem();
+    		
+    		if(ai instanceof AnalyzedData)
+    			((AnalyzedData)ai).setScaledForSonification(scaledForSonification);
+    	} // end for i
+    } // end setScaledForSonification
+
+/**
      * Register a component to listen for Solver state change events (adding a
      * new item to the solutionList or a new solve event).
      * 

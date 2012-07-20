@@ -1,14 +1,32 @@
 ===============================================================================
+Original Development: 
 NASA Johnson Space Center Learning Technologies - Information Accessibility Lab
 http://prime.jsc.nasa.gov/
-info@prime.jsc.nasa.gov
+
+Additional Contributors:
+Georgia Tech Sonification Lab, http://sonify.psych.gatech.edu/
+Beneficent Technologies (Benetech), http://www.benetech.org/
+
 ===============================================================================
 
 Changes to the Math Description Engine (MDE) Software Development Kit
 
 -------------------------------------------------------------------------------
-v2.3.7 Build-201207191423 - July 19, 2012
+v3.0.0 Build-201207201621 - July 20, 2012
 Changes since v1.0.1 Build-200609261530
+-------------------------------------------------------------------------------
+Developer: Terry Hodgson for Beneficent Technologies, benetech.org
+
+- Merged Georgia Tech Sonification Lab Version 2.3.7(8?) and NASA version 1.0.3.
+
+- Fixed a 2.3.7 bug that was causing single point, circle, ellipse errors.
+
+- Added a new Describer constructor to make use of custom templates easier.
+
+- Added baseline templates for Benetech LIT Project applying MDE to 
+graph descriptions for an Algebra 1 Textbook, test case CK12 Algebra 1,
+Second Edition.
+-------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 
 - Fixed tabbing in the build file.

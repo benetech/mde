@@ -475,6 +475,14 @@ public class Expression extends ProtoExpression implements Comparison {
             case Action.SINE :
             case Action.COSINE :
             case Action.TANGENT :
+            	// ROS: Required for new functions added by NBT
+            case Action.ARCSINE :
+            case Action.ARCCOSINE :
+            case Action.ARCTANGENT:
+            case Action.SECANT :
+            case Action.COSECANT :
+            case Action.ARCSECANT :
+            case Action.ARCCOSECANT :
             case Action.ABS :
                 return showFunction(r);
 

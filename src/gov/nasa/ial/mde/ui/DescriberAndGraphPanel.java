@@ -10,8 +10,6 @@ import gov.nasa.ial.mde.describer.Describer;
 import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.ui.graph.CartesianGraph;
-import gov.nasa.ial.mde.util.AccessibleTTSConverter;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -19,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import gov.nasa.ial.mde.util.AccessibleTTSConverter;
 
 public class DescriberAndGraphPanel extends JPanel {
 

@@ -11,6 +11,8 @@ import gov.nasa.ial.mde.util.ArrayUtil;
 import java.awt.Color;
 import java.util.Properties;
 
+import javax.swing.Icon;
+
 /**
  * MdeSettings manages initialization and storage of MDE description, sound,
  * and graphing properties (options), such as: line colors and thicknesses for
@@ -29,7 +31,7 @@ import java.util.Properties;
  * autoscaleGraph = true; <br>
  * traceOn = true; <br>
  * </blockquote> Describer properties and initial defaults are:
- * <blockquote>descriptionMode = "standards"; </blockquote> Sounder properties and
+ * <blockquote>descriptionMode = "visual"; </blockquote> Sounder properties and
  * initial defaults are: <blockquote>negativeYValuesIndicator = HISS <br>
  * sonificationWaveform = TRIANGLE <br>
  * traceSweepSpeed = MEDIUM <br>
@@ -66,7 +68,9 @@ import java.util.Properties;
  */
 public class MdeSettings extends Settings {
 
-    private Color axisColor;
+
+
+	private Color axisColor;
 
     private Color backgroundColor;
 
@@ -79,7 +83,11 @@ public class MdeSettings extends Settings {
     private boolean dataPointsShown;
 
     private boolean autoscaleGraph;
+    
+    private boolean scaleIndividualDataForSonification;
 
+    private boolean scaleIndividualDataForGraph;
+    
     private int lineSize;
 
     private boolean traceOn;
@@ -89,7 +97,7 @@ public class MdeSettings extends Settings {
     // One of the values from the BASIC_WAVEFORMS array
     private int sonificationWaveform;
 
-    // One of the values fom the Y_AXIS_INDICATORS array
+    // One of the values from the Y_AXIS_INDICATORS array
     private int yAxisIndicator;
 
     // One of the values fom the INDICATOR_FREQUENCIES and INDICATOR_DURATIONS arrays
@@ -100,15 +108,15 @@ public class MdeSettings extends Settings {
     // Any combination of values from the NEG_Y_VALUES_INDICATORS array
     private int negYValuesIndicator;
 
-    // One of the values fom the X_AXIS_INDICATORS array
+    // One of the values from the X_AXIS_INDICATORS array
     private int xAxisIndicator;
 
-    // One of the values fom the INDICATOR_FREQUENCIES and INDICATOR_DURATIONS arrays
+    // One of the values from the INDICATOR_FREQUENCIES and INDICATOR_DURATIONS arrays
     private int xAxisIndicatorFreq;
 
     private int xAxisIndicatorDuration;
 
-    // One of the values fom the TRACE_SWEEP_SPEEDS array
+    // One of the values from the TRACE_SWEEP_SPEEDS array
     private int traceSweepSpeed;
     
     /** Turn Debug comments on or off by setting the value to true or false respectively. */
@@ -121,10 +129,10 @@ public class MdeSettings extends Settings {
     public static final boolean ACCESSIBLE_TTS_DEFAULT = false;
     
     /** The MDE application version number. */
-    public static final String  VERSION = "2.3.7";
+    public static final String  VERSION = "3.0.0";
     
     /** The build number which is updated by the Ant build script. */
-    public static final String  BUILD_NUMBER = "201207191423";
+    public static final String  BUILD_NUMBER = "201207201621";
     
     /** true if this is a Beta release, false if it is not */
     public static final boolean BETA_RELEASE = false;
@@ -145,7 +153,7 @@ public class MdeSettings extends Settings {
             { "b", "1" },
             { "c", "1" },
             { "d", "1" },
-            { "e", "2.718281828459045" },
+            { "e", "1" },
             { "f", "1" },
             { "g", "1" },
             { "h", "0" },
@@ -153,6 +161,7 @@ public class MdeSettings extends Settings {
             { "m", "1" }
     };
     
+
     /** The integer value representing "No Indication". */
     public static final int NO_INDICATION = 1;
 
@@ -408,7 +417,15 @@ public class MdeSettings extends Settings {
     /** The autoscale graph property file key. */
     private static final String AUTOSCALE_GRAPH_KEY = "mde.autoscale.graph";
 
-    /** The data point color property file key. */
+    /** The scale individual data for sonification property file key. */
+    private static final String SCALE_INDIVIDUAL_DATA_FOR_SONIFICATION_KEY =
+    	"mde.scale.individual.data.for.sonification";
+
+    /** The SCALE INDIVIDUAL DATA FOR GRAPH property file key. */
+    private static final String SCALE_INDIVIDUAL_DATA_FOR_GRAPH_KEY =
+    	"mde.scale.individual.data.for.graph";
+
+/** The data point color property file key. */
     private static final String DATA_POINT_COLOR_KEY = "mde.data.point.color";
 
     /** The show data points property file key. */
@@ -444,6 +461,7 @@ public class MdeSettings extends Settings {
     /** The trace sweep speed property file key. */
     private static final String TRACE_SWEEP_SPEED_KEY = "mde.trace.sweep.speed";
 
+
     /**
      * Default constructor, which loads the properties from the default
      * <code>MDE_Properties.properties</code> file. 
@@ -475,9 +493,11 @@ public class MdeSettings extends Settings {
      * dataPointColor = Color.red; <br>
      * dataPointsShown = true; <br>
      * autoscaleGraph = true; <br>
+     * scaleIndividualDataForSonification = true; <br>
+     * scaleIndividualDataForGraph = false; <br>
      * traceOn = true; <br>
      * </blockquote> Describer properties and initial defaults are:
-     * <blockquote>descriptionMode = "standards"; </blockquote> Sounder properties and
+     * <blockquote>descriptionMode = "visual"; </blockquote> Sounder properties and
      * initial defaults are: <blockquote>negativeYValuesIndicator = HISS <br>
      * sonificationWaveform = TRIANGLE <br>
      * traceSweepSpeed = MEDIUM <br>
@@ -497,8 +517,10 @@ public class MdeSettings extends Settings {
         dataPointColor = Color.red;
         dataPointsShown = true;
         autoscaleGraph = true;
+        scaleIndividualDataForSonification = false;
+        scaleIndividualDataForGraph = false;
         traceOn = true;
-        descriptionMode = "standards";
+        descriptionMode = "visual";
 
         sonificationWaveform = TRIANGLE;
 
@@ -525,6 +547,10 @@ public class MdeSettings extends Settings {
         defaults.put(DATA_POINT_COLOR_KEY, Integer.toString(dataPointColor.getRGB()));
         defaults.put(DATA_POINTS_SHOWN_KEY, Boolean.toString(dataPointsShown));
         defaults.put(AUTOSCALE_GRAPH_KEY, Boolean.toString(autoscaleGraph));
+        defaults.put(SCALE_INDIVIDUAL_DATA_FOR_SONIFICATION_KEY,
+        		Boolean.toString(scaleIndividualDataForSonification));
+        defaults.put(SCALE_INDIVIDUAL_DATA_FOR_GRAPH_KEY,
+        		Boolean.toString(scaleIndividualDataForGraph));
         defaults.put(TRACE_ON_KEY, Boolean.toString(traceOn));
         defaults.put(DESCRIPTION_MODE_KEY, descriptionMode);
 
@@ -572,7 +598,13 @@ public class MdeSettings extends Settings {
             autoscaleGraph = Boolean.valueOf(tmp).booleanValue();
 
             tmp = properties.getProperty(TRACE_ON_KEY);
-            traceOn = Boolean.valueOf(tmp).booleanValue();
+            tmp = properties.getProperty(SCALE_INDIVIDUAL_DATA_FOR_SONIFICATION_KEY);
+            scaleIndividualDataForSonification = Boolean.valueOf(tmp).booleanValue();
+
+            tmp = properties.getProperty(SCALE_INDIVIDUAL_DATA_FOR_GRAPH_KEY);
+            scaleIndividualDataForGraph = Boolean.valueOf(tmp).booleanValue();
+
+traceOn = Boolean.valueOf(tmp).booleanValue();
 
             descriptionMode = properties.getProperty(DESCRIPTION_MODE_KEY);
 
@@ -659,7 +691,8 @@ public class MdeSettings extends Settings {
     public String toString() {
         return "[" + axisColor + "," + backgroundColor + "," + lineColor + ","
                 + gridColor + " " + lineSize + " " + dataPointColor + " "
-                + dataPointsShown + " " + autoscaleGraph + " " + traceOn + " "
+                + dataPointsShown + " " + autoscaleGraph + " " +
+                scaleIndividualDataForSonification + " " + scaleIndividualDataForGraph + " " + traceOn + " "
                 + sonificationWaveform + " " + traceSweepSpeed + " "
                 + negYValuesIndicator + " " + xAxisIndicator + " "
                 + xAxisIndicatorFreq + " " + xAxisIndicatorDuration + " "
@@ -750,6 +783,23 @@ public class MdeSettings extends Settings {
     }
 
     /**
+	 * @param scaleIndividualDataForSonification the scaleIndividualDataForSonification to set
+	 */
+	public void setScaleIndividualDataForSonification(
+			boolean scaleIndividualDataForSonification) {
+		this.scaleIndividualDataForSonification = scaleIndividualDataForSonification;
+        save();
+}
+
+	/**
+	 * @param scaleIndividualDataForGraph the scaleIndividualDataForGraph to set
+	 */
+	public void setScaleIndividualDataForGraph(boolean scaleIndividualDataForGraph) {
+		this.scaleIndividualDataForGraph = scaleIndividualDataForGraph;
+		save();
+}
+
+	/**
      * Sets the graph trace flag and saves the settings.
      * 
      * @param flag true to enable the trace, false to not show it.
@@ -762,7 +812,7 @@ public class MdeSettings extends Settings {
     /**
      * Sets the description mode and saves the settings.
      * 
-     * @param mode the description mode is one of "visual" or "math" or "standards".
+     * @param mode the description mode is one of "visual" or "math".
      */
     public void setDescriptionMode(String mode) {
         this.descriptionMode = mode;
@@ -968,6 +1018,20 @@ public class MdeSettings extends Settings {
     }
 
     /**
+	 * @return the scaleIndividualDataForSonification
+	 */
+	public boolean isScaleIndividualDataForSonification() {
+		return scaleIndividualDataForSonification;
+	}
+
+	/**
+	 * @return the scaleIndividualDataForGraph
+	 */
+	public boolean isScaleIndividualDataForGraph() {
+		return scaleIndividualDataForGraph;
+	}
+
+	/**
      * Returns the size of the line used for the graph.
      * 
      * @return the size of the line used for the graph.

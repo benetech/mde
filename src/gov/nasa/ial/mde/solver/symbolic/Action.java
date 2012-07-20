@@ -22,9 +22,24 @@ public class Action {
                             SINE = 8,
                             COSINE = 9,
                             TANGENT = 10,
-                            ABS = 11,
+        // NBT Assignment of new functions to numbers
+        // Fixed ROS: This is logically fine, but the convention is that final static fields should be all caps
+        ARCSINE = 11,
+        ARCCOSINE = 12,
+        ARCTANGENT = 13,
+        SECANT = 14,
+        COSECANT = 15,
+        COTANGENT = 16,
+        ARCSECANT = 17,
+        ARCCOSECANT = 18,
+        ARCCOTANGENT = 19,
+        // NBT reassignment of abs
+        ABS = 20,
                             FIRST_FUNCTION = SQRT;
 
+    // Fixed ROS: You need to add in your new functions here, e.g. after new TangentObject, add New ArcsineObject, etc.  Otherwise, 
+    // there is no way for the rest of the program to reference your implementations.
+    // Note that this list corresponds to the final static ints above, thus, the order should be the same.
     /** Evaluator object. */
     static final OperatorObject[] EVALUATOR = {
                             new UnaryMinusObject(),
@@ -38,10 +53,22 @@ public class Action {
                             new SineObject(),
                             new CosineObject(),
                             new TangentObject(),
+            new ArcsineObject(),
+            new ArccosineObject(),
+            new ArctangentObject(),
+            new SecantObject(),
+            new CosecantObject(),
+            new CotangentObject(),
+            new ArcsecantObject(),
+            new ArccosecantObject(),
+            new ArccotangentObject(),
                             new AbsObject() };
 
+    // Fixed ROS: Similarly, you need to add in the Strings that you want to 
+    // use for the names of the new functions.  These will
+    // be the names of the functions that MathTrax will recognize in equations entered by the user.
     /** Symbolic function name. */
-    static final String[] FNAMES = { "-", "+", "/", "*", "^", "sqrt", "exp", "log", "sin", "cos", "tan", "abs" };
+    final static String[] FNAMES = { "-", "+", "/", "*", "^", "sqrt", "exp", "log", "sin", "cos", "tan", "asin", "acos", "atan", "sec", "csc", "cot", "asec", "acsc", "acot", "abs" };
 
     /**
      * Constructs an Action.
@@ -58,9 +85,9 @@ public class Action {
      * @return the index to the first match in the list.
      */
     public int findFirst(String target, String[] list) {
-       // System.out.println ("Target = "+target);
+        // System.out.println ("Target = "+target);
         for (int i = 0; i < list.length; i++) {
-           // System.out.println ("Checking "+list[i]);
+            // System.out.println ("Checking "+list[i]);
             if (target.startsWith(list[i])) {
                 return i;
             }
@@ -150,6 +177,69 @@ class TangentObject extends OperatorObject {
         return Math.tan(values[0].eval());
     } // end eval
 } // end TangentObject
+
+// NBT implementation of arcsine
+class ArcsineObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return Math.asin(values[0].eval());
+    } // end eval
+} // end ArcsineObject
+
+// NBT implementation of arccosine
+class ArccosineObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return Math.acos(values[0].eval());
+    } // end eval
+} // end ArccosineObject
+
+// NBT implementation of arctangent
+class ArctangentObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return Math.atan(values[0].eval());
+    } // end eval
+} // end Arctangent Object
+// NBT implementation of cosecant
+class CosecantObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return 1/Math.sin(values[0].eval());
+    } // end eval
+} // end CosecantObject
+
+// NBT implementation of Secant
+class SecantObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return 1/Math.cos(values[0].eval());
+    } // end eval
+} // end SecantObject
+
+// NBT implementation of Cotangent
+class CotangentObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return 1/Math.tan(values[0].eval());
+    } // end eval
+} // end Cotangent Object
+
+// NBT implementation of arccosecant
+class ArccosecantObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return Math.asin(1.0/values[0].eval());
+    } // end eval
+} // end ArccosecantObject
+
+// NBT implementation of arcsecant
+class ArcsecantObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return Math.acos(1.0/values[0].eval());
+    } // end eval
+} // end ArcsecantObject
+
+// NBT implementation of arccotangent
+class ArccotangentObject extends OperatorObject {
+    double eval(ParseNode[] values) {
+        return Math.atan(1.0/values[0].eval());
+    } // end eval
+} // end Arccotangent Object
+
 
 class AbsObject extends OperatorObject {
     double eval(ParseNode[] values) {

@@ -18,8 +18,6 @@ import gov.nasa.ial.mde.util.PointsUtil;
 import gov.nasa.ial.mde.util.TrailUtil;
 
 import java.util.Arrays;
-import java.util.TreeMap;
-
 
 /**
  * Analyzes arrays of real number data to extract features associated with it.
@@ -29,9 +27,9 @@ import java.util.TreeMap;
  * @since 1.0
  */
 public class AnalyzedData implements AnalyzedItem, Cloneable {
+// Smallest fraction of display which can show an observable change -- 1 pixel 	
+	public static double MINIMUM_OBSERVABLE_FRACTION = 1.0e-3;
     
-	
-	
     // The name associated with the x and y data values.
     private String xName;
 	private String yName;
@@ -44,7 +42,15 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-    
+	private double maximumYDisplayed;
+	private double minimumYDisplayed;
+	
+	// Option to scale display to fill bounds
+	private boolean scaledGraphTrailsToFitBounds = false;
+	
+//	Option to scale sonification to fill bounds
+	private boolean scaledForSonification=false;
+	
 	private Bounds preferredBounds = new Bounds(-DEFAULT_BOUND_VALUE, DEFAULT_BOUND_VALUE, DEFAULT_BOUND_VALUE, -DEFAULT_BOUND_VALUE);
     
 	private SolvedGraph features = null;
@@ -61,8 +67,7 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
     
     private double maxJump = 0.0; // tolerance for breaking a GraphTrail
     
-    @SuppressWarnings("unused")
-	private AnalyzedData() {
+    private AnalyzedData() {
         throw new RuntimeException("Default constructor not allowed.");
     }
     
@@ -97,23 +102,13 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
         if (xData.length <= 0) {
             throw new IllegalArgumentException("X and Y data arrays must contain data.");
         }
-        
-        // DONE: Do we need to check to make sure the x-data is in ascending order?
-        // It's checked for file input. Why not here?
-        //ANDREW: I'll do it then.  It's an O(n) operation, so why not 
-        //ANDREW: Sorting should be a O(n log_2 n)
-        // we would waste time checking if it's in order and then sorting.
-        // we should just go ahead and sort UNLESS we know in advance 
-        
         this.xName = xName;
         this.yName = yName;
+        this.xData = xData;
+        this.yData = yData;
         
-        sort(xData, yData);
-   
-        
-        //this.xData = xData;
-        //this.yData = yData;
-        
+        // TODO: Do we need to check to make sure the x-data is in ascending order?
+        // It's checked for file input. Why not here?
         
         // Initialize the X and Y data statistics.
         initStatistics();
@@ -121,36 +116,8 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
         // Set the preferred bounds based on the min and max values of the data.
         preferredBounds.setBounds(xMin,xMax,yMax,yMin);
     }
-
     
-
-	private void sort(double[] xData2, double[] yData2) {
-		TreeMap<Double, Double> map = new TreeMap<Double, Double>();
-		
-		//TreeMap map = new TreeMap();
-		
-		for(int i = 0; i < xData2.length; i++)
-		{
-			map.put(xData2[i], yData2[i]);
-			//System.out.println(xData2[i] + " " + yData2[i]);
-		}
-		
-		//System.out.println();
-		//System.out.println();
-		int size = map.size();
-		
-		for(int i = 0  ; i < size ; i++)
-		{
-			xData2[i] = map.firstKey();
-			yData2[i] = map.remove(xData2[i]);
-			//System.out.println(xData2[i] + " " + yData2[i]);
-		}
-		this.xData = xData2;
-		this.yData = yData2;
-	}
-	
-
-	/**
+    /**
      * Initialize the statistics for the X and Y data values.
      */
     private void initStatistics() {
@@ -235,6 +202,20 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
     }
     
     /**
+	 * @return the maximumYDisplayed
+	 */
+	public double getMaximumYDisplayed() {
+		return maximumYDisplayed;
+	}
+
+	/**
+	 * @return the minimumYDisplayed
+	 */
+	public double getMinimumYDisplayed() {
+		return minimumYDisplayed;
+	}
+
+	/**
      * Returns the name associated with the X-axis values.
      * 
      * @return the name associated with the X-axis values.
@@ -320,6 +301,7 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
      */
     public void computePoints(double left, double right, double top, double bottom) {
         // Calculate the points and graph-trails for the given bounds
+    	int len;
         int lastIndex = xData.length - 1;
         
         int leftIndex = Arrays.binarySearch(xData,left);
@@ -381,27 +363,87 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
         // We assume that the x values from the points array are sorted in ascending order.
         if (points == null) {
             xPointValues = null;
+            maximumYDisplayed = yMax;
+            minimumYDisplayed = yMin;
+            len = 0;
         } else {
-            int len = points.length;
+            len = points.length;
             if ((xPointValues == null) || (xPointValues.length != len)) {
                 xPointValues = new double[len];
             }
+            
+            maximumYDisplayed = Double.NEGATIVE_INFINITY;
+            minimumYDisplayed = Double.POSITIVE_INFINITY;
             for (int i = 0; i < len; i++) {
                 xPointValues[i] = points[i].x;
+                maximumYDisplayed = Math.max(points[i].yArray[0], maximumYDisplayed);
+                minimumYDisplayed = Math.min(points[i].yArray[0], minimumYDisplayed);
+} // end for i
+// handle the case that the data is essentially constant
+            if ((maximumYDisplayed-minimumYDisplayed) <
+            		AnalyzedData.MINIMUM_OBSERVABLE_FRACTION*(top-bottom)) {
+            	maximumYDisplayed = minimumYDisplayed+AnalyzedData.MINIMUM_OBSERVABLE_FRACTION*(top-bottom);
             }
         }
         
         // Dispose of the current graph trails array so we don't have a memory leak.
         disposeGraphTrails();
         
-        // Generate the trails used for graphing the model of the real data.
-        graphTrails = TrailUtil.getGraphTrailsFrom(points,maxJump);
-        
+        // handle the case when we want to scale
+        // display to the top and bottom supplied parameters
+if(scaledGraphTrailsToFitBounds) {
+	MultiPointXY[] scaledPoints = new MultiPointXY[len];
+	double f=(top-bottom)/(maximumYDisplayed-minimumYDisplayed);
+	
+//System.out.println("Scaling individual AnalyzedData");
+for (int i = 0; i < len; i++) {
+	MultiPointXY newPoint = new MultiPointXY(points[i].x,
+			bottom+f*(points[i].yArray[0]-minimumYDisplayed));
+	
+	scaledPoints[i] = newPoint;
+//	System.out.println("New Point = " + newPoint);
+	} // end for i
+	graphTrails = TrailUtil.getGraphTrailsFrom(scaledPoints,maxJump);
+} else {
+//	Generate the trails used for graphing the model of the real data.
+    graphTrails = TrailUtil.getGraphTrailsFrom(points,maxJump);
+}
+                 
         // Update the preferred bounds we keep for this analyzed data.
         preferredBounds.setBounds(left, right, top, bottom);
     }
     
     /**
+     * Called with true, causes this <code>AnalyzedData</code> to scale its 
+     * <code>GraphTrails</code> to fill the display.
+	 * @param scaledGraphTrailsToFitBounds the scaledGraphTrailsToFitBounds to set
+	 */
+	public void setScaledGraphTrailsToFitBounds(boolean scaleGraphTrailsToFitBounds) {
+		this.scaledGraphTrailsToFitBounds = scaleGraphTrailsToFitBounds;
+	}
+
+	/**
+	 * @return the scaledForSonification
+	 */
+	public boolean isScaledForSonification() {
+		return scaledForSonification;
+	}
+
+	/**
+	 * @return the scaledGraphTrailsToFitBounds
+	 */
+	public boolean isScaledGraphTrailsToFitBounds() {
+		return scaledGraphTrailsToFitBounds;
+	}
+
+	/**
+	 * @param scaledForSonification the scaledForSonification to set
+	 */
+	public void setScaledForSonification(boolean scaledForSonification) {
+		this.scaledForSonification = scaledForSonification;
+	}
+
+	/**
      * Returns the bounds of the data which represents the minimum and maximum
      * X and Y values.
      * 

@@ -19,6 +19,8 @@ import gov.nasa.ial.mde.properties.MdeSettings;
 import gov.nasa.ial.mde.solver.Solution;
 import gov.nasa.ial.mde.solver.Solver;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedData;
+import gov.nasa.ial.mde.solver.symbolic.AnalyzedItem;
+
 
 /**
  * Class to generate the audio used to sonify data or equations in the form of
@@ -259,7 +261,8 @@ public class Sounder extends MultiWavePlayer {
         boolean noiseOn = false;
         MultiPointXY point, modelPoint;
         Solution solution;
-        AnalyzedData analyzedData;
+        AnalyzedItem analyzedItem=null;
+		AnalyzedData analyzedData=null;
         PointXY realDataPoint;
         int i, n;
         float f;
@@ -271,8 +274,10 @@ public class Sounder extends MultiWavePlayer {
         double right = solver.getRight();
         double top = solver.getTop();
         double bottom = solver.getBottom();
-        double midY = 0.5 * (top + bottom);
-        double invHalfHeight = 2.0 / (top - bottom);
+        double defaultMidY = 0.5 * (top + bottom);
+        double defaultInvHalfHeight = 2.0 / (top - bottom);
+        double midY = defaultMidY;
+        double invHalfHeight=defaultInvHalfHeight;
 
         // For the given bounds and position, calculate the relative x-value.
         double x = left + position * (right - left);
@@ -299,6 +304,18 @@ public class Sounder extends MultiWavePlayer {
             if (!solution.isSonifyGraph() || ((point = solution.getPointNear(x)) == null)) {
                 continue;
             }
+
+// Do special stuff in case we have data
+if((analyzedItem=solution.getAnalyzedItem()) instanceof AnalyzedData) {
+                analyzedData = (AnalyzedData)analyzedItem;
+                if (analyzedData.isScaledForSonification()) {
+                midY = 0.5 * (analyzedData.getMaximumYDisplayed() + analyzedData.getMinimumYDisplayed());
+invHalfHeight = 2.0 / (analyzedData.getMaximumYDisplayed() - analyzedData.getMinimumYDisplayed());
+                } else {
+midY = defaultMidY;
+invHalfHeight = defaultInvHalfHeight;
+                } // end else
+} // end if
 
             // If the solution is polar then adjust the pan as needed.
             if (solution.isPolar()) {
