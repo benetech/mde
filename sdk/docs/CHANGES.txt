@@ -12,7 +12,7 @@ Beneficent Technologies (Benetech), http://www.benetech.org/
 Changes to the Math Description Engine (MDE) Software Development Kit
 
 -------------------------------------------------------------------------------
-v3.0.0 Build-201207201621 - July 20, 2012
+v3.1.0 Build-201207271407 - July 27, 2012
 Changes since v1.0.1 Build-200609261530
 -------------------------------------------------------------------------------
 Developer: Terry Hodgson for Beneficent Technologies, benetech.org

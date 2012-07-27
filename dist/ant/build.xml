@@ -393,7 +393,6 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
     	 <manifest>
     	 	<attribute name="Main-Class" value="gov.nasa.ial.mde.ui.DescriberAndGraphPanel"/>
     	 </manifest>
-
 	</jar>
 </target>
 

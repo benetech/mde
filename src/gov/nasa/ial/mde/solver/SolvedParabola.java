@@ -172,6 +172,7 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
             "directrix",
             "line given by " + QuadraticClassifier.getEquationOfALine(directrixPoint, directrixInclination, analyzedEq.getActualVariables()));
         putFeature("openDirection", SolvedGraph.getGeneralDir(ope));
+        //TO DO:  
         //putFeature("openDirection", SolvedGraph.getCompassDir(axisInclination));
 
         /* find domain, range and ascending/descending regions */
