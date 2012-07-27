@@ -1,0 +1,1011 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Welcome to Web MDE</title>
+	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.7.2.custom.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="css/smoothness/ui.spinner.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
+	<link rel="stylesheet" href="css/jquery.treeview.css" type="text/css" />
+	<style>
+	body {
+		font-size:12px;
+		font-family: Tahoma, Geneva, sans-serif;
+		color: #333;
+	}
+	#napkeeCanvas {
+		position:absolute;
+		left:0px;
+		top:0px;
+	}
+	.napkeeComponent {
+		position:absolute;
+		font-size:12px;
+		font-family: Tahoma, Geneva, sans-serif;
+		white-space: nowrap;
+	}
+	.napkeeRelativeComponent {
+		position:absolute;
+		font-size:12px;
+		font-family: Tahoma, Geneva, sans-serif;
+		white-space: nowrap;
+	}
+	
+	
+#web-mde74{
+	left:43px;
+	top:117px;
+	z-index:1;
+	opacity:1;
+	filter:alpha(opacity=100);
+}
+#web-mde74n {
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+}
+#web-mde74n.napkeeHorizontalTabsTop LI.selected {
+	border-bottom: 1px solid #FFFFFF;
+}
+
+#web-mde74n.napkeeHorizontalTabsBottom LI.selected {
+	border-top: 1px solid #FFFFFF;
+}
+
+#web-mde74t {
+	background-color:#FFFFFF;
+	position:absolute;
+}
+	
+#web-mde8{
+	left:39px;
+	top:70px;
+	width:1234px;
+	height:40px;
+	z-index:2;
+	background-color:#9FC5F8;
+	opacity:1;
+	filter:alpha(opacity=100);
+	border:0px solid #000;
+	-moz-border-radius:0px;
+	-webkit-border-radius:0px;
+}
+	
+#web-mde7{
+	left:323px;
+	top:12px;
+	width:253px;
+	height:22px;
+	z-index:3;
+	font-size: 14px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	color:#000000;
+}
+
+	
+#web-mde10{
+	left:4px;
+	top:6px;
+	width:298px;
+	height:33px;
+	z-index:4;
+	font-size: 24px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:center;
+	color:#000000;
+}
+	
+#web-mde17{
+	left:7px;
+	top:8px;
+	width:632px;
+	height:132px;
+	z-index:5;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	opacity:1.0;
+	filter:alpha(opacity=100);
+	background-color:#EEEEEE;
+	margin:0;
+	padding:0;
+}
+	
+#web-mde20{
+	left:30px;
+	top:23px;
+	width:63.800000000000004px;
+	height:21px;
+	z-index:6;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+}
+	
+#web-mde21{
+	left:6px;
+	top:58px;
+	width:585px;
+	height:64px;
+	z-index:7;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	opacity:1.0;
+	filter:alpha(opacity=100);
+	background-color:#FFFFFF;
+	margin:0;
+	padding:0;
+}
+	
+#web-mde24{
+	left:19px;
+	top:24px;
+	width:20.900000000000002px;
+	height:22px;
+	z-index:8;
+	font-size: 14px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+}
+	
+#web-mde27{
+	left:60px;
+	top:21px;
+	width:81px;
+	z-index:9;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 13px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#web-mde28{
+	left:178px;
+	top:24px;
+	width:19.8px;
+	height:22px;
+	z-index:10;
+	font-size: 14px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+}
+	
+#web-mde29{
+	left:219px;
+	top:21px;
+	width:81px;
+	z-index:11;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 13px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#web-mde30{
+	left:348px;
+	top:24px;
+	width:19.8px;
+	height:22px;
+	z-index:12;
+	font-size: 14px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+}
+	
+#web-mde31{
+	left:389px;
+	top:21px;
+	width:81px;
+	z-index:13;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 13px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#web-mde33{
+	left:50px;
+	top:304px;
+	width:631px;
+	height:227px;
+	z-index:14;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	opacity:1.0;
+	filter:alpha(opacity=100);
+	background-color:#EEEEEE;
+	margin:0;
+	padding:0;
+}
+	
+#web-mde60{
+	left:692px;
+	top:618px;
+	width:84px;
+	height: 30px;
+	z-index:15;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 13px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+}
+	
+#web-mde61{
+	left:692px;
+	top:132px;
+	width:566px;
+	height:483px;
+	z-index:16;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	opacity:1;
+	filter:alpha(opacity=100);
+	background-color:#EEEEEE;
+	margin:0;
+	padding:0;
+}
+	
+#web-mde62{
+	left:17px;
+	top:22px;
+	width:533px;
+	height:423px;
+	z-index:17;
+	border:0px solid;
+}
+
+#web-mde62table{
+	left:709px;
+	top:154px;
+	width:533px;
+	height:423px;
+	z-index:18;
+	display:none;
+}
+
+#web-mde62label{
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#web-mde63{
+	left:692px;
+	top:354px;
+	width:35px;
+	z-index:18;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 10px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#web-mde64{
+	left:266px;
+	top:11px;
+	width:35px;
+	z-index:19;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 10px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#ATL{
+	left:266px;
+	top:436px;
+	width:35px;
+	z-index:20;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 10px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#web-mde66{
+	left:1223px;
+	top:354px;
+	width:35px;
+	z-index:21;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 10px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+}
+	
+#web-mde68{
+	left:501px;
+	top:450px;
+	width:24px;
+	height:24px;
+	z-index:22;
+	border:0px solid;
+}
+	
+#web-mde69{
+	left:477px;
+	top:450px;
+	width:24px;
+	height:24px;
+	z-index:23;
+	border:0px solid;
+}
+	
+#web-mde71{
+	left:779px;
+	top:621px;
+	width:474px;
+	height:25px;
+	z-index:24;
+	background-color:#CCCCCC;
+	opacity:1;
+	filter:alpha(opacity=100);
+	border:0px solid #333333;
+	-moz-border-radius:0px;
+	-webkit-border-radius:0px;
+}
+	
+#web-mde72{
+	left:146px;
+	top:7px;
+	width:322px;
+	z-index:25;
+	font-size: 10px;
+}
+	
+#web-mde58{
+	left:29px;
+	top:22px;
+	width:587px;
+	height:177px;
+	z-index:26;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+	white-space: normal;
+}
+	
+#web-mde73{
+	left:18px;
+	top:2px;
+	width:105.60000000000001px;
+	height:21px;
+	z-index:27;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:bold;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+}
+	
+#web-mde80{
+	left:530px;
+	top:579px;
+	width:150px;
+	height: 30px;
+	z-index:28;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 13px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+}
+	
+#web-mde81{
+	left:377px;
+	top:579px;
+	width:148px;
+	height: 30px;
+	z-index:29;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 13px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+}
+	
+#web-mde82{
+	left:2px;
+	top:450px;
+	width:103px;
+	height: 27px;
+	z-index:30;
+	background-color:#FFFFFF;
+	color:#000000;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+}
+	
+#web-mde83{
+	left:613px;
+	top:28px;
+	height:169px;
+	z-index:31;
+	font-size: 10px;
+}
+	
+#web-mde84{
+	left:90px;
+	top:24px;
+	width:392px;
+	z-index:32;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+}
+	
+#web-mde77{
+	left:0px;
+	top:162px;
+	width:37px;
+	height:39px;
+	z-index:33;
+	background-color:#FFFF00;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+}
+	
+#web-mde85{
+	left:43px;
+	top:713px;
+	width:37px;
+	height:37px;
+	z-index:34;
+	background-color:#FFFF00;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+}
+	
+#web-mde86{
+	left:91px;
+	top:717px;
+	width:271px;
+	height:80px;
+	z-index:35;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+	white-space: normal;
+}
+	
+#web-mde87{
+	left:404px;
+	top:715px;
+	width:39px;
+	height:39px;
+	z-index:36;
+	background-color:#FFFF00;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+}
+	
+#web-mde88{
+	left:452px;
+	top:719px;
+	width:271px;
+	height:80px;
+	z-index:37;
+	font-size: 12px;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:left;
+	color:#000000;
+	white-space: normal;
+}
+	
+#web-mde89{
+	left:0px;
+	top:220px;
+	width:39px;
+	height:39px;
+	z-index:38;
+	background-color:#FFFF00;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+}
+	
+	</style>
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	
+
+	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.spinner.js"></script>
+	<script type="text/javascript" src="js/jquery.querystring.js"></script>
+	<script type="text/javascript" src="js/jquery.substitute.js"></script>
+	<script type="text/javascript" src="js/napkee.templater.js"></script>
+	<script type="text/javascript" src="js/napkee.tabs.js"></script>
+	<script type="text/javascript" src="js/jquery.sparkline.min.js"></script>
+	<script type="text/javascript" src="js/jquery.treeview.min.js"></script>
+	<script type="text/javascript" src="js/jquery.jmap.min.js"></script>
+	<script type="text/javascript" src="js/colorpicker.js"></script>
+	<script type="text/javascript" src="js/jquery.swfobject.1-0-5.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tagcloud.min.js"></script>
+	<script type="text/javascript" src="js/jquery.iphone-switch.js"></script>
+	<script type="text/javascript" src="js/swfobject.js"></script>
+	<!--[if lt IE 7.]>
+		<script defer type="text/javascript" src="js/pngfix.js"></script>
+	<![endif]-->
+	
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			$(".napkeeVerticalScrollHandle").draggable({ containment: 'parent', axis: 'y', cursor: 'pointer'  });
+			$(".napkeeVerticalScrollArrowUp").click(function(){
+				var numericTop = ($(this).next().find("div").css("top").substring(0,$(this).next().find("div").css("top").length-2))*1;
+				if ($(this).next().find("div").css("top") == null || $(this).next().find("div").css("top") == "auto") {
+					numericTop = 0;
+				}
+				if (numericTop>0){
+					$(this).next().find("div").css("top",(numericTop-2)+"px");
+				}
+			});
+			
+			$(".napkeeVerticalScrollArrowDown").click(function(){
+				var numericTop = ($(this).prev().find("div").css("top").substring(0,$(this).prev().find("div").css("top").length-2))*1;
+				if ($(this).prev().find("div").css("top") == null || $(this).prev().find("div").css("top") == "auto") {
+					numericTop = 0;
+				}
+				if (numericTop+$(this).prev().find("div").height()<$(this).prev().height()-2){
+					$(this).prev().find("div").css("top",(numericTop+2)+"px");
+				}
+			});
+			$(".napkeeHorizontalScrollHandle").draggable({ containment: 'parent', axis: 'x', cursor: 'pointer'  });
+			$(".napkeeHorizontalScrollArrowLeft").click(function(){
+				var numericLeft = ($($(this).parent().next().children()[0]).find("div").css("left").substring(0,$($(this).parent().next().children()[0]).find("div").css("left").length-2))*1;
+				if ($($(this).parent().next().children()[0]).find("div").css("left") == null || $($(this).parent().next().children()[0]).find("div").css("left") == "auto") {
+					numericLeft = 0;
+				}
+				if (numericLeft>0){
+					$($(this).parent().next().children()[0]).find("div").css("left",(numericLeft-1)+"px");
+				}
+			});
+			
+			$(".napkeeHorizontalScrollArrowRight").click(function(){
+				var numericLeft = ($($(this).parent().prev().children()[0]).find("div").css("left").substring(0,$($(this).parent().prev().children()[0]).find("div").css("left").length-2))*1;
+				if ($($(this).parent().prev().children()[0]).find("div").css("left") == null || $($(this).parent().prev().children()[0]).find("div").css("left") == "auto") {
+					numericLeft = 0;
+				}
+				if (numericLeft+$($(this).parent().prev().children()[0]).find("div").width()<$($(this).parent().prev().children()[0]).find("div").parent().width()-2){
+					$($(this).parent().prev().children()[0]).find("div").css("left",(numericLeft+1)+"px");
+				}
+			});
+			
+	$("#web-mde74").napkeeTabs({position:"top", width:644, height:179, alignment:"left", selectedTab: 1});
+	
+$("#web-mde74").click(function(event){
+});
+
+$("#web-mde74i0").click(function(event){
+	showMockup('MDEWebUIShape.html');
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+
+$("#web-mde74i1").click(function(event){
+	showMockup('MDEWebUIEquation.html');
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+
+$("#web-mde74i2").click(function(event){
+	showMockup('MDEWebUIDataPlot.html');
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+
+	
+$("#web-mde8").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+
+$("#web-mde7").click(function(event){
+});
+
+$("#web-mde7i0").click(function(event){
+	showMockup('MDEWebUIShape.html');
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+
+$("#web-mde7i1").click(function(event){
+	showMockup('MDEWebUISettingsGraph.html');
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+
+$("#web-mde7i2").click(function(event){
+});
+
+$("#web-mde7i3").click(function(event){
+});
+
+$("#web-mde7i4").click(function(event){
+});
+
+	
+$("#web-mde10").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde20").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde24").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde27").click(function(event){
+	event.stopPropagation();
+	event.preventDefault();
+});
+	
+$("#web-mde28").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde29").click(function(event){
+	event.stopPropagation();
+	event.preventDefault();
+});
+	
+$("#web-mde30").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde31").click(function(event){
+	event.stopPropagation();
+	event.preventDefault();
+});
+	
+$("#web-mde60").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde62").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde63").click(function(event){
+	event.stopPropagation();
+	event.preventDefault();
+});
+	
+$("#web-mde64").click(function(event){
+	event.stopPropagation();
+	event.preventDefault();
+});
+	
+$("#ATL").click(function(event){
+	event.stopPropagation();
+	event.preventDefault();
+});
+	
+$("#web-mde66").click(function(event){
+	event.stopPropagation();
+	event.preventDefault();
+});
+	
+$("#web-mde68").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde69").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde71").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$('#web-mde72').slider({
+	min: 0,
+	max: 100,
+	orientation: 'horizontal',
+	value: 31
+});
+$('#web-mde72').slider('enable');
+	
+$("#web-mde58").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde73").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde80").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde81").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde82").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$('#web-mde83').slider({
+	min: 0,
+	max: 100,
+	orientation: 'vertical',
+	value: 100
+});
+$('#web-mde83').slider('enable');
+	
+$("#web-mde84").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde86").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+$("#web-mde88").click(function(event){
+	
+	event.stopPropagation();
+	event.preventDefault();
+
+});
+	
+		});
+	</script>
+	
+</head>
+
+<body>
+
+		
+
+
+		
+<table id="web-mde74" border="0" cellspacing="0" cellpadding="0" class="napkeeComponent napkeeTabbar">
+	<tr>
+		<td valign="bottom">
+			<ul id="web-mde74n" class="napkeeTabs">
+				<li><a id="web-mde74i0" href="#web-mde74-0">Graph Shape</a></li>
+				<li><a id="web-mde74i1" href="#web-mde74-1">Equation</a></li>
+				<li><a id="web-mde74i2" href="#web-mde74-2">Data Plot</a></li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="644" height="167" valign="top">
+			<div id="web-mde74t" class="napkeeTabsDivs">
+				<div id="web-mde74-0"></div>
+				<div id="web-mde74-1">
+<fieldset id="web-mde17" class="napkeeRelativeComponent napkeeFieldSet">
+	<legend><b>Graph by Equation</b></legend>
+	
+<span id="web-mde20" class="napkeeRelativeComponent napkeeLabel ">Equation</span>
+	
+<fieldset id="web-mde21" class="napkeeRelativeComponent napkeeFieldSet">
+	<legend><b>Equation Parameters</b></legend>
+	
+<span id="web-mde24" class="napkeeRelativeComponent napkeeLabel ">a:</span>
+	
+<input id="web-mde27" type="text" value="1.0" class="napkeeRelativeComponent napkeeTextinput" />
+	
+<span id="web-mde28" class="napkeeRelativeComponent napkeeLabel ">b:</span>
+	
+<input id="web-mde29" type="text" value="10.0" class="napkeeRelativeComponent napkeeTextinput" />
+	
+<span id="web-mde30" class="napkeeRelativeComponent napkeeLabel ">c:</span>
+	
+<input id="web-mde31" type="text" value="100.0" class="napkeeRelativeComponent napkeeTextinput" />
+	
+</fieldset>
+	
+<select id="web-mde84" class="napkeeRelativeComponent napkeeCombobox">
+<option>y&ndash;k = (x&ndash;h)^2/(4c)</option>
+</select>
+	
+</fieldset>
+	</div>
+				<div id="web-mde74-2"></div>
+			</div>
+		</td>
+	</tr>
+</table>
+
+	
+<div id="web-mde8" class="napkeeComponent napkeeCanvas">
+<ul id="web-mde7" class="napkeeRelativeComponent napkeeLinkbar" role="navigation">
+<li class="linkbarStart linkbarBorder"><a href="#" id="web-mde7i0">Math</a></li><li class="linkbarBorder"><a href="#" id="web-mde7i1">Settings</a></li><li class="linkbarBorder"><a href="#" id="web-mde7i2">Help</a></li><li class="linkbarEnd"><a href="#" id="web-mde7i3">Bookshare</a></li>
+</ul>
+	
+<span id="web-mde10" class="napkeeRelativeComponent napkeeSubTitle">Web MDE</span>
+	</div>
+	
+<fieldset id="web-mde33" class="napkeeComponent napkeeFieldSet">
+	<legend><b>Graph Description</b></legend>
+	
+<div id="web-mde58" class="napkeeRelativeComponent napkeeParagraph" cellspacing="0" cellpadding="0"><b>Equation:</b> The equation text goes here.<br/><b>Name of Graph:</b> The name of the graph (shape) goes here.<br/><b>Parameter:</b> User defined or/defaults, whichever is current.<br/><br/><b>Description:</b><br/>The detailed description goes here. The <a href="#">links</a> contained within the text to definitions should point to the same source where MathTrax does.<br/><br/></div>
+	
+<div id="web-mde83" class="napkeeRelativeComponent napkeeVslider"></div>
+	
+</fieldset>
+	
+<button id="web-mde60" type="button" class="napkeeComponent napkeeButton"><table align="center"><tr><td valign="middle"><img src="icons/napkee/VolumeIcon.png" width="16" height="16" /> </td><td valign="middle">Play</td></tr></table></button>
+	
+<fieldset id="web-mde61" class="napkeeComponent napkeeFieldSet">
+	<legend>Graph</legend>
+	
+<img id="web-mde62" src="images/imported/graph_web-mde62.png" class="napkeeRelativeComponent napkeeImage" />
+<table border="0" id="web-mde62table" class="napkeeComponent napkeeImageTable" >
+	<tr>
+		<td align="center" valign="middle">
+			<span id="web-mde62label" class="napkeeImageLabel"></span>
+		</td>
+	</tr>
+</table>
+
+	
+<input id="web-mde64" type="text" value="100" class="napkeeRelativeComponent napkeeTextinput" />
+	
+<input id="ATL" type="text" value="100" class="napkeeRelativeComponent napkeeTextinput" />
+	
+<img id="web-mde68" src="icons/napkee/CircledMinusIcon.png" class="napkeeRelativeComponent napkeeIcon rotate360" />
+	
+<img id="web-mde69" src="icons/napkee/CircledPlusIcon.png" class="napkeeRelativeComponent napkeeIcon rotate360" />
+	
+<button id="web-mde82" type="button" class="napkeeRelativeComponent napkeeButton">Center Graph</button>
+	
+</fieldset>
+	
+<input id="web-mde63" type="text" value="100" class="napkeeComponent napkeeTextinput" />
+	
+<input id="web-mde66" type="text" value="100" class="napkeeComponent napkeeTextinput" />
+	
+<div id="web-mde71" class="napkeeComponent napkeeCanvas">
+<div id="web-mde72" class="napkeeRelativeComponent napkeeHslider"></div>
+	
+<span id="web-mde73" class="napkeeRelativeComponent napkeeLabel ">Explore Values:</span>
+	</div>
+	
+<button id="web-mde80" type="button" class="napkeeComponent napkeeButton"><table align="center"><tr><td valign="middle"><img src="icons/napkee/PrintIcon.png" width="16" height="16" /> </td><td valign="middle">Print Graph</td></tr></table></button>
+	
+<button id="web-mde81" type="button" class="napkeeComponent napkeeButton"><table align="center"><tr><td valign="middle"><img src="icons/napkee/PrintIcon.png" width="16" height="16" /> </td><td valign="middle">Print Description</td></tr></table></button>
+	
+<div id="web-mde77" class="napkeeComponent napkeeCallout">1</div>
+	
+<div id="web-mde85" class="napkeeComponent napkeeCallout">1</div>
+	
+<div id="web-mde86" class="napkeeComponent napkeeParagraph" cellspacing="0" cellpadding="0">The combobox will allow a user to either type an equation or select from a list of examples in the dropdown. &ndash; Similar to MathTrax's current capabilities.<br/></div>
+	
+<div id="web-mde87" class="napkeeComponent napkeeCallout">2</div>
+	
+<div id="web-mde88" class="napkeeComponent napkeeParagraph" cellspacing="0" cellpadding="0">The number and type of parameters depend on equation type. In this example the equation has three parameters.<br/></div>
+	
+<div id="web-mde89" class="napkeeComponent napkeeCallout">2</div>
+	
+	
+
+
+</body>
+</html>
