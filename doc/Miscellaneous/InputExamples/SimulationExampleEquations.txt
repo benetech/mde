@@ -1,0 +1,9 @@
+y = -x
+y = 2*sin(x)
+y = 10 -x^2/10
+y = a - (x^2) / b
+y = a - (x - b)^2/c
+y = a * x * cos(x - b)
+y = sin(x - a) - b * x + c
+r = 2
+r = sin(3 * theta)

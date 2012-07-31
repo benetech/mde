@@ -1,0 +1,20 @@
+MathTrax Operators 
+Use the following operators to enter equations: 
+      SymbolOperationExample
+      +	Add				y=3+x
+      *	Multiply			y=3*x
+      -	Subtract			y=x-2
+      /	Divide			y=x/4
+      ^	Exponent			y=x^2
+      =	Equal				y=3*x^2-1
+      sqrt	Square Root			y=sqrt(x)
+      exp	Exponential Function	y=exp(x)
+      log	Natural Logarithm		y=log(x)
+      pi	Real Number Pi		y=pi*x
+      sin	Sine				y=sin(x)
+      cos	Cosine			y=cos(x)
+      tan	Tangent			y=tan(x)
+      ()	Parentheses			y=(x/3)^2
+
+       
+  

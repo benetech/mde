@@ -1,0 +1,38 @@
+       
+MathTrax Keyboard Shortcuts
+Java-capable screen-readers will voice, "MathTrax", when the MathTrax 
+application opens. Tab once to a set of five tabbed panes: Equations, Data, 
+Physics, Settings, Information. The Physics pane has two subpanes. Use the right 
+and left arrow keys, or the Alt Key shortcuts listed below to move among tabbed 
+panes. Use the Tab key, or the CTRL key shortcuts listed below to move within a 
+tabbed pane. Use CTRL+Tab to escape the data table component in the Data Pane. 
+      Keyboard ShortcutNameFunction
+      Alt + E Show Equation PanelShows the equation graphing panel.
+      Alt + D Show Data PanelShows the data graphing panel.
+      Alt + P Show Physics PanelShows the physics panel, containing the Roller 
+      Coaster and Rocket Simulation subpanels.
+      Alt + S Show Settings PanelShows the settings panel.
+      Alt + I Show Info PanelShows the info panel.
+      Ctrl + B Go to Graph BoundsPlaces the cursor in the first graph bounds 
+      field.
+      Ctrl + D Go to DescriptionSelects the Graph Description.
+      Ctrl + E Go to EquationPlaces the cursor in the Equation input field.
+      Ctrl + F Go to First Data Set CheckboxMoves the cursor to the First data 
+      set checkbox.
+      Ctrl + G Go to GraphSelects the Graph.
+      Ctrl + I Zoom-In GraphZoom the graph in.
+      Ctrl + K Select/Deselect All Data SetsSelect and or deselect all the data 
+      sets.
+      Ctrl + O Zoom-Out GraphZoom the graph out.
+      Ctrl + P Go to ParameterPlaces the cursor in the first equation parameter 
+      field.
+      Ctrl + R Reset GraphResets the graph.
+      Ctrl + S Go to SonifySelects the Sonify button of the sound controls.
+      Ctrl + T Rescale Graph to Fit DataRescales the graph to fit the selected 
+      data sets.
+
+ 
+   
+
+       
+  
