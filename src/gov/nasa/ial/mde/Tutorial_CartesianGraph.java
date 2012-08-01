@@ -32,8 +32,6 @@ public class Tutorial_CartesianGraph {
         // Add our graph panel to the window.
         window.getContentPane().add(grapher);
         window.pack();
-        window.setVisible(true);
-        window.toFront();
 
         // Give Solver an equation attempt to solve:
         String equation = "y=x^2-2";
