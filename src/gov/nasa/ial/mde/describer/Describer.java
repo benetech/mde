@@ -58,8 +58,14 @@ import javax.xml.transform.stream.StreamSource;
  * @author Terry Hodgson
  * @version 1.0
  */
+/**
+ * @author terry
+ *
+ */
 public class Describer {
 
+	//TODO:  The output format options should be in an enum! Ditto the default modes.
+	
     /**
      * HTML output indicator
      */
@@ -79,6 +85,11 @@ public class Describer {
      * visual description mode indicator
      */
     public static final String VISUAL       = "visual";
+    
+    /**
+     * default template for visual mode
+     */
+    public static final String VISUAL_TEMPLATE = "mdeApplyVisual1.xsl";
 
     /**
      * math description mode indicator
@@ -86,9 +97,19 @@ public class Describer {
     public static final String MATH         = "math";
     
     /**
+     * default template for math mode
+     */
+    public static final String MATH_TEMPLATE = "mdeApplyMath1.xsl";
+    
+    /**
      * educational standards description mode indicator
      */
     public static final String STANDARDS         = "standards";
+    
+    /**
+     * default template for standards mode (based on Ga Tech Sonification Lab survey)
+     */
+    public static final String STANDARDS_TEMPLATE = "mdeApplyStandards1.xsl";
 
     /**
      * MDE <code>Solver</code> object which provides the graph data to be
@@ -96,7 +117,9 @@ public class Describer {
      */
     private Solver             solver;
 
-    /**
+
+
+	/**
      * Comment for <code>tFactory</code>
      */
     private TransformerFactory tFactory;
@@ -111,6 +134,10 @@ public class Describer {
      * Comment for <code>currentDescriptionMode</code>
      */
     private String             currentDescriptionMode;
+    
+    private String			   currentDescriptionTemplate;
+    
+    public static Hashtable<String,String> modeMap = new Hashtable<String,String>();
 
     /**
      * Comment for <code>currentTransformer</code>
@@ -126,6 +153,8 @@ public class Describer {
      * Number of words per line for text format
      */
     private int                wordsPerLine;
+    
+    private MdeSettings 	   mdeSettings;
 
     // Default constructor not allowed.
     @SuppressWarnings("unused")
@@ -154,17 +183,25 @@ public class Describer {
     public Describer(Solver solver, MdeSettings settings) {
         //set defaults
         this.solver = solver;
+        this.mdeSettings = settings;
         this.currentOutputFormat = TEXT_OUTPUT;
         this.wordsPerLine = 15;
+        
+        //TODO:  Defaults should be in a hashtable (in MdeSettings) and all default modes loaded
+        // here cycling through the hashtable.
+        modeMap.put(VISUAL, VISUAL_TEMPLATE);
+        modeMap.put(MATH, MATH_TEMPLATE);
+        modeMap.put(STANDARDS, STANDARDS_TEMPLATE);
 
         configureTranformerFactory();
 
-        //TODO: The template/mode defaults should probably be set in MdeSettings
+        //TODO: The template/mode defaults should be stored in MdeSettings
+        // Also currentMode and currentDefaultMode
 
         transformers = new Hashtable<String, Transformer>();
-        addDescriptionMode("visual", "mdeApplyVisual1.xsl");
-        addDescriptionMode("math", "mdeApplyMath1.xsl");
-        addDescriptionMode("standards", "mdeApplyStandards1.xsl");
+        addDescriptionMode(VISUAL, VISUAL_TEMPLATE);
+        addDescriptionMode(MATH, MATH_TEMPLATE);
+        addDescriptionMode(STANDARDS, STANDARDS_TEMPLATE);
 
         // Set initial description mode to the settings default
         this.currentDescriptionMode = settings.getDescriptionMode();
@@ -179,11 +216,17 @@ public class Describer {
      * @param solver the solver to use with this describer.
      * @param settings the MDE settings.
      */
-    public Describer(Solver solver, String myDescriptionMode, String myDescriptionTemplate){
-    	this(solver);
+    public Describer(Solver solver, MdeSettings settings, String myDescriptionMode, String myDescriptionTemplate){
+    	this(solver, settings);
   
     	addDescriptionMode(myDescriptionMode,myDescriptionTemplate);
     	this.currentDescriptionMode = myDescriptionMode;
+    	
+    	//TODO: We won't set the custom mode in MdeSettings until MdeSettings can accomodate
+    	// that (add fields for currentMode different from one of the defaults.
+//    	settings.setDescriptionMode(myDescriptionMode);  // ??????? should I do this?
+    	
+    	this.setCurrentDescriptionTemplate(myDescriptionTemplate);
     	this.currentTransformer = transformers.get(currentDescriptionMode);
  
     }
@@ -333,7 +376,24 @@ public class Describer {
         return b.toString();
     }
 
-    /**
+    public Solver getSolver() {
+		return solver;
+	}
+
+	public void setSolver(Solver solver) {
+		this.solver = solver;
+	}
+	
+	
+    public MdeSettings getMdeSettings() {
+		return mdeSettings;
+	}
+
+	public void setMdeSettings(MdeSettings mdeSettings) {
+		this.mdeSettings = mdeSettings;
+	}
+
+	/**
      * Not yet supported. Lets you specify your own text description mode with
      * corresponding XSLT description templates file.
      * 
@@ -375,7 +435,27 @@ public class Describer {
         return currentDescriptionMode;
     }
 
-    private void configureTranformerFactory() throws TransformerFactoryConfigurationError {
+    public static String getVisualTemplate() {
+		return VISUAL_TEMPLATE;
+	}
+
+	public String getCurrentDescriptionTemplate() {
+		return currentDescriptionTemplate;
+	}
+
+	public void setCurrentDescriptionTemplate(String currentDescriptionTemplate) {
+		this.currentDescriptionTemplate = currentDescriptionTemplate;
+	}
+
+	public static String getMathTemplate() {
+		return MATH_TEMPLATE;
+	}
+
+	public static String getStandardsTemplate() {
+		return STANDARDS_TEMPLATE;
+	}
+
+	private void configureTranformerFactory() throws TransformerFactoryConfigurationError {
         tFactory = TransformerFactory.newInstance();
 
         // Use a resource resolver to find the resources in the resources 
@@ -429,11 +509,12 @@ public class Describer {
             if(MdeSettings.DEBUG)
             {
 
-                System.out.println("transformed Str = "+resultStr);
+//                System.out.println("transformed Str = "+resultStr);
+                System.out.println("transformed cleaned up string= "+cleanUpText(resultStr));
             }
 
             if (currentOutputFormat.equals(TEXT_OUTPUT)) {
-                finalResult = cleanUpText(resultStr, 40);
+                finalResult = cleanUpText(resultStr);
             } else {
                 finalResult = resultStr;
             }
@@ -446,7 +527,22 @@ public class Describer {
         return finalResult;
     }
 
-    private String cleanUpText(String result1, int textLineLength) {
+//    /**
+//     * Convenience method.
+//     * Take a cleanedUp text description (one long line) and break it up into
+//     * multiple lines of approximate length lineLength.
+//     * 
+//     * @param text - a cleanedUp text description
+//     * @lineLength - the approximate line length.
+//     */
+//    public StringBuffer formatTextDescription(String text, int lineLength){
+//		StringBuffer result = new StringBuffer(text);
+//    	int length = text.length();
+//		TODO: write it
+//    }
+    
+//    private String cleanUpText(String result1, int textLineLength) {
+    private String cleanUpText(String result1) {
         int i = 0;
 
         //If it's HTML, we don't want the tags escaped. HTML viewers *should*

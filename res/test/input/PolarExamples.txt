@@ -1,0 +1,10 @@
+r = cos(theta)
+r = cos (2*theta)
+r = cos (3*theta)
+r = 1 - sin (theta)
+r = 1 - sin (2*theta)
+r^2 = 2*cos(2*theta)
+r = 2 - 3*sin(theta)
+r = 2 - cos(2*theta) - sin(2*theta)
+
+

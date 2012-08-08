@@ -1,55 +1,27 @@
 x = c
-horizontal line
 y = c
-vertical line
 y = x
-line
 y = mx + b
-line
 y = ax^2 + b
-
 y-k = (x-h)^2/(4c)
-
 x^2 + y^2 = c
-
 x^2/a^2 + y^2/b^2 = 1
-
 x^2/a^2 - y^2/b^2 = 1
-
 (x-h)^2/a^2 + (y-k)^2/b^2 = 1
-
 (x-h)^2/a^2 - (y-k)^2/b^2 = c-a
-
 y = b*(((x+a)/abs(x+a) - (x-a)/abs(x-a)) - 1)
-
 1/x = (2-y)/(y+3)
-
 y/(1+y) = x^2 - x - 1
-
 y = a * sin(theta)
-
 y = a * cos(theta)
-
 r = a
-
 r = sin(a * theta)
-
 r = sin((a/b)*theta)
-
 r = 1-sin(theta)
-
 r = cos(2*theta) - 2*sin(2*theta)
-
 r = a/(1-e*cos(theta-d*PI/180))
-
 r^2 = 2*a^2*cos(2*theta)
-
 x^2 = c
-
 (y - mx)^2 = c
-
-x^2 - y^2 = 0
-
 (x - ay)^2 - y^2 = 0
-
-
+x^2 - y^2 = 0

@@ -23,5 +23,5 @@ r = a/(1-e*cos(theta-d*PI/180))
 r^2 = 2*a^2*cos(2*theta)
 x^2 = c
 (y - mx)^2 = c
-x^2 - y^2 = 0
 (x - ay)^2 - y^2 = 0
+x^2 - y^2 = 0

@@ -1,0 +1,29 @@
+Cartesian Coordinates,
+x = c,vertical line
+y = c,horizontal line
+y = x,line
+y = mx + b,line
+y = ax^2 + b,parabola
+y-k = (x-h)^2/(4c),parabola
+x^2 + y^2 = c,circle
+x^2/a^2 + y^2/b^2 = 1,ellipse
+x^2/a^2 - y^2/b^2 = 1,hyperbola
+(x-h)^2/a^2 + (y-k)^2/b^2 = 1,Circle/ellipse
+(x-h)^2/a^2 - (y-k)^2/b^2 = c-a,Intersecting lines/hyperbola
+y = b*(((x+a)/abs(x+a) - (x-a)/abs(x-a)) - 1),step function
+1/x = (2-y)/(y+3),hyperbola
+x^2 = c,two parallel lines
+(y - mx)^2 = c,two parallel lines
+x^2 - y^2 = 0,two intersecting lines
+(x - ay)^2 - y^2 = 0,two intersecting lines
+y/(1+y) = x^2 - x - 1,function
+y = a * sin(theta),sine function
+y = a * cos(theta),cosine function
+Polar Coordinates:,
+r = a,circle (polar)
+r = sin(a * theta),polar rose
+r = sin((a/b)*theta),polar rose
+r = 1-sin(theta),cardioid
+r = cos(2*theta) - 2*sin(2*theta),polar rose
+r = a/(1-e*cos(theta-d*PI/180)),parabola (polar)
+r^2 = 2*a^2*cos(2*theta),polar lemniscate
