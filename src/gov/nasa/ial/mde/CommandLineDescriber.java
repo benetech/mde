@@ -24,7 +24,9 @@ public class CommandLineDescriber {
         MdeSettings currentSettings = new MdeSettings("myAppsMdeProperties");
         Solver solver = new Solver();
         // Test out the new constructor
-        Describer describer = new Describer(solver, currentSettings, "algebra1text","mde_ApplyAlgebra1Text.xsl");
+//        Describer describer = new Describer(solver, currentSettings, "algebra1text","mde_ApplyAlgebra1Text.xsl");
+      Describer describer = new Describer(solver, "algebra1text","mde_ApplyAlgebra1Text.xsl");
+
         describer.setOutputFormat(Describer.TEXT_OUTPUT);
 
         // Process equations

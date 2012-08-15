@@ -131,10 +131,10 @@ public class MdeSettings extends Settings {
 	public static final boolean ACCESSIBLE_TTS_DEFAULT = false;
 
 	/** The MDE application version number. */
-	public static final String VERSION = "3.1.1";
+	public static final String VERSION = "3.1.1.1";
 
 	/** The build number which is updated by the Ant build script. */
-	public static final String BUILD_NUMBER = "201208081545";
+	public static final String BUILD_NUMBER = "201208151459";
 
 	/** true if this is a Beta release, false if it is not */
 	public static final boolean BETA_RELEASE = false;

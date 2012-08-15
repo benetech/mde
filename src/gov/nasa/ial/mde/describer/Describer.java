@@ -59,383 +59,413 @@ import javax.xml.transform.stream.StreamSource;
  * @version 1.0
  */
 /**
- * @author terry
+ * Note: Removed or commented out new code with mdeSettings in process of a debug.  
+ * Might think about putting it back.
+ * TRH - 8/15/12
  *
  */
 public class Describer {
 
-	//TODO:  The output format options should be in an enum! Ditto the default modes.
-	
-    /**
-     * HTML output indicator
-     */
-    public static final String HTML_OUTPUT  = "html";
-
-    /**
-     * text output indicator
-     */
-    public static final String TEXT_OUTPUT  = "text";
-
-    /**
-     * XML output format is not implemented yet.
-     */
-    public static final String XML_OUTPUT   = "xml";
-
-    /**
-     * visual description mode indicator
-     */
-    public static final String VISUAL       = "visual";
-    
-    /**
-     * default template for visual mode
-     */
-    public static final String VISUAL_TEMPLATE = "mdeApplyVisual1.xsl";
-
-    /**
-     * math description mode indicator
-     */
-    public static final String MATH         = "math";
-    
-    /**
-     * default template for math mode
-     */
-    public static final String MATH_TEMPLATE = "mdeApplyMath1.xsl";
-    
-    /**
-     * educational standards description mode indicator
-     */
-    public static final String STANDARDS         = "standards";
-    
-    /**
-     * default template for standards mode (based on Ga Tech Sonification Lab survey)
-     */
-    public static final String STANDARDS_TEMPLATE = "mdeApplyStandards1.xsl";
-
-    /**
-     * MDE <code>Solver</code> object which provides the graph data to be
-     * described textually.
-     */
-    private Solver             solver;
-
-
+	// TODO: The output format options should be in an enum! Ditto the default
+	// modes.
 
 	/**
-     * Comment for <code>tFactory</code>
-     */
-    private TransformerFactory tFactory;
+	 * HTML output indicator
+	 */
+	public static final String HTML_OUTPUT = "html";
 
-    /**
-     * Table of initialized XSLT transformers. One per description mode.
-     */
-    
-	private Hashtable<String, Transformer>          transformers;
+	/**
+	 * text output indicator
+	 */
+	public static final String TEXT_OUTPUT = "text";
 
-    /**
-     * Comment for <code>currentDescriptionMode</code>
-     */
-    private String             currentDescriptionMode;
-    
-    private String			   currentDescriptionTemplate;
-    
-    public static Hashtable<String,String> modeMap = new Hashtable<String,String>();
+	/**
+	 * XML output format is not implemented yet.
+	 */
+	public static final String XML_OUTPUT = "xml";
 
-    /**
-     * Comment for <code>currentTransformer</code>
-     */
-    private Transformer        currentTransformer = null;
+	/**
+	 * visual description mode indicator
+	 */
+	public static final String VISUAL = "visual";
 
-    /**
-     * Comment for <code>currentOutputFormat</code>
-     */
-    private String             currentOutputFormat;
+	/**
+	 * default template for visual mode
+	 */
+	public static String VISUAL_TEMPLATE = "mdeApplyVisual1.xsl";
 
-    /**
-     * Number of words per line for text format
-     */
-    private int                wordsPerLine;
-    
-    private MdeSettings 	   mdeSettings;
+	/**
+	 * math description mode indicator
+	 */
+	public static final String MATH = "math";
 
-    // Default constructor not allowed.
-    @SuppressWarnings("unused")
+	/**
+	 * default template for math mode
+	 */
+	public static String MATH_TEMPLATE = "mdeApplyMath1.xsl";
+
+	/**
+	 * educational standards description mode indicator
+	 */
+	public static final String STANDARDS = "standards";
+
+	/**
+	 * default template for standards mode (based on Ga Tech Sonification Lab
+	 * survey)
+	 */
+	public static String STANDARDS_TEMPLATE = "mdeApplyStandards1.xsl";
+
+	/**
+	 * MDE <code>Solver</code> object which provides the graph data to be
+	 * described textually.
+	 */
+	private Solver solver;
+
+	/**
+	 * Comment for <code>tFactory</code>
+	 */
+	private TransformerFactory tFactory;
+
+	/**
+	 * Table of initialized XSLT transformers. One per description mode.
+	 */
+
+	private Hashtable<String, Transformer> transformers;
+
+	/**
+	 * Comment for <code>currentDescriptionMode</code>
+	 */
+	private String currentDescriptionMode;
+
+	private String currentDescriptionTemplate;
+
+	public static Hashtable<String, String> modeMap = new Hashtable<String, String>();
+
+	/**
+	 * Comment for <code>currentTransformer</code>
+	 */
+	private Transformer currentTransformer = null;
+
+	/**
+	 * Comment for <code>currentOutputFormat</code>
+	 */
+	private String currentOutputFormat;
+
+	/**
+	 * Number of words per line for text format
+	 */
+	private int wordsPerLine;
+
+//	private MdeSettings mdeSettings;
+
+	// Default constructor not allowed.
+	@SuppressWarnings("unused")
 	private Describer() {
-        throw new RuntimeException("Default constructor not allowed.");
-    }
+		throw new RuntimeException("Default constructor not allowed.");
+	}
 
-    /**
-     * Construct a Describer object with the given <code>Solver</code> object.
-     * An instance of MdeSettings will be created internally. Use default XSLT
-     * template files.
-     * 
-     * @param solver the solver to use with this describer.
-     */
-    public Describer(Solver solver) {
-        this(solver, new MdeSettings());
-    }
+	/**
+	 * Construct a Describer object with the given <code>Solver</code> object.
+	 * An instance of MdeSettings will be created internally. Use default XSLT
+	 * template files.
+	 * 
+	 * @param solver
+	 *            the solver to use with this describer.
+	 */
+	public Describer(Solver solver) {
+		this(solver, new MdeSettings());
+	}
 
-    /**
-     * Construct a Describer object with the given <code>Solver</code> object
-     * and <code>MdeSettings</code> object. Use default XSLT template files.
-     * 
-     * @param solver the solver to use with this describer.
-     * @param settings the MDE settings.
-     */
-    public Describer(Solver solver, MdeSettings settings) {
-        //set defaults
-        this.solver = solver;
-        this.mdeSettings = settings;
-        this.currentOutputFormat = TEXT_OUTPUT;
-        this.wordsPerLine = 15;
-        
-        //TODO:  Defaults should be in a hashtable (in MdeSettings) and all default modes loaded
-        // here cycling through the hashtable.
-        modeMap.put(VISUAL, VISUAL_TEMPLATE);
-        modeMap.put(MATH, MATH_TEMPLATE);
-        modeMap.put(STANDARDS, STANDARDS_TEMPLATE);
+	/**
+	 * Construct a Describer object with the given <code>Solver</code> object
+	 * and <code>MdeSettings</code> object. Use default XSLT template files.
+	 * 
+	 * @param solver
+	 *            the solver to use with this describer.
+	 * @param settings
+	 *            the MDE settings.
+	 */
+	public Describer(Solver solver, MdeSettings settings) {
+		// set defaults
+		this.solver = solver;
+//		this.mdeSettings = settings;
+		this.currentOutputFormat = TEXT_OUTPUT;
+		this.wordsPerLine = 15;
 
-        configureTranformerFactory();
+//		// TODO: Defaults should be in a hashtable (in MdeSettings) and all
+//		// default modes loaded
+//		// here cycling through the hashtable.
+//		modeMap.put(VISUAL, VISUAL_TEMPLATE);
+//		modeMap.put(MATH, MATH_TEMPLATE);
+//		modeMap.put(STANDARDS, STANDARDS_TEMPLATE);
+//
+		configureTranformerFactory();
 
-        //TODO: The template/mode defaults should be stored in MdeSettings
-        // Also currentMode and currentDefaultMode
+		if (MdeSettings.DEBUG) {
+			System.out.println("AFTER CONFIGURE TRANSFORMER *********");
+		}
+		// TODO: The template/mode defaults should be stored in MdeSettings
+		// Also currentMode and currentDefaultMode
 
-        transformers = new Hashtable<String, Transformer>();
-        addDescriptionMode(VISUAL, VISUAL_TEMPLATE);
-        addDescriptionMode(MATH, MATH_TEMPLATE);
-        addDescriptionMode(STANDARDS, STANDARDS_TEMPLATE);
+		transformers = new Hashtable<String, Transformer>();
+		addDescriptionMode("visual","mdeApplyVisual1.xsl");
+		if (MdeSettings.DEBUG) {
+			System.out.println("AFTER addDescriptionMode visual *********");
+		}
+		addDescriptionMode("math", "mdeApplyMath1.xsl");
+		addDescriptionMode("standards", "mdeApplyStandards1.xsl");
 
-        // Set initial description mode to the settings default
-        this.currentDescriptionMode = settings.getDescriptionMode();
-        this.currentTransformer = transformers.get(currentDescriptionMode);
-    }
-    
-    /**
-     * Construct a Describer object with the given <code>Solver</code> object
-     * and specified template mode and template file. Use my mode and template instead of 
-     * default.
-     * 
-     * @param solver the solver to use with this describer.
-     * @param settings the MDE settings.
-     */
-    public Describer(Solver solver, MdeSettings settings, String myDescriptionMode, String myDescriptionTemplate){
-    	this(solver, settings);
-  
-    	addDescriptionMode(myDescriptionMode,myDescriptionTemplate);
-    	this.currentDescriptionMode = myDescriptionMode;
-    	
-    	//TODO: We won't set the custom mode in MdeSettings until MdeSettings can accomodate
-    	// that (add fields for currentMode different from one of the defaults.
-//    	settings.setDescriptionMode(myDescriptionMode);  // ??????? should I do this?
-    	
-    	this.setCurrentDescriptionTemplate(myDescriptionTemplate);
-    	this.currentTransformer = transformers.get(currentDescriptionMode);
- 
-    }
+		// Set initial description mode to the settings default
+		this.currentDescriptionMode = settings.getDescriptionMode();
+		this.currentTransformer = transformers.get(currentDescriptionMode);
+	}
 
-    /**
-     * Return the MDE description for this equation using the current
-     * description mode.
-     * 
-     * @param equation equation to be described
-     * @return the MDE description for this equation using the current
-     * 			  description mode.
-     */
-    public String getDescription(String equation) {
-        // Use current description mode
-        String result = null;
+	/**
+	 * Construct a Describer object with the given <code>Solver</code> object
+	 * and specified template mode and template file. Use my mode and template
+	 * instead of default.
+	 * 
+	 * @param solver
+	 *            the solver to use with this describer.
+	 * @param settings
+	 *            the MDE settings.
+	 */
+	public Describer(Solver solver, String myDescriptionMode,
+			String myDescriptionTemplate) {
+		this(solver);
 
-        Solution[] sol = solver.get(equation);
-        if ((sol != null) && (sol.length > 0)) {
-            if (MdeSettings.DEBUG) {
-                System.out.println(getClass().getName() + ".getDescription() solution is not null");
-            }
+		addDescriptionMode(myDescriptionMode, myDescriptionTemplate);
+		this.currentDescriptionMode = myDescriptionMode;
 
-            StringBuffer sb = new StringBuffer(128);
-            sb.append("\n<MDE>");
-            SolvedGraph sg = sol[0].getFeatures();
-            if (sg != null) {
-                String sgxml = sg.getXMLString();
-                sb.append(sgxml);
-            }
-            sb.append("\n</MDE>");
-            result = transformXML(sb.toString());
-        }
-        return result;
-    }
+		// TODO: We won't set the custom mode in MdeSettings until MdeSettings
+		// can accomodate
+		// that (add fields for currentMode different from one of the defaults.
+		// settings.setDescriptionMode(myDescriptionMode); // ??????? should I
+		// do this?
 
-    /**
-     * Return the MDE description for this equation using the given description
-     * mode.
-     * 
-     * @param equation the equation as a string.
-     * @param mode either "visual" or "math".
-     * @return the MDE description for this equation using the given description mode.
-     */
-    public String getDescription(String equation, String mode) {
+//		this.setCurrentDescriptionTemplate(myDescriptionTemplate);
+		this.currentTransformer = transformers.get(currentDescriptionMode);
 
-        //If mode has changed, get appropriate Transformer
-        if (!currentDescriptionMode.equals(mode)) {
-            setCurrentDescriptionMode(mode);
-        }
-        return getDescription(equation);
-    }
+	}
 
-    /**
-     * Return MDE descriptions for all items in the Solver object's solution
-     * list. Use the given description mode.
-     * 
-     * @param mode either "visual" or "math".
-     * @return MDE descriptions for all items in the Solver object's solution list.
-     */
-    public String getDescriptions(String mode) {
+	/**
+	 * Return the MDE description for this equation using the current
+	 * description mode.
+	 * 
+	 * @param equation
+	 *            equation to be described
+	 * @return the MDE description for this equation using the current
+	 *         description mode.
+	 */
+	public String getDescription(String equation) {
+		// Use current description mode
+		String result = null;
 
-        //If mode has changed, get appropriate Transformer
-        if (!currentDescriptionMode.equals(mode)) {
-            setCurrentDescriptionMode(mode);
-        }
+		Solution[] sol = solver.get(equation);
+		if ((sol != null) && (sol.length > 0)) {
+			if (MdeSettings.DEBUG) {
+				System.out.println(getClass().getName()
+						+ ".getDescription() solution is not null");
+			}
 
-        return getDescriptions();
-    }
+			StringBuffer sb = new StringBuffer(128);
+			sb.append("\n<MDE>");
+			SolvedGraph sg = sol[0].getFeatures();
+			if (sg != null) {
+				String sgxml = sg.getXMLString();
+				sb.append(sgxml);
+			}
+			sb.append("\n</MDE>");
+			result = transformXML(sb.toString());
+		}
+		return result;
+	}
 
-    /**
-     * Return MDE descriptions for all items in the Solver object's solution
-     * list. Use the current description mode.
-     * 
-     * @return MDE descriptions for all items in the Solver object's solution list.
-     */
-    public String getDescriptions() {
-        String xmlToTransform;
-        String result;
+	/**
+	 * Return the MDE description for this equation using the given description
+	 * mode.
+	 * 
+	 * @param equation
+	 *            the equation as a string.
+	 * @param mode
+	 *            either "visual" or "math".
+	 * @return the MDE description for this equation using the given description
+	 *         mode.
+	 */
+	public String getDescription(String equation, String mode) {
 
-        xmlToTransform = getFeatureXML(); // magic
-        //  	System.out.println(xmlToTransform);
-        result = transformXML(xmlToTransform);
-        return result;
-    }
+		// If mode has changed, get appropriate Transformer
+		if (!currentDescriptionMode.equals(mode)) {
+			setCurrentDescriptionMode(mode);
+		}
+		return getDescription(equation);
+	}
 
-    /**
-     * Change the output format to the requested type for each description mode
-     * transformer.
-     * 
-     * @param outputFormat
-     *            the desired output format - text or html
-     */
-    public void setOutputFormat(String outputFormat) {
-        //TODO: handle invalid outputFormat
-        boolean notXML = (outputFormat.equals(TEXT_OUTPUT) || outputFormat.equals(HTML_OUTPUT));
-        this.currentOutputFormat = outputFormat;
+	/**
+	 * Return MDE descriptions for all items in the Solver object's solution
+	 * list. Use the given description mode.
+	 * 
+	 * @param mode
+	 *            either "visual" or "math".
+	 * @return MDE descriptions for all items in the Solver object's solution
+	 *         list.
+	 */
+	public String getDescriptions(String mode) {
 
-        if (MdeSettings.DEBUG) {
-            System.out.println(getClass().getName() + ".setOutputFormat() " + outputFormat);
-        }
-        Transformer tf;
-        Enumeration<Transformer> en = transformers.elements();
-        while (en.hasMoreElements()) {
-            tf = en.nextElement();
-            if (notXML) {
-                omitXMLDeclaration(tf, true);
-            } else {
-                omitXMLDeclaration(tf, false);
-            }
-            tf.setOutputProperty(OutputKeys.METHOD, outputFormat);
-        }
-    }
+		// If mode has changed, get appropriate Transformer
+		if (!currentDescriptionMode.equals(mode)) {
+			setCurrentDescriptionMode(mode);
+		}
 
-    /**
-     * Return the MDE XML String for all items in the Solver object's solution
-     * list which have a showGraph=true.
-     * 
-     * @return The feature in XML form.
-     */
-    private String getFeatureXML() {
-        //Build the XML stream:
-        StringBuffer b = new StringBuffer(128);
-        b.append("\n<MDE>");
+		return getDescriptions();
+	}
 
-        // Get the XML block from the features.
-        Solution solution;
-        SolvedGraph features;
-        for (@SuppressWarnings("rawtypes")
+	/**
+	 * Return MDE descriptions for all items in the Solver object's solution
+	 * list. Use the current description mode.
+	 * 
+	 * @return MDE descriptions for all items in the Solver object's solution
+	 *         list.
+	 */
+	public String getDescriptions() {
+		String xmlToTransform;
+		String result;
+
+		xmlToTransform = getFeatureXML(); // magic
+		// System.out.println(xmlToTransform);
+		result = transformXML(xmlToTransform);
+		return result;
+	}
+
+	/**
+	 * Change the output format to the requested type for each description mode
+	 * transformer.
+	 * 
+	 * @param outputFormat
+	 *            the desired output format - text or html
+	 */
+	public void setOutputFormat(String outputFormat) {
+		// TODO: handle invalid outputFormat
+		boolean notXML = (outputFormat.equals(TEXT_OUTPUT) || outputFormat
+				.equals(HTML_OUTPUT));
+		this.currentOutputFormat = outputFormat;
+
+		if (MdeSettings.DEBUG) {
+			System.out.println(getClass().getName() + ".setOutputFormat() "
+					+ outputFormat);
+		}
+		Transformer tf;
+		Enumeration<Transformer> en = transformers.elements();
+		while (en.hasMoreElements()) {
+			tf = en.nextElement();
+			if (notXML) {
+				omitXMLDeclaration(tf, true);
+			} else {
+				omitXMLDeclaration(tf, false);
+			}
+			tf.setOutputProperty(OutputKeys.METHOD, outputFormat);
+		}
+	}
+
+	/**
+	 * Return the MDE XML String for all items in the Solver object's solution
+	 * list which have a showGraph=true.
+	 * 
+	 * @return The feature in XML form.
+	 */
+	private String getFeatureXML() {
+		// Build the XML stream:
+		StringBuffer b = new StringBuffer(128);
+		b.append("\n<MDE>");
+
+		// Get the XML block from the features.
+		Solution solution;
+		SolvedGraph features;
+		for (@SuppressWarnings("rawtypes")
 		Iterator iter = solver.getSolutionIterator(); iter.hasNext();) {
-            solution = (Solution) iter.next();
+			solution = (Solution) iter.next();
 
-            // Only describe the solutions that are graphed.
-            if (solution.isShowGraph()) {
-                features = solution.getFeatures();
-                if (features != null) {
-                    b.append(features.getXMLString());
-                }
-            }
-        }
+			// Only describe the solutions that are graphed.
+			if (solution.isShowGraph()) {
+				features = solution.getFeatures();
+				if (features != null) {
+					b.append(features.getXMLString());
+				}
+			}
+		}
 
-        b.append("\n</MDE>");
+		b.append("\n</MDE>");
 
-//        if (MdeConstants.DEBUG) {
-//    	      System.out.println(getClass().getName()+".getFeatureXML()"+b.toString());
-//    	  }
+		// if (MdeConstants.DEBUG) {
+		// System.out.println(getClass().getName()+".getFeatureXML()"+b.toString());
+		// }
 
-        return b.toString();
-    }
+		return b.toString();
+	}
 
-    public Solver getSolver() {
+	public Solver getSolver() {
 		return solver;
 	}
 
 	public void setSolver(Solver solver) {
 		this.solver = solver;
 	}
-	
-	
-    public MdeSettings getMdeSettings() {
-		return mdeSettings;
-	}
 
-	public void setMdeSettings(MdeSettings mdeSettings) {
-		this.mdeSettings = mdeSettings;
+//	public MdeSettings getMdeSettings() {
+//		return mdeSettings;
+//	}
+
+//	public void setMdeSettings(MdeSettings mdeSettings) {
+//		this.mdeSettings = mdeSettings;
+//	}
+
+	/**
+	 * Not yet supported. Lets you specify your own text description mode with
+	 * corresponding XSLT description templates file.
+	 * 
+	 * @param modeName
+	 *            either "visual" or "math".
+	 * @param xslFilename
+	 *            the name of the XSL file.
+	 */
+	public void addDescriptionMode(String modeName, String xslFilename) {
+		// TODO: handle other than default path to xsl
+		// TODO: check for/handle duplicate mode names...
+		// Map transformer to description mode
+		Transformer tf = getTransformer(xslFilename);
+		transformers.put(modeName, tf);
 	}
 
 	/**
-     * Not yet supported. Lets you specify your own text description mode with
-     * corresponding XSLT description templates file.
-     * 
-     * @param modeName either "visual" or "math".
-     * @param xslFilename the name of the XSL file.
-     */
-    public void addDescriptionMode(String modeName, String xslFilename) {
-        //TODO: handle other than default path to xsl
-        //TODO: check for/handle duplicate mode names...
-        //Map transformer to description mode
-        Transformer tf = getTransformer(xslFilename);
-        transformers.put(modeName, tf);
-    }
+	 * Change the description mode to the specified value.
+	 * 
+	 * @param mode
+	 *            either "visual" or "math" or "standards".
+	 */
+	public void setCurrentDescriptionMode(String mode) {
+		// TODO: We could handle an invalid mode condition better than we do.
+		Transformer tf = transformers.get(mode);
+		if (tf == null) {
+			if (MdeSettings.DEBUG) {
+				System.out
+						.println("Invalid description mode. Previously set mode will be used.");
+			}
+		} else {
+			currentTransformer = tf;
+			currentDescriptionMode = mode;
+		}
+	}
 
-    /**
-     * Change the description mode to the specified value.
-     * 
-     * @param mode either "visual" or "math" or "standards".
-     */
-    public void setCurrentDescriptionMode(String mode) {
-        //TODO: We could handle an invalid mode condition better than we do.
-        Transformer tf = transformers.get(mode);
-        if (tf == null) {
-            if (MdeSettings.DEBUG) {
-                System.out.println("Invalid description mode. Previously set mode will be used.");
-            }
-        } else {
-            currentTransformer = tf;
-            currentDescriptionMode = mode;
-        }
-    }
+	/**
+	 * Return the current description mode value.
+	 * 
+	 * @return the current description mode value.
+	 */
+	public String getCurrentDescriptionMode() {
+		return currentDescriptionMode;
+	}
 
-    /**
-     * Return the current description mode value.
-     * 
-     * @return the current description mode value.
-     */
-    public String getCurrentDescriptionMode() {
-        return currentDescriptionMode;
-    }
-
-    public static String getVisualTemplate() {
+	public static String getVisualTemplate() {
 		return VISUAL_TEMPLATE;
 	}
 
@@ -455,154 +485,178 @@ public class Describer {
 		return STANDARDS_TEMPLATE;
 	}
 
-	private void configureTranformerFactory() throws TransformerFactoryConfigurationError {
-        tFactory = TransformerFactory.newInstance();
+	private void configureTranformerFactory()
+			throws TransformerFactoryConfigurationError {
+		tFactory = TransformerFactory.newInstance();
 
-        // Use a resource resolver to find the resources in the resources 
-        // "/resources/" path of the Jar file. DDexter 1/19/2004
-        tFactory.setURIResolver(new LocalResourceResolver(MdeSettings.RESOURCES_PATH));
-    }
+		// Use a resource resolver to find the resources in the resources
+		// "/resources/" path of the Jar file. DDexter 1/19/2004
 
-    private Transformer getTransformer(String xslFilename) {
-        Transformer tf = null;
-        try {
-            if (MdeSettings.DEBUG) {
-                System.out.println(getClass().getName() + ".getTransformer() Get resource \"" + xslFilename
-                        + "\"");
-            }
+		if (MdeSettings.DEBUG) {
+			System.out
+					.println("Describer.configureTransformerFactory(): resources path: "
+							+ MdeSettings.RESOURCES_PATH);
+		}
 
-            LocalResourceResolver resolver = (LocalResourceResolver) tFactory.getURIResolver();
-            tf = tFactory.newTransformer(resolver.resolve(xslFilename, null));
-        } catch (Exception e) {
-            if (MdeSettings.DEBUG) {
-                System.out.println("Failed to initialize Transformer, styleSheet is !" + xslFilename + "!");
-            }
-            System.out.println(e);
-            e.printStackTrace(System.out);
-        }
-        return tf;
-    }
+		LocalResourceResolver lrr = new LocalResourceResolver(MdeSettings.RESOURCES_PATH);
+		if (MdeSettings.DEBUG){
+			System.out.println("local resource resolver resolves to: "+lrr.getPathToResources());
+		}
+		tFactory.setURIResolver(lrr);
+		
+	}
 
-    /**
-     * Specify whether the (XSLT-transformed XML) text description output should
-     * include an XML declaration.
-     * 
-     * @param tf - the Transformer of
-     * @param flag true to omit XML declaration, flase to include it.
-     */
-    private void omitXMLDeclaration(Transformer tf, boolean flag) {
-        tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, flag ? "yes" : "no");
-        if (MdeSettings.DEBUG) {
-            System.out.println(getClass().getName() + ".omitXMLDeclaration() OMIT_XML_DEC: "
-                    + tf.getOutputProperty(OutputKeys.OMIT_XML_DECLARATION));
-        }
-    }
+	private Transformer getTransformer(String xslFilename) {
+		Transformer tf = null;
+		try {
+			if (MdeSettings.DEBUG) {
+				System.out.println(getClass().getName()
+						+ ".getTransformer() Get resource \"" + xslFilename
+						+ "\"");
+			}
 
-    private String transformXML(String xmlData) {
-        String finalResult = "";
+			LocalResourceResolver resolver = (LocalResourceResolver) tFactory
+					.getURIResolver();
+			tf = tFactory.newTransformer(resolver.resolve(xslFilename, null));
+		} catch (Exception e) {
+			if (MdeSettings.DEBUG) {
+				System.out
+						.println("Failed to initialize Transformer, styleSheet is !"
+								+ xslFilename + "!");
+			}
+			System.out.println(e);
+			e.printStackTrace(System.out);
+		}
+		return tf;
+	}
 
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        try {
-            currentTransformer.transform(new StreamSource(new ByteArrayInputStream(xmlData.getBytes())),
-                    new StreamResult(result));
-            String resultStr = result.toString();
-            if(MdeSettings.DEBUG)
-            {
+	/**
+	 * Specify whether the (XSLT-transformed XML) text description output should
+	 * include an XML declaration.
+	 * 
+	 * @param tf
+	 *            - the Transformer of
+	 * @param flag
+	 *            true to omit XML declaration, flase to include it.
+	 */
+	private void omitXMLDeclaration(Transformer tf, boolean flag) {
+		tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, flag ? "yes"
+				: "no");
+		if (MdeSettings.DEBUG) {
+			System.out.println(getClass().getName()
+					+ ".omitXMLDeclaration() OMIT_XML_DEC: "
+					+ tf.getOutputProperty(OutputKeys.OMIT_XML_DECLARATION));
+		}
+	}
 
-//                System.out.println("transformed Str = "+resultStr);
-                System.out.println("transformed cleaned up string= "+cleanUpText(resultStr));
-            }
+	private String transformXML(String xmlData) {
+		String finalResult = "";
 
-            if (currentOutputFormat.equals(TEXT_OUTPUT)) {
-                finalResult = cleanUpText(resultStr);
-            } else {
-                finalResult = resultStr;
-            }
+		ByteArrayOutputStream result = new ByteArrayOutputStream();
+		try {
+			currentTransformer.transform(new StreamSource(
+					new ByteArrayInputStream(xmlData.getBytes())),
+					new StreamResult(result));
+			String resultStr = result.toString();
+			if (MdeSettings.DEBUG) {
 
-        } catch (Exception e) {
-            System.out.println("Failed to transform XML string: !" + xmlData + "!");
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return finalResult;
-    }
+				// System.out.println("transformed Str = "+resultStr);
+				System.out.println("transformed cleaned up string= "
+						+ cleanUpText(resultStr));
+			}
 
-//    /**
-//     * Convenience method.
-//     * Take a cleanedUp text description (one long line) and break it up into
-//     * multiple lines of approximate length lineLength.
-//     * 
-//     * @param text - a cleanedUp text description
-//     * @lineLength - the approximate line length.
-//     */
-//    public StringBuffer formatTextDescription(String text, int lineLength){
-//		StringBuffer result = new StringBuffer(text);
-//    	int length = text.length();
-//		TODO: write it
-//    }
-    
-//    private String cleanUpText(String result1, int textLineLength) {
-    private String cleanUpText(String result1) {
-        int i = 0;
+			if (currentOutputFormat.equals(TEXT_OUTPUT)) {
+				finalResult = cleanUpText(resultStr);
+			} else {
+				finalResult = resultStr;
+			}
 
-        //If it's HTML, we don't want the tags escaped. HTML viewers *should*
-        // properly convert &lt; and &gt; (less than and greater than math
-        // symbols)
-        while ((i = result1.indexOf("&lt;")) > -1) {
-            result1 = result1.substring(0, i) + "<" + result1.substring(i + 4);
-        }
-        while ((i = result1.indexOf("&gt;")) > -1) {
-            result1 = result1.substring(0, i) + ">" + result1.substring(i + 4);
-        }
+		} catch (Exception e) {
+			System.out.println("Failed to transform XML string: !" + xmlData
+					+ "!");
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		return finalResult;
+	}
 
-        StringTokenizer bt = new StringTokenizer(result1, "\n");
-        StringBuffer bb = new StringBuffer(result1.length());
-        while (bt.hasMoreTokens()) {
-            //bb.append(" ").append(bt.nextToken().trim());
-            bb.append(bt.nextToken().trim()).append(' ');
-        }
-        String result2 = bb.toString();
+	// /**
+	// * Convenience method.
+	// * Take a cleanedUp text description (one long line) and break it up into
+	// * multiple lines of approximate length lineLength.
+	// *
+	// * @param text - a cleanedUp text description
+	// * @lineLength - the approximate line length.
+	// */
+	// public StringBuffer formatTextDescription(String text, int lineLength){
+	// StringBuffer result = new StringBuffer(text);
+	// int length = text.length();
+	// TODO: write it
+	// }
 
-        //This doesn't seem to work like it should! It's breaking a line after
-        // every word.
-        BreakIterator lines = BreakIterator.getLineInstance(Locale.US);
-        lines.setText(result2);
-        StringBuffer result3 = new StringBuffer(result2.length());
+	// private String cleanUpText(String result1, int textLineLength) {
+	private String cleanUpText(String result1) {
+		int i = 0;
 
-        //So let's kludge it:
-        //int wordCount = 0;
-        int start = lines.first();
-        for (int end = lines.next(); end != BreakIterator.DONE; start = end, end = lines.next()) {
-            //wordCount++;
-            result3.append(result2.substring(start, end));
-           /* if (wordCount == wordsPerLine) {
-                result3.append("\n");
-                wordCount = 0;
-            }*/
-        }
+		// If it's HTML, we don't want the tags escaped. HTML viewers *should*
+		// properly convert &lt; and &gt; (less than and greater than math
+		// symbols)
+		while ((i = result1.indexOf("&lt;")) > -1) {
+			result1 = result1.substring(0, i) + "<" + result1.substring(i + 4);
+		}
+		while ((i = result1.indexOf("&gt;")) > -1) {
+			result1 = result1.substring(0, i) + ">" + result1.substring(i + 4);
+		}
 
-        return result3.toString();
-    }
+		StringTokenizer bt = new StringTokenizer(result1, "\n");
+		StringBuffer bb = new StringBuffer(result1.length());
+		while (bt.hasMoreTokens()) {
+			// bb.append(" ").append(bt.nextToken().trim());
+			bb.append(bt.nextToken().trim()).append(' ');
+		}
+		String result2 = bb.toString();
 
-    /**
-     * Return the number of words per line for TEXT descriptions. The default
-     * value is 15 words per line.
-     * 
-     * @return the words per line in text description outputs.
-     */
-    public int getWordsPerLine() {
-        return wordsPerLine;
-   }
+		// This doesn't seem to work like it should! It's breaking a line after
+		// every word.
+		BreakIterator lines = BreakIterator.getLineInstance(Locale.US);
+		lines.setText(result2);
+		StringBuffer result3 = new StringBuffer(result2.length());
 
-    /**
-     * Set the number of words per line for TEXT descriptions. The default value
-     * is 15 words per line.
-     * 
-     * @param wordsPerLine
-     *            the wordsPerLine to set for text output
-     */
-    public void setWordsPerLine(int wordsPerLine) {
-        this.wordsPerLine = wordsPerLine;
-    }
+		// So let's kludge it:
+		// int wordCount = 0;
+		int start = lines.first();
+		for (int end = lines.next(); end != BreakIterator.DONE; start = end, end = lines
+				.next()) {
+			// wordCount++;
+			result3.append(result2.substring(start, end));
+			/*
+			 * if (wordCount == wordsPerLine) { result3.append("\n"); wordCount
+			 * = 0; }
+			 */
+		}
+
+		return result3.toString();
+	}
+
+	/**
+	 * Return the number of words per line for TEXT descriptions. The default
+	 * value is 15 words per line.
+	 * 
+	 * @return the words per line in text description outputs.
+	 */
+	public int getWordsPerLine() {
+		return wordsPerLine;
+	}
+
+	/**
+	 * Set the number of words per line for TEXT descriptions. The default value
+	 * is 15 words per line.
+	 * 
+	 * @param wordsPerLine
+	 *            the wordsPerLine to set for text output
+	 */
+	public void setWordsPerLine(int wordsPerLine) {
+		this.wordsPerLine = wordsPerLine;
+	}
 
 } // end class Describer

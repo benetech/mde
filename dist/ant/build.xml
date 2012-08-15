@@ -35,6 +35,7 @@ Reserved.
 
     <property name="sourceDir" value="src" />
     <property name="classesDir" value="bin" />
+	<property name="libDir" value="${basedir}/lib" />
     <property name="sdkDir" value="${basedir}/sdk" />
     <property name="apiSDKDocsDir" value="${sdkDir}/docs/api" />
     <property name="installerDir" value="${sdkDir}/installer" />
@@ -232,7 +233,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
            target="${javaTargetVersion}"
            srcdir="${sourceDir}"
            destdir="${classesDir}"
-           includes="**/*.java"
+           includes="**/*.java ${libDir}/*.jar"
            excludes="${sdkDir}/examples/**/*.java,**/test/**,**/tests/**,**/Test/**" />
 </target>
 
@@ -393,6 +394,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
     	 <manifest>
     	 	<attribute name="Main-Class" value="gov.nasa.ial.mde.ui.DescriberAndGraphPanel"/>
     	 </manifest>
+
 	</jar>
 </target>
 

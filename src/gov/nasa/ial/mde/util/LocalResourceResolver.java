@@ -8,6 +8,8 @@
  */
 package gov.nasa.ial.mde.util;
 
+import gov.nasa.ial.mde.properties.MdeSettings;
+
 import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
 
@@ -42,6 +44,11 @@ public class LocalResourceResolver extends ResourceUtil implements URIResolver {
      * @see javax.xml.transform.URIResolver#resolve(java.lang.String, java.lang.String)
      */
     public Source resolve(String href, String base) {
+    	if (MdeSettings.DEBUG) {
+        	System.out.println("resolve href: "+href +" resolve base: "+base);        
+        	}
+	
+    	
         return getResourceAsSource(href);
     }
     
