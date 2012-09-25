@@ -1,6 +1,6 @@
 This text is intended as a basic instruction for those who are intending to expand on the MDE.
 
-The MDE is a very complex program which uses a huge number of classes.  What I'll try to do here is briefly explain the role of each of the major components of the MDE.  You will have to learn most of the code on your own.  First, we shall examine each of the main classes and then we shall look at how they interact with each other.
+The MDE is a very complex library which uses a huge number of classes.  What I'll try to do here is briefly explain the role of each of the major components of the MDE.  You will have to learn most of the code on your own.  First, we shall examine each of the main classes and then we shall look at how they interact with each other.
 
 The MDE can handle either equations OR a set of data points.  An equation can be either cartesian or polar and are represented as an AnalyzedEquation.  A set of data points is represented as a AnalyzedData.
 
