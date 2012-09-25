@@ -105,9 +105,11 @@ public class Describer {
 	public static String MATH_TEMPLATE = "mdeApplyMath1.xsl";
 
 	/**
-	 * educational standards description mode indicator
+	 * Ga Tech educational standards researched templates mode
 	 */
 	public static final String STANDARDS = "standards";
+	
+
 
 	/**
 	 * default template for standards mode (based on Ga Tech Sonification Lab
@@ -115,6 +117,16 @@ public class Describer {
 	 */
 	public static String STANDARDS_TEMPLATE = "mdeApplyStandards1.xsl";
 
+	/**
+	 * Benetech/Diagram Center researched Algebra 1 templates mode
+	 */
+	public static final String ALGEBRA1 = "algebra1";
+	
+	/**
+	 * Benetech/Diagram Center researched Algebra 1 templates
+	 */
+	public static String ALGEBRA1_TEMPLATE = "mdeApplyAlgebra1-Simple-Benetech.xsl";
+	
 	/**
 	 * MDE <code>Solver</code> object which provides the graph data to be
 	 * described textually.
@@ -214,6 +226,7 @@ public class Describer {
 		}
 		addDescriptionMode("math", "mdeApplyMath1.xsl");
 		addDescriptionMode("standards", "mdeApplyStandards1.xsl");
+		addDescriptionMode("algebra1", "mdeApplyAlgebra1-Simple-Benetech.xsl");
 
 		// Set initial description mode to the settings default
 		this.currentDescriptionMode = settings.getDescriptionMode();
@@ -396,9 +409,9 @@ public class Describer {
 
 		b.append("\n</MDE>");
 
-		// if (MdeConstants.DEBUG) {
-		// System.out.println(getClass().getName()+".getFeatureXML()"+b.toString());
-		// }
+		 if (MdeSettings.DEBUG) {
+		 System.out.println(getClass().getName()+".getFeatureXML()"+b.toString());
+		 }
 
 		return b.toString();
 	}

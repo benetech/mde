@@ -13,6 +13,7 @@ import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
 import gov.nasa.ial.mde.solver.classifier.PolynomialClassifier;
 import gov.nasa.ial.mde.solver.numeric.PolynomialModel;
 import gov.nasa.ial.mde.solver.numeric.QuadraticModel;
+import gov.nasa.ial.mde.solver.symbolic.AnalyzedData;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedItem;
 
@@ -21,207 +22,268 @@ import java.util.Collections;
 
 /**
  * The class for solved equation data.
- *
+ * 
  * @author Dr. Robert Shelton
  * @version 1.0
  * @since 1.0
  */
+
 public class SolvedEquationData extends SolvedXYGraph {
-    
-    private AnalyzedItem analyzedItem;
-    private MDEClassifier classifier;
-    private PolynomialModel polyModel = null;
-    private int numSegments;
-    private GraphTrail[] segments;
-    private String[] newFeatures = { "ComputedFunctionData", "DataID" };
 
-    /**
-     * Constructs a solved equation for the data given the specified analyzed item.
-     * 
-     * @param analyzedItem the item to solve.
-     */
-    public SolvedEquationData(AnalyzedItem analyzedItem) {
-        super();
-        this.analyzedItem = analyzedItem;
-        doInit();
-    } // end SolvedEquationData
+	private AnalyzedItem analyzedItem;
+	private MDEClassifier classifier;
+	private PolynomialModel polyModel = null;
+	private int numSegments;
+	private GraphTrail[] segments;
+	private String[] newFeatures = { "ComputedFunctionData", "DataID" };
 
-    /**
-     * Constructs a solved equation for the data given the specified analyzed item.
-     * 
-     * @param analyzedEquation the equation to solve.
-     */
-    public SolvedEquationData(AnalyzedEquation analyzedEquation) {
-        super(analyzedEquation);
-        this.analyzedItem = analyzedEquation;
-        doInit();
-        //System.out.println("DEBUG: " + this.getXMLString());
-    } // end SolvedEquationData
+	/**
+	 * Constructs a solved equation for the data given the specified analyzed
+	 * item.
+	 * 
+	 * @param analyzedItem
+	 *            the item to solve.
+	 */
+	public SolvedEquationData(AnalyzedItem analyzedItem) {
+		super();
+		this.analyzedItem = analyzedItem;
+		doInit();
+	} // end SolvedEquationData
 
-    private void doInit() {
-        segments = analyzedItem.getGraphTrails();
+	/**
+	 * Constructs a solved equation for the data given the specified analyzed
+	 * item.
+	 * 
+	 * @param analyzedEquation
+	 *            the equation to solve.
+	 */
+	public SolvedEquationData(AnalyzedEquation analyzedEquation) {
+		super(analyzedEquation);
+		this.analyzedItem = analyzedEquation;
+		doInit();
+		// System.out.println("DEBUG: " + this.getXMLString());
+	} // end SolvedEquationData
 
-      //  System.out.println("In SolvedEquationData");
-        
-        if ((classifier = analyzedItem.getClassifier()) != null)
-            if (classifier instanceof PolynomialClassifier)
-                polyModel = ((PolynomialClassifier)classifier).getBestGuess();
+	/*
+	 * 
+	 */
+	private void doInit() {
+		segments = analyzedItem.getGraphTrails();
 
-        numSegments = segments.length;
-        //System.out.println("In SolvedEquationData applying features");
-        putNewFeatures(newFeatures);
+		// System.out.println("In SolvedEquationData");
 
-        //TODO: Consider relocating DataID in XML rework.
-        putFeature("DataID", analyzedItem.getName());
-        putFeature("graphName", "FunctionOverInterval");
-        
+		if ((classifier = analyzedItem.getClassifier()) != null)
+			if (classifier instanceof PolynomialClassifier)
+				polyModel = ((PolynomialClassifier) classifier).getBestGuess();
 
-        MdeFeatureNode node = new MdeFeatureNode();
+		numSegments = segments.length;
+		// System.out.println("In SolvedEquationData applying features");
+		putNewFeatures(newFeatures);
 
-        node.addKey("NumSegments");
-        node.addValue("NumSegments", "" + numSegments);
+		// TODO: Consider relocating DataID in XML rework.
+		putFeature("DataID", analyzedItem.getName());
+		if (analyzedItem instanceof AnalyzedData) {
+			MdeFeatureNode node = new MdeFeatureNode();
+			AnalyzedData data = (AnalyzedData) analyzedItem;
 
-        if (polyModel instanceof QuadraticModel) {
-            QuadraticModel qm = (QuadraticModel)polyModel;
+			putFeature("abscissaSymbol", data.getXName());
+			putFeature("ordinateSymbol", data.getYName());
 
-            node.addKey("AlternateEquation");
-            node.addValue("AlternateEquation", qm.toString() + " = 0");
-        } // end if
+			double[] xData = data.getXValues();
+			double[] yData = data.getYValues();
+			int length = xData.length;
 
-        node.addKey("FunctionAnalysisData");
+			String[] actualDataTags = {"xyData", "PointXY","X","Y"};
+			putNewFeatures(actualDataTags);
+			
+			node.addKey("xyData");
+			node.addKey("X");
+			node.addKey("Y");
+			for (int i = 0; i < length; i++) {
+				node.addValue("X", new Double(xData[i]).toString());
+				node.addValue("Y", new Double(yData[i]).toString());
+			}
+			
+			
+//			PointXY[] point = new PointXY[length];
+//			for (int i=0; i < length; i++) {
+//				point[i] = new PointXY(xData[i],yData[i]); 
+//				node.addValue("PointXY", point[i].getMFN());
+//			}
+			putNewFeature("xyData", node);
+			
 
-        for (int which = 0; which < numSegments; which++)
-            node.addValue("FunctionAnalysisData", getMFN(findEndpoints(which)));
+			
+			
 
-        putFeature("ComputedFunctionData", node);
-    } // end doInit
+		}
 
-    private IntervalEndpoint[] findEndpoints(int which) {
-        ArrayList<IntervalEndpoint> e = new ArrayList<IntervalEndpoint>();
-        PointXY[] p = segments[which].getPoints();
-        int lastP = p.length - 1;
+		putFeature("coordinateSystem", "X/Y Axis");
+		putFeature("graphName", "FunctionOverInterval");
+		if (analyzedItem instanceof AnalyzedEquation) {
+			putFeature("abscissaSymbol", analyzedEq.getIndependentVariable());
+			putFeature("ordinateSymbol", analyzedEq.getDependentVariable());
+		}
 
-        e.add(new IntervalEndpoint(p[0], IntervalEndpoint.BOUNDARY_POINT));
-        e.add(new IntervalEndpoint(p[lastP], IntervalEndpoint.BOUNDARY_POINT));
+		MdeFeatureNode node = new MdeFeatureNode();
 
-        if (lastP > 1) {
-            int i;
-            IntervalEndpoint e0 = new IntervalEndpoint(p[0]);
-            IntervalEndpoint e1 = new IntervalEndpoint(p[1]);
-            int intervalSense = IntervalDescription.getDirection(e0, e1);
+		node.addKey("NumSegments");
+		node.addValue("NumSegments", "" + numSegments);
 
-            for (i = 2; i <= lastP; i++) {
-                e0 = e1;
-                e1 = new IntervalEndpoint(p[i]);
-                int newSense = IntervalDescription.getDirection(e0, e1);
+		if (polyModel instanceof QuadraticModel) {
+			QuadraticModel qm = (QuadraticModel) polyModel;
 
-                if (newSense != intervalSense) {
-                    e.add(e0);
-                    intervalSense = newSense;
-                } // end if
-            } // end for i
+			node.addKey("AlternateEquation");
+			node.addValue("AlternateEquation", qm.toString() + " = 0");
+		} // end if
 
-            Collections.sort(e);
+		node.addKey("FunctionAnalysisData");
 
-            double x = 0.0, y = 0.0;
-            int count = 1, i1;
-            IntervalEndpoint[] eps = (IntervalEndpoint[])e.toArray(new IntervalEndpoint[e.size()]);
+		for (int which = 0; which < numSegments; which++)
+			node.addValue("FunctionAnalysisData", getMFN(findEndpoints(which)));
 
-            lastP = eps.length - 1;
-            e.clear();
+		putFeature("ComputedFunctionData", node);
+	} // end doInit
 
-            for (i = 0; i <= lastP; i = i1) {
-                x = eps[i].xValue;
-                y = eps[i].leftYValue;
+	/*
+	 * 
+	 */
+	private IntervalEndpoint[] findEndpoints(int which) {
+		ArrayList<IntervalEndpoint> e = new ArrayList<IntervalEndpoint>();
+		PointXY[] p = segments[which].getPoints();
+		int lastP = p.length - 1;
 
-                for (i1 = i + 1; i1 <= lastP; i1++) {
-                    e0 = eps[i1 - 1];
-                    e1 = eps[i1];
+		e.add(new IntervalEndpoint(p[0], IntervalEndpoint.BOUNDARY_POINT));
+		e.add(new IntervalEndpoint(p[lastP], IntervalEndpoint.BOUNDARY_POINT));
 
-                    if (e1.xValue - e0.xValue > IntervalDescription.MIN_INTERVAL_LENGTH)
-                        break;
+		if (lastP > 1) {
+			int i;
+			IntervalEndpoint e0 = new IntervalEndpoint(p[0]);
+			IntervalEndpoint e1 = new IntervalEndpoint(p[1]);
+			int intervalSense = IntervalDescription.getDirection(e0, e1);
 
-                    if (IntervalDescription.getDirection(e0, e1) != IntervalDescription.REMAINS_CONSTANT)
-                        break;
+			for (i = 2; i <= lastP; i++) {
+				e0 = e1;
+				e1 = new IntervalEndpoint(p[i]);
+				int newSense = IntervalDescription.getDirection(e0, e1);
 
-                    x += e1.xValue;
-                    y += e1.leftYValue;
-                    count++;
-                } // end for i1
+				if (newSense != intervalSense) {
+					e.add(e0);
+					intervalSense = newSense;
+				} // end if
+			} // end for i
 
-                e.add(new IntervalEndpoint(new PointXY(x / count, y / count)));
-                count = 1;
-            } // end for i
+			Collections.sort(e);
 
-            eps = (IntervalEndpoint[])e.toArray(new IntervalEndpoint[e.size()]);
+			double x = 0.0, y = 0.0;
+			int count = 1, i1;
+			IntervalEndpoint[] eps = (IntervalEndpoint[]) e
+					.toArray(new IntervalEndpoint[e.size()]);
 
-            if (eps.length > 2) {
-                lastP = eps.length - 1;
+			lastP = eps.length - 1;
+			e.clear();
 
-                for (i = 1; i < lastP; i++) {
-                    e0 = eps[i - 1];
-                    e1 = eps[i];
-                    IntervalEndpoint e2 = eps[i + 1];
+			for (i = 0; i <= lastP; i = i1) {
+				x = eps[i].xValue;
+				y = eps[i].leftYValue;
 
-                    if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.INCREASES
-                            && IntervalDescription.getDirection(e1, e2) == IntervalDescription.DECREASES)
-                        eps[i] = new IntervalEndpoint(new PointXY(e1.xValue, e1.leftYValue),
-                                IntervalEndpoint.LOCAL_MAX);
+				for (i1 = i + 1; i1 <= lastP; i1++) {
+					e0 = eps[i1 - 1];
+					e1 = eps[i1];
 
-                    if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.DECREASES
-                            && IntervalDescription.getDirection(e1, e2) == IntervalDescription.INCREASES)
-                        eps[i] = new IntervalEndpoint(new PointXY(e1.xValue, e1.leftYValue),
-                                IntervalEndpoint.LOCAL_MIN);
+					if (e1.xValue - e0.xValue > IntervalDescription.MIN_INTERVAL_LENGTH)
+						break;
 
-                    if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.INCREASES
-                            && IntervalDescription.getDirection(e1, e2) == IntervalDescription.INCREASES)
-                        eps[i] = new IntervalEndpoint(new PointXY(e1.xValue, e1.leftYValue),
-                                IntervalEndpoint.INFLECTION_POINT);
+					if (IntervalDescription.getDirection(e0, e1) != IntervalDescription.REMAINS_CONSTANT)
+						break;
 
-                    if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.DECREASES
-                            && IntervalDescription.getDirection(e1, e2) == IntervalDescription.DECREASES)
-                        eps[i] = new IntervalEndpoint(new PointXY(e1.xValue, e1.leftYValue),
-                                IntervalEndpoint.INFLECTION_POINT);
+					x += e1.xValue;
+					y += e1.leftYValue;
+					count++;
+				} // end for i1
 
-                    if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.REMAINS_CONSTANT
-                            || IntervalDescription.getDirection(e1, e2) == IntervalDescription.REMAINS_CONSTANT)
-                        eps[i] = new IntervalEndpoint(new PointXY(e1.xValue, e1.leftYValue),
-                                IntervalEndpoint.UNDEFINED);
-                } // end for i
+				e.add(new IntervalEndpoint(new PointXY(x / count, y / count)));
+				count = 1;
+			} // end for i
 
-                return eps;
-            } // end if
-        } // end if
+			eps = (IntervalEndpoint[]) e
+					.toArray(new IntervalEndpoint[e.size()]);
 
-        return (IntervalEndpoint[])e.toArray(new IntervalEndpoint[e.size()]);
-    } // end getEndpoints
+			if (eps.length > 2) {
+				lastP = eps.length - 1;
 
-    private MdeFeatureNode getMFN(IntervalEndpoint[] eps) {
-        MdeFeatureNode r = new MdeFeatureNode();
-        int i, n = eps.length;
+				for (i = 1; i < lastP; i++) {
+					e0 = eps[i - 1];
+					e1 = eps[i];
+					IntervalEndpoint e2 = eps[i + 1];
 
-        r.addKey("EndPoint");
-        r.addKey("intervalDescription");
+					if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.INCREASES
+							&& IntervalDescription.getDirection(e1, e2) == IntervalDescription.DECREASES)
+						eps[i] = new IntervalEndpoint(new PointXY(e1.xValue,
+								e1.leftYValue), IntervalEndpoint.LOCAL_MAX);
 
-        for (i = 0; i < n; i++)
-            r.addValue("EndPoint", eps[i].getMFN());
+					if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.DECREASES
+							&& IntervalDescription.getDirection(e1, e2) == IntervalDescription.INCREASES)
+						eps[i] = new IntervalEndpoint(new PointXY(e1.xValue,
+								e1.leftYValue), IntervalEndpoint.LOCAL_MIN);
 
-        for (i = 1; i < n; i++)
-            r.addValue("intervalDescription", new IntervalDescription(eps[i - 1], eps[i]).getMFN());
+					if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.INCREASES
+							&& IntervalDescription.getDirection(e1, e2) == IntervalDescription.INCREASES)
+						eps[i] = new IntervalEndpoint(new PointXY(e1.xValue,
+								e1.leftYValue),
+								IntervalEndpoint.INFLECTION_POINT);
 
-        return r;
-    } // end getMFN
+					if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.DECREASES
+							&& IntervalDescription.getDirection(e1, e2) == IntervalDescription.DECREASES)
+						eps[i] = new IntervalEndpoint(new PointXY(e1.xValue,
+								e1.leftYValue),
+								IntervalEndpoint.INFLECTION_POINT);
 
+					if (IntervalDescription.getDirection(e0, e1) == IntervalDescription.REMAINS_CONSTANT
+							|| IntervalDescription.getDirection(e1, e2) == IntervalDescription.REMAINS_CONSTANT)
+						eps[i] = new IntervalEndpoint(new PointXY(e1.xValue,
+								e1.leftYValue), IntervalEndpoint.UNDEFINED);
+				} // end for i
 
-//    public static void main(String[] args) {
-//        gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation e = 
-//            new gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation(
-//                gov.nasa.ial.mde.util.StringSplitter.combineArgs(args));
-//
-//        e.computePoints(-10.0, 10.0, -10.0, 10.0);
-//
-//        SolvedEquationData s = new SolvedEquationData(e);
-//        System.out.println(s.getXMLString());
-//    }
+				return eps;
+			} // end if
+		} // end if
+
+		return (IntervalEndpoint[]) e.toArray(new IntervalEndpoint[e.size()]);
+	} // end findEndpoints
+
+	/*
+	 * 
+	 */
+	private MdeFeatureNode getMFN(IntervalEndpoint[] eps) {
+		MdeFeatureNode r = new MdeFeatureNode();
+		int i, n = eps.length;
+
+		r.addKey("EndPoint");
+		r.addKey("intervalDescription");
+
+		for (i = 0; i < n; i++)
+			r.addValue("EndPoint", eps[i].getMFN());
+
+		for (i = 1; i < n; i++)
+			r.addValue("intervalDescription", new IntervalDescription(
+					eps[i - 1], eps[i]).getMFN());
+
+		return r;
+	} // end getMFN
+
+	/*
+	 * 
+	 */
+//	 public static void main(String[] args) {
+//	 gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation e =
+//	 new gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation(
+//	 gov.nasa.ial.mde.util.StringSplitter.combineArgs(args));
+//	
+//	 e.computePoints(-10.0, 10.0, -10.0, 10.0);
+//	
+//	 SolvedEquationData s = new SolvedEquationData(e);
+//	 System.out.println(s.getXMLString());
+//	 }
 
 }

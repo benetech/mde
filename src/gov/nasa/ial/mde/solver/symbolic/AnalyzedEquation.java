@@ -413,6 +413,10 @@ public class AnalyzedEquation implements AnalyzedItem {
     public Bounds getPreferredBounds() {
         return preferredBounds;
     }
+    
+    public Bounds getDataBounds(){
+    	return getPreferredBounds();
+    }
 
     /* (non-Javadoc)
      * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getClassifier()

@@ -35,7 +35,7 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
         graphDescriptionRange, domain, range, abscissaSymbol, ordinateSymbol,
         abscissaLabel, ordinateLabel, coordinateSystem, graphClosure,
         xIntercepts, yIntercepts, maxima, minima, ascendingRegions,
-        descendingRegions
+        descendingRegions, xData, yData, xyData, X, Y
 	};
 	
 	public static enum CompassDirection {

@@ -85,7 +85,8 @@ public class MDEClassifier {
      */
     public void addGraphBoundariesFeature(AnalyzedItem item, SolvedGraph features) {
         if ((features != null) && (item != null)) {
-            Bounds b = item.getPreferredBounds();
+//            Bounds b = item.getPreferredBounds();
+        	Bounds b = item.getDataBounds();
             String s = "x = " + b.left + " to " + b.right + " and y = " + b.bottom + " to " + b.top;
             features.putFeature("graphBoundaries", s);
         }

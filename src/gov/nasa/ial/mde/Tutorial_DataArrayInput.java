@@ -18,8 +18,14 @@ public class Tutorial_DataArrayInput {
         // MDE Init as always:
         MdeSettings currentSettings = new MdeSettings("myAppsMdeProperties");
         Solver solver = new Solver();
+        
         Describer describer = new Describer(solver, currentSettings);
-        describer.setOutputFormat(Describer.TEXT_OUTPUT);
+        
+        
+        describer.addDescriptionMode("alg1", "mdeApplyAlgebra1-Simple-Benetech.xsl");
+        describer.setCurrentDescriptionMode("alg1");
+        describer.setOutputFormat("text");
+        
         Sounder sounder = new Sounder(solver, currentSettings);
 
         // Let's create some data for this demonstration of MDE data array input.
@@ -46,7 +52,7 @@ public class Tutorial_DataArrayInput {
 
         // Now we ask for a description and sonification as before
         if (solver.anyDescribable()) {
-            String description = describer.getDescriptions("standards");
+            String description = describer.getDescriptions();
             System.out.println("Description of data: " + description);
         } else {
             System.out.println("MDE could not generate a description for your data.");

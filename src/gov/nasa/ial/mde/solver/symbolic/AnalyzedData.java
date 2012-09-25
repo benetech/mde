@@ -522,6 +522,7 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
 	public Bounds getDataBounds() {
 		return new Bounds(xMin, xMax, yMax, yMin);
 	}
+	
 
 	/*
 	 * (non-Javadoc)

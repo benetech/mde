@@ -15,6 +15,14 @@
 	
 		<xsl:apply-templates select="coordinateSystem" />
 		
+		<xsl:apply-templates select="ordinateSymbol" />
+		
+		<xsl:apply-templates select="range" />
+		
+		<xsl:apply-templates select="abscissaSymbol" />
+				
+		<xsl:apply-templates select="domain" />
+		
 		<xsl:apply-templates select="equationPrint" />
 
 		<xsl:apply-templates select="graphName" />
@@ -138,8 +146,6 @@
 	</xsl:template>
 
 	<xsl:template name="lineSpecifics">
-		<xsl:apply-templates select="slope" />
-		<xsl:apply-templates select="slopeDefined" />
 		<!-- -->
 		<xsl:apply-templates select="inclination">
 			<xsl:with-param name="rad">
@@ -149,16 +155,7 @@
 	</xsl:template>
 
 	<xsl:template name="parabolaSpecifics">
-		<xsl:apply-templates select="vertex" />
-		<xsl:apply-templates select="axis" />
-		<xsl:apply-templates select="axisInclination">
-			<xsl:with-param name="abscissaSymbol" select="abscissaSymbol" />
-		</xsl:apply-templates>
 		<xsl:apply-templates select="openDirection" mode="qualifying" />
-		<xsl:apply-templates select="focus" />
-		<xsl:apply-templates select="focalLength" />
-		<xsl:apply-templates select="directrix" />
-		<xsl:apply-templates select="directrixInclination" />
 	</xsl:template>
 
 	<xsl:template name="circleSpecifics">
@@ -169,30 +166,16 @@
 	<xsl:template name="ellipseSpecifics">
 		<xsl:apply-templates select="center" />
 		<xsl:apply-templates select="eccentricity" />
-		<xsl:apply-templates select="semiMajorAxis" />
-		<xsl:apply-templates select="majorAxis" />
-		<xsl:apply-templates select="majorAxisInclination" />
-		<xsl:apply-templates select="semiMinorAxis" />
-		<xsl:apply-templates select="minorAxis" />
-		<xsl:apply-templates select="minorAxisInclination" />
-		<xsl:apply-templates select="focus" />
-		<xsl:apply-templates select="focalLength" />
 	</xsl:template>
 
 	<xsl:template name="hyperbolaSpecifics">
 		<xsl:apply-templates select="center" />
 		<xsl:apply-templates select="vertex" />
-		<xsl:apply-templates select="eccentricity" />
-		<xsl:apply-templates select="focalLength" />
-		<xsl:apply-templates select="transverseAxis" />
-		<xsl:apply-templates select="semiTransverseAxis" />
-		<xsl:apply-templates select="conjugateAxis" />
-		<xsl:apply-templates select="semiConjugateAxis" />
-		<xsl:apply-templates select="focus" />
-		<xsl:apply-templates select="asymptotes" />
 	</xsl:template>
 
+
 	<!-- Templates for polar graphs -->
+	
 	<xsl:template name="polarRoseSpecifics">
 		<xsl:call-template name="numPetals" />
 		<xsl:apply-templates select="petalLength" />

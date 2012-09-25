@@ -23,9 +23,10 @@ public class CommandLineDescriber {
         // MDE Init:
         MdeSettings currentSettings = new MdeSettings("myAppsMdeProperties");
         Solver solver = new Solver();
+        solver.setBounds(-5, 5, 10, -10);
         // Test out the new constructor
 //        Describer describer = new Describer(solver, currentSettings, "algebra1text","mde_ApplyAlgebra1Text.xsl");
-      Describer describer = new Describer(solver, "algebra1text","mde_ApplyAlgebra1Text.xsl");
+      Describer describer = new Describer(solver, "algebra1","mdeApplyAlgebra1-Simple-Benetech.xsl");
 
         describer.setOutputFormat(Describer.TEXT_OUTPUT);
 

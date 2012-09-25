@@ -74,6 +74,9 @@ public interface AnalyzedItem {
      * 
      * @return the classifier used for this analyzed item.
      */
+    
+    public Bounds getDataBounds();
+    
     public MDEClassifier getClassifier();
 
     /**

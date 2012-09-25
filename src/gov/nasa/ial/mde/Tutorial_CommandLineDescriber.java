@@ -42,7 +42,7 @@ public class Tutorial_CommandLineDescriber {
                 solver.solve();
 
                 if (solver.anyDescribable()) {
-                    String description = describer.getDescriptions("standards");
+                    String description = describer.getDescriptions("algebra1");
                     System.out.println("Description: " + description);
                 } else {
                     System.out.println("MDE could not generate a description for "

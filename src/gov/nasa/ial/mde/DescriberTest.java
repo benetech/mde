@@ -83,11 +83,6 @@ public class DescriberTest {
 		this.xslFile = descriptionTemplate;
 	}
 	
-
-
-
-	
-
 	
 	public BufferedReader initEquationsFile(String equationsFilename) {
 		try {
@@ -291,9 +286,11 @@ public class DescriberTest {
 		
 		//set our desired output format (options are text, html and xml
 		dt.setOutputFormat("text");
+//		dt.setOutputFormat("xml");
+//		dt.setOutputFormat("html");
 		
 		//Run tests: Input is an "equation file" - a file with a list of equations, one per line
-//		dt.runEquationsFile(equationsFilename);
+		dt.runEquationsFile(equationsFilename);
 		
 		//Run tests: Input is a file with a list of equation files
 //		dt.runFileList("equationInputFiles.txt");
@@ -301,8 +298,8 @@ public class DescriberTest {
 		//TODO:  Run tests: Input is a data file
 		
 		//Run tests: equation file against a default mode (visual, math or standard)
-		dt.setDescriptionMode("visual");
-		dt.runEquationsFile(equationsFilename);
+//		dt.setDescriptionMode("visual");
+//		dt.runEquationsFile(equationsFilename);
 
 	
 		

@@ -11,43 +11,41 @@
 	</xsl:comment>
 
 	<xsl:template match="coordinateSystemDescription">
-		<coordinateSystemDescription>
-		<xsl:text>The image shows a Cartesian graph. </xsl:text>
-		</coordinateSystemDescription>
+		<h1 id="coordinateSystemDescription">
+		<xsl:text>X/Y axis. </xsl:text>
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="equationPrint">
-		<prod>
-		<equationPrint>
-		<xsl:text>The graphed equation is </xsl:text>
+		<h1 id="equationPrint">
+		<xsl:text>Equation(s) provided: </xsl:text>
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
-		</equationPrint>
-		</prod>
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="graphName">
-		<graphName>
+		<h1 id="graphName">
 		<xsl:choose>
-			<xsl:when test=".='unclassified'">
+			<xsl:when test=".='Unclassified'">
 				The Math Description Engine was not able to classify this graph.
 			</xsl:when>
-			<xsl:when test=".='all points'">
-				The solution is the set of all points.
+			<xsl:when test=".='All points'">
+				Set of all points.
 			</xsl:when>
-			<xsl:when test=".='two lines'">
-				The graph of the equation is two parallel lines.
+			<xsl:when test=".='Two lines'">
+				Two parallel lines.
 			</xsl:when>
-			<xsl:when test=".='two intersecting lines'">
-				The graph of the equation is two intersecting lines.
+			<xsl:when test=".='Two intersecting lines'">
+				Two intersecting lines.
 			</xsl:when>
-			<xsl:when test=".='absolute value'">
-				The graph is of an absolute value function.
+			<xsl:when test=".='Absolute value'">
+				Absolute value function.
 			</xsl:when>
-			<xsl:when test=".='alternatingLoops'">
-				The graph consists of
+			<xsl:when test=".='AlternatingLoops'">
+				
 				<xsl:value-of select="../thetaMultiple" />
-				loops alternating with
+				Loops alternating with
 				<xsl:value-of select="../thetaMultiple" />
 				shorter loops in a symmetric pattern
 				around the origin. Each smaller
@@ -61,52 +59,50 @@
 			<xsl:when test=".='eccentricCircle'" />
 
 			<xsl:when test=".='parabola'">
-				This graph is a parabola: a member of the quadratic family.
+				A parabola.
 			</xsl:when>
 
 
 			<xsl:when test=".='polynomial'"></xsl:when>
 
 			<xsl:when test=".='square root'">
-				This is a graph that contains a square root function.
+				graph that contains a square root function.
 			</xsl:when>
 			<xsl:when test=".='sine function'">
-				This is a trigonometric sine function.
+				trigonometric sine function.
 			</xsl:when>
 			<xsl:when test=".='cosine function'">
-				This is a trigonometric cosine function.
+				trigonometric cosine function.
 			</xsl:when>
 			<xsl:when test=".='tangent function'">
-				This is a trigonometric tangent function.
+				trigonometric tangent function.
 			</xsl:when>
 
 			<xsl:when test=".='RationalFunction'"></xsl:when>
 			<xsl:when test=".='FunctionOverInterval'"></xsl:when>
 			<xsl:otherwise>
-				The graph is
-				<xsl:call-template name="aOrAn" />
+				<xsl:call-template name="AorAn" />
 				<xsl:value-of select="." />
 				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
-		</graphName>
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="DataID">
-		The
 		<xsl:value-of select="." />
-		curve has the following characteristics.
+		.
 	</xsl:template>
 
 	<xsl:template match="graphBoundaries">
-		The equation is graphed from
+		<h1 id="graphBoundaries">
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="equationType">
-		The equation is
-		<xsl:call-template name="aOrAn" />
+<!-- 		<xsl:call-template name="aOrAn" />   -->
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
 	</xsl:template>
@@ -114,41 +110,29 @@
 
 	<!-- this is stuff for slope -->
 	<xsl:template match="slope">
+		<h1 id="slope">
 		<xsl:if test="decimalValue > 1">
-			<xsl:text>It rises steeply from left to right </xsl:text>
+			<xsl:text>It rises steeply from left to right. </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = 1">
-			<xsl:text>It rises at a 45 degree angle from left to right </xsl:text>
+			<xsl:text>It rises from left to right. </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue > 0 and decimalValue &lt; 1">
-			<xsl:text>It rises gradually from left to right </xsl:text>
+			<xsl:text>It rises gradually from left to right. </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = -1">
-			<xsl:text>It falls at a 45 degree angle from left to right </xsl:text>
+			<xsl:text>It falls from left to right. </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue > -1 and decimalValue &lt; 0">
-			<xsl:text>It falls gradually from left to right </xsl:text>
+			<xsl:text>It falls gradually from left to right. </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue &lt; -1">
-			<xsl:text>It falls steeply from left to right </xsl:text>
+			<xsl:text>It falls steeply from left to right. </xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = 0">
-			<xsl:text>It is flat </xsl:text>
-		</xsl:if>
-		<xsl:text>with a slope of </xsl:text>
-		<xsl:choose>
-			<xsl:when test="count(rationalValue)=1">
-				<xsl:value-of select="rationalValue" />
-				.
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
-					<xsl:text>approximately </xsl:text>
-				</xsl:if>
-				<xsl:value-of select="format-number(decimalValue,'#.###')" />
-				<xsl:text>. </xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
+			<xsl:text>It is flat. </xsl:text>
+		</xsl:if>  
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="slopeDefined">
@@ -236,15 +220,17 @@
 	</xsl:template>
 
 	<xsl:template match="absDirection">
-		<xsl:text>The graph opens </xsl:text>
+		<h1 id="absDirection">
+		<xsl:text>It opens </xsl:text>
 		<xsl:value-of select="." />
-		from the vertex.
+		.
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="coordinateSystem">
-		<xsl:text>The image shows a </xsl:text>
-		<xsl:value-of select="." />
-		graph.
+		<h1 id="coordinateSystem">
+		<xsl:value-of select="." />.
+		</h1>
 	</xsl:template>
 
 <!-- 	<xsl:template match="coordinateSystem"> -->
@@ -254,25 +240,29 @@
 <!-- 	</xsl:template> -->
 
 	<xsl:template match="abscissaSymbol">
-		<xsl:text>The horizontal axis name (abscissa Symbol) is </xsl:text>
+		<h1 id="abscissaSymbol">
+		<xsl:text>The X axis is labeled </xsl:text>
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="ordinateSymbol">
-		<xsl:text>The vertical axis name (ordinate Symbol) is </xsl:text>
+		<h1 id="ordinateSymbol">
+		<xsl:text>The Y axis is labeled </xsl:text>
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
+		</h1>
 	</xsl:template>
 
 	<xsl:template match="domain">
-		The domain of the equation is
+		Domain 
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="range">
-		The range of the equation is
+		Range
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
 	</xsl:template>
@@ -310,7 +300,7 @@
 	</xsl:template>
 
 	<xsl:template match="radius" mode="simple">
-		The width of the circle is
+		Width is
 		<xsl:if test="string-length(substring-after(decimalValue,'.'))  > 3">
 			approximately
 		</xsl:if>
@@ -319,11 +309,11 @@
 	</xsl:template>
 
 	<xsl:template match="center">
-		<prodnote>
-		<xsl:text>bprodnoteThe center is at</xsl:text>
+		<h1 id="center">
+		<xsl:text>Center at </xsl:text>
 		<xsl:value-of select="." />
-		<xsl:text>. eprodnote </xsl:text>
-		</prodnote>
+		<xsl:text>.  </xsl:text>
+		</h1>
 	</xsl:template>
 
 	<xsl:template name="centerNamedTemplateTest">
@@ -336,11 +326,9 @@
 				<xsl:value-of select="center" />
 			</xsl:when>
 			<xsl:otherwise>
-				<prodnote>
 				The center is at
 				<xsl:value-of select="center" />
 				<xsl:text>. </xsl:text>
-				</prodnote>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -431,7 +419,7 @@
 
 	<xsl:template match="inclination">
 		<xsl:param name="rad" />
-		The graph has an inclination of
+		Inclination of
 		<xsl:choose>
 			<xsl:when test="count(rationalValue)=1">
 				<xsl:value-of select="rationalValue" />
@@ -745,6 +733,19 @@
 		</xsl:choose>
 	</xsl:template>
 
+	<xsl:template name="AorAn">
+		<xsl:choose>
+			<xsl:when
+				test="starts-with(current(),'a') or starts-with(current(),'e') or
+        starts-with(current(),'i') or starts-with(current(),'o') or starts-with(current(),'u')">
+				<xsl:text> An </xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text> A </xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
 	<xsl:template name="simpleParabolaDescription">
 	</xsl:template>
 
@@ -979,11 +980,23 @@
 		degrees.
 	</xsl:template>
 
-	<!-- Templates for functions -->
+
+	<!-- Templates for functions or data -->
 	<xsl:template match="FunctionAnalysisData">
 		<xsl:apply-templates select="degree" />
 		<xsl:apply-templates select="intervalDescription" />
 		<xsl:text>. </xsl:text>
+	</xsl:template>
+	
+	<!-- Actual input data -->
+	<xsl:template match="xData">
+		<xsl:text>X Data: </xsl:text>
+		<xsl:value-of select="." />
+	</xsl:template>
+	
+	<xsl:template match="yData">
+		<xsl:text>Y Data: </xsl:text>
+		<xsl:value-of select="." />
 	</xsl:template>
 
 	<xsl:template match="ComputedFunctionData">
@@ -1043,25 +1056,23 @@
 	<xsl:template match="NumSegments">
 		<xsl:choose>
 			<xsl:when test=".=0">
-				No portion of the graph is inside the visible window.
+				No portion of the graph is visible.
 			</xsl:when>
 			<xsl:when test=".=1">
-				The portion of the graph in the visible window consists of a single
-				continuous graph.
+				A single
+				continuous curve.
 			</xsl:when>
 			<xsl:otherwise>
-				The graph consists of
 				<xsl:value-of select="." />
-				continuous segments.
+				Multiple segments.
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="degree">
-		This is the graph of a
 		<xsl:choose>
 			<xsl:when test=".=3">
-				<xsl:text>cubic polynomial</xsl:text>
+				<xsl:text>Cubic polynomial</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="." />
@@ -1074,12 +1085,11 @@
 	<xsl:template name="numPetals">
 		<xsl:choose>
 			<xsl:when test="numPetals=1">
-				The graph consists of a circle that touches the origin.
+				Circle that touches the origin.
 			</xsl:when>
 			<xsl:otherwise>
-				The graph consists of
 				<xsl:value-of select="numPetals" />
-				petals located symmetrically about the origin.
+				Petal shapes located symmetrically about the origin.
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

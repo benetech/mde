@@ -28,10 +28,12 @@ public class Tutorial_DataFileInput {
         MdeSettings currentSettings = new MdeSettings("myAppsMdeProperties");
         Solver solver = new Solver();
         Describer describer = new Describer(solver, currentSettings);
-        describer.setOutputFormat(Describer.TEXT_OUTPUT);
         
+        describer.addDescriptionMode("alg1", "mdeApplyAlgebra1-Simple-Benetech.xsl");
+        describer.setCurrentDescriptionMode("alg1");
+        describer.setOutputFormat("text");
         
-        File file = new File("InputText.txt");
+        File file = new File("MATHTRAX-DATA.txt");
                 
         TextDataFileParser  fileParser = new TextDataFileParser(file);
         AnalyzedData data = null;
@@ -57,7 +59,7 @@ public class Tutorial_DataFileInput {
 
         // Now we ask for a description and sonification as before
         if (solver.anyDescribable()) {
-            String description = describer.getDescriptions("standards");
+            String description = describer.getDescriptions();
             System.out.println("Description of data: " + description);
         } else {
             System.out.println("MDE could not generate a description for your data.");

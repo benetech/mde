@@ -5,6 +5,6 @@
   copyright is claimed in the United States under Title 17, U.S. Code. All 
   Other Rights Reserved.</xsl:comment>
   
-  <xsl:import href="mde_Algebra1Terry.xsl"/>
+  <xsl:import href="mdeAlgebra1-Simple-Benetech.xsl"/>
   
 </xsl:stylesheet>

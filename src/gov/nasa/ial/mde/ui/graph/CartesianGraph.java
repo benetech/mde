@@ -33,6 +33,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
@@ -502,11 +503,16 @@ public class CartesianGraph extends JPanel {
 			out = new OutputStreamWriter(baos, "UTF-8");
 			g2.stream(out, useCSS);
 			result = new String(baos.toByteArray(), "UTF-8");
+			out.close();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (SVGGraphics2DIOException e) {
 			e.printStackTrace();
+		} catch (IOException e){
+			e.printStackTrace();
 		}
+		
+		
 		return result;
 
 	} // end paintComponent

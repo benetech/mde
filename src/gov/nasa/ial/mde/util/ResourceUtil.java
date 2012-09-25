@@ -96,25 +96,24 @@ public class ResourceUtil {
 		if (MdeSettings.DEBUG) {
 			System.out.println("ResourceUtil.resolvePathTo.file: " + file);
 		}
-		
+
 		if ((pathToResources != null) && !file.startsWith(pathToResources)) {
 			while (file.startsWith("/")) {
 				file = (file.length() > 1) ? file.substring(1).trim() : "";
 			}
 			file = pathToResources + file;
-			
+
 			if (MdeSettings.DEBUG) {
 				System.out.println("ResourceUtil.resolvePathTo.file: " + file);
 			}
 		}
 
 		// Add res directory prefix if file not found
-//		File tempFile = new File(file);
-//		if (!tempFile.exists()) {
-//			file = "res" + file;
-//			// file = "resources" + file;
-//		}
-
+		// File tempFile = new File(file);
+		// if (!tempFile.exists()) {
+		// file = "res" + file;
+		// // file = "resources" + file;
+		// }
 
 		if (MdeSettings.DEBUG) {
 			System.out.println("ResourceUtil.resolvePathTo.file: " + file);
@@ -170,18 +169,18 @@ public class ResourceUtil {
 	 * @return a StreamSource to the file.
 	 */
 	public StreamSource getResourceAsSource(String file) {
-//		String fileString = resolvePathTo(file);
-//		String systemID = null;
-//		try {
-//			systemID = new File(fileString).toURL().toExternalForm();
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace(); // To change body of catch statement use File |
-//									// Settings | File Templates.
-//		}
-//		StreamSource source = new StreamSource(fileString);
-//		// StreamSource source = new StreamSource(file);
-//		source.setSystemId(systemID);
-//		return source;
+		// String fileString = resolvePathTo(file);
+		// String systemID = null;
+		// try {
+		// systemID = new File(fileString).toURL().toExternalForm();
+		// } catch (MalformedURLException e) {
+		// e.printStackTrace(); // To change body of catch statement use File |
+		// // Settings | File Templates.
+		// }
+		// StreamSource source = new StreamSource(fileString);
+		// // StreamSource source = new StreamSource(file);
+		// source.setSystemId(systemID);
+		// return source;
 		return new StreamSource(getResourceAsStream(file));
 	}
 

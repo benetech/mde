@@ -250,55 +250,55 @@ public class MdeFeatureNode {
     	return value;
     }
 
-//    public static void main(String[] args) {
-//        MdeFeatureNode f = new MdeFeatureNode();
-//
-//        f.addKey("foo");
-//        f.addValue("foo", "bar");
-//        f.addValue("foo", new MdeFeatureNode());
-//
-//        String[] v = f.getChildStrings("foo");
-//        MdeFeatureNode[] n = f.getChildNodes("foo");
-//
-//        n[0].addKey("hello");
-//        n[0].addValue("hello", "goodbye");
-//
-//        System.out.println("Values:");
-//
-//        for (int i = 0; i < v.length; i++)
-//            System.out.println("\n" + v[i]);
-//
-//        System.out.println("\nNumber of child nodes = " + n.length);
-//
-//        System.out.println("XML string:");
-//        System.out.println(f.getXMLString());
-//
-//        MdeFeatureNodeManager mf = new MdeFeatureNodeManager(f);
-//        byte[] b = new byte[256];
-//        String s;
-//        MdeFeatureNode[] nodes;
-//
-//        while (true)
-//            try {
-//                int l = System.in.read(b);
-//
-//                if (l > 255)
-//                    break;
-//
-//                s = new String(b, 0, l).trim();
-//
-//                nodes = mf.getNodes(s);
-//
-//                if (nodes.length > 0)
-//                    for (int i = 0; i < nodes.length; i++)
-//                        System.out.println(nodes[i].getXMLString());
-//                else
-//                    System.out.println("Nothing found.");
-//            } // end try
-//            catch (java.io.IOException ioe) {
-//                System.err.println(ioe);
-//                System.exit(1);
-//            } // end catch
-//    } // end main
+    public static void main(String[] args) {
+        MdeFeatureNode f = new MdeFeatureNode();
+
+        f.addKey("foo");
+        f.addValue("foo", "bar");
+        f.addValue("foo", new MdeFeatureNode());
+
+        String[] v = f.getChildStrings("foo");
+        MdeFeatureNode[] n = f.getChildNodes("foo");
+
+        n[0].addKey("hello");
+        n[0].addValue("hello", "goodbye");
+
+        System.out.println("Values:");
+
+        for (int i = 0; i < v.length; i++)
+            System.out.println("\n" + v[i]);
+
+        System.out.println("\nNumber of child nodes = " + n.length);
+
+        System.out.println("XML string:");
+        System.out.println(f.getXMLString());
+
+        MdeFeatureNodeManager mf = new MdeFeatureNodeManager(f);
+        byte[] b = new byte[256];
+        String s;
+        MdeFeatureNode[] nodes;
+
+        while (true)
+            try {
+                int l = System.in.read(b);
+
+                if (l > 255)
+                    break;
+
+                s = new String(b, 0, l).trim();
+
+                nodes = mf.getNodes(s);
+
+                if (nodes.length > 0)
+                    for (int i = 0; i < nodes.length; i++)
+                        System.out.println(nodes[i].getXMLString());
+                else
+                    System.out.println("Nothing found.");
+            } // end try
+            catch (java.io.IOException ioe) {
+                System.err.println(ioe);
+                System.exit(1);
+            } // end catch
+    } // end main
 
 } // end classMdeFeatureNode
