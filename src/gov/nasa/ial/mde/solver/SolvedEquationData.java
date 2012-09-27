@@ -96,21 +96,21 @@ public class SolvedEquationData extends SolvedXYGraph {
 			String[] actualDataTags = {"xyData", "PointXY","X","Y"};
 			putNewFeatures(actualDataTags);
 			
-			node.addKey("xyData");
+			node.addKey("InputData");
+			node.addKey("length");
+			node.addValue("length",new Integer(length).toString());
+			node.addKey("PointXY");
 			node.addKey("X");
 			node.addKey("Y");
-			for (int i = 0; i < length; i++) {
-				node.addValue("X", new Double(xData[i]).toString());
-				node.addValue("Y", new Double(yData[i]).toString());
+			
+			
+			PointXY[] point = new PointXY[length];
+			for (int i=0; i < length; i++) {
+				point[i] = new PointXY(xData[i],yData[i]); 
+				node.addValue("PointXY", point[i].getMFN());
 			}
 			
-			
-//			PointXY[] point = new PointXY[length];
-//			for (int i=0; i < length; i++) {
-//				point[i] = new PointXY(xData[i],yData[i]); 
-//				node.addValue("PointXY", point[i].getMFN());
-//			}
-			putNewFeature("xyData", node);
+			putNewFeature("InputData", node);
 			
 
 			

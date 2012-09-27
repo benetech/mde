@@ -44,16 +44,29 @@
 	</xsl:when>
 
 	<xsl:when test="graphName='RationalFunction'">
-		This is the graph of a function.
+		A function.
 		<xsl:apply-templates select="FunctionAnalysisData" />
 	</xsl:when>
 
 	<xsl:when test="graphName='FunctionOverInterval'">
 		<xsl:apply-templates select="DataID" />
-		<xsl:apply-templates select="xData" />
-		<xsl:apply-templates select="yData" />
+		<xsl:apply-templates select="InputData" />
 		<xsl:apply-templates select="ComputedFunctionData" />
 	</xsl:when>
+
+
+			<xsl:when test="graphName='sine function'">
+				<xsl:call-template name="sineSpecifics" />
+			</xsl:when>
+
+			<xsl:when test="graphName='cosine function'">
+				<xsl:call-template name="cosineSpecifics" />
+			</xsl:when>
+			
+			<xsl:when test="graphName='tangent function'">
+				<xsl:call-template name="tangentSpecifics" />
+			</xsl:when>
+			
 
 	<!-- Polar graphs-->
        <xsl:when test="graphName='polar rose'">
@@ -111,7 +124,6 @@
          <xsl:call-template name="twoIntersectingLinesSpecifics"/>
        </xsl:when>
      </xsl:choose>
-<p></p>
 </xsl:template>
 
 
@@ -146,6 +158,11 @@
       <xsl:apply-templates select="vertex"/>
       -->
   </xsl:template>
+  
+  
+  	<xsl:template name="absoluteValueSpecifics">
+		<xsl:apply-templates select="absDirection" />
+	</xsl:template>
 
 <!-- Test template for polar rose -->
 <xsl:template name="polarRoseSpecifics">

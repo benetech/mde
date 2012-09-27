@@ -24,6 +24,7 @@ public class Tutorial_DataArrayInput {
         
         describer.addDescriptionMode("alg1", "mdeApplyAlgebra1-Simple-Benetech.xsl");
         describer.setCurrentDescriptionMode("alg1");
+//        describer.setCurrentDescriptionMode("visual");
         describer.setOutputFormat("text");
         
         Sounder sounder = new Sounder(solver, currentSettings);

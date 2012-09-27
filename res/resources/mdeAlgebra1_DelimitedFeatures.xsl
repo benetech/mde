@@ -1,48 +1,46 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-	<xsl:comment>
+	<!-- 
 		Copyright 2006, United States Government as represented by the
 		Administrator for the National Aeronautics and Space Administration.
 		No
 		copyright is claimed in the United States under Title 17, U.S. Code.
 		All
 		Other Rights Reserved.
-	</xsl:comment>
+	 -->
 
 	<xsl:template match="coordinateSystemDescription">
-		<h1 id="coordinateSystemDescription">
+<!--  		<h1>Coordinate System</h1>  -->
 		<xsl:text>X/Y axis. </xsl:text>
-		</h1>
-	</xsl:template>
+	</xsl:template>     
+
 
 	<xsl:template match="equationPrint">
-		<h1 id="equationPrint">
+<!-- 		<h1>Equation</h1> -->
 		<xsl:text>Equation(s) provided: </xsl:text>
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
-		</h1>
 	</xsl:template>
 
 	<xsl:template match="graphName">
-		<h1 id="graphName">
+<!-- 		<h1>Graph Type</h1> -->
 		<xsl:choose>
 			<xsl:when test=".='Unclassified'">
 				The Math Description Engine was not able to classify this graph.
 			</xsl:when>
-			<xsl:when test=".='All points'">
+			<xsl:when test=".='all points'">
 				Set of all points.
 			</xsl:when>
-			<xsl:when test=".='Two lines'">
+			<xsl:when test=".='two lines'">
 				Two parallel lines.
 			</xsl:when>
-			<xsl:when test=".='Two intersecting lines'">
+			<xsl:when test=".='two intersecting lines'">
 				Two intersecting lines.
 			</xsl:when>
-			<xsl:when test=".='Absolute value'">
+			<xsl:when test=".='absolute value'">
 				Absolute value function.
 			</xsl:when>
-			<xsl:when test=".='AlternatingLoops'">
+			<xsl:when test=".='alternatingLoops'">
 				
 				<xsl:value-of select="../thetaMultiple" />
 				Loops alternating with
@@ -66,16 +64,19 @@
 			<xsl:when test=".='polynomial'"></xsl:when>
 
 			<xsl:when test=".='square root'">
-				graph that contains a square root function.
+				Square root function.
 			</xsl:when>
-			<xsl:when test=".='sine function'">
-				trigonometric sine function.
+			
+			<xsl:when test="graphName='sine function'">
+				<xsl:call-template name="sineSpecifics" />
 			</xsl:when>
-			<xsl:when test=".='cosine function'">
-				trigonometric cosine function.
+
+			<xsl:when test="graphName='cosine function'">
+				<xsl:call-template name="cosineSpecifics" />
 			</xsl:when>
-			<xsl:when test=".='tangent function'">
-				trigonometric tangent function.
+			
+			<xsl:when test="graphName='tangent function'">
+				<xsl:call-template name="tangentSpecifics" />
 			</xsl:when>
 
 			<xsl:when test=".='RationalFunction'"></xsl:when>
@@ -86,7 +87,6 @@
 				<xsl:text>. </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
-		</h1>
 	</xsl:template>
 
 	<xsl:template match="DataID">
@@ -95,10 +95,9 @@
 	</xsl:template>
 
 	<xsl:template match="graphBoundaries">
-		<h1 id="graphBoundaries">
+<!-- 		<h1>Graph Bounds</h1> -->
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
-		</h1>
 	</xsl:template>
 
 	<xsl:template match="equationType">
@@ -110,7 +109,7 @@
 
 	<!-- this is stuff for slope -->
 	<xsl:template match="slope">
-		<h1 id="slope">
+<!-- 		<h1>Slope</h1> -->
 		<xsl:if test="decimalValue > 1">
 			<xsl:text>It rises steeply from left to right. </xsl:text>
 		</xsl:if>
@@ -132,7 +131,6 @@
 		<xsl:if test="decimalValue = 0">
 			<xsl:text>It is flat. </xsl:text>
 		</xsl:if>  
-		</h1>
 	</xsl:template>
 
 	<xsl:template match="slopeDefined">
@@ -220,17 +218,15 @@
 	</xsl:template>
 
 	<xsl:template match="absDirection">
-		<h1 id="absDirection">
+<!-- 		<h1>Direction</h1> -->
 		<xsl:text>It opens </xsl:text>
 		<xsl:value-of select="." />
 		.
-		</h1>
 	</xsl:template>
 
 	<xsl:template match="coordinateSystem">
-		<h1 id="coordinateSystem">
+<!-- 		<h1>Coordinate System</h1> -->
 		<xsl:value-of select="." />.
-		</h1>
 	</xsl:template>
 
 <!-- 	<xsl:template match="coordinateSystem"> -->
@@ -240,19 +236,17 @@
 <!-- 	</xsl:template> -->
 
 	<xsl:template match="abscissaSymbol">
-		<h1 id="abscissaSymbol">
+<!-- 		<h1>X Axis Label</h1> -->
 		<xsl:text>The X axis is labeled </xsl:text>
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
-		</h1>
 	</xsl:template>
 
 	<xsl:template match="ordinateSymbol">
-		<h1 id="ordinateSymbol">
+<!-- 		<h1>Y Axis Label</h1> -->
 		<xsl:text>The Y axis is labeled </xsl:text>
 		<xsl:value-of select="." />
 		<xsl:text>. </xsl:text>
-		</h1>
 	</xsl:template>
 
 	<xsl:template match="domain">
@@ -309,11 +303,10 @@
 	</xsl:template>
 
 	<xsl:template match="center">
-		<h1 id="center">
+<!-- 		<h1>Center</h1> -->
 		<xsl:text>Center at </xsl:text>
 		<xsl:value-of select="." />
 		<xsl:text>.  </xsl:text>
-		</h1>
 	</xsl:template>
 
 	<xsl:template name="centerNamedTemplateTest">
@@ -999,6 +992,55 @@
 		<xsl:value-of select="." />
 	</xsl:template>
 
+    <xsl:template match="InputData">
+    	<xsl:value-of select="length" />
+    	points
+    	<xsl:apply-templates select="PointXY" />
+    	are plotted on the graph.
+    </xsl:template>
+    
+ 	<xsl:template match="PointXY">
+ 		<xsl:text>(</xsl:text>
+		<xsl:apply-templates select="X" />
+		<xsl:text>,</xsl:text>
+		<xsl:apply-templates select="Y" />
+		<xsl:text>),</xsl:text>
+		
+	</xsl:template>
+
+	<xsl:template match="X">
+	  <xsl:value-of select="." />
+	</xsl:template>
+	
+	<xsl:template match="Y">
+	  <xsl:value-of select="." />
+	</xsl:template>
+	
+	
+		<xsl:template name="sineSpecifics">
+		<xsl:call-template name="oscillation" />
+	</xsl:template>
+
+	<xsl:template name="cosineSpecifics">
+		<xsl:call-template name="oscillation" />
+	</xsl:template>
+	
+	<xsl:template name="tangentSpecifics">
+		<xsl:if test="not(./orientation =0)">
+			<xsl:text>The graph consists of multiple </xsl:text>
+			<xsl:if test="./rate>=3.0">
+				<xsl:text>sharply </xsl:text>				
+			</xsl:if>
+				<xsl:value-of select="./orientation" />
+			<xsl:text> curves, separated by asymptotes at intervals of every </xsl:text>
+				<xsl:value-of select="./period" />
+			<xsl:text>, starting at  </xsl:text>
+				<xsl:value-of select="./asymptotes" />
+			<xsl:text>. </xsl:text>
+			
+		</xsl:if>
+	</xsl:template>
+    
 	<xsl:template match="ComputedFunctionData">
 
 		<!-- Take note here for input arrays -->
