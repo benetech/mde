@@ -190,10 +190,13 @@ public class SolvedLine extends SolvedConic implements SlopeFeature {
 
 	public double getSlope() {
 		Object value = this.getValue(SlopeFeature.PATH, SlopeFeature.KEY);
+		if (value != null) {
 		String slopeString = (String)value;
 		double slope = new Double(slopeString);
 		//System.out.println("Slope is: " + slope);
 		return slope;
+		}
+		return 0;
 	}
 	
 	public double getYIntercept()

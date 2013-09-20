@@ -190,7 +190,7 @@ public class Solution {
      * @return the sonification points for this Solution.
      */
     public MultiPointXY[] getPoints() {
-        return (analyzedItem != null) ? analyzedItem.getPoints() : null;
+        return (analyzedItem != null) ? analyzedItem.getMultiPoints() : null;
     } // end getPoints
 
     /**

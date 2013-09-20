@@ -73,7 +73,8 @@ public class AnalyzedEquation implements AnalyzedItem {
     private String independentVariable, dependentVariable;
 
 	private Bounds preferredBounds = new Bounds(-DEFAULT_BOUND_VALUE, DEFAULT_BOUND_VALUE, DEFAULT_BOUND_VALUE, -DEFAULT_BOUND_VALUE);
-	private MultiPointXY[] points;
+	private MultiPointXY[] multipoints;
+	private PointXY[] points;
 	private GraphTrail[] graphTrails;
 
 	private SolvedGraph features = null;
@@ -363,6 +364,16 @@ public class AnalyzedEquation implements AnalyzedItem {
                 }
             }
             points = null;
+        }
+            if (multipoints != null) {
+                int len = multipoints.length;
+                for (int i = 0; i < len; i++) {
+                    if (multipoints[i] != null) {
+                        multipoints[i].dispose();
+                        multipoints[i] = null;
+                    }
+                }
+                multipoints = null;
         }
     }
     
@@ -1069,7 +1080,6 @@ public class AnalyzedEquation implements AnalyzedItem {
                 }
             }
             if (k > 0) {
-                y = y + (delta * (k));
                 i--;
             }
         }
@@ -1158,6 +1168,7 @@ public class AnalyzedEquation implements AnalyzedItem {
                 }
             }
             if (!found) {
+            	x = ((double)((int)(x * 1000000))) / 1000000.0;
                 r[i] = findRealSolutions(x);
             }
         }
@@ -1235,25 +1246,25 @@ public class AnalyzedEquation implements AnalyzedItem {
      * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getPoint(double)
      */
     public MultiPointXY getPoint(double position) {
-        if ((points == null) || (points.length <= 0) || (position < 0.0) || (position > 1.0)) {
+        if ((multipoints == null) || (multipoints.length <= 0) || (position < 0.0) || (position > 1.0)) {
             return null;
         }
-        int index = (int)Math.floor(position * (points.length - 1));
-        return points[index];
+        int index = (int)Math.floor(position * (multipoints.length - 1));
+        return multipoints[index];
     }
 
     /* (non-Javadoc)
      * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getPoint(int)
      */
     public MultiPointXY getPoint(int index) {
-        return ((points != null) && (index >= 0) && (index < points.length)) ? points[index] : null;
+        return ((multipoints != null) && (index >= 0) && (index < multipoints.length)) ? multipoints[index] : null;
     }
 
     /* (non-Javadoc)
      * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getPoints()
      */
-    public MultiPointXY[] getPoints() {
-        return points;
+    public MultiPointXY[] getMultiPoints() {
+        return multipoints;
     }
     
     /* (non-Javadoc)
@@ -1277,10 +1288,10 @@ public class AnalyzedEquation implements AnalyzedItem {
         maxJump = Math.abs(top - bottom);
         if (isPolar()) {
             /* get the polar points */
-            points = solveForPoints(0.0, 2.0 * Math.PI);
+            multipoints = solveForPoints(0.0, 2.0 * Math.PI);
             
             /* account for possible multiple values of r */
-            graphTrails = TrailUtil.getGraphTrailsFrom(points, maxJump);
+            graphTrails = TrailUtil.getGraphTrailsFrom(multipoints, maxJump);
 
             int i, j, n = graphTrails.length;
             PointXY[][] p = new PointXY[n][0];
@@ -1311,7 +1322,7 @@ public class AnalyzedEquation implements AnalyzedItem {
             bottom = -top;
             
             // Create the new points
-            points = newPoints.toArray(new MultiPointXY[newPoints.size()]);
+            multipoints = newPoints.toArray(new MultiPointXY[newPoints.size()]);
             
             graphTrails = new GraphTrail[n];
             for (i = 0; i < n; i++) {
@@ -1320,11 +1331,11 @@ public class AnalyzedEquation implements AnalyzedItem {
         } // end if polar
         else {
             if (isUndefined()) {
-                points = generateVerticalLine(left, right, top, bottom);
-                graphTrails = getVerticalGraphTrails(points);
+                multipoints = generateVerticalLine(left, right, top, bottom);
+                graphTrails = getVerticalGraphTrails(multipoints);
             } else {
-                points = solveForPoints(left, right);
-                graphTrails = TrailUtil.getGraphTrailsFrom(points, maxJump);
+                multipoints = solveForPoints(left, right);
+                graphTrails = TrailUtil.getGraphTrailsFrom(multipoints, maxJump);
             }
         }
 
@@ -1354,14 +1365,14 @@ public class AnalyzedEquation implements AnalyzedItem {
         functionOverInterval = true;
         for (i = 0; i < len; i++) {
             if (points[i] != null) {
-                if ((m = points[i].yArray.length) > 0) {
+                if ((m = multipoints[i].yArray.length) > 0) {
                     foundPoints = true;
                     if (m == 1) {
                         continue;
                     }
 
                     for (j = 1; j < m; j++) {
-                        if (Math.abs(points[i].yArray[j] - points[i].yArray[j - 1]) > 1.0e-3) {
+                        if (Math.abs(multipoints[i].yArray[j] - multipoints[i].yArray[j - 1]) > 1.0e-3) {
                             functionOverInterval = false;
                             return;
                         } // end if
@@ -1449,6 +1460,11 @@ public class AnalyzedEquation implements AnalyzedItem {
 
         return b.toString();
     } // end toString
+
+	@Override
+	public PointXY[] getPoints() {
+		return points;
+	}
     
 //    public static void main(String[] args) {
 //        AnalyzedEquation iea = new AnalyzedEquation(MathUtil.combineArgs(args));

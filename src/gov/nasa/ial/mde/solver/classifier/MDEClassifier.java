@@ -7,6 +7,7 @@
 package gov.nasa.ial.mde.solver.classifier;
 
 import gov.nasa.ial.mde.math.Bounds;
+import gov.nasa.ial.mde.solver.MdeFeatureNode;
 import gov.nasa.ial.mde.solver.SolvedEquationData;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.SolvedRationalFunction;
@@ -14,6 +15,7 @@ import gov.nasa.ial.mde.solver.SolvedXYGraph;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedData;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedItem;
+import gov.nasa.ial.mde.util.MathUtil;
 
 /**
  * A parent class for all MDE classifiers. These classes resolve various types 
@@ -89,6 +91,16 @@ public class MDEClassifier {
         	Bounds b = item.getDataBounds();
             String s = "x = " + b.left + " to " + b.right + " and y = " + b.bottom + " to " + b.top;
             features.putFeature("graphBoundaries", s);
+            MdeFeatureNode r = new MdeFeatureNode();
+            r.addKey("left");
+            r.addValue("left", MathUtil.trimDouble(b.left, 6));
+            r.addKey("right");
+            r.addValue("right", MathUtil.trimDouble(b.right, 6));
+            r.addKey("bottom");
+            r.addValue("bottom", MathUtil.trimDouble(b.bottom, 6));
+            r.addKey("top");
+            r.addValue("top", MathUtil.trimDouble(b.top, 6));
+            features.putFeature("bounds", r);
         }
     }
 

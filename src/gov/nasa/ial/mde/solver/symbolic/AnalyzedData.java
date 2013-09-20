@@ -635,7 +635,7 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
 	 * 
 	 * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getPoints()
 	 */
-	public MultiPointXY[] getPoints() {
+    public MultiPointXY[] getMultiPoints() {
 		return points;
 	}
 
@@ -771,6 +771,12 @@ public class AnalyzedData implements AnalyzedItem, Cloneable {
 		}
 		strBuff.append("]");
 		return strBuff.toString();
+	}
+
+	@Override
+	public PointXY[] getPoints() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

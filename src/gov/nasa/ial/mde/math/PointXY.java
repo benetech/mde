@@ -239,5 +239,20 @@ public class PointXY {
         }
         return mnf;
     }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof PointXY)) {
+			return false;
+		}
+		return getXString().equals(((PointXY)obj).getXString()) && getYString().equals(((PointXY)obj).getYString());
+	}
+	
+	public String getXML() {
+		StringBuffer s = new StringBuffer();
+		s.append("\n<x>"+x+"</x>");
+		s.append("\n<y>"+y+"</y>");
+		return s.toString();
+	}
     
 } // end class PointXY

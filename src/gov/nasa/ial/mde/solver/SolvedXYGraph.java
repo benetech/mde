@@ -6,6 +6,8 @@
  */
 package gov.nasa.ial.mde.solver;
 
+import gov.nasa.ial.mde.math.Sampling;
+import gov.nasa.ial.mde.solver.features.individual.PointsFeature;
 import gov.nasa.ial.mde.solver.features.individual.XInterceptFeature;
 import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
 import gov.nasa.ial.mde.solver.symbolic.AnalyzedEquation;
@@ -101,6 +103,8 @@ public class SolvedXYGraph extends SolvedGraph {
                     addToFeature(YInterceptFeature.KEY, MathUtil.trimDouble(yInts[i], 6));
             }
         }
+        
+        putFeature(PointsFeature.KEY, new Sampling(analyzedEq.getPoints(), analyzedEq.getPreferredBounds().left, analyzedEq.getPreferredBounds().right, analyzedEq.getPreferredBounds().bottom, analyzedEq.getPreferredBounds().top, 1.0));
     } // end SolvedXYGraph
 
 //    public static void main(String[] args) {

@@ -10,6 +10,7 @@ package gov.nasa.ial.mde.solver.symbolic;
 
 import gov.nasa.ial.mde.math.Bounds;
 import gov.nasa.ial.mde.math.MultiPointXY;
+import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.solver.GraphTrail;
 import gov.nasa.ial.mde.solver.SolvedGraph;
 import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
@@ -114,7 +115,14 @@ public interface AnalyzedItem {
      * 
      * @return an array of all the points.
      */
-    public MultiPointXY[] getPoints();
+    public PointXY[] getPoints();
+
+    /**
+     * Returns an array of all the points.
+     * 
+     * @return an array of all the points.
+     */
+    public MultiPointXY[] getMultiPoints();
 
     /**
      * Returns the graph trails for the <code>AnalyzedItem</code>.

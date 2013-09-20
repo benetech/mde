@@ -7,13 +7,17 @@
 package gov.nasa.ial.mde.solver;
 
 import gov.nasa.ial.mde.math.IntervalXY;
+import gov.nasa.ial.mde.math.MultiPointXY;
 import gov.nasa.ial.mde.math.NumberModel;
 import gov.nasa.ial.mde.math.PointRT;
 import gov.nasa.ial.mde.math.PointXY;
+import gov.nasa.ial.mde.math.Sampling;
 import gov.nasa.ial.mde.solver.features.combinations.DomainAndRangeFeature;
 import gov.nasa.ial.mde.solver.features.combinations.InterceptsFeature;
 import gov.nasa.ial.mde.solver.features.combinations.MinimaAndMaximaFeature;
+import gov.nasa.ial.mde.solver.features.combinations.PointsSetFeature;
 import gov.nasa.ial.mde.solver.features.individual.DomainFeature;
+import gov.nasa.ial.mde.solver.features.individual.PointsFeature;
 import gov.nasa.ial.mde.solver.features.individual.RangeFeature;
 import gov.nasa.ial.mde.solver.features.individual.XInterceptFeature;
 import gov.nasa.ial.mde.solver.features.individual.YInterceptFeature;
@@ -27,15 +31,15 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 1.0
  */
-public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, MinimaAndMaximaFeature {
+public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, MinimaAndMaximaFeature, PointsSetFeature {
 
 	public static enum GraphFeature {
-		graphName, graphBoundaries, equationType,
+		graphName, graphBoundaries, bounds, equationType,
         equationPrint, originalEquationPrint, graphDescriptionDomain,
         graphDescriptionRange, domain, range, abscissaSymbol, ordinateSymbol,
         abscissaLabel, ordinateLabel, coordinateSystem, graphClosure,
         xIntercepts, yIntercepts, maxima, minima, ascendingRegions,
-        descendingRegions, xData, yData, xyData, X, Y
+        descendingRegions, xData, yData, xyData, X, Y, points, multipopints
 	};
 	
 	public static enum CompassDirection {
@@ -77,6 +81,8 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
             featureTree.addValue(k, v.toString());
         else if (v instanceof NumberModel)
             featureTree.addValue(k, ((NumberModel)v).getMFN());
+        else if (v instanceof Sampling)
+            featureTree.addValue(k, ((Sampling)v).getMFN());
         else
             featureTree.addValue(k, new MdeFeatureNode(v));
     } // end putFeature
@@ -250,9 +256,6 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
     		}
     		if(value != null) break;
     	}
-    	if(value == null) {
-    		throw new NullPointerException();
-    	}
     	return value;
     }
     
@@ -320,8 +323,30 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 		// TODO Auto-generated method stub
 		return false;
 	}
+	 
+		@Override
+		public MultiPointXY[] getMultipoints() {
+			// Not yet implemented.
+			return null;
+		}
 
-	public boolean canCalculateMinima() {
+		@Override
+		public PointXY[] getPoints() {
+			Object values = this.getValues(PointsFeature.PATH, PointsFeature.KEY);
+			ArrayList<String> list = (ArrayList<String>)values;
+			int len = list.size();
+			PointXY[] points = new PointXY[len];
+			String[] split;
+			for(int i=0;i<len;i++)
+			{
+				split = ((String)list.get(i)).split(",");
+				points[i]=(new PointXY(Double.valueOf(split[0].replace("(", "")),Double.valueOf(split[1].replace(")", ""))));
+			}
+			
+			return points;
+		}
+
+		public boolean canCalculateMinima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
