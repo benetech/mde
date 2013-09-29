@@ -1132,7 +1132,8 @@ public class AnalyzedEquation implements AnalyzedItem {
         int i;
         int n = NUM_POINTS;
         double delta = (high - low) / (n - 1.0);
-        double deltaError = 0.9 * delta; // account for roundoff error in step size
+        double rounder = 1.0;
+        for (; rounder * delta < 1.0; rounder = rounder * 10.0);
         double x = low;
         MultiPointXY[] r = new MultiPointXY[n];
         boolean found = false;
@@ -1159,7 +1160,7 @@ public class AnalyzedEquation implements AnalyzedItem {
             if ((savedR != null) && (savedR[i] != null)) {
                 if ((x >= savedR[0].x) && (x <= savedR[savedR.length - 1].x)) {
                     for (; l < n; l++) {
-                        if (Math.abs(savedR[l].x - x) < deltaError) {
+                        if (savedR[l].x == Math.round(x * rounder) / rounder) {
                             found = true;
                             r[i] = savedR[l];
                             break;
@@ -1168,7 +1169,7 @@ public class AnalyzedEquation implements AnalyzedItem {
                 }
             }
             if (!found) {
-            	x = ((double)((int)(x * 1000000))) / 1000000.0;
+            	x = Math.round(x * rounder) / rounder;
                 r[i] = findRealSolutions(x);
             }
         }
