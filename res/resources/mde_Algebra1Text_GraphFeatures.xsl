@@ -100,35 +100,35 @@
 	<!-- this is stuff for slope -->
 	<xsl:template match="slope">
 		<xsl:if test="decimalValue &gt;	 0">
-			<xsl:text>It rises from the point </xsl:text>
+			<xsl:text>A straight line rises through point </xsl:text>
 			<xsl:value-of select="../points/first" />
-			<xsl:text> to the point </xsl:text>
+			<xsl:text> and point </xsl:text>
 			<xsl:value-of select="../points/last" />
-     <xsl:text>, continuing out the bottom left and top right corners of the graph.</xsl:text>
+     <xsl:text>.</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue &lt; 0">
-			<xsl:text>It falls from the point </xsl:text>
+			<xsl:text>A straight line falls through point </xsl:text>
 			<xsl:value-of select="../points/first" />
-			<xsl:text> to the point </xsl:text>
+			<xsl:text> and point </xsl:text>
 			<xsl:value-of select="../points/last" />
-     <xsl:text>, continuing out the top left and bottom right corners of the graph.</xsl:text>
+     <xsl:text>.</xsl:text>
 		</xsl:if>
 		<xsl:if test="decimalValue = 0">
-			<xsl:text>It is flat and passes through the points </xsl:text>
+			<xsl:text>A horizontal line passes through point </xsl:text>
 			<xsl:value-of select="../points/first" />
-			<xsl:text> and </xsl:text>
+			<xsl:text> and point </xsl:text>
 			<xsl:value-of select="../points/last" />
-     <xsl:text>, continuing out the left and right edges of the graph.</xsl:text>
+     <xsl:text>.</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="slopeDefined">
 		<xsl:if test=". = 'false'">
-			<xsl:text>It is straight up and down and passes through the points </xsl:text>
+			<xsl:text>A vertical line passes through point </xsl:text>
 			<xsl:value-of select="../points/first" />
-			<xsl:text> and </xsl:text>
+			<xsl:text> and point </xsl:text>
 			<xsl:value-of select="../points/last" />
-     <xsl:text>, continuing out the bottom and top edges of the graph.</xsl:text>
+     <xsl:text>.</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -1281,7 +1281,7 @@
     <xsl:value-of select="./bottom" />
     <xsl:text> to </xsl:text>
     <xsl:value-of select="./top" />
-    <xsl:text>.</xsl:text>
+    <xsl:text>. </xsl:text>
   </xsl:template>
 	
 </xsl:stylesheet>
