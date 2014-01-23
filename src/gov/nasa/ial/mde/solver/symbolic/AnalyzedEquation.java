@@ -1360,12 +1360,12 @@ public class AnalyzedEquation implements AnalyzedItem {
     // equation is a function over the computed points.
     private void functionTest() {
         int i, j, m;
-        int len = points.length;
+        int len = multipoints.length;
         boolean foundPoints = false;
 
         functionOverInterval = true;
         for (i = 0; i < len; i++) {
-            if (points[i] != null) {
+            if (multipoints[i] != null) {
                 if ((m = multipoints[i].yArray.length) > 0) {
                     foundPoints = true;
                     if (m == 1) {

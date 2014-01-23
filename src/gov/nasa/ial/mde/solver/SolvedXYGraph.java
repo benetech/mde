@@ -103,8 +103,9 @@ public class SolvedXYGraph extends SolvedGraph {
                     addToFeature(YInterceptFeature.KEY, MathUtil.trimDouble(yInts[i], 6));
             }
         }
-        
-        putFeature(PointsFeature.KEY, new Sampling(analyzedEq.getPoints(), analyzedEq.getPreferredBounds().left, analyzedEq.getPreferredBounds().right, analyzedEq.getPreferredBounds().bottom, analyzedEq.getPreferredBounds().top, 1.0));
+        if (analyzedEq.getPoints() != null) {
+        	putFeature(PointsFeature.KEY, new Sampling(analyzedEq.getPoints(), analyzedEq.getPreferredBounds().left, analyzedEq.getPreferredBounds().right, analyzedEq.getPreferredBounds().bottom, analyzedEq.getPreferredBounds().top, 1.0));
+        }
     } // end SolvedXYGraph
 
 //    public static void main(String[] args) {

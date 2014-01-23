@@ -40,6 +40,7 @@ Reserved.
     <property name="apiSDKDocsDir" value="${sdkDir}/docs/api" />
     <property name="installerDir" value="${sdkDir}/installer" />
     <property name="depCacheDir" value="${basedir}/depcache" />
+	<property name="resourcesDir" value="${basedir}/res" />
 
     <property name="rootPackageName" value="gov.nasa.ial.mde" />
     <property name="rootPackagePath" value="gov/nasa/ial/mde" />
@@ -56,6 +57,10 @@ Reserved.
     <property name="tutorialExcludes" value="Tutorial**" />
     <property name="commonExcludes" value="${fbExcludes},${zipExcludes},${tarExcludes},${apiSDKDocsDir}/**,${depCacheDir},${depCacheDir}/**,${ideExcludes}" />
     <property name="installerExcludes" value="${installerDir}/**" />
+
+	<path id="project-classpath">
+		<fileset dir="${libDir}" includes="*.jar" />
+	</path>
 
     <!-- Initialize the custom tasks and properties. -->
     <target name="-initInnoSetup">
@@ -233,7 +238,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
            target="${javaTargetVersion}"
            srcdir="${sourceDir}"
            destdir="${classesDir}"
-           includes="**/*.java ${libDir}/*.jar"
+           classpathref="project-classpath"
            excludes="${sdkDir}/examples/**/*.java,**/test/**,**/tests/**,**/Test/**" />
 </target>
 
@@ -253,7 +258,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
            target="${javaTargetVersion}"
            srcdir="${sourceDir}"
            destdir="${classesDir}"
-           includes="**/*.java"
+           classpathref="project-classpath"
            excludes="${sdkDir}/examples/**/*.java,,**/test/**,**/tests/**,**/Test/**" />
 </target>
 
@@ -265,7 +270,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
     <antcall target="compileDebug" />
     <antcall target="-buildJar">
         <param name="jarName" value="${sdkJarName}" />
-        <param name="jarIncludes" value="**/*.class,resources/**" />
+        <param name="jarIncludes" value="**/*.class" />
         <param name="jarExcludes" value="${rootPackagePath}/**/*.html" />
     </antcall>
 </target>
@@ -278,7 +283,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
     <antcall target="compileOptimized" />
     <antcall target="-buildJar">
         <param name="jarName" value="${sdkJarName}" />
-        <param name="jarIncludes" value="**/*.class,resources/**" />
+        <param name="jarIncludes" value="**/*.class" />
         <param name="jarExcludes" value="${rootPackagePath}/**/*.html" />
     </antcall>
     <!-- <antcall target="-turnDebugCommentsOn" /> -->
@@ -394,7 +399,7 @@ Use is subject to <a href="{@docRoot}/../../LICENSE.txt">license terms</a>.</fon
     	 <manifest>
     	 	<attribute name="Main-Class" value="gov.nasa.ial.mde.ui.DescriberAndGraphPanel"/>
     	 </manifest>
-
+		 <fileset dir="${resourcesDir}"/>
 	</jar>
 </target>
 
