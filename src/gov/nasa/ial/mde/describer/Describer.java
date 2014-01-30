@@ -226,7 +226,7 @@ public class Describer {
 		}
 		addDescriptionMode("math", "mdeApplyMath1.xsl");
 		addDescriptionMode("standards", "mdeApplyStandards1.xsl");
-		addDescriptionMode("algebra1", "mdeApplyAlgebra1-Simple-Benetech.xsl");
+		addDescriptionMode("algebra1", "mde_Algebra1Text_GraphFeatures.xsl");
 
 		// Set initial description mode to the settings default
 		this.currentDescriptionMode = settings.getDescriptionMode();

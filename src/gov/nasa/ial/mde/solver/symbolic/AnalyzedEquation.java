@@ -1080,6 +1080,7 @@ public class AnalyzedEquation implements AnalyzedItem {
                 }
             }
             if (k > 0) {
+            	y = y + (delta * (k));
                 i--;
             }
         }
@@ -1169,7 +1170,8 @@ public class AnalyzedEquation implements AnalyzedItem {
                 }
             }
             if (!found) {
-            	x = Math.round(x * rounder) / rounder;
+            	//x = Math.round(x * rounder) / rounder;
+            	x = ((double)((int)(x * 1000000))) / 1000000.0;
                 r[i] = findRealSolutions(x);
             }
         }

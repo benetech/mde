@@ -784,12 +784,16 @@ public class CartesianGraph extends JPanel {
 		if ((solver.getLeft() < 0.0) && (solver.getRight() > 0.0)) {
 			xAxisPixel = x2pix(0.0);
 			drawLine(xAxisPixel, graphBounds.height, xAxisPixel, 0, g2);
+			//Draw y axis label.
+			g2.drawString("y", xAxisPixel - 10, 15);
 		} // end if
 
 		int yAxisPixel = -1;
 		if ((solver.getTop() > 0.0) && (solver.getBottom() < 0.0)) {
 			yAxisPixel = y2pix(0.0);
 			drawLine(0, yAxisPixel, graphBounds.width, yAxisPixel, g2);
+			//Draw X axis label.
+			g2.drawString("x", graphBounds.width - 10, yAxisPixel + 12);
 		} // end if
 
 		// Grid uses dashed lines.
@@ -826,8 +830,6 @@ public class CartesianGraph extends JPanel {
 			}
 			g2.drawString(axisLbl, xi, labelYPos);
 		} // end for x
-		//Add "X" axis label.
-		g2.drawString("x", graphBounds.width/2, labelYPos + 15);
 
 		delta = MathUtil.findDelta(solverBounds.top - solverBounds.bottom);
 		lastValue = solverBounds.top + 0.5 * delta;
@@ -855,9 +857,7 @@ public class CartesianGraph extends JPanel {
 			g2.drawString(axisLbl, graphBounds.width,
 					yi + w - fontMetrics.getMaxDescent());
 		} // end for y
-		//Add "Y" axis label.
-		g2.drawString("y", graphBounds.width  + 25, graphBounds.height/2);
-				
+
 		// Clip any drawing outside of our graph bounds.
 		g2.setClip(0, 0, graphBounds.width, graphBounds.height);
 	}
