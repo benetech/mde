@@ -161,11 +161,9 @@
 	<xsl:template match="vertex">
 		<xsl:choose>
 			<xsl:when test="last() = 1">
-				The
-				<a href="glossary.html#vertex">vertex</a>
-				<xsl:text> is located at the point </xsl:text>
+				<xsl:text>midpoint </xsl:text>
 				<xsl:value-of select="current()" />
-				<xsl:text>.  </xsl:text>
+				<xsl:text> </xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="position() = 1">
@@ -559,9 +557,9 @@
 	</xsl:template>
 
 	<xsl:template match="openDirection">
-		It opens
+		that opens
 		<xsl:value-of select="." />
-		<xsl:text>. </xsl:text>
+		<xsl:text> </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="openDirection" mode="qualifying">
@@ -1283,7 +1281,17 @@
     <xsl:value-of select="./top" />
     <xsl:text>. </xsl:text>
   </xsl:template>
-	
-</xsl:stylesheet>
 
+  <xsl:template name="curvedLineWithMidpoint">
+       <xsl:text> A curved line </xsl:text>
+       <xsl:apply-templates select="openDirection"/>
+       <xsl:text> from </xsl:text>
+       <xsl:apply-templates select="vertex"/>
+       <xsl:text> through points </xsl:text>
+			<xsl:value-of select="points/lb" />
+       <xsl:text> and </xsl:text>
+			<xsl:value-of select="points/rb" />
+       <xsl:text>.</xsl:text>
+  </xsl:template>
 
+	</xsl:stylesheet>

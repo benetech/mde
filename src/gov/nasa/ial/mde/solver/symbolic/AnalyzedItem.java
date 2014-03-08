@@ -26,7 +26,7 @@ import gov.nasa.ial.mde.solver.classifier.MDEClassifier;
 public interface AnalyzedItem {
 
 	/** The number of points used for the analysis. */
-    public final static int		NUM_POINTS = 600;
+    public final static int		NUM_POINTS = 20001;
     
     /** The default bound value. */
     public final static double	DEFAULT_BOUND_VALUE = 10.0;
@@ -75,9 +75,6 @@ public interface AnalyzedItem {
      * 
      * @return the classifier used for this analyzed item.
      */
-    
-    public Bounds getDataBounds();
-    
     public MDEClassifier getClassifier();
 
     /**
@@ -115,14 +112,14 @@ public interface AnalyzedItem {
      * 
      * @return an array of all the points.
      */
-    public PointXY[] getPoints();
+    public MultiPointXY[] getMultiPoints();
 
     /**
      * Returns an array of all the points.
      * 
      * @return an array of all the points.
      */
-    public MultiPointXY[] getMultiPoints();
+    public PointXY[] getPoints();
 
     /**
      * Returns the graph trails for the <code>AnalyzedItem</code>.

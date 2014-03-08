@@ -44,6 +44,7 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
     /* enums for opening direction */
     private final static int NO_D = 0, UP = 1, DOWN = 2, RIGHT = 3, LEFT = 4;
     private int ope = NO_D;
+    private String openingDirection;
 
     /**
      * Constructs a solved parabola for the specified analyzed equation.
@@ -85,10 +86,13 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
             t = -1.0 / coeffs[3];
             for (int i = 0; i < 5; i++)
                 coeffs[i] *= t;
-            if (coeffs[0] > 0.0)
+            if (coeffs[0] > 0.0) {
                 ope = UP;
-            else
+                openingDirection = "up";
+            } else {
                 ope = DOWN;
+                openingDirection = "down";
+            }
 
             focalLength = Math.abs(0.25 / coeffs[0]);
         } // end if
@@ -101,10 +105,13 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
             for (int i = 0; i < 5; i++)
                 coeffs[i] *= t;
 
-            if (coeffs[1] > 0.0)
+            if (coeffs[1] > 0.0) {
                 ope = RIGHT;
-            else
+            openingDirection = "right";
+            } else {
                 ope = LEFT;
+                openingDirection = "left";
+            }
 
             focalLength = Math.abs(0.25 / coeffs[1]);
         } // end if
@@ -172,8 +179,6 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
             "directrix",
             "line given by " + QuadraticClassifier.getEquationOfALine(directrixPoint, directrixInclination, analyzedEq.getActualVariables()));
         putFeature("openDirection", SolvedGraph.getGeneralDir(ope));
-        //TO DO:  
-        //putFeature("openDirection", SolvedGraph.getCompassDir(axisInclination));
 
         /* find domain, range and ascending/descending regions */
         if (alpha == 0.0) { // otherwise much more complicated -- defer for now
@@ -250,6 +255,7 @@ public class SolvedParabola extends SolvedConic implements VertexFeature, FocalL
         }
         //getMinima();
        // getFocalLength();
+        sample.getBranches(getVertex(), openingDirection);
        
 
     } // end SolvedParabola

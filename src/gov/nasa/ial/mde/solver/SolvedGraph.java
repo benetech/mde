@@ -237,11 +237,10 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
         MdeFeatureNode[] nodes = featureTree.getNodes("/MDE");
         int i, n = nodes.length;
         StringBuffer b = new StringBuffer();
-
         for (i = 0; i < n; i++)
             b.append(nodes[i].getXMLString());
-
-        return b.toString();
+        
+            return b.toString();
     } // end getXMLString
     
     public Object getValue(String path, String key) throws NullPointerException {
@@ -256,6 +255,9 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
     		}
     		if(value != null) break;
     	}
+//    	if(value == null) {
+//    		throw new NullPointerException();
+//    	}
     	return value;
     }
     
@@ -323,30 +325,8 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 		// TODO Auto-generated method stub
 		return false;
 	}
-	 
-		@Override
-		public MultiPointXY[] getMultipoints() {
-			// Not yet implemented.
-			return null;
-		}
 
-		@Override
-		public PointXY[] getPoints() {
-			Object values = this.getValues(PointsFeature.PATH, PointsFeature.KEY);
-			ArrayList<String> list = (ArrayList<String>)values;
-			int len = list.size();
-			PointXY[] points = new PointXY[len];
-			String[] split;
-			for(int i=0;i<len;i++)
-			{
-				split = ((String)list.get(i)).split(",");
-				points[i]=(new PointXY(Double.valueOf(split[0].replace("(", "")),Double.valueOf(split[1].replace(")", ""))));
-			}
-			
-			return points;
-		}
-
-		public boolean canCalculateMinima() {
+	public boolean canCalculateMinima() {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -364,6 +344,28 @@ public class SolvedGraph implements DomainAndRangeFeature, InterceptsFeature, Mi
 	public boolean canCalculateMaxima() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public MultiPointXY[] getMultipoints() {
+		// Not yet implemented.
+		return null;
+	}
+
+	@Override
+	public PointXY[] getPoints() {
+		Object values = this.getValues(PointsFeature.PATH, PointsFeature.KEY);
+		ArrayList<?> list = (ArrayList<?>)values;
+		int len = list.size();
+		PointXY[] points = new PointXY[len];
+		String[] split;
+		for(int i=0;i<len;i++)
+		{
+			split = ((String)list.get(i)).split(",");
+			points[i]=(new PointXY(Double.valueOf(split[0].replace("(", "")),Double.valueOf(split[1].replace(")", ""))));
+		}
+		
+		return points;
 	}
 
 

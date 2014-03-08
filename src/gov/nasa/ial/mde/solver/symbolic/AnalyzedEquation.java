@@ -26,6 +26,7 @@ import gov.nasa.ial.mde.util.TrailUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -96,8 +97,8 @@ public class AnalyzedEquation implements AnalyzedItem {
     public int getDegree() {
 		return degree;
 	}
-
-	@SuppressWarnings("unused")
+    
+    @SuppressWarnings("unused")
 	private AnalyzedEquation() {
         throw new RuntimeException("Default constructor not allowed.");
     }
@@ -355,25 +356,15 @@ public class AnalyzedEquation implements AnalyzedItem {
     
     // Dispose of the points.
     private void disposePoints() {
-        if (points != null) {
-            int len = points.length;
+        if (multipoints != null) {
+            int len = multipoints.length;
             for (int i = 0; i < len; i++) {
-                if (points[i] != null) {
-                    points[i].dispose();
-                    points[i] = null;
+                if (multipoints[i] != null) {
+                    multipoints[i].dispose();
+                    multipoints[i] = null;
                 }
             }
-            points = null;
-        }
-            if (multipoints != null) {
-                int len = multipoints.length;
-                for (int i = 0; i < len; i++) {
-                    if (multipoints[i] != null) {
-                        multipoints[i].dispose();
-                        multipoints[i] = null;
-                    }
-                }
-                multipoints = null;
+            multipoints = null;
         }
     }
     
@@ -423,10 +414,6 @@ public class AnalyzedEquation implements AnalyzedItem {
      */
     public Bounds getPreferredBounds() {
         return preferredBounds;
-    }
-    
-    public Bounds getDataBounds(){
-    	return getPreferredBounds();
     }
 
     /* (non-Javadoc)
@@ -1080,7 +1067,7 @@ public class AnalyzedEquation implements AnalyzedItem {
                 }
             }
             if (k > 0) {
-            	y = y + (delta * (k));
+//            	y = y + (delta * (k));
                 i--;
             }
         }
@@ -1131,12 +1118,12 @@ public class AnalyzedEquation implements AnalyzedItem {
 
     private MultiPointXY[] solveForPoints(double low, double high) {
         int i;
-        int n = NUM_POINTS;
+        long n = ((int) ((high - low) * 1000)) + 1;
         double delta = (high - low) / (n - 1.0);
         double rounder = 1.0;
         for (; rounder * delta < 1.0; rounder = rounder * 10.0);
         double x = low;
-        MultiPointXY[] r = new MultiPointXY[n];
+        MultiPointXY[] r = new MultiPointXY[(int) n];
         boolean found = false;
         int l = 0;
         
@@ -1182,10 +1169,6 @@ public class AnalyzedEquation implements AnalyzedItem {
 
         for (i = 1; i < n; i++) {
             MultiPointXY newR = findBoundary(r[sb[i] - 1], r[sb[i]]);
-
-            if (newR.yArray.length == r[sb[i] - 1].yArray.length) {
-                r[sb[i] - 1] = newR;
-            }
 
             if (r[sb[i]].yArray.length == newR.yArray.length) {
                 r[sb[i]] = newR;
@@ -1264,13 +1247,17 @@ public class AnalyzedEquation implements AnalyzedItem {
     }
 
     /* (non-Javadoc)
-     * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getPoints()
+     * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getMultiPoints()
      */
     public MultiPointXY[] getMultiPoints() {
         return multipoints;
     }
     
-    /* (non-Javadoc)
+    public PointXY[] getPoints() {
+		return points;
+	}
+
+	/* (non-Javadoc)
      * @see gov.nasa.ial.mde.solver.symbolic.AnalyzedItem#getGraphTrails()
      */
     public GraphTrail[] getGraphTrails() {
@@ -1347,6 +1334,21 @@ public class AnalyzedEquation implements AnalyzedItem {
 
         // Now do the fuction test.
         functionTest();
+        if (graphTrails.length == 2)
+        {
+         	ArrayList<PointXY> joiner = new ArrayList<PointXY>(Arrays.asList(graphTrails[0].getPoints()));
+         	if (joiner.get(0).equals(graphTrails[1].getPoints()[0]))
+         	{
+         		joiner.remove(0);
+         	}
+        	Collections.reverse(joiner);
+        	joiner.addAll(Arrays.asList(graphTrails[1].getPoints()));
+        	points = joiner.toArray(new PointXY[joiner.size()]);
+        }
+        else if (graphTrails.length == 1)
+        {
+        	points = graphTrails[0].getPoints();
+        }
     } //end computePoints
 
     /**
@@ -1463,11 +1465,6 @@ public class AnalyzedEquation implements AnalyzedItem {
 
         return b.toString();
     } // end toString
-
-	@Override
-	public PointXY[] getPoints() {
-		return points;
-	}
     
 //    public static void main(String[] args) {
 //        AnalyzedEquation iea = new AnalyzedEquation(MathUtil.combineArgs(args));

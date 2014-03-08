@@ -9,11 +9,9 @@
 
   <xsl:template match="GraphData">
 	
-     <xsl:apply-templates select="equationPrint"/>
+     <xsl:text>X/Y axis. </xsl:text>
 
      <xsl:apply-templates select="bounds"/>
-
-     <xsl:apply-templates select="graphName"/>
 
      <xsl:choose>
        <xsl:when test="graphName='line' or graphName='horizontal line' or graphName='vertical line'">
@@ -113,8 +111,7 @@ This is the graph of a function.
   </xsl:template>
 
   <xsl:template name="parabolaSpecifics">
-     <xsl:apply-templates select="openDirection"/>
-     <xsl:call-template name="parabolaWidthTest"/> 
+     <xsl:call-template name="curvedLineWithMidpoint"/>
   </xsl:template>
 
 

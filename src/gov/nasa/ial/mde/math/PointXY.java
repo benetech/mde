@@ -17,20 +17,23 @@ import gov.nasa.ial.mde.util.MathUtil;
  * @version 1.0
  * @since 1.0
  */
-public class PointXY {
+public class PointXY implements Comparable {
     
 	/** The x value of the point. */
     public double x;
     
     /** The y value of the point. */
     public double y;
+    public String value = "";
 
     // digits to display and left/right delimiters for ordered pair notation
     private int numDigits = 3;
+    private int numXDigits = 3;
+    private int numYDigits = 9;
     private MdeNumberFormat mnf = null;
     private String leftDelim = "(";
     private String rightDelim = ")";
-
+	
     /** Default constructor not allowed. */
     @SuppressWarnings("unused")
 	private PointXY() {
@@ -150,9 +153,15 @@ public class PointXY {
 	 */
     public String toString() {
         StringBuffer strBuff = new StringBuffer(20);
-        strBuff.append(leftDelim).append(MathUtil.trimDouble(x, numDigits))
-               .append(", ").append(MathUtil.trimDouble(y, numDigits))
+        if (value.equals("y")) {
+            strBuff.append(leftDelim).append(MathUtil.trimDouble(x, numYDigits))
+            .append(", ").append(MathUtil.trimDouble(y, numXDigits))
+            .append(rightDelim);
+        } else {
+        strBuff.append(leftDelim).append(MathUtil.trimDouble(x, numXDigits))
+               .append(", ").append(MathUtil.trimDouble(y, numYDigits))
                .append(rightDelim);
+        }
         return strBuff.toString();
     } // end toString
 
@@ -253,6 +262,21 @@ public class PointXY {
 		s.append("\n<x>"+x+"</x>");
 		s.append("\n<y>"+y+"</y>");
 		return s.toString();
+	}
+	
+	public double getValue(String value) {
+		  return value == "x" ? x : y;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		if (x < ((PointXY)o).x && y < ((PointXY)o).y) return -1;
+		if (x > ((PointXY)o).x && y > ((PointXY)o).y) return 1;
+		if (x == ((PointXY)o).x && y > ((PointXY)o).y) return 1;
+		if (x > ((PointXY)o).x && y == ((PointXY)o).y) return 1;
+		if (x < ((PointXY)o).x) return -1;
+		if (y < ((PointXY)o).y) return -1;
+		return 0;
 	}
     
 } // end class PointXY

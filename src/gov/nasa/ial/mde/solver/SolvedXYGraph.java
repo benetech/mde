@@ -6,6 +6,11 @@
  */
 package gov.nasa.ial.mde.solver;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import gov.nasa.ial.mde.math.MultiPointXY;
+import gov.nasa.ial.mde.math.PointXY;
 import gov.nasa.ial.mde.math.Sampling;
 import gov.nasa.ial.mde.solver.features.individual.PointsFeature;
 import gov.nasa.ial.mde.solver.features.individual.XInterceptFeature;
@@ -23,6 +28,7 @@ public class SolvedXYGraph extends SolvedGraph {
     
     /** The analyzed equation for the graph. */
     protected AnalyzedEquation analyzedEq;
+    protected Sampling sample;
     
     /** The x intercepts. */
     protected double[] xInts;
@@ -103,9 +109,9 @@ public class SolvedXYGraph extends SolvedGraph {
                     addToFeature(YInterceptFeature.KEY, MathUtil.trimDouble(yInts[i], 6));
             }
         }
-        if (analyzedEq.getPoints() != null) {
-        	putFeature(PointsFeature.KEY, new Sampling(analyzedEq.getPoints(), analyzedEq.getPreferredBounds().left, analyzedEq.getPreferredBounds().right, analyzedEq.getPreferredBounds().bottom, analyzedEq.getPreferredBounds().top, 1.0));
-        }
+        
+        sample = new Sampling(analyzedEq.getPoints(), analyzedEq.getPreferredBounds().left, analyzedEq.getPreferredBounds().right, analyzedEq.getPreferredBounds().bottom, analyzedEq.getPreferredBounds().top, 1.0);
+        putFeature(PointsFeature.KEY, sample.getMFN());
     } // end SolvedXYGraph
 
 //    public static void main(String[] args) {
