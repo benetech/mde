@@ -785,7 +785,7 @@ public class CartesianGraph extends JPanel {
 			xAxisPixel = x2pix(0.0);
 			drawLine(xAxisPixel, graphBounds.height, xAxisPixel, 0, g2);
 			//Draw y axis label.
-			g2.drawString("y", xAxisPixel - 10, 15);
+			g2.drawString("Y", xAxisPixel - 10, 15);
 		} // end if
 
 		int yAxisPixel = -1;
@@ -793,7 +793,7 @@ public class CartesianGraph extends JPanel {
 			yAxisPixel = y2pix(0.0);
 			drawLine(0, yAxisPixel, graphBounds.width, yAxisPixel, g2);
 			//Draw X axis label.
-			g2.drawString("x", graphBounds.width - 10, yAxisPixel + 12);
+			g2.drawString("X", graphBounds.width - 10, yAxisPixel + 12);
 		} // end if
 
 		// Grid uses dashed lines.

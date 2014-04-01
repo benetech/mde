@@ -1118,7 +1118,7 @@ public class AnalyzedEquation implements AnalyzedItem {
 
     private MultiPointXY[] solveForPoints(double low, double high) {
         int i;
-        long n = ((int) ((high - low) * 1000)) + 1;
+        long n = ((int) ((high - low) * 1000)); // + 1;
         double delta = (high - low) / (n - 1.0);
         double rounder = 1.0;
         for (; rounder * delta < 1.0; rounder = rounder * 10.0);
