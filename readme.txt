@@ -1,3 +1,8 @@
+
+<em>NASA release on GitHub available at: https://github.com/TerryHodgson/NASA-MathDescriptionEngine1.0.3 and http://prime.jsc.nasa.gov/mde</em>
+
+<em>The following description was written by a student who worked on Georgia Tech's Fork of MDE SDK.  The Georgia Tech fork was used as the baseline for Benetech's. Some of the content below is out of date. </em>  
+ 
 This text is intended as a basic instruction for those who are intending to expand on the MDE.
 
 The MDE is a very complex library which uses a huge number of classes.  What I'll try to do here is briefly explain the role of each of the major components of the MDE.  You will have to learn most of the code on your own.  First, we shall examine each of the main classes and then we shall look at how they interact with each other.
@@ -23,7 +28,6 @@ If you wish to add new types of graphs to be recognized by the MDE, then you the
 -  Modify Analyzed Equation to detect this type of graph so that it can call up the appropriate classifier to call the correct SolvedGraph. (only necessary if you create a new classifier)
 - Modify the XSL file to recognize the new type of graph and create the new descriptions
 
-
 A couple of examples:  When I created a more robust description of cubic polynomials, I created the SolvedCubicPolynomial, then added this line in PolynomialClassifie:
 else if(degree==3){
             	features = new SolvedCubicPolynomial(analyzedEq);
@@ -42,4 +46,4 @@ PS
 
 Need to work on improving regexes.
 
-Also make the domain and range more accessable for TTS engines.
+Also make the domain and range more accessible for TTS engines.
